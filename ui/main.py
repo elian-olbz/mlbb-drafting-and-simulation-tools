@@ -46,7 +46,7 @@ class MyMainWindow(QMainWindow):
             scroll_area.setWidgetResizable(True)
             tab_widget = QWidget()
             tab_layout = QGridLayout(tab_widget)
-            tab_layout.setSpacing(10)  # Set the spacing value as per your preference
+            spacing = 10  # Set the spacing value as per your preference
 
             # Get all hero IDs for the current tab
             hero_ids_for_tab = list(range(1, len(self.hero_names) + 1)) if tab_name == "All" else [
@@ -76,6 +76,21 @@ class MyMainWindow(QMainWindow):
                 if column == 7:
                     row += 1
                     column = 0
+
+            # Add empty QSpacerItem to the last cell of the last row to keep spacing consistent
+            spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+            tab_layout.addItem(spacer, row, column)
+
+            # Add fixed-sized widgets to fill empty spaces and ensure uniform spacing between rows
+            while row < 5:  # Assuming you want a maximum of 5 rows in each tab
+                empty_widget = QWidget()
+                empty_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+                tab_layout.addWidget(empty_widget, row, column)
+                row += 1
+
+            # Add spacing between rows and columns
+            tab_layout.setVerticalSpacing(spacing)
+            tab_layout.setHorizontalSpacing(spacing)
 
             # Add the container widget with the layout to the existing "hero_tab" using addTab
             scroll_area.setWidget(tab_widget)
