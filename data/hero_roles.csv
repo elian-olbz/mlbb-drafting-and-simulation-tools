@@ -1,122 +1,122 @@
-Name,HeroID,Role
-Miya,1,Gold 
-Balmond,2,Jungler
-Saber,3,Jungler
-Alice,4,Jungler 
-Nana,5,Mid 
-Tigreal,6,Roamer
-Alucard,7,EXP 
-Karina,8,Jungler
-Akai,9,Jungler / Roamer
-Franco,10,Roamer
-Bane,11,Jungler
-Bruno,12,Gold 
-Clint,13,Gold 
-Rafaela,14,Roamer
-Eudora,15,Mid 
-Zilong,16,EXP 
-Fanny,17,Jungler
-Layla,18,Gold 
-Minotaur,19,Roamer
-Lolita,20,Roamer
-Hayabusa,21,Jungler
-Freya,22,EXP 
-Gord,23,Mid 
-Natalia,24,Roamer
-Kagura,25,Mid 
-Chou,26,Roamer
-Sun,27,EXP 
-Alpha,28,Jungler / EXP
-Ruby,29,Roamer
-Yi Sun-shin,30,Jungler
-Moskov,31,Gold 
-Johnson,32,Roamer
-Cyclops,33,Mid 
-Estes,34,Roamer
-Hilda,35,Roamer
-Aurora,36,Mid 
-Lapu-Lapu,37,EXP 
-Vexana,38,Mid 
-Roger,39,Jungler
-Karrie,40,Gold 
-Gatotkaca,41,EXP 
-Harley,42,Jungler
-Irithel,43,Gold 
-Grock,44,Roamer / EXP
-Argus,45,EXP 
-Odette,46,Mid 
-Lancelot,47,Jungler
-Diggie,48,Roamer
-Hylos,49,Roamer
-Zhask,50,Mid 
-Helcurt,51,Jungler
-Pharsa,52,Mid 
-Lesley,53,Gold 
-Jawhead,54,Roamer / EXP
-Angela,55,Roamer
-Gusion,56,Jungler / Mid
-Valir,57,Mid / Roamer
-Martis,58,Jungler
-Uranus,59,EXP 
-Hanabi,60,Gold 
-Chang'e,61,Mid 
-Kaja,62,Roamer
-Selena,63,Roamer
-Aldous,64,EXP 
-Claude,65,Gold 
-Vale,66,Mid 
-Leomord,67,EXP 
-Lunox,68,Mid 
-Hanzo,69,Jungler
-Belerick,70,Roamer
-Kimmy,71,Gold 
-Thamuz,72,EXP 
-Harith,73,Gold
-Minsitthar,74,EXP / Gold
-Kadita,75,Mid / Roamer
-Faramis,76,Mid / Roamer
-Badang,77,EXP 
-Khufra,78,Roamer
-Granger,79,Jungler
-Guinevere,80,EXP 
-Esmeralda,81,EXP
-Terizla,82,EXP 
-X.Borg,83,EXP 
-Ling,84,Jungler
-Dyrroth,85,EXP 
-Lylia,86,Mid 
-Baxia,87,Jungler
-Masha,88,EXP 
-Wanwan,89,Gold 
-Silvanna,90,EXP 
-Carmilla,91,Roamer
-Cecilion,92,Mid 
-Atlas,93,Roamer
-Popol,94,Gold 
-Yu Zhong,95,EXP 
-Luo Yi,96,Mid 
-Benedetta,97,EXP 
-Khaleed,98,EXP 
-Barats,99,Jungler
-Brody,100,Gold 
-Yve,101,Mid 
-Mathilda,102,Roamer
-Paquito,103,EXP / Jungler
-Gloo,104,EXP 
-Beatrix,105,Gold 
-Phoveus,106,EXP 
-Natan,107,Gold 
-Aulus,108,EXP 
-Aamon,109,Jungler
-Floryn,110,Roamer
-Valentina,111,Mid 
-Edith,112,Roamer / EXP
-Yin,113,EXP 
-Melissa,114,Gold 
-Xavier,115,Mid 
-Julian,116,Jungler
-Fredrinn,117,Jungler / EXP
-Joy,118,EXP 
-Arlott,119,EXP 
-Novaria,120,Roamer / Mid
-Ixia,121,Gold 
+Name,HeroID,Role,Icon,Type
+Miya,1,Gold ,hero_icon (1).jpg,Marksman
+Balmond,2,Jungler,hero_icon (2).jpg,Fighter
+Saber,3,Jungler,hero_icon (3).jpg,Assassin
+Alice,4,Jungler ,hero_icon (4).jpg,Mage /  Tank
+Nana,5,Mid ,hero_icon (5).jpg,Mage
+Tigreal,6,Roamer,hero_icon (6).jpg,Tank /  Support
+Alucard,7,EXP ,hero_icon (7).jpg,Fighter /  Assassin
+Karina,8,Jungler,hero_icon (8).jpg,Assassin
+Akai,9,Jungler / Roamer,hero_icon (9).jpg,Tank /  Support
+Franco,10,Roamer,hero_icon (10).jpg,Tank /  Support
+Bane,11,Jungler,hero_icon (11).jpg,Fighter /  Mage
+Bruno,12,Gold ,hero_icon (12).jpg,Marksman
+Clint,13,Gold ,hero_icon (13).jpg,Marksman
+Rafaela,14,Roamer,hero_icon (14).jpg,Support
+Eudora,15,Mid ,hero_icon (15).jpg,Mage
+Zilong,16,EXP ,hero_icon (16).jpg,Fighter /  Assassin
+Fanny,17,Jungler,hero_icon (17).jpg,Assassin
+Layla,18,Gold ,hero_icon (18).jpg,Marksman
+Minotaur,19,Roamer,hero_icon (19).jpg,Tank /  Support
+Lolita,20,Roamer,hero_icon (20).jpg,Support /  Tank
+Hayabusa,21,Jungler,hero_icon (21).jpg,Assassin
+Freya,22,EXP ,hero_icon (22).jpg,Fighter
+Gord,23,Mid ,hero_icon (23).jpg,Mage
+Natalia,24,Roamer,hero_icon (24).jpg,Assassin
+Kagura,25,Mid ,hero_icon (25).jpg,Mage
+Chou,26,Roamer,hero_icon (26).jpg,Fighter
+Sun,27,EXP ,hero_icon (27).jpg,Fighter
+Alpha,28,Jungler / EXP,hero_icon (28).jpg,Fighter
+Ruby,29,Roamer,hero_icon (29).jpg,Fighter
+Yi Sun-shin,30,Jungler,hero_icon (30).jpg,Assassin /  Marksman
+Moskov,31,Gold ,hero_icon (31).jpg,Marksman
+Johnson,32,Roamer,hero_icon (32).jpg,Tank /  Support
+Cyclops,33,Mid ,hero_icon (33).jpg,Mage
+Estes,34,Roamer,hero_icon (34).jpg,Support
+Hilda,35,Roamer,hero_icon (35).jpg,Fighter /  Tank
+Aurora,36,Mid ,hero_icon (36).jpg,Mage
+Lapu-Lapu,37,EXP ,hero_icon (37).jpg,Fighter
+Vexana,38,Mid ,hero_icon (38).jpg,Mage
+Roger,39,Jungler,hero_icon (39).jpg,Fighter /  Marksman
+Karrie,40,Gold ,hero_icon (40).jpg,Marksman
+Gatotkaca,41,EXP ,hero_icon (41).jpg,Tank /  Fighter
+Harley,42,Jungler,hero_icon (42).jpg,Assassin /  Mage
+Irithel,43,Gold ,hero_icon (43).jpg,Marksman
+Grock,44,Roamer / EXP,hero_icon (44).jpg,Tank /  Fighter
+Argus,45,EXP ,hero_icon (45).jpg,Fighter
+Odette,46,Mid ,hero_icon (46).jpg,Mage
+Lancelot,47,Jungler,hero_icon (47).jpg,Assassin
+Diggie,48,Roamer,hero_icon (48).jpg,Support
+Hylos,49,Roamer,hero_icon (49).jpg,Tank
+Zhask,50,Mid ,hero_icon (50).jpg,Mage
+Helcurt,51,Jungler,hero_icon (51).jpg,Assassin
+Pharsa,52,Mid ,hero_icon (52).jpg,Mage
+Lesley,53,Gold ,hero_icon (53).jpg,Marksman /  Assassin
+Jawhead,54,Roamer / EXP,hero_icon (54).jpg,Fighter
+Angela,55,Roamer,hero_icon (55).jpg,Support
+Gusion,56,Jungler / Mid,hero_icon (56).jpg,Assassin
+Valir,57,Mid / Roamer,hero_icon (57).jpg,Mage
+Martis,58,Jungler,hero_icon (58).jpg,Fighter
+Uranus,59,EXP ,hero_icon (59).jpg,Tank
+Hanabi,60,Gold ,hero_icon (60).jpg,Marksman
+Chang'e,61,Mid ,hero_icon (61).jpg,Mage
+Kaja,62,Roamer,hero_icon (62).jpg,Support /  Fighter
+Selena,63,Roamer,hero_icon (63).jpg,Assassin /  Mage
+Aldous,64,EXP ,hero_icon (64).jpg,Fighter
+Claude,65,Gold ,hero_icon (65).jpg,Marksman
+Vale,66,Mid ,hero_icon (66).jpg,Mage
+Leomord,67,EXP ,hero_icon (67).jpg,Fighter
+Lunox,68,Mid ,hero_icon (68).jpg,Mage
+Hanzo,69,Jungler,hero_icon (69).jpg,Assassin
+Belerick,70,Roamer,hero_icon (70).jpg,Tank
+Kimmy,71,Gold ,hero_icon (71).jpg,Marksman /  Mage
+Thamuz,72,EXP ,hero_icon (72).jpg,Fighter
+Harith,73,Gold,hero_icon (73).jpg,Mage
+Minsitthar,74,EXP / Gold,hero_icon (74).jpg,Fighter
+Kadita,75,Mid / Roamer,hero_icon (75).jpg,Mage /  Assassin
+Faramis,76,Mid / Roamer,hero_icon (76).jpg,Support /  Mage
+Badang,77,EXP ,hero_icon (77).jpg,Fighter
+Khufra,78,Roamer,hero_icon (78).jpg,Tank /  Support
+Granger,79,Jungler,hero_icon (79).jpg,Marksman
+Guinevere,80,EXP ,hero_icon (80).jpg,Fighter
+Esmeralda,81,EXP,hero_icon (81).jpg,Mage /  Tank
+Terizla,82,EXP ,hero_icon (82).jpg,Fighter
+X.Borg,83,EXP ,hero_icon (83).jpg,Fighter
+Ling,84,Jungler,hero_icon (84).jpg,Assassin
+Dyrroth,85,EXP ,hero_icon (85).jpg,Fighter
+Lylia,86,Mid ,hero_icon (86).jpg,Mage
+Baxia,87,Jungler,hero_icon (87).jpg,Tank
+Masha,88,EXP ,hero_icon (88).jpg,Fighter
+Wanwan,89,Gold ,hero_icon (89).jpg,Marksman
+Silvanna,90,EXP ,hero_icon (90).jpg,Fighter
+Carmilla,91,Roamer,hero_icon (91).jpg,Support /  Tank
+Cecilion,92,Mid ,hero_icon (92).jpg,Mage
+Atlas,93,Roamer,hero_icon (93).jpg,Tank /  Support
+Popol,94,Gold ,hero_icon (94).jpg,Marksman
+Yu Zhong,95,EXP ,hero_icon (95).jpg,Fighter
+Luo Yi,96,Mid ,hero_icon (96).jpg,Mage
+Benedetta,97,EXP ,hero_icon (97).jpg,Assassin /  Fighter
+Khaleed,98,EXP ,hero_icon (98).jpg,Fighter
+Barats,99,Jungler,hero_icon (99).jpg,Tank /  Fighter
+Brody,100,Gold ,hero_icon (100).jpg,Marksman
+Yve,101,Mid ,hero_icon (101).jpg,Mage
+Mathilda,102,Roamer,hero_icon (102).jpg,Support /  Assassin
+Paquito,103,EXP / Jungler,hero_icon (103).jpg,Fighter /  Assassin
+Gloo,104,EXP ,hero_icon (104).jpg,Tank
+Beatrix,105,Gold ,hero_icon (105).jpg,Marksman
+Phoveus,106,EXP ,hero_icon (106).jpg,Fighter
+Natan,107,Gold ,hero_icon (107).jpg,Marksman
+Aulus,108,EXP ,hero_icon (108).jpg,Fighter
+Aamon,109,Jungler,hero_icon (109).jpg,Assassin
+Floryn,110,Roamer,hero_icon (110).jpg,Support
+Valentina,111,Mid ,hero_icon (111).jpg,Mage
+Edith,112,Roamer / EXP,hero_icon (112).jpg,Tank /  Marksman
+Yin,113,EXP ,hero_icon (113).jpg,Fighter /  Assassin
+Melissa,114,Gold ,hero_icon (114).jpg,Marksman
+Xavier,115,Mid ,hero_icon (115).jpg,Mage
+Julian,116,Jungler,hero_icon (116).jpg,Fighter /  Mage
+Fredrinn,117,Jungler / EXP,hero_icon (117).jpg,Fighter /  Tank
+Joy,118,EXP ,hero_icon (118).jpg,Assassin
+Arlott,119,EXP ,hero_icon (119).jpg,Fighter /  Assassin
+Novaria,120,Roamer / Mid,hero_icon (120).jpg,Mage
+Ixia,121,Gold ,hero_icon (121).jpg,Marksman

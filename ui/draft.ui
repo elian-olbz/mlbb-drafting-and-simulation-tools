@@ -698,56 +698,22 @@
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QTabWidget" name="hero_tab">
-               <property name="minimumSize">
-                <size>
-                 <width>500</width>
-                 <height>0</height>
-                </size>
-               </property>
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
                 </font>
                </property>
-               <property name="autoFillBackground">
-                <bool>true</bool>
-               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
-               <widget class="QWidget" name="all_tab">
+               <widget class="QWidget" name="tab">
                 <attribute name="title">
-                 <string>All</string>
+                 <string>Tab 1</string>
                 </attribute>
                </widget>
-               <widget class="QWidget" name="tank_tab">
+               <widget class="QWidget" name="tab_2">
                 <attribute name="title">
-                 <string>Tank</string>
-                </attribute>
-               </widget>
-               <widget class="QWidget" name="fighter_tab">
-                <attribute name="title">
-                 <string>Fighter</string>
-                </attribute>
-               </widget>
-               <widget class="QWidget" name="assasin_tab">
-                <attribute name="title">
-                 <string>Assasin</string>
-                </attribute>
-               </widget>
-               <widget class="QWidget" name="mm_tab">
-                <attribute name="title">
-                 <string>Marksman</string>
-                </attribute>
-               </widget>
-               <widget class="QWidget" name="mage_tab">
-                <attribute name="title">
-                 <string>Mage</string>
-                </attribute>
-               </widget>
-               <widget class="QWidget" name="support_tab">
-                <attribute name="title">
-                 <string>Support</string>
+                 <string>Tab 2</string>
                 </attribute>
                </widget>
               </widget>
@@ -971,7 +937,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="resource.qrc"/>
+  <include location="../resource.qrc"/>
  </resources>
  <connections/>
 </ui>
