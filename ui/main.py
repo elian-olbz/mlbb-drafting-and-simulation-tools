@@ -1,10 +1,10 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QPainter, QPainterPath
 from draft_ui import Ui_MainWindow
 import os
 import csv
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtCore import Qt, QSize, QRectF
 
 
 
@@ -46,7 +46,7 @@ class MyMainWindow(QMainWindow):
             scroll_area.setWidgetResizable(True)
             tab_widget = QWidget()
             tab_layout = QGridLayout(tab_widget)
-            spacing = 10  # Set the spacing value as per your preference
+            spacing = 8  # Set the spacing value as per your preference
 
             # Get all hero IDs for the current tab
             hero_ids_for_tab = list(range(1, len(self.hero_names) + 1)) if tab_name == "All" else [
@@ -62,14 +62,32 @@ class MyMainWindow(QMainWindow):
                 # Load the hero image using QPixmap
                 pixmap = QPixmap(hero_image_path)
 
-                # Create a QLabel and set its properties
+                # Apply a circular mask to the hero image
+                rounded_pixmap = self.rounded_pixmap(pixmap, 100)
+
+                # Create a widget to hold the image and name QLabel
+                hero_widget = QWidget()
+                hero_layout = QVBoxLayout(hero_widget)
+
+                # Create a QLabel for the hero image and set its properties
                 hero_image_label = QLabel()
-                hero_image_label.setPixmap(pixmap)
+                hero_image_label.setPixmap(rounded_pixmap)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
 
-                # Add the QLabel to the grid layout
-                tab_layout.addWidget(hero_image_label, row, column)
+
+                # Create a QLabel for the hero name and set its properties
+                hero_name_label = QLabel(self.get_name(hero_id))
+                hero_name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                hero_name_label.setWordWrap(True)
+                hero_name_label.setFixedWidth(100)  # Set a fixed width to match the image width
+
+                # Add the QLabel for the hero name below the image
+                hero_layout.addWidget(hero_image_label)
+                hero_layout.addWidget(hero_name_label)
+
+                # Add the hero widget to the grid layout
+                tab_layout.addWidget(hero_widget, row, column)
                 column += 1
 
                 # Move to the next row if the current row is filled
@@ -82,7 +100,7 @@ class MyMainWindow(QMainWindow):
             tab_layout.addItem(spacer, row, column)
 
             # Add fixed-sized widgets to fill empty spaces and ensure uniform spacing between rows
-            while row < 5:  # Assuming you want a maximum of 5 rows in each tab
+            while row < 3:  # Assuming you want a maximum of 5 rows in each tab
                 empty_widget = QWidget()
                 empty_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
                 tab_layout.addWidget(empty_widget, row, column)
@@ -97,7 +115,29 @@ class MyMainWindow(QMainWindow):
             self.ui.hero_tab.addTab(scroll_area, tab_name)
 
 
+    def rounded_pixmap(self, pixmap, size):
+        # Create a transparent mask and painter
+        mask = QPixmap(size, size)
+        mask.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(mask)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
+        # Draw a circle on the mask using QPainterPath
+        clip_path = QPainterPath()
+        clip_path.addEllipse(QRectF(0, 0, size, size))
+        painter.setClipPath(clip_path)
+
+        # Use the mask to draw the pixmap as a rounded shape
+        rounded_pixmap = QPixmap(size, size)
+        rounded_pixmap.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(rounded_pixmap)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setClipPath(clip_path)  # Set the same clip path for the pixmap
+        painter.drawPixmap(0, 0, pixmap)
+
+        return rounded_pixmap
+
+    
     def load_hero_roles(self, hero_roles_path):
         with open(hero_roles_path, 'r') as file:
             reader = csv.DictReader(file)
@@ -133,4 +173,3 @@ if __name__ == "__main__":
     window = MyMainWindow()
     window.show()
     sys.exit(app.exec())
-
