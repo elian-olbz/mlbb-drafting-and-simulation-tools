@@ -4,7 +4,6 @@ from PyQt6.QtGui import QPixmap
 from draft_ui import Ui_MainWindow
 import os
 
-
 def group_images_by_letter(image_dir):
     image_files = os.listdir(image_dir)
     sorted_files = sorted(image_files, key=lambda x: x[0])
@@ -77,6 +76,7 @@ class MyMainWindow(QMainWindow):
         if isinstance(widget, QLabel):
             pixmap = QPixmap(self.selected_image_path)
             widget.setPixmap(pixmap)
+
 
 
 if __name__ == "__main__":
