@@ -26,6 +26,10 @@ class MyMainWindow(QMainWindow):
         self.hero_types = {}
         self.hero_names = []
         self.hero_icons = []
+        self.remaining_clicks = 20
+
+        self.clickable_labels = {}
+        self.label_images = {}
 
         self.load_hero_roles("data/hero_roles.csv")
 
@@ -47,12 +51,6 @@ class MyMainWindow(QMainWindow):
     def populate_tabs(self):
 
         tab_names = ["All", "Tank", "Fighter", "Assassin", "Marksman", "Mage", "Support"]
-
-        qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
-                        self.ui.blue_ban3, self.ui.red_ban3, self.ui.blue_pick1, self.ui.red_pick1,
-                        self.ui.red_pick2, self.ui.blue_pick2,self.ui.blue_pick3,self.ui.red_pick3,
-                        self.ui.red_ban4, self.ui.blue_ban4, self.ui.red_ban5, self.ui.blue_ban5,
-                        self.ui.red_pick4, self.ui.blue_pick4, self.ui.blue_pick5, self.ui.red_pick5]
 
         # Clear existing tabs
         self.clear_tabs()
@@ -92,9 +90,11 @@ class MyMainWindow(QMainWindow):
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
 
-                for qlabel in qlabels_list:
-                    hero_image_label.clicked.connect(partial(self.display_clicked_image, qlabel, hero_id))
+                # Connect the clicked signal of each ClickableLabel to the display_clicked_image method
+                hero_image_label.clicked.connect(partial(self.display_clicked_image, hero_id))
 
+                # Store the ClickableLabel instance and its hero_id in the dictionary
+                self.clickable_labels[hero_id] = hero_image_label
 
                 # Create a QLabel for the hero name and set its properties
                 hero_name_label = QLabel(self.get_name(hero_id))
@@ -134,10 +134,30 @@ class MyMainWindow(QMainWindow):
             scroll_area.setWidget(tab_widget)
             self.ui.hero_tab.addTab(scroll_area, tab_name)
     
-    def display_clicked_image(self, qlabel, hero_id):
-        image_path = self.get_icon(hero_id)
-        pixmap = QPixmap(image_path)
-        qlabel.setPixmap(pixmap)
+    def display_clicked_image(self, hero_id):
+
+        if self.remaining_clicks <= 0:
+            return
+
+        qlabel = self.get_next_empty_qlabel()
+        if qlabel:
+            self.remaining_clicks -= 1
+            image_path = self.get_icon(hero_id)
+            pixmap = QPixmap(image_path)
+            qlabel.setPixmap(pixmap)
+            self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+
+    def get_next_empty_qlabel(self):
+        qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
+                        self.ui.blue_ban3, self.ui.red_ban3, self.ui.blue_pick1, self.ui.red_pick1,
+                        self.ui.red_pick2, self.ui.blue_pick2, self.ui.blue_pick3, self.ui.red_pick3,
+                        self.ui.red_ban4, self.ui.blue_ban4, self.ui.red_ban5, self.ui.blue_ban5,
+                        self.ui.red_pick4, self.ui.blue_pick4, self.ui.blue_pick5, self.ui.red_pick5]
+        for qlabel in qlabels_list:
+            if qlabel not in self.label_images or self.label_images[qlabel] is None:
+                return qlabel
+
+        return None
 
 
     def rounded_pixmap(self, pixmap, size):
@@ -188,13 +208,15 @@ class MyMainWindow(QMainWindow):
         image_filename = 'hero_icon ({})'.format(hero_id) + '.jpg'
         image_path = os.path.join('D:/python_projects/gui/images/heroes/', image_filename)
         return image_path
-    
+
     def get_type(self, hero_id):
         return self.hero_types.get(hero_id, [])
+
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MyMainWindow()
     window.show()
+
     sys.exit(app.exec())
