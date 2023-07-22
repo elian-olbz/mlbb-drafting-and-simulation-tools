@@ -4,9 +4,19 @@ from PyQt6.QtGui import QPixmap, QPainter, QPainterPath
 from draft_ui import Ui_MainWindow
 import os
 import csv
-from PyQt6.QtCore import Qt, QSize, QRectF
+from PyQt6.QtCore import Qt, QSize, QRectF, pyqtSignal
+from functools import partial
 
 
+class ClickableLabel(QLabel):
+    clicked = pyqtSignal(int)
+
+    def __init__(self, hero_id):
+        super().__init__()
+        self.hero_id = hero_id
+
+    def mousePressEvent(self, event):
+        self.clicked.emit(self.hero_id)
 
 class MyMainWindow(QMainWindow):
     def __init__(self):
@@ -35,7 +45,14 @@ class MyMainWindow(QMainWindow):
 
 
     def populate_tabs(self):
+
         tab_names = ["All", "Tank", "Fighter", "Assassin", "Marksman", "Mage", "Support"]
+
+        qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
+                        self.ui.blue_ban3, self.ui.red_ban3, self.ui.blue_pick1, self.ui.red_pick1,
+                        self.ui.red_pick2, self.ui.blue_pick2,self.ui.blue_pick3,self.ui.red_pick3,
+                        self.ui.red_ban4, self.ui.blue_ban4, self.ui.red_ban5, self.ui.blue_ban5,
+                        self.ui.red_pick4, self.ui.blue_pick4, self.ui.blue_pick5, self.ui.red_pick5]
 
         # Clear existing tabs
         self.clear_tabs()
@@ -57,7 +74,7 @@ class MyMainWindow(QMainWindow):
 
             for hero_id in hero_ids_for_tab:
                 # Get the hero image path based on the hero_id
-                hero_image_path = self.get_image(hero_id)
+                hero_image_path = self.get_icon(hero_id)
 
                 # Load the hero image using QPixmap
                 pixmap = QPixmap(hero_image_path)
@@ -70,10 +87,13 @@ class MyMainWindow(QMainWindow):
                 hero_layout = QVBoxLayout(hero_widget)
 
                 # Create a QLabel for the hero image and set its properties
-                hero_image_label = QLabel()
+                hero_image_label = ClickableLabel(hero_id)
                 hero_image_label.setPixmap(rounded_pixmap)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
+
+                for i, qlabel in enumerate(qlabels_list):
+                    hero_image_label.clicked.connect(partial(self.display_clicked_image, qlabel, hero_id))
 
 
                 # Create a QLabel for the hero name and set its properties
@@ -113,6 +133,11 @@ class MyMainWindow(QMainWindow):
             # Add the container widget with the layout to the existing "hero_tab" using addTab
             scroll_area.setWidget(tab_widget)
             self.ui.hero_tab.addTab(scroll_area, tab_name)
+    
+    def display_clicked_image(self, qlabel, hero_id):
+        image_path = self.get_icon(hero_id)
+        pixmap = QPixmap(image_path)
+        qlabel.setPixmap(pixmap)
 
 
     def rounded_pixmap(self, pixmap, size):
@@ -159,7 +184,7 @@ class MyMainWindow(QMainWindow):
     def get_role(self, hero_id):
         return self.hero_roles.get(hero_id, [])
     
-    def get_image(self, hero_id):
+    def get_icon(self, hero_id):
         image_filename = 'hero_icon ({})'.format(hero_id) + '.jpg'
         image_path = os.path.join('D:/python_projects/gui/images/heroes/', image_filename)
         return image_path
