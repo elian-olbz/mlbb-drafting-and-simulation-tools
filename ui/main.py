@@ -92,7 +92,7 @@ class MyMainWindow(QMainWindow):
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
 
-                for i, qlabel in enumerate(qlabels_list):
+                for qlabel in qlabels_list:
                     hero_image_label.clicked.connect(partial(self.display_clicked_image, qlabel, hero_id))
 
 
