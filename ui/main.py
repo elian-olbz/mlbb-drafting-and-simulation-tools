@@ -171,6 +171,7 @@ class MyMainWindow(QMainWindow):
                     # Reset the style of the previously clicked label
                     self.current_clicked_label.setStyleSheet("")
 
+            if hero_id not in self.unavailable_hero_ids:
                 # Apply a highlight style to the clicked label
                 highlight_color = QColor(255, 255, 0)  # Replace with the desired highlight color
                 clicked_label.setStyleSheet(f"border: 2px solid {highlight_color.name()};")
@@ -178,8 +179,9 @@ class MyMainWindow(QMainWindow):
                 # Store the clicked label as the current clicked label for the current tab
                 self.current_clicked_label = clicked_label
 
-        if hero_id not in self.unavailable_hero_ids:
-            self.selected_id = hero_id
+                self.selected_id = hero_id
+            else:
+                self.selected_id = None
 
 
     
