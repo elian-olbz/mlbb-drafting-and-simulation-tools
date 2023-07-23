@@ -17,6 +17,18 @@ class ClickableLabel(QLabel):
 
     def mousePressEvent(self, event):
         self.clicked.emit(self.hero_id)
+    
+    def enterEvent(self, event):
+        # Apply the hover effect when the mouse enters the label
+        hover_color = QColor(0, 0, 255)  # Replace with the desired hover color
+        highlight_radius = 50  # Adjust the radius as needed
+
+        circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {hover_color.name()};"
+        self.setStyleSheet(circular_style)
+
+    def leaveEvent(self, event):
+        # Reset the style when the mouse leaves the label
+        self.setStyleSheet("")
 
 class MyMainWindow(QMainWindow):
     def __init__(self):
@@ -36,6 +48,7 @@ class MyMainWindow(QMainWindow):
 
         # Initialize the current_tab_index to the index of the first tab (All)
         self.current_tab_index = 0
+        self.pick_button_clicked = False
 
         self.load_hero_roles("data/hero_roles.csv")
 
@@ -76,7 +89,7 @@ class MyMainWindow(QMainWindow):
             scroll_area.setWidgetResizable(True)
             tab_widget = QWidget()
             tab_layout = QGridLayout(tab_widget)
-            spacing = 8  # Set the spacing value as per your preference
+            spacing = 4  # Set the spacing value as per your preference
 
             # Get all hero IDs for the current tab
             if tab_name == "All":
@@ -158,8 +171,8 @@ class MyMainWindow(QMainWindow):
 
 
     def store_hero_id(self, hero_id):
-        # Get the clicked label based on the hero_id
-        clicked_label = self.clickable_labels.get(hero_id)
+        # Get the sender of the signal (i.e., the ClickableLabel instance that emitted the signal)
+        clicked_label = self.sender()
 
         if clicked_label:
             # Get the current tab index
@@ -168,13 +181,21 @@ class MyMainWindow(QMainWindow):
             # Check if the clicked label is within the current tab
             if current_tab_index == self.current_tab_index or current_tab_index == 0:
                 if self.current_clicked_label is not None:
-                    # Reset the style of the previously clicked label
-                    self.current_clicked_label.setStyleSheet("")
+                    # Reset the style of the previously clicked label, unless the "Pick" button is clicked
+                    if not self.pick_button_clicked:
+                        self.current_clicked_label.setStyleSheet("")
+
+                # Update the currently selected label
+                self.current_clicked_label = clicked_label
 
             if hero_id not in self.unavailable_hero_ids:
-                # Apply a highlight style to the clicked label
-                highlight_color = QColor(255, 255, 0)  # Replace with the desired highlight color
-                clicked_label.setStyleSheet(f"border: 2px solid {highlight_color.name()};")
+                if not self.pick_button_clicked:
+                    # Apply a circular highlight style to the clicked label
+                    highlight_color = QColor(255, 255, 0)  # Replace with the desired highlight color
+                    highlight_radius = 50  # Adjust the radius as needed
+
+                    circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
+                    clicked_label.setStyleSheet(circular_style)
 
                 # Store the clicked label as the current clicked label for the current tab
                 self.current_clicked_label = clicked_label
@@ -186,6 +207,7 @@ class MyMainWindow(QMainWindow):
 
     
     def display_clicked_image(self):
+        self.pick_button_clicked = True
         if self.selected_id and self.selected_id not in self.unavailable_hero_ids:
 
             pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
@@ -220,6 +242,7 @@ class MyMainWindow(QMainWindow):
 
                 if self.current_clicked_label is not None:
                     self.current_clicked_label.setStyleSheet("")
+                    self.current_clicked_label = None
 
 
     def get_next_empty_qlabel(self):

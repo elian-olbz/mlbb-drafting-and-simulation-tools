@@ -1,6 +1,6 @@
 /* Global styles */
 QWidget {
-    background-color: #353535;
+    background-color: #2C313C;
     color: #ffffff;
 }
 
@@ -24,7 +24,7 @@ QPalette {
 /* Global styles for the tab widget */
 QTabWidget {
     /* Set the background color for the entire tab widget */
-    background-color: #353535;
+    background-color: #23272E;
     /* Set the color for the tab titles */
     color: #ffffff;
 }
@@ -32,7 +32,7 @@ QTabWidget {
 /* Tab bar styles */
 QTabBar::tab {
     /* Set the background color of each tab */
-    background-color: #353535;
+    background-color: #23272E;
     /* Set the color of the tab title text */
     color: #ffffff;
     /* Set the padding around each tab */
@@ -45,15 +45,16 @@ QTabBar::tab {
     border: 2px solid #444; /* Replace #444 with the desired color code */
     /* Increase the font size of the tab title */
     font-size: 14px; /* Adjust the font size as needed */
+    font-family: 'Segoe UI' ;
 }
 
 QTabBar::tab:selected, QTabBar::tab:hover {
     /* Set the background color of the selected/hovered tab */
-    background-color: #222; /* Darker accent color */
+    background-color: #323842; /* Darker accent color */
 }
 
 /* Tab content area styles */
 QTabWidget::pane {
     /* Set the background color of the tab content area */
-    background-color: #191919;
+    background-color: #40C7FF;
 }
