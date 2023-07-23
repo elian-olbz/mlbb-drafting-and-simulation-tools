@@ -29,7 +29,7 @@ class MyMainWindow(QMainWindow):
         self.remaining_clicks = 20
 
         self.clickable_labels = {}
-        self.label_images = {}
+        self.label_images = {} # Dictionary to track QLabel images
 
         self.load_hero_roles("data/hero_roles.csv")
 
@@ -135,17 +135,27 @@ class MyMainWindow(QMainWindow):
             self.ui.hero_tab.addTab(scroll_area, tab_name)
     
     def display_clicked_image(self, hero_id):
+        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
 
         if self.remaining_clicks <= 0:
             return
 
         qlabel = self.get_next_empty_qlabel()
         if qlabel:
+            if abs(self.remaining_clicks - 20) in pick_indices:
+                image_path = self.get_image(hero_id)
+            else:
+                image_path = self.get_icon(hero_id)
             self.remaining_clicks -= 1
-            image_path = self.get_icon(hero_id)
             pixmap = QPixmap(image_path)
-            qlabel.setPixmap(pixmap)
+
+            # Get the size of the QLabel and scale the pixmap to fit
+            label_size = qlabel.size()
+            scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+            qlabel.setPixmap(scaled_pixmap)
             self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+
 
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
@@ -206,7 +216,12 @@ class MyMainWindow(QMainWindow):
     
     def get_icon(self, hero_id):
         image_filename = 'hero_icon ({})'.format(hero_id) + '.jpg'
-        image_path = os.path.join('D:/python_projects/gui/images/heroes/', image_filename)
+        image_path = os.path.join('D:/python_projects/gui/images/hero_icons/', image_filename)
+        return image_path
+    
+    def get_image(self, hero_id):
+        image_filename = 'hero_image ({})'.format(hero_id) + '.jpg'
+        image_path = os.path.join('D:/python_projects/gui/images/hero_images/', image_filename)
         return image_path
 
     def get_type(self, hero_id):
