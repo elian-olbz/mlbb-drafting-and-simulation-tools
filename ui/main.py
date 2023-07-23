@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QPainter, QPainterPath
+from PyQt6.QtGui import QPixmap, QPainter, QPainterPath, QPalette, QColor
 from draft_ui import Ui_MainWindow
 import os
 import csv
@@ -28,10 +28,14 @@ class MyMainWindow(QMainWindow):
         self.hero_icons = []
         self.remaining_clicks = 20
 
+        self.current_clicked_label = None
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
         self.unavailable_hero_ids = []
+
+        # Initialize the current_tab_index to the index of the first tab (All)
+        self.current_tab_index = 0
 
         self.load_hero_roles("data/hero_roles.csv")
 
@@ -42,6 +46,9 @@ class MyMainWindow(QMainWindow):
         # Connect the pick_button click signal to display_clicked_image with the last stored hero_id
         self.ui.pick_button.clicked.connect(self.display_clicked_image)
 
+        # Connect the currentChanged signal of hero_tab to update_current_tab method
+        self.ui.hero_tab.currentChanged.connect(self.update_current_tab)
+
         # Make the window full-screen at start
         self.showMaximized()
 
@@ -50,6 +57,10 @@ class MyMainWindow(QMainWindow):
         # Clear all existing tabs from the "hero_tab" widget
         while self.ui.hero_tab.count() > 0:
             self.ui.hero_tab.removeTab(0)
+    
+    def update_current_tab(self, index):
+        # Update the current_tab_index with the index of the current tab
+        self.current_tab_index = index
 
 
     def populate_tabs(self):
@@ -68,8 +79,10 @@ class MyMainWindow(QMainWindow):
             spacing = 8  # Set the spacing value as per your preference
 
             # Get all hero IDs for the current tab
-            hero_ids_for_tab = list(range(1, len(self.hero_names) + 1)) if tab_name == "All" else [
-                hero_id for hero_id, types in self.hero_types.items() if tab_name in types]
+            if tab_name == "All":
+                hero_ids_for_tab = list(range(1, len(self.hero_names) + 1))
+            else:
+                hero_ids_for_tab = [hero_id for hero_id, types in self.hero_types.items() if tab_name in types]
 
             row = 0
             column = 0
@@ -82,7 +95,7 @@ class MyMainWindow(QMainWindow):
                 pixmap = QPixmap(hero_image_path)
 
                 # Apply a circular mask to the hero image
-                rounded_pixmap = self.rounded_pixmap(pixmap, 100)
+                rounded_pixmap = self.rounded_pixmap(pixmap, 97)
 
                 # Create a widget to hold the image and name QLabel
                 hero_widget = QWidget()
@@ -90,6 +103,10 @@ class MyMainWindow(QMainWindow):
 
                 # Create a QLabel for the hero image and set its properties
                 hero_image_label = ClickableLabel(hero_id)
+
+                # Add the custom class selector to the label
+                hero_image_label.setObjectName("clicked-label")
+
                 hero_image_label.setPixmap(rounded_pixmap)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
@@ -141,8 +158,29 @@ class MyMainWindow(QMainWindow):
 
 
     def store_hero_id(self, hero_id):
+        # Get the clicked label based on the hero_id
+        clicked_label = self.clickable_labels.get(hero_id)
+
+        if clicked_label:
+            # Get the current tab index
+            current_tab_index = self.ui.hero_tab.currentIndex()
+
+            # Check if the clicked label is within the current tab
+            if current_tab_index == self.current_tab_index or current_tab_index == 0:
+                if self.current_clicked_label is not None:
+                    # Reset the style of the previously clicked label
+                    self.current_clicked_label.setStyleSheet("")
+
+                # Apply a highlight style to the clicked label
+                highlight_color = QColor(255, 255, 0)  # Replace with the desired highlight color
+                clicked_label.setStyleSheet(f"border: 2px solid {highlight_color.name()};")
+
+                # Store the clicked label as the current clicked label for the current tab
+                self.current_clicked_label = clicked_label
+
         if hero_id not in self.unavailable_hero_ids:
             self.selected_id = hero_id
+
 
     
     def display_clicked_image(self):
@@ -157,18 +195,29 @@ class MyMainWindow(QMainWindow):
             if qlabel:
                 if abs(self.remaining_clicks - 20) in pick_indices:
                     image_path = self.get_image(self.selected_id)
+                    pixmap = QPixmap(image_path)
+                    # Get the size of the QLabel and scale the pixmap to fit
+                    label_size = qlabel.size()
+                    scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                    qlabel.setPixmap(scaled_pixmap)
+                    self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
+                    self.unavailable_hero_ids.append(self.selected_id)
                 else:
                     image_path = self.get_icon(self.selected_id)
+                    pixmap = QPixmap(image_path)
+                    round_pix = self.rounded_pixmap(pixmap, 97)
+                    # Get the size of the QLabel and scale the pixmap to fit
+                    label_size = qlabel.size()
+                    scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                    qlabel.setPixmap(scaled_pixmap)
+                    self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
+                    self.unavailable_hero_ids.append(self.selected_id)
                 self.remaining_clicks -= 1
-                pixmap = QPixmap(image_path)
 
-                # Get the size of the QLabel and scale the pixmap to fit
-                label_size = qlabel.size()
-                scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
-
-                qlabel.setPixmap(scaled_pixmap)
-                self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
-                self.unavailable_hero_ids.append(self.selected_id)
+                if self.current_clicked_label is not None:
+                    self.current_clicked_label.setStyleSheet("")
 
 
     def get_next_empty_qlabel(self):
@@ -182,7 +231,6 @@ class MyMainWindow(QMainWindow):
                 return qlabel
 
         return None
-
 
     def rounded_pixmap(self, pixmap, size):
         # Create a transparent mask and painter
@@ -242,9 +290,23 @@ class MyMainWindow(QMainWindow):
         return self.hero_types.get(hero_id, [])
 
 
+def load_theme(theme_path):
+    with open(theme_path, 'r') as file:
+        theme = file.read()
+    return theme
+    
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
+    #Load the theme
+    theme_path = "ui/dark.qss"
+    theme = load_theme(theme_path)
+
+    #Apply the theme as a global stylesheet to the application
+    app.setStyleSheet(theme)
+
     window = MyMainWindow()
     window.show()
 

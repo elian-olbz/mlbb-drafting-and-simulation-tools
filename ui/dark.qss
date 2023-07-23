@@ -1,0 +1,59 @@
+/* Global styles */
+QWidget {
+    background-color: #353535;
+    color: #ffffff;
+}
+
+/* Base colors */
+QPalette { 
+    window: #353535;
+    window-text: #ffffff;
+    base: #191919;
+    alternate-base: #353535;
+    tool-tip-base: #ffffdc;
+    tool-tip-text: #ffffff;
+    text: #ffffff;
+    button: #353535;
+    button-text: #ffffff;
+    bright-text: #ff0000;
+    link: #2a82da;
+    highlight: #2a82da;
+    highlighted-text: #ffffff;
+}
+
+/* Global styles for the tab widget */
+QTabWidget {
+    /* Set the background color for the entire tab widget */
+    background-color: #353535;
+    /* Set the color for the tab titles */
+    color: #ffffff;
+}
+
+/* Tab bar styles */
+QTabBar::tab {
+    /* Set the background color of each tab */
+    background-color: #353535;
+    /* Set the color of the tab title text */
+    color: #ffffff;
+    /* Set the padding around each tab */
+    padding: 8px 12px;
+    /* Set a minimum and maximum width for all tabs to equally divide the available space */
+    min-width: 110px;
+    max-width: 200px;
+    height: 20px;
+    /* Add a border to the tab */
+    border: 2px solid #444; /* Replace #444 with the desired color code */
+    /* Increase the font size of the tab title */
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    /* Set the background color of the selected/hovered tab */
+    background-color: #222; /* Darker accent color */
+}
+
+/* Tab content area styles */
+QTabWidget::pane {
+    /* Set the background color of the tab content area */
+    background-color: #191919;
+}
