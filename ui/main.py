@@ -30,6 +30,8 @@ class MyMainWindow(QMainWindow):
 
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
+        self.selected_id = None
+        self.unavailable_hero_ids = []
 
         self.load_hero_roles("data/hero_roles.csv")
 
@@ -37,6 +39,8 @@ class MyMainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.populate_tabs()
+        # Connect the pick_button click signal to display_clicked_image with the last stored hero_id
+        self.ui.pick_button.clicked.connect(self.display_clicked_image)
 
         # Make the window full-screen at start
         self.showMaximized()
@@ -91,7 +95,7 @@ class MyMainWindow(QMainWindow):
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
 
                 # Connect the clicked signal of each ClickableLabel to the display_clicked_image method
-                hero_image_label.clicked.connect(partial(self.display_clicked_image, hero_id))
+                hero_image_label.clicked.connect(partial(self.store_hero_id, hero_id))
 
                 # Store the ClickableLabel instance and its hero_id in the dictionary
                 self.clickable_labels[hero_id] = hero_image_label
@@ -114,6 +118,7 @@ class MyMainWindow(QMainWindow):
                 if column == 7:
                     row += 1
                     column = 0
+            
 
             # Add empty QSpacerItem to the last cell of the last row to keep spacing consistent
             spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
@@ -133,28 +138,37 @@ class MyMainWindow(QMainWindow):
             # Add the container widget with the layout to the existing "hero_tab" using addTab
             scroll_area.setWidget(tab_widget)
             self.ui.hero_tab.addTab(scroll_area, tab_name)
+
+
+    def store_hero_id(self, hero_id):
+        if hero_id not in self.unavailable_hero_ids:
+            self.selected_id = hero_id
+
     
-    def display_clicked_image(self, hero_id):
-        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+    def display_clicked_image(self):
+        if self.selected_id and self.selected_id not in self.unavailable_hero_ids:
 
-        if self.remaining_clicks <= 0:
-            return
+            pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
 
-        qlabel = self.get_next_empty_qlabel()
-        if qlabel:
-            if abs(self.remaining_clicks - 20) in pick_indices:
-                image_path = self.get_image(hero_id)
-            else:
-                image_path = self.get_icon(hero_id)
-            self.remaining_clicks -= 1
-            pixmap = QPixmap(image_path)
+            if self.remaining_clicks <= 0:
+                return
 
-            # Get the size of the QLabel and scale the pixmap to fit
-            label_size = qlabel.size()
-            scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+            qlabel = self.get_next_empty_qlabel()
+            if qlabel:
+                if abs(self.remaining_clicks - 20) in pick_indices:
+                    image_path = self.get_image(self.selected_id)
+                else:
+                    image_path = self.get_icon(self.selected_id)
+                self.remaining_clicks -= 1
+                pixmap = QPixmap(image_path)
 
-            qlabel.setPixmap(scaled_pixmap)
-            self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+                # Get the size of the QLabel and scale the pixmap to fit
+                label_size = qlabel.size()
+                scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                qlabel.setPixmap(scaled_pixmap)
+                self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
+                self.unavailable_hero_ids.append(self.selected_id)
 
 
     def get_next_empty_qlabel(self):
