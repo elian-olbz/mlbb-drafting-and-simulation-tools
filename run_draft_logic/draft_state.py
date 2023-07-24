@@ -1,6 +1,6 @@
 import csv
 import random
-import tensorflow as tf
+from tensorflow.lite.python.interpreter import Interpreter
 import numpy as np
 import time
 
@@ -8,7 +8,7 @@ num_heroes = 122
 
 class DraftState:
     def __init__(self, model_path, hero_roles_path):
-        self.interpreter = tf.lite.Interpreter(model_path=model_path)
+        self.interpreter = Interpreter(model_path=model_path)
         self.interpreter.allocate_tensors()
         self.hero_roles = {}
         self.hero_names = []

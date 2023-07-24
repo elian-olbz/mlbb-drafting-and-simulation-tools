@@ -1,6 +1,6 @@
 from draft_state import DraftState
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import tensorflow as tf
+from tensorflow.lite.python.interpreter import Interpreter
 import numpy as np
 
 max_sequence_length = 19
@@ -33,7 +33,7 @@ class HumanPlayer:
 class AIPlayer:
     def __init__(self, team_color, model_path):
         self.team_color = team_color
-        self.interpreter = tf.lite.Interpreter(model_path=model_path)
+        self.interpreter = Interpreter(model_path=model_path)
         self.interpreter.allocate_tensors()
 
     def pick(self, draft_state):
