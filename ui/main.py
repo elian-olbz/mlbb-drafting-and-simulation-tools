@@ -1,4 +1,4 @@
-import sys
+import os, sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QPixmap, QPainter, QPainterPath, QPalette, QColor
 from draft_ui import Ui_MainWindow
@@ -6,6 +6,7 @@ import os
 import csv
 from PyQt6.QtCore import Qt, QSize, QRectF, pyqtSignal
 from functools import partial
+from run_draft_logic.draft_state import DraftState
 
 
 class ClickableLabel(QLabel):
