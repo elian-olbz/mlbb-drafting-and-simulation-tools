@@ -17,18 +17,6 @@ class ClickableLabel(QLabel):
 
     def mousePressEvent(self, event):
         self.clicked.emit(self.hero_id)
-    
-    def enterEvent(self, event):
-        # Apply the hover effect when the mouse enters the label
-        hover_color = QColor(0, 0, 255)  # Replace with the desired hover color
-        highlight_radius = 50  # Adjust the radius as needed
-
-        circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {hover_color.name()};"
-        self.setStyleSheet(circular_style)
-
-    def leaveEvent(self, event):
-        # Reset the style when the mouse leaves the label
-        self.setStyleSheet("")
 
 class MyMainWindow(QMainWindow):
     def __init__(self):
@@ -108,7 +96,7 @@ class MyMainWindow(QMainWindow):
                 pixmap = QPixmap(hero_image_path)
 
                 # Apply a circular mask to the hero image
-                rounded_pixmap = self.rounded_pixmap(pixmap, 97)
+                rounded_pixmap = self.rounded_pixmap(pixmap=pixmap, size=97, border_thickness=4)
 
                 # Create a widget to hold the image and name QLabel
                 hero_widget = QWidget()
@@ -181,21 +169,17 @@ class MyMainWindow(QMainWindow):
             # Check if the clicked label is within the current tab
             if current_tab_index == self.current_tab_index or current_tab_index == 0:
                 if self.current_clicked_label is not None:
-                    # Reset the style of the previously clicked label, unless the "Pick" button is clicked
-                    if not self.pick_button_clicked:
-                        self.current_clicked_label.setStyleSheet("")
-
-                # Update the currently selected label
-                self.current_clicked_label = clicked_label
+                    # Reset the style of the previously clicked label
+                    self.current_clicked_label.setStyleSheet("")
 
             if hero_id not in self.unavailable_hero_ids:
-                if not self.pick_button_clicked:
-                    # Apply a circular highlight style to the clicked label
-                    highlight_color = QColor(255, 255, 0)  # Replace with the desired highlight color
-                    highlight_radius = 50  # Adjust the radius as needed
+                # Apply a highlight style to the clicked label
+                highlight_color = QColor(69, 202, 255)  # Replace with the desired highlight color
+                highlight_radius = 50  # Adjust the radius as needed
 
-                    circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
-                    clicked_label.setStyleSheet(circular_style)
+                circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
+                clicked_label.setStyleSheet(circular_style)
+                #clicked_label.setStyleSheet(f"border: 2px solid {highlight_color.name()};")
 
                 # Store the clicked label as the current clicked label for the current tab
                 self.current_clicked_label = clicked_label
@@ -203,7 +187,6 @@ class MyMainWindow(QMainWindow):
                 self.selected_id = hero_id
             else:
                 self.selected_id = None
-
 
     
     def display_clicked_image(self):
@@ -257,16 +240,16 @@ class MyMainWindow(QMainWindow):
 
         return None
 
-    def rounded_pixmap(self, pixmap, size):
+    def rounded_pixmap(self, pixmap, size, border_thickness=0):
         # Create a transparent mask and painter
         mask = QPixmap(size, size)
         mask.fill(Qt.GlobalColor.transparent)
         painter = QPainter(mask)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        # Draw a circle on the mask using QPainterPath
+        # Draw a circle on the mask using QPainterPath with an increased border thickness
         clip_path = QPainterPath()
-        clip_path.addEllipse(QRectF(0, 0, size, size))
+        clip_path.addEllipse(QRectF(border_thickness, border_thickness, size - 2 * border_thickness, size - 2 * border_thickness))
         painter.setClipPath(clip_path)
 
         # Use the mask to draw the pixmap as a rounded shape
@@ -278,7 +261,6 @@ class MyMainWindow(QMainWindow):
         painter.drawPixmap(0, 0, pixmap)
 
         return rounded_pixmap
-
     
     def load_hero_roles(self, hero_roles_path):
         with open(hero_roles_path, 'r') as file:
