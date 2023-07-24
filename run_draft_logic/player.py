@@ -1,33 +1,42 @@
-from draft_state import DraftState
+from run_draft_logic.draft_state import DraftState
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.lite.python.interpreter import Interpreter
 import numpy as np
 
 max_sequence_length = 19
 
+# Define the indices for blue and red turns
+blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+red_turn = [1, 3, 5, 7, 8, 11, 12, 14, 16, 19]
+
+# Define the indices for picks and bans
+pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+ban_indices = [0, 1, 2, 3, 4, 5, 12, 13, 14, 15]
+
 class HumanPlayer:
     def __init__(self, team_color):
         self.team_color = team_color
+        
+    def pick(self, draft_state, hero_id):
+        if hero_id is not None:
+            while True:
+                if hero_id not in draft_state.draft_sequence:
+                    break
+                print("Invalid Move!")
+            draft_state.draft_sequence.append(hero_id)
+            draft_state.final_sequence.append(hero_id)
+            draft_state.add_pick(self.team_color, hero_id)
 
-    def pick(self, draft_state):
-        while True:
-            pick_id = int(input(f"{self.team_color} pick: "))
-            if pick_id not in draft_state.draft_sequence:
-                break
-            print("Invalid Move!")
-        draft_state.draft_sequence.append(pick_id)
-        draft_state.final_sequence.append(pick_id)
-        draft_state.add_pick(self.team_color, pick_id)
-
-    def ban(self, draft_state):
-        while True:
-            ban_id = int(input(f"{self.team_color} ban: "))
-            if ban_id not in draft_state.draft_sequence:
-                break
-            print("Invalid Move!")
-        draft_state.draft_sequence.append(ban_id)
-        draft_state.final_sequence.append(ban_id)
-        draft_state.add_ban(self.team_color, ban_id)
+    def ban(self, draft_state, hero_id):
+        if hero_id is not None:
+            while True:
+                if hero_id not in draft_state.draft_sequence:
+                    break
+                print("Invalid Move!")
+            draft_state.draft_sequence.append(hero_id)
+            draft_state.final_sequence.append(hero_id)
+            draft_state.add_ban(self.team_color, hero_id)
+            
 
 
 class AIPlayer:

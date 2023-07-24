@@ -7,6 +7,9 @@ import csv
 from PyQt6.QtCore import Qt, QSize, QRectF, pyqtSignal
 from functools import partial
 from run_draft_logic.draft_state import DraftState
+from run_draft_logic.modes import run_human_vs_human
+from run_draft_logic.utils import print_draft_status, print_final_draft
+from run_draft_logic.player import HumanPlayer
 
 
 class ClickableLabel(QLabel):
@@ -33,6 +36,7 @@ class MyMainWindow(QMainWindow):
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
+        self.next_move = None
         self.unavailable_hero_ids = []
 
         # Initialize the current_tab_index to the index of the first tab (All)
@@ -50,6 +54,10 @@ class MyMainWindow(QMainWindow):
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.ui.hero_tab.currentChanged.connect(self.update_current_tab)
+
+        self.draft_state = DraftState('model/meta_ld_512_x5h.tflite', 'data/hero_roles.csv')
+        self.blue_player = HumanPlayer("Blue")
+        self.red_player = HumanPlayer("Red")
 
         # Make the window full-screen at start
         self.showMaximized()
@@ -163,6 +171,9 @@ class MyMainWindow(QMainWindow):
         # Get the sender of the signal (i.e., the ClickableLabel instance that emitted the signal)
         clicked_label = self.sender()
 
+        if self.remaining_clicks <= 0:
+                return
+        
         if clicked_label:
             # Get the current tab index
             current_tab_index = self.ui.hero_tab.currentIndex()
@@ -195,6 +206,7 @@ class MyMainWindow(QMainWindow):
         if self.selected_id and self.selected_id not in self.unavailable_hero_ids:
 
             pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+            blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
 
             if self.remaining_clicks <= 0:
                 return
@@ -211,6 +223,12 @@ class MyMainWindow(QMainWindow):
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(self.selected_id)
+                    if abs(self.remaining_clicks - 20) in blue_turn:
+                        self.blue_player.pick(self.draft_state, self.selected_id)
+                        print_draft_status(self.draft_state)
+                    else:
+                        self.red_player.pick(self.draft_state, self.selected_id)
+                        print_draft_status(self.draft_state)
                 else:
                     image_path = self.get_icon(self.selected_id)
                     pixmap = QPixmap(image_path)
@@ -222,12 +240,20 @@ class MyMainWindow(QMainWindow):
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(self.selected_id)
+                    if abs(self.remaining_clicks - 20) in blue_turn:
+                        self.blue_player.ban(self.draft_state, self.selected_id)
+                        print_draft_status(self.draft_state)
+                    else:
+                        self.red_player.ban(self.draft_state, self.selected_id)
+                        print_draft_status(self.draft_state)
                 self.remaining_clicks -= 1
 
                 if self.current_clicked_label is not None:
                     self.current_clicked_label.setStyleSheet("")
                     self.current_clicked_label = None
-
+            
+                self.next_move = self.selected_id
+                
 
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
@@ -303,7 +329,6 @@ def load_theme(theme_path):
         theme = file.read()
     return theme
     
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
