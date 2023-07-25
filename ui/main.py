@@ -1,15 +1,14 @@
-import os, sys
+import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QPainter, QPainterPath, QPalette, QColor
+from PyQt6.QtGui import QPixmap, QColor
 from draft_ui import Ui_MainWindow
-import os
-import csv
-from PyQt6.QtCore import Qt, QSize, QRectF, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 from functools import partial
 from run_draft_logic.draft_state import DraftState
-from run_draft_logic.modes import run_human_vs_human
-from run_draft_logic.utils import print_draft_status, print_final_draft
+
+from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme
 from run_draft_logic.player import HumanPlayer
+from run_draft_logic.modes import human_vs_human, human_vs_ai
 
 
 class ClickableLabel(QLabel):
@@ -36,14 +35,20 @@ class MyMainWindow(QMainWindow):
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
-        self.next_move = None
         self.unavailable_hero_ids = []
 
         # Initialize the current_tab_index to the index of the first tab (All)
         self.current_tab_index = 0
         self.pick_button_clicked = False
 
-        self.load_hero_roles("data/hero_roles.csv")
+
+        self.draft_state = DraftState('data/hero_roles.csv')
+        self.blue_player, self.red_player = human_vs_ai()
+
+        self.hero_roles = self.draft_state.hero_roles
+        self.hero_names = self.draft_state.hero_names
+        self.hero_icons = self.draft_state.hero_icons
+        self.hero_types = self.draft_state.hero_types
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -54,10 +59,6 @@ class MyMainWindow(QMainWindow):
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.ui.hero_tab.currentChanged.connect(self.update_current_tab)
-
-        self.draft_state = DraftState('model/meta_ld_512_x5h.tflite', 'data/hero_roles.csv')
-        self.blue_player = HumanPlayer("Blue")
-        self.red_player = HumanPlayer("Red")
 
         # Make the window full-screen at start
         self.showMaximized()
@@ -99,13 +100,13 @@ class MyMainWindow(QMainWindow):
 
             for hero_id in hero_ids_for_tab:
                 # Get the hero image path based on the hero_id
-                hero_image_path = self.get_icon(hero_id)
+                hero_image_path = get_icon(hero_id)
 
                 # Load the hero image using QPixmap
                 pixmap = QPixmap(hero_image_path)
 
                 # Apply a circular mask to the hero image
-                rounded_pixmap = self.rounded_pixmap(pixmap=pixmap, size=97, border_thickness=4)
+                round_pix = rounded_pixmap(pixmap=pixmap, size=97, border_thickness=4)
 
                 # Create a widget to hold the image and name QLabel
                 hero_widget = QWidget()
@@ -117,7 +118,7 @@ class MyMainWindow(QMainWindow):
                 # Add the custom class selector to the label
                 hero_image_label.setObjectName("clicked-label")
 
-                hero_image_label.setPixmap(rounded_pixmap)
+                hero_image_label.setPixmap(round_pix)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
 
@@ -128,7 +129,7 @@ class MyMainWindow(QMainWindow):
                 self.clickable_labels[hero_id] = hero_image_label
 
                 # Create a QLabel for the hero name and set its properties
-                hero_name_label = QLabel(self.get_name(hero_id))
+                hero_name_label = QLabel(get_name(hero_id, self.hero_names))
                 hero_name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_name_label.setWordWrap(True)
                 hero_name_label.setFixedWidth(100)  # Set a fixed width to match the image width
@@ -145,7 +146,6 @@ class MyMainWindow(QMainWindow):
                 if column == 7:
                     row += 1
                     column = 0
-            
 
             # Add empty QSpacerItem to the last cell of the last row to keep spacing consistent
             spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
@@ -214,7 +214,7 @@ class MyMainWindow(QMainWindow):
             qlabel = self.get_next_empty_qlabel()
             if qlabel:
                 if abs(self.remaining_clicks - 20) in pick_indices:
-                    image_path = self.get_image(self.selected_id)
+                    image_path = get_image(self.selected_id)
                     pixmap = QPixmap(image_path)
                     # Get the size of the QLabel and scale the pixmap to fit
                     label_size = qlabel.size()
@@ -223,16 +223,11 @@ class MyMainWindow(QMainWindow):
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(self.selected_id)
-                    if abs(self.remaining_clicks - 20) in blue_turn:
-                        self.blue_player.pick(self.draft_state, self.selected_id)
-                        print_draft_status(self.draft_state)
-                    else:
-                        self.red_player.pick(self.draft_state, self.selected_id)
-                        print_draft_status(self.draft_state)
+                    self.player_pick(self.draft_state, self.selected_id)
                 else:
-                    image_path = self.get_icon(self.selected_id)
+                    image_path = get_icon(self.selected_id)
                     pixmap = QPixmap(image_path)
-                    round_pix = self.rounded_pixmap(pixmap, 97)
+                    round_pix = rounded_pixmap(pixmap, 97)
                     # Get the size of the QLabel and scale the pixmap to fit
                     label_size = qlabel.size()
                     scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
@@ -240,21 +235,58 @@ class MyMainWindow(QMainWindow):
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(self.selected_id)
-                    if abs(self.remaining_clicks - 20) in blue_turn:
-                        self.blue_player.ban(self.draft_state, self.selected_id)
-                        print_draft_status(self.draft_state)
-                    else:
-                        self.red_player.ban(self.draft_state, self.selected_id)
-                        print_draft_status(self.draft_state)
+                    self.player_ban(self.draft_state, self.selected_id)
                 self.remaining_clicks -= 1
 
                 if self.current_clicked_label is not None:
                     self.current_clicked_label.setStyleSheet("")
                     self.current_clicked_label = None
-            
-                self.next_move = self.selected_id
-                
+    
+    def player_pick(self, draft_state, selected_id):
+        blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
 
+        if type(self.blue_player) is HumanPlayer:  # If blue player is human
+            if abs(self.remaining_clicks - 20) in blue_turn:
+                self.blue_player.pick(draft_state, selected_id)
+                print_draft_status(draft_state)
+
+        else: # If blue player is AI
+            if abs(self.remaining_clicks - 20) in blue_turn:
+                self.blue_player.pick(draft_state)
+                print_draft_status(draft_state)
+
+        if type(self.red_player) is HumanPlayer:  # If red player is human
+            if abs(self.remaining_clicks - 20) not in blue_turn:
+                self.red_player.pick(draft_state, selected_id)
+                print_draft_status(draft_state)
+
+        else:  # If red player is AI
+            if abs(self.remaining_clicks - 20) not in blue_turn:
+                self.red_player.pick(draft_state)
+                print_draft_status(draft_state)
+
+    def player_ban(self, draft_state, selected_id):
+        blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+
+        if type(self.blue_player) is HumanPlayer:  # If blue player is human
+            if abs(self.remaining_clicks - 20) in blue_turn:
+                self.blue_player.ban(draft_state, selected_id)
+                print_draft_status(draft_state)
+        else: # If blue player is AI
+            if abs(self.remaining_clicks - 20) in blue_turn:
+                self.blue_player.ban(draft_state)
+                print_draft_status(draft_state)
+
+        if type(self.red_player) is HumanPlayer:  # If red player is human
+            if abs(self.remaining_clicks - 20) not in blue_turn:
+                self.red_player.ban(draft_state, selected_id)
+                print_draft_status(draft_state)
+        else:  # If red player is AI
+            if abs(self.remaining_clicks - 20) not in blue_turn:
+                self.red_player.ban(draft_state)
+                print_draft_status(draft_state)
+
+                
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
                         self.ui.blue_ban3, self.ui.red_ban3, self.ui.blue_pick1, self.ui.red_pick1,
@@ -266,69 +298,6 @@ class MyMainWindow(QMainWindow):
                 return qlabel
 
         return None
-
-    def rounded_pixmap(self, pixmap, size, border_thickness=0):
-        # Create a transparent mask and painter
-        mask = QPixmap(size, size)
-        mask.fill(Qt.GlobalColor.transparent)
-        painter = QPainter(mask)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-
-        # Draw a circle on the mask using QPainterPath with an increased border thickness
-        clip_path = QPainterPath()
-        clip_path.addEllipse(QRectF(border_thickness, border_thickness, size - 2 * border_thickness, size - 2 * border_thickness))
-        painter.setClipPath(clip_path)
-
-        # Use the mask to draw the pixmap as a rounded shape
-        rounded_pixmap = QPixmap(size, size)
-        rounded_pixmap.fill(Qt.GlobalColor.transparent)
-        painter = QPainter(rounded_pixmap)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setClipPath(clip_path)  # Set the same clip path for the pixmap
-        painter.drawPixmap(0, 0, pixmap)
-
-        return rounded_pixmap
-    
-    def load_hero_roles(self, hero_roles_path):
-        with open(hero_roles_path, 'r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                hero_id = int(row['HeroID'])
-                roles = [role.strip() for role in row['Role'].split('/')]
-                self.hero_roles[hero_id] = roles
-                hero_name = row['Name']
-                self.hero_names.append(hero_name)
-                hero_icon = row['Icon']
-                self.hero_icons.append(hero_icon)
-                types = [type.strip() for type in row['Type'].split('/')]
-                self.hero_types[hero_id] = types
- 
-
-    def get_name(self, hero_id):
-        return self.hero_names[hero_id - 1]
-    
-    def get_role(self, hero_id):
-        return self.hero_roles.get(hero_id, [])
-    
-    def get_icon(self, hero_id):
-        image_filename = 'hero_icon ({})'.format(hero_id) + '.jpg'
-        image_path = os.path.join('D:/python_projects/gui/images/hero_icons/', image_filename)
-        return image_path
-    
-    def get_image(self, hero_id):
-        image_filename = 'hero_image ({})'.format(hero_id) + '.jpg'
-        image_path = os.path.join('D:/python_projects/gui/images/hero_images/', image_filename)
-        return image_path
-
-    def get_type(self, hero_id):
-        return self.hero_types.get(hero_id, [])
-
-
-def load_theme(theme_path):
-    with open(theme_path, 'r') as file:
-        theme = file.read()
-    return theme
-    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

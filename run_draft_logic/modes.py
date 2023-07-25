@@ -10,43 +10,21 @@ red_turn = [1, 3, 5, 7, 8, 11, 12, 14, 16, 19]
 pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
 ban_indices = [0, 1, 2, 3, 4, 5, 12, 13, 14, 15]
 
-def run_human_vs_human(draft_state, hero_id, index):
+def human_vs_human():
     blue_player = HumanPlayer("Blue")
     red_player = HumanPlayer("Red")
 
-    if index in blue_turn:
-        player = blue_player
-    else:
-        player = red_player
+    return blue_player, red_player
 
-    if index in pick_indices:
-        player.pick(draft_state, hero_id)
-    else:
-        player.ban(draft_state, hero_id)
-
-def run_human_vs_ai(draft_state, model_path):
+def human_vs_ai():
     blue_player = HumanPlayer("Blue")
-    red_player = AIPlayer("Red", model_path)
+    red_player = AIPlayer("Red", 'model/meta_ld_512_x5h.tflite')
 
-    for i in range(20):
-        if i in blue_turn:
-            if i in pick_indices:
-                blue_player.pick(draft_state)
-            else:
-                blue_player.ban(draft_state)
-        else:
-            if i in pick_indices:
-                red_player.pick(draft_state)
-            else:
-                red_player.ban(draft_state)
-
-        print_draft_status(draft_state)
-
-    print_final_draft(draft_state)
+    return blue_player, red_player
 
 
-def run_ai_vs_human(draft_state, model_path):
-    blue_player = AIPlayer("Blue", model_path)
+def ai_vs_human(draft_state):
+    blue_player = AIPlayer("Blue", draft_state)
     red_player = HumanPlayer("Red")
 
     for i in range(20):
