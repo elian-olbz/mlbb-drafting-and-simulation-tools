@@ -80,7 +80,7 @@ class DraftState:
                 print("Random selection:", next_hero_id)
             else:
                 # Obtain the indices of the top predictions
-                top_prediction_indices = np.argsort(valid_predictions_filtered)[-3:]
+                top_prediction_indices = np.argsort(valid_predictions_filtered)[-1:]
                 # Select a random prediction among the top predictions
                 random_prediction_idx = random.choice(top_prediction_indices)
 

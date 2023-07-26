@@ -79,5 +79,72 @@ def run_ai_vs_ai(draft_state, model_path1, model_path2):
     print_final_draft(draft_state)
 
 
+"""
+def player_pick(self, draft_state, selected_id):
+    print("player pick called")
+    blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+
+    if type(self.blue_player) is HumanPlayer:  # If blue player is human
+        if abs(self.remaining_clicks - 20) in blue_turn:
+            self.blue_player.pick(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+    else: # If blue player is AI
+        if abs(self.remaining_clicks - 20) in blue_turn:
+            self.hero_to_disp = self.blue_player.pick(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+    if type(self.red_player) is HumanPlayer:  # If red player is human
+        if abs(self.remaining_clicks - 20) not in blue_turn:
+            self.red_player.pick(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+    else:  # If red player is AI
+        if abs(self.remaining_clicks - 20) not in blue_turn:
+            self.hero_to_disp = self.red_player.pick(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+def player_ban(self, draft_state, selected_id):
+    print("player ban called")
+    blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+
+    if type(self.blue_player) is HumanPlayer:  # If blue player is human
+        if abs(self.remaining_clicks - 20) in blue_turn:
+            self.blue_player.ban(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+    else: # If blue player is AI
+        if abs(self.remaining_clicks - 20) in blue_turn:
+            self.hero_to_disp = self.blue_player.ban(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+    if type(self.red_player) is HumanPlayer:  # If red player is human
+        if abs(self.remaining_clicks - 20) not in blue_turn:
+            self.red_player.ban(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+    else:  # If red player is AI
+        if abs(self.remaining_clicks - 20) not in blue_turn:
+            self.hero_to_disp = self.red_player.ban(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+"""
 
 

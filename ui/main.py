@@ -1,8 +1,8 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy, QPushButton
 from PyQt6.QtGui import QPixmap, QColor
 from draft_ui import Ui_MainWindow
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
 from functools import partial
 from run_draft_logic.draft_state import DraftState
 
@@ -20,6 +20,13 @@ class ClickableLabel(QLabel):
 
     def mousePressEvent(self, event):
         self.clicked.emit(self.hero_id)
+
+class AutoPlayer(QObject):
+    auto_player_signal = pyqtSignal()
+
+    def start(self):
+        # Emit the signal to trigger the AI predictions and UI updates
+        self.auto_player_signal.emit()
 
 class MyMainWindow(QMainWindow):
     def __init__(self):
@@ -65,6 +72,14 @@ class MyMainWindow(QMainWindow):
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.ui.hero_tab.currentChanged.connect(self.update_current_tab)
+
+        self.auto_player = AutoPlayer()
+        self.auto_player.auto_player_signal.connect(self.auto_player_pick_or_ban)
+        # Start the automatic AI predictions and UI updates by calling the start method
+        self.delay_timer = QTimer(self)
+        self.delay_timer.timeout.connect(self.emit_auto_player_signal)
+
+        self.auto_player.start()
 
         # Make the window full-screen at start
         #self.showMaximized()
@@ -242,7 +257,11 @@ class MyMainWindow(QMainWindow):
                 print(abs(self.remaining_clicks - 20))
                 self.remaining_clicks -= 1
             
-    
+    def emit_auto_player_signal(self):
+        # Trigger the AI move after the delay
+        if abs(self.remaining_clicks - 20) not in self.blue_turn and self.remaining_clicks > 0:
+            self.auto_player.auto_player_signal.emit()
+
     def on_button_click(self):
         self.pick_button_clicked = True
 
@@ -253,77 +272,69 @@ class MyMainWindow(QMainWindow):
             self.player_pick(self.draft_state, self.selected_id)
         else:
             self.player_ban(self.draft_state, self.selected_id)
+        
+        # Set the desired delay time (in milliseconds) before emitting the signal
+        delay_milliseconds = 2000  # Adjust the delay time as needed
+        self.delay_timer.start(delay_milliseconds)
 
         if self.current_clicked_label is not None:
-                    self.current_clicked_label.setStyleSheet("")
-                    self.current_clicked_label = None
+            self.current_clicked_label.setStyleSheet("")
+            self.current_clicked_label = None
 
+    def auto_player_pick_or_ban(self):
+        print("auto_player_pick_or_ban called")
+        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+        if self.remaining_clicks <= 0 or self.selected_id is None:
+            return
+        if abs(self.remaining_clicks - 20) in pick_indices:
+            self.player_pick(self.draft_state, self.selected_id)
+        else:
+            self.player_ban(self.draft_state, self.selected_id)
+        print("auto_player_signal emitted")
+        # Check the value of self.remaining_clicks and self.selected_id
+        print("remaining_clicks:", self.remaining_clicks)
+        print("selected_id:", self.selected_id)
+
+        if self.current_clicked_label is not None:
+            self.current_clicked_label.setStyleSheet("")
+            self.current_clicked_label = None
+
+        # Set the desired delay time (in milliseconds) before emitting the signal
+        delay_milliseconds = 2000  # Adjust the delay time as needed
+        self.delay_timer.start(delay_milliseconds)
 
     def player_pick(self, draft_state, selected_id):
         print("player pick called")
-        blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
 
-        if type(self.blue_player) is HumanPlayer:  # If blue player is human
-            if abs(self.remaining_clicks - 20) in blue_turn:
-                self.blue_player.pick(draft_state, selected_id)
-                self.hero_to_disp = selected_id
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
+        # blue player is human
+        if abs(self.remaining_clicks - 20) in self.blue_turn:
+            self.blue_player.pick(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
 
-        else: # If blue player is AI
-            if abs(self.remaining_clicks - 20) in blue_turn:
-                self.hero_to_disp = self.blue_player.pick(draft_state)
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
-
-        if type(self.red_player) is HumanPlayer:  # If red player is human
-            if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.red_player.pick(draft_state, selected_id)
-                self.hero_to_disp = selected_id
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
-
-        else:  # If red player is AI
-            if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.hero_to_disp = self.red_player.pick(draft_state)
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
+        else:  # red player is AI
+            self.hero_to_disp = self.red_player.pick(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
 
     def player_ban(self, draft_state, selected_id):
         print("player ban called")
-        blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+        # blue player is human
+        if abs(self.remaining_clicks - 20) in self.blue_turn:
+            self.blue_player.ban(draft_state, selected_id)
+            self.hero_to_disp = selected_id
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
 
-        if type(self.blue_player) is HumanPlayer:  # If blue player is human
-            if abs(self.remaining_clicks - 20) in blue_turn:
-                self.blue_player.ban(draft_state, selected_id)
-                self.hero_to_disp = selected_id
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
-        else: # If blue player is AI
-            if abs(self.remaining_clicks - 20) in blue_turn:
-                self.hero_to_disp = self.blue_player.ban(draft_state)
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
-
-        if type(self.red_player) is HumanPlayer:  # If red player is human
-            if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.red_player.ban(draft_state, selected_id)
-                self.hero_to_disp = selected_id
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
-        else:  # If red player is AI
-            if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.hero_to_disp = self.red_player.ban(draft_state)
-                print_draft_status(draft_state)
-                self.display_clicked_image(self.hero_to_disp)
-                self.hero_to_disp = None
+        else:  # red player is AI
+            self.hero_to_disp = self.red_player.ban(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
                 
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
