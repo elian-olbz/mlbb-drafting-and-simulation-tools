@@ -49,7 +49,7 @@ class MyMainWindow(QMainWindow):
 
 
         self.draft_state = DraftState('data/hero_roles.csv')
-        self.blue_player, self.red_player = human_vs_human()
+        self.blue_player, self.red_player = human_vs_ai()
 
         self.hero_roles = self.draft_state.hero_roles
         self.hero_names = self.draft_state.hero_names
@@ -254,9 +254,6 @@ class MyMainWindow(QMainWindow):
         else:
             self.player_ban(self.draft_state, self.selected_id)
 
-        self.display_clicked_image(self.hero_to_disp)
-        self.hero_to_disp = None
-
         if self.current_clicked_label is not None:
                     self.current_clicked_label.setStyleSheet("")
                     self.current_clicked_label = None
@@ -271,22 +268,30 @@ class MyMainWindow(QMainWindow):
                 self.blue_player.pick(draft_state, selected_id)
                 self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
 
         else: # If blue player is AI
             if abs(self.remaining_clicks - 20) in blue_turn:
                 self.hero_to_disp = self.blue_player.pick(draft_state)
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
 
         if type(self.red_player) is HumanPlayer:  # If red player is human
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.red_player.pick(draft_state, selected_id)
                 self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
 
         else:  # If red player is AI
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.hero_to_disp = self.red_player.pick(draft_state)
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
 
     def player_ban(self, draft_state, selected_id):
         print("player ban called")
@@ -297,20 +302,28 @@ class MyMainWindow(QMainWindow):
                 self.blue_player.ban(draft_state, selected_id)
                 self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
         else: # If blue player is AI
             if abs(self.remaining_clicks - 20) in blue_turn:
                 self.hero_to_disp = self.blue_player.ban(draft_state)
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
 
         if type(self.red_player) is HumanPlayer:  # If red player is human
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.red_player.ban(draft_state, selected_id)
                 self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
         else:  # If red player is AI
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.hero_to_disp = self.red_player.ban(draft_state)
                 print_draft_status(draft_state)
+                self.display_clicked_image(self.hero_to_disp)
+                self.hero_to_disp = None
                 
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
