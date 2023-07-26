@@ -7,8 +7,8 @@ from functools import partial
 from run_draft_logic.draft_state import DraftState
 
 from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme
-from run_draft_logic.player import HumanPlayer
-from run_draft_logic.modes import human_vs_human, human_vs_ai
+from run_draft_logic.player import HumanPlayer, AIPlayer
+from run_draft_logic.modes import human_vs_human, human_vs_ai, ai_vs_ai
 
 
 class ClickableLabel(QLabel):
@@ -25,6 +25,9 @@ class MyMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+        self.blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+
         self.hero_roles = {}
         self.hero_types = {}
         self.hero_names = []
@@ -35,7 +38,10 @@ class MyMainWindow(QMainWindow):
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
+        self.hero_to_disp = None
+        self.ai_prediction = None
         self.unavailable_hero_ids = []
+        self.ai_prediction = None
 
         # Initialize the current_tab_index to the index of the first tab (All)
         self.current_tab_index = 0
@@ -43,7 +49,7 @@ class MyMainWindow(QMainWindow):
 
 
         self.draft_state = DraftState('data/hero_roles.csv')
-        self.blue_player, self.red_player = human_vs_ai()
+        self.blue_player, self.red_player = human_vs_human()
 
         self.hero_roles = self.draft_state.hero_roles
         self.hero_names = self.draft_state.hero_names
@@ -55,13 +61,14 @@ class MyMainWindow(QMainWindow):
 
         self.populate_tabs()
         # Connect the pick_button click signal to display_clicked_image with the last stored hero_id
-        self.ui.pick_button.clicked.connect(self.display_clicked_image)
+        self.ui.pick_button.clicked.connect(self.on_button_click)
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.ui.hero_tab.currentChanged.connect(self.update_current_tab)
 
         # Make the window full-screen at start
-        self.showMaximized()
+        #self.showMaximized()
+        #self.play_draft()
 
 
     def clear_tabs(self):
@@ -201,31 +208,28 @@ class MyMainWindow(QMainWindow):
                 self.selected_id = None
 
     
-    def display_clicked_image(self):
-        self.pick_button_clicked = True
-        if self.selected_id and self.selected_id not in self.unavailable_hero_ids:
-
-            pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
-            blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
+    def display_clicked_image(self, hero_id):
+        print("display_clicked_image called with hero_id:", hero_id)
+        
+        if hero_id is not None and hero_id not in self.unavailable_hero_ids:
 
             if self.remaining_clicks <= 0:
                 return
 
             qlabel = self.get_next_empty_qlabel()
             if qlabel:
-                if abs(self.remaining_clicks - 20) in pick_indices:
-                    image_path = get_image(self.selected_id)
+                if abs(self.remaining_clicks - 20) in self.pick_indices:
+                    image_path = get_image(hero_id)
                     pixmap = QPixmap(image_path)
                     # Get the size of the QLabel and scale the pixmap to fit
                     label_size = qlabel.size()
                     scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     qlabel.setPixmap(scaled_pixmap)
-                    self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
-                    self.unavailable_hero_ids.append(self.selected_id)
-                    self.player_pick(self.draft_state, self.selected_id)
+                    self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+                    self.unavailable_hero_ids.append(hero_id)
                 else:
-                    image_path = get_icon(self.selected_id)
+                    image_path = get_icon(hero_id)
                     pixmap = QPixmap(image_path)
                     round_pix = rounded_pixmap(pixmap, 97)
                     # Get the size of the QLabel and scale the pixmap to fit
@@ -233,59 +237,80 @@ class MyMainWindow(QMainWindow):
                     scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     qlabel.setPixmap(scaled_pixmap)
-                    self.label_images[qlabel] = self.selected_id  # Update the label_images dictionary
-                    self.unavailable_hero_ids.append(self.selected_id)
-                    self.player_ban(self.draft_state, self.selected_id)
+                    self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+                    self.unavailable_hero_ids.append(hero_id)
+                print(abs(self.remaining_clicks - 20))
                 self.remaining_clicks -= 1
+            
+    
+    def on_button_click(self):
+        self.pick_button_clicked = True
 
-                if self.current_clicked_label is not None:
+        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
+        if self.remaining_clicks <= 0 or self.selected_id is None:
+            return
+        if abs(self.remaining_clicks - 20) in pick_indices:
+            self.player_pick(self.draft_state, self.selected_id)
+        else:
+            self.player_ban(self.draft_state, self.selected_id)
+
+        self.display_clicked_image(self.hero_to_disp)
+        self.hero_to_disp = None
+
+        if self.current_clicked_label is not None:
                     self.current_clicked_label.setStyleSheet("")
                     self.current_clicked_label = None
-    
+
+
     def player_pick(self, draft_state, selected_id):
+        print("player pick called")
         blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
 
         if type(self.blue_player) is HumanPlayer:  # If blue player is human
             if abs(self.remaining_clicks - 20) in blue_turn:
                 self.blue_player.pick(draft_state, selected_id)
+                self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
 
         else: # If blue player is AI
             if abs(self.remaining_clicks - 20) in blue_turn:
-                self.blue_player.pick(draft_state)
+                self.hero_to_disp = self.blue_player.pick(draft_state)
                 print_draft_status(draft_state)
 
         if type(self.red_player) is HumanPlayer:  # If red player is human
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.red_player.pick(draft_state, selected_id)
+                self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
 
         else:  # If red player is AI
             if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.red_player.pick(draft_state)
+                self.hero_to_disp = self.red_player.pick(draft_state)
                 print_draft_status(draft_state)
 
     def player_ban(self, draft_state, selected_id):
+        print("player ban called")
         blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
 
         if type(self.blue_player) is HumanPlayer:  # If blue player is human
             if abs(self.remaining_clicks - 20) in blue_turn:
                 self.blue_player.ban(draft_state, selected_id)
+                self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
         else: # If blue player is AI
             if abs(self.remaining_clicks - 20) in blue_turn:
-                self.blue_player.ban(draft_state)
+                self.hero_to_disp = self.blue_player.ban(draft_state)
                 print_draft_status(draft_state)
 
         if type(self.red_player) is HumanPlayer:  # If red player is human
             if abs(self.remaining_clicks - 20) not in blue_turn:
                 self.red_player.ban(draft_state, selected_id)
+                self.hero_to_disp = selected_id
                 print_draft_status(draft_state)
         else:  # If red player is AI
             if abs(self.remaining_clicks - 20) not in blue_turn:
-                self.red_player.ban(draft_state)
+                self.hero_to_disp = self.red_player.ban(draft_state)
                 print_draft_status(draft_state)
-
                 
     def get_next_empty_qlabel(self):
         qlabels_list = [self.ui.blue_ban1, self.ui.red_ban1, self.ui.blue_ban2, self.ui.red_ban2,
