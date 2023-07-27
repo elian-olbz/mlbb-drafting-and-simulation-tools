@@ -72,8 +72,13 @@ class DraftState:
         else:
             valid_predictions_filtered = []
             for hero_id, prediction in zip(valid_heroes, valid_predictions):
-                if self.filter_pick_roles(hero_id, enemy_pick_roles)  is not None:
-                        valid_predictions_filtered.append(prediction)
+                if len(team_pick_roles) < 3:
+                    if self.filter_pick_roles(hero_id, enemy_pick_roles)  is not None:
+                            valid_predictions_filtered.append(prediction)
+                else:
+                    if self.filter_pick_roles(hero_id, enemy_pick_roles)  not in enemy_pick_roles and self.filter_pick_roles(hero_id, enemy_pick_roles) in team_pick_roles:
+                            valid_predictions_filtered.append(prediction)
+
 
             if not valid_predictions_filtered:
                 next_hero_id = random.choice(valid_heroes)

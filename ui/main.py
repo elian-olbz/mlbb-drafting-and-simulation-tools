@@ -1,6 +1,6 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy, QPushButton
-from PyQt6.QtGui import QPixmap, QColor
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
 from draft_ui import Ui_MainWindow
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
 from functools import partial
@@ -79,11 +79,13 @@ class MyMainWindow(QMainWindow):
         self.delay_timer = QTimer(self)
         self.delay_timer.timeout.connect(self.emit_auto_player_signal)
 
+        # Create a QShortcut that triggers the button click event on "Enter" key press
+        shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self)
+        shortcut.activated.connect(self.ui.pick_button.click)
+
         self.auto_player.start()
 
-        # Make the window full-screen at start
-        #self.showMaximized()
-        #self.play_draft()
+        self.showMaximized()
 
 
     def clear_tabs(self):
@@ -265,10 +267,9 @@ class MyMainWindow(QMainWindow):
     def on_button_click(self):
         self.pick_button_clicked = True
 
-        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
         if self.remaining_clicks <= 0 or self.selected_id is None:
             return
-        if abs(self.remaining_clicks - 20) in pick_indices:
+        if abs(self.remaining_clicks - 20) in self.pick_indices:
             self.player_pick(self.draft_state, self.selected_id)
         else:
             self.player_ban(self.draft_state, self.selected_id)
@@ -283,10 +284,9 @@ class MyMainWindow(QMainWindow):
 
     def auto_player_pick_or_ban(self):
         print("auto_player_pick_or_ban called")
-        pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
         if self.remaining_clicks <= 0 or self.selected_id is None:
             return
-        if abs(self.remaining_clicks - 20) in pick_indices:
+        if abs(self.remaining_clicks - 20) in self.pick_indices:
             self.player_pick(self.draft_state, self.selected_id)
         else:
             self.player_ban(self.draft_state, self.selected_id)
