@@ -295,10 +295,6 @@ class MyMainWindow(QMainWindow):
         print("remaining_clicks:", self.remaining_clicks)
         print("selected_id:", self.selected_id)
 
-        if self.current_clicked_label is not None:
-            self.current_clicked_label.setStyleSheet("")
-            self.current_clicked_label = None
-
         # Set the desired delay time (in milliseconds) before emitting the signal
         delay_milliseconds = 2000  # Adjust the delay time as needed
         self.delay_timer.start(delay_milliseconds)
