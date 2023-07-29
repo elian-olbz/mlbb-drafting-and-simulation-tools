@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
-from draft_ui import Ui_MainWindow
+from ui.practice_draft_ui import Ui_MainWindow
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
 from functools import partial
 from run_draft_logic.draft_state import DraftState
@@ -28,7 +28,7 @@ class AutoPlayer(QObject):
         # Emit the signal to trigger the AI predictions and UI updates
         self.auto_player_signal.emit()
 
-class MyMainWindow(QMainWindow):
+class DraftWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -96,6 +96,10 @@ class MyMainWindow(QMainWindow):
     def update_current_tab(self, index):
         # Update the current_tab_index with the index of the current tab
         self.current_tab_index = index
+        if self.current_clicked_label is not None:
+            self.current_clicked_label.setStyleSheet("")
+            self.current_clicked_label = None
+            self.selected_id = None
 
 
     def populate_tabs(self):
@@ -354,7 +358,7 @@ if __name__ == "__main__":
     #Apply the theme as a global stylesheet to the application
     app.setStyleSheet(theme)
 
-    window = MyMainWindow()
+    window = DraftWindow()
     window.show()
 
     sys.exit(app.exec())
