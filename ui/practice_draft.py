@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
-from ui.practice_draft_ui import Ui_MainWindow
+from ui.ui_practice_draft import Ui_MainWindow
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
 from functools import partial
 from run_draft_logic.draft_state import DraftState
