@@ -14,7 +14,7 @@ class BoardWindow(QMainWindow):
        def __init__(self):
         super(BoardWindow, self).__init__()
 
-        ui_path = os.path.join(script_dir,  "ui/ui_files/board.ui")
+        ui_path = os.path.join(script_dir,  "board.ui")
 
         uic.loadUi(ui_path, self)
 

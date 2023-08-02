@@ -37,7 +37,7 @@ class DraftWindow(QMainWindow):
     def __init__(self):
         super(DraftWindow, self).__init__()
 
-        ui_path = os.path.join(script_dir,  "ui/ui_files/practice_draft.ui")
+        ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
         uic.loadUi(ui_path, self)
 

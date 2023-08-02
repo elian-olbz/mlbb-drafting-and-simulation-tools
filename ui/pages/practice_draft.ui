@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>886</width>
-    <height>578</height>
+    <width>873</width>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -886,6 +886,9 @@ background-color:#16191d;
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="blue_pick1">
                   <property name="minimumSize">
@@ -1126,6 +1129,9 @@ background-color:#16191d;
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="red_pick1">
                   <property name="minimumSize">

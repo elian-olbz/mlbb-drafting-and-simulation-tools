@@ -14,7 +14,7 @@ class QuickDraftWindow(QMainWindow):
        def __init__(self):
         super(QuickDraftWindow, self).__init__()
 
-        ui_path = os.path.join(script_dir,  "ui/ui_files/quick_draft.ui")
+        ui_path = os.path.join(script_dir,  "quick_draft.ui")
 
         uic.loadUi(ui_path, self)
 

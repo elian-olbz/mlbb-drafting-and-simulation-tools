@@ -14,7 +14,7 @@ class HeatMapWindow(QMainWindow):
        def __init__(self):
         super(HeatMapWindow, self).__init__()
 
-        ui_path = os.path.join(script_dir,  "ui/ui_files/heat_map.ui")
+        ui_path = os.path.join(script_dir,  "heatmap.ui")
 
         uic.loadUi(ui_path, self)
 

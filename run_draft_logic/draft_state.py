@@ -54,7 +54,7 @@ class DraftState:
             valid_predictions_filtered = []
             for hero_id, prediction in zip(valid_heroes, valid_predictions):
                 if len(team_pick_roles) == 2: # added to avoid returning None for mirrored drafting on phase 1
-                    if self.filter_pick_roles(hero_id, enemy_pick_roles) is not None:
+                    if self.filter_pick_roles(hero_id, enemy_pick_roles) is not None and self.filter_pick_roles(hero_id, team_pick_roles) is not None:
                         valid_predictions_filtered.append(prediction)
 
                 else:
