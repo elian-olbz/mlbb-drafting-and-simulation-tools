@@ -313,7 +313,7 @@ border-bottom-left-radius: 10px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="coaching_button">
+              <widget class="QPushButton" name="board_button">
                <property name="toolTip">
                 <string>Coaching Board</string>
                </property>

@@ -14,12 +14,3 @@ class OpenBoard(QDialog):
         ui_path = os.path.join(script_dir,  "open_board.ui")
 
         uic.loadUi(ui_path, self)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    window = OpenBoard()
-    window.show()
-
-    sys.exit(app.exec())
