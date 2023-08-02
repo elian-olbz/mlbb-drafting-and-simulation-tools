@@ -157,8 +157,8 @@ background-color:#16191d;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
-                 <normaloff>:/icons/Icon.png</normaloff>:/icons/Icon.png</iconset>
+                <iconset resource="../rsc.qrc">
+                 <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -241,7 +241,7 @@ background-color:#16191d;
                    <string>Size</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/crosshair.svg</normaloff>:/icons/icons/crosshair.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -288,7 +288,7 @@ background-color:#16191d;
                    <string>Color</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/droplet.svg</normaloff>:/icons/icons/droplet.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -354,7 +354,7 @@ background-color:#16191d;
                 <string>Open in Quick Draft</string>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
+                <iconset resource="../rsc.qrc">
                  <normaloff>:/icons/icons/chevron-right.svg</normaloff>:/icons/icons/chevron-right.svg</iconset>
                </property>
                <property name="iconSize">
@@ -414,7 +414,7 @@ background-color:#16191d;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
+                <iconset resource="../rsc.qrc">
                  <normaloff>:/icons/icons/minus.svg</normaloff>:/icons/icons/minus.svg</iconset>
                </property>
               </widget>
@@ -425,7 +425,7 @@ background-color:#16191d;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
+                <iconset resource="../rsc.qrc">
                  <normaloff>:/icons/icons/square.svg</normaloff>:/icons/icons/square.svg</iconset>
                </property>
                <property name="iconSize">
@@ -442,7 +442,7 @@ background-color:#16191d;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
+                <iconset resource="../rsc.qrc">
                  <normaloff>:/icons/icons/x.svg</normaloff>:/icons/icons/x.svg</iconset>
                </property>
               </widget>
@@ -549,7 +549,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/align-justify.svg</normaloff>:/icons/icons/align-justify.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -599,7 +599,7 @@ background-color:#16191d;
                    <string>Arrow</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/arrow-up-right.svg</normaloff>:/icons/icons/arrow-up-right.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -622,7 +622,7 @@ background-color:#16191d;
                    <string>Circle</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/circle.svg</normaloff>:/icons/icons/circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -642,7 +642,7 @@ background-color:#16191d;
                    <string>Pen</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/pen-tool.svg</normaloff>:/icons/icons/pen-tool.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -662,7 +662,7 @@ background-color:#16191d;
                    <string>Eraser</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/box.svg</normaloff>:/icons/icons/box.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -722,7 +722,7 @@ background-color:#16191d;
                    <string>   Settings</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/settings.svg</normaloff>:/icons/icons/settings.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -742,7 +742,7 @@ background-color:#16191d;
                    <string>   Help</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/help-circle.svg</normaloff>:/icons/icons/help-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -861,7 +861,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -878,7 +878,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -895,7 +895,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -912,7 +912,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -929,7 +929,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -958,7 +958,7 @@ background-color:#16191d;
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">image: url(:/icons/map.png);</string>
+                <string notr="true">image: url(:/icons/icons/map.png);</string>
                </property>
                <property name="text">
                 <string/>
@@ -1004,7 +1004,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -1021,7 +1021,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -1038,7 +1038,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -1055,7 +1055,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -1072,7 +1072,7 @@ background-color:#16191d;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../rsc.qrc">
+                   <iconset resource="../rsc.qrc">
                     <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -1137,7 +1137,7 @@ background-color:#16191d;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../rsc.qrc">
+                <iconset resource="../rsc.qrc">
                  <normaloff>:/icons/icons/edit-3.svg</normaloff>:/icons/icons/edit-3.svg</iconset>
                </property>
                <property name="iconSize">
@@ -1161,7 +1161,7 @@ background-color:#16191d;
   </widget>
  </widget>
  <resources>
-  <include location="../../rsc.qrc"/>
+  <include location="../rsc.qrc"/>
  </resources>
  <connections/>
 </ui>
