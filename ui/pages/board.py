@@ -17,6 +17,7 @@ class BoardWindow(QMainWindow):
         ui_path = os.path.join(script_dir,  "board.ui")
 
         uic.loadUi(ui_path, self)
+        self.showMaximized()
 
 
 if __name__ == "__main__":

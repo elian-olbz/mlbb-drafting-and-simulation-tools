@@ -9,8 +9,6 @@ from ui.rsc_rc import *
 from run_draft_logic.draft_state import DraftState
 
 from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme
-from run_draft_logic.player import HumanPlayer, AIPlayer
-from run_draft_logic.modes import human_vs_human, human_vs_ai, ai_vs_ai
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
@@ -34,8 +32,8 @@ class AutoPlayer(QObject):
         self.auto_player_signal.emit()
 
 class DraftWindow(QMainWindow):
-    def __init__(self):
-        super(DraftWindow, self).__init__()
+    def __init__(self, parent):
+        super(DraftWindow, self).__init__(parent)
 
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
@@ -65,7 +63,9 @@ class DraftWindow(QMainWindow):
 
 
         self.draft_state = DraftState('data/hero_roles.csv')
-        self.blue_player, self.red_player = human_vs_ai()
+        self.blue_player = None
+        self.red_player = None
+        self.mode = None
 
         self.hero_roles = self.draft_state.hero_roles
         self.hero_names = self.draft_state.hero_names
@@ -236,7 +236,6 @@ class DraftWindow(QMainWindow):
 
     
     def display_clicked_image(self, hero_id):
-        print("display_clicked_image called with hero_id:", hero_id)
         
         if hero_id is not None and hero_id not in self.unavailable_hero_ids:
 
@@ -266,13 +265,21 @@ class DraftWindow(QMainWindow):
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(hero_id)
-                print(abs(self.remaining_clicks - 20))
                 self.remaining_clicks -= 1
             
     def emit_auto_player_signal(self):
         # Trigger the AI move after the delay
-        if abs(self.remaining_clicks - 20) not in self.blue_turn and self.remaining_clicks > 0:
-            self.auto_player.auto_player_signal.emit()
+        if self.mode == 'HvH':
+            pass
+        elif self.mode == 'HvA':
+            if abs(self.remaining_clicks - 20) not in self.blue_turn and self.remaining_clicks > 0:
+                self.auto_player.auto_player_signal.emit()
+        elif self.mode == 'AvH':
+            if abs(self.remaining_clicks - 20) in self.blue_turn and self.remaining_clicks > 0:
+                self.auto_player.auto_player_signal.emit()
+        elif self.mode == 'AvA':
+            if abs(self.remaining_clicks - 20) in self.blue_turn or abs(self.remaining_clicks - 20) not in self.blue_turn and self.remaining_clicks > 0:
+                self.auto_player.auto_player_signal.emit()
 
     def on_button_click(self):
         self.pick_button_clicked = True
@@ -280,12 +287,12 @@ class DraftWindow(QMainWindow):
         if self.remaining_clicks <= 0 or self.selected_id is None:
             return
         if abs(self.remaining_clicks - 20) in self.pick_indices:
-            self.player_pick(self.draft_state, self.selected_id)
+            self.pick_or_ban(self.draft_state, self.selected_id, self.mode, True)
         else:
-            self.player_ban(self.draft_state, self.selected_id)
+            self.pick_or_ban(self.draft_state, self.selected_id, self.mode, False)
         
         # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = 2000  # Adjust the delay time as needed
+        delay_milliseconds = 1000  # Adjust the delay time as needed
         self.delay_timer.start(delay_milliseconds)
 
         if self.current_clicked_label is not None:
@@ -293,55 +300,115 @@ class DraftWindow(QMainWindow):
             self.current_clicked_label = None
 
     def auto_player_pick_or_ban(self):
-        print("auto_player_pick_or_ban called")
-        if self.remaining_clicks <= 0 or self.selected_id is None:
+        if self.remaining_clicks <= 0:
             return
         if abs(self.remaining_clicks - 20) in self.pick_indices:
-            self.player_pick(self.draft_state, self.selected_id)
+            self.pick_or_ban(self.draft_state, self.selected_id, self.mode, True)
         else:
-            self.player_ban(self.draft_state, self.selected_id)
-        print("auto_player_signal emitted")
-        # Check the value of self.remaining_clicks and self.selected_id
-        print("remaining_clicks:", self.remaining_clicks)
-        print("selected_id:", self.selected_id)
+            self.pick_or_ban(self.draft_state, self.selected_id, self.mode, False)
 
         # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = 2000  # Adjust the delay time as needed
+        delay_milliseconds = 1000  # Adjust the delay time as needed
         self.delay_timer.start(delay_milliseconds)
 
-    def player_pick(self, draft_state, selected_id):
-        print("player pick called")
 
-        # blue player is human
-        if abs(self.remaining_clicks - 20) in self.blue_turn:
-            self.blue_player.pick(draft_state, selected_id)
+    def human_move(self, draft_state, selected_id, mode, is_pick):
+        if mode == "HvA":
+            if is_pick:
+                self.blue_player.pick(draft_state, selected_id)
+            else:
+                self.blue_player.ban(draft_state, selected_id)
             self.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.display_clicked_image(self.hero_to_disp)
             self.hero_to_disp = None
 
-        else:  # red player is AI
-            self.hero_to_disp = self.red_player.pick(draft_state)
+        elif mode == 'AvH':
+            if is_pick:
+                self.red_player.pick(draft_state, selected_id)
+            else:
+                self.red_player.ban(draft_state, selected_id)
+            self.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.display_clicked_image(self.hero_to_disp)
             self.hero_to_disp = None
-
-    def player_ban(self, draft_state, selected_id):
-        print("player ban called")
-        # blue player is human
-        if abs(self.remaining_clicks - 20) in self.blue_turn:
-            self.blue_player.ban(draft_state, selected_id)
+        else:
+            if abs(self.remaining_clicks - 20) in self.blue_turn:
+                if is_pick:
+                    self.blue_player.pick(draft_state, selected_id)
+                else:
+                    self.blue_player.ban(draft_state, selected_id)
+            else:
+                if is_pick:
+                    self.red_player.pick(draft_state, selected_id)
+                else:
+                    self.red_player.ban(draft_state, selected_id)
             self.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.display_clicked_image(self.hero_to_disp)
             self.hero_to_disp = None
 
-        else:  # red player is AI
-            self.hero_to_disp = self.red_player.ban(draft_state)
+
+    def ai_move(self, draft_state, mode, is_pick):
+        if mode == 'AvH':
+            if is_pick:
+                self.hero_to_disp = self.blue_player.pick(draft_state)
+            else:
+                self.hero_to_disp = self.blue_player.ban(draft_state)
             print_draft_status(draft_state)
             self.display_clicked_image(self.hero_to_disp)
             self.hero_to_disp = None
-                
+        elif mode == 'HvA':
+            if is_pick:
+                self.hero_to_disp = self.red_player.pick(draft_state)
+            else:
+                self.hero_to_disp = self.red_player.ban(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+        elif mode == 'AvA':
+            if abs(self.remaining_clicks - 20) in self.blue_turn:
+                if is_pick:
+                    self.hero_to_disp = self.blue_player.pick(draft_state)
+                else:
+                    self.hero_to_disp = self.blue_player.ban(draft_state)
+            else:
+                if is_pick:
+                    self.hero_to_disp = self.red_player.pick(draft_state)
+                else:
+                    self.hero_to_disp = self.red_player.ban(draft_state)
+            print_draft_status(draft_state)
+            self.display_clicked_image(self.hero_to_disp)
+            self.hero_to_disp = None
+
+
+            
+    def pick_or_ban(self, draft_state, selected_id, mode, is_pick):
+
+        if mode is not None and mode == 'HvH': # Human vs Human
+            # blue player is human
+            self.human_move(draft_state, selected_id, mode, is_pick)
+
+        elif mode is not None and mode == 'HvA': # HUman vs Ai
+            # blue player is human
+            if abs(self.remaining_clicks - 20) in self.blue_turn:
+                self.human_move(draft_state, selected_id, mode, is_pick)
+
+            else:  # red player is AI
+                self.ai_move(draft_state, mode, is_pick)
+
+        elif mode is not None and mode == 'AvH':
+            # blue player is AI
+            if abs(self.remaining_clicks - 20) in self.blue_turn:
+                self.ai_move(draft_state, mode, is_pick)
+
+            else:  # red player is Human
+                self.human_move(draft_state, selected_id, mode, is_pick)
+
+        elif mode is not None and mode == 'AvA':
+            self.ai_move(draft_state, mode, is_pick)
+    
     def get_next_empty_qlabel(self):
         qlabels_list = [self.blue_ban1, self.red_ban1, self.blue_ban2, self.red_ban2,
                         self.blue_ban3, self.red_ban3, self.blue_pick1, self.red_pick1,

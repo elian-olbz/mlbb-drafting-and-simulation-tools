@@ -5,6 +5,7 @@ from PyQt6 import uic
 import sys
 import os
 from ui.rsc_rc import *
+from run_draft_logic.modes import human_vs_human, human_vs_ai, ai_vs_human, ai_vs_ai
 
 from ui.pages.practice_draft import DraftWindow
 from ui.pages.quick_draft import QuickDraftWindow
@@ -31,20 +32,23 @@ class MainWindow(QMainWindow):
         self.board_button.clicked.connect(self.open_board)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
+        self.showMaximized()
 
-
-    
     def open_practice_dialog(self):
         self.practice_dialog.show()
 
     def open_practice_page(self):
-        self.draft_window = DraftWindow()
-        self.draft_window.show()
+        self.draft_window = DraftWindow(self)
+        self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
         self.practice_dialog.close()
+        self.draft_window.show()
+        #self.hide()
 
     def open_quick_draft(self):
-        self.quick_draft = QuickDraftWindow()
+        self.quick_draft = QuickDraftWindow(self)
+        #self.hide()
         self.quick_draft.show()
+
 
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
@@ -53,8 +57,6 @@ class MainWindow(QMainWindow):
     def open_board(self):
         self.board = BoardWindow()
         self.board.show()
-
-        
 
 
 if __name__ == "__main__":

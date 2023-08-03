@@ -17,6 +17,7 @@ class HeatMapWindow(QMainWindow):
         ui_path = os.path.join(script_dir,  "heatmap.ui")
 
         uic.loadUi(ui_path, self)
+        self.showMaximized()
 
 
 if __name__ == "__main__":

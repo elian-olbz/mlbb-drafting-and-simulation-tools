@@ -11,12 +11,13 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
 class QuickDraftWindow(QMainWindow):
-       def __init__(self):
-        super(QuickDraftWindow, self).__init__()
+       def __init__(self, parent):
+        super(QuickDraftWindow, self).__init__(parent)
 
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
 
         uic.loadUi(ui_path, self)
+        self.showMaximized()
 
 
 if __name__ == "__main__":
