@@ -38,6 +38,9 @@ class DraftWindow(QMainWindow):
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
         uic.loadUi(ui_path, self)
+        theme_path = "ui/py_dracula_dark.qss"
+        theme = load_theme(theme_path)
+        self.setStyleSheet(theme)
 
         self.pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
         self.blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
@@ -420,18 +423,3 @@ class DraftWindow(QMainWindow):
                 return qlabel
 
         return None
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    #Load the theme
-    theme_path = "ui/dark.qss"
-    theme = load_theme(theme_path)
-
-    #Apply the theme as a global stylesheet to the application
-    app.setStyleSheet(theme)
-
-    window = DraftWindow()
-    window.show()
-
-    sys.exit(app.exec())

@@ -11,7 +11,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
 class BoardWindow(QMainWindow):
-       def __init__(self):
+    def __init__(self):
         super(BoardWindow, self).__init__()
 
         ui_path = os.path.join(script_dir,  "board.ui")

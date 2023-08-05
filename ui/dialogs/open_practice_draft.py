@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QDialog
+from PyQt6.QtCore import Qt
 from PyQt6 import uic
 import os
 from ui.rsc_rc import *
@@ -9,6 +10,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 class OpenPracticeDraft(QDialog):
     def __init__(self):
         super(OpenPracticeDraft, self).__init__()
+        #self.setWindowFlag(Qt.WindowType.FramelessWindowHint)
 
         ui_path = os.path.join(script_dir,  "open_practice_draft.ui")
 
