@@ -38,14 +38,11 @@ class DraftWindow(QMainWindow):
 
         self.WINDOW_MAXED = True
         self.menu_width = 55
-        self.title_bar = TitleBar(self, self.WINDOW_MAXED)
+        self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
         uic.loadUi(ui_path, self)
-        theme_path = "ui/py_dracula_dark.qss"
-        theme = load_theme(theme_path)
-        self.setStyleSheet(theme)
 
         self.pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
         self.blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]

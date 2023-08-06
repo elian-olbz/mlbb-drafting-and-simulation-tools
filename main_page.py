@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         self.WINDOW_MAXED = True
         self.menu_width = 55
 
-        self.title_bar = TitleBar(self, self.WINDOW_MAXED)
+        self.title_bar = TitleBar(self)
         self.player1 = None
         self.player2 = None
 
@@ -46,9 +46,9 @@ class MainWindow(QMainWindow):
         self.menu_button.clicked.connect(self.toggle_menu)
         
         #Load the theme
-        #theme_path = "ui/py_dracula_dark.qss"
-        #theme = load_theme(theme_path)
-        #self.setStyleSheet(theme)
+        theme_path = "ui/py_dracula_dark.qss"
+        theme = load_theme(theme_path)
+        self.setStyleSheet(theme)
 
 #############################################################       
         # MOVE WINDOW
@@ -62,6 +62,8 @@ class MainWindow(QMainWindow):
                 self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
                 self.dragPos = event.globalPosition().toPoint()
                 event.accept()
+
+            #self.WINDOW_MAXED = False
 
         # SET TITLE BAR
         #-----------------

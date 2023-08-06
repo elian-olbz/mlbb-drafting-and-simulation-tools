@@ -15,8 +15,8 @@ class QuickDraftWindow(QMainWindow):
     def __init__(self, parent):
         super(QuickDraftWindow, self).__init__(parent)
 
-        self.WINDOW_MAXED = True
-        self.title_bar = TitleBar(self, self.WINDOW_MAXED)
+        self.WINDOW_MAXED = False
+        self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
 

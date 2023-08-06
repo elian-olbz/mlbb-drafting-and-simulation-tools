@@ -18,7 +18,7 @@ class HeatMapWindow(QMainWindow):
 
         self.WINDOW_MAXED = True
         self.menu_width = 55
-        self.title_bar = TitleBar(self, self.WINDOW_MAXED)
+        self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "heatmap.ui")
 

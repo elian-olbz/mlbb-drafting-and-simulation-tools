@@ -5,11 +5,10 @@ from PyQt6 import uic
 
 
 class TitleBar(QMainWindow):
-    def __init__(self, parent, window_maxed):
+    def __init__(self, parent):
         super(TitleBar, self).__init__(parent)
-        self.win_maxed = window_maxed
+        self.win_maxed = True
         
-
     ## ==> MAXIMIZE RESTORE FUNCTION
     def maximize_restore(self, parent):
         # IF NOT MAXIMIZED
@@ -20,7 +19,7 @@ class TitleBar(QMainWindow):
 
             # IF MAXIMIZED REMOVE MARGINS AND BORDER RADIUS
             parent.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1)); border-radius: 0px;")
+            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
             parent.btn_max.setToolTip("Restore")
         else:
             self.win_maxed = False
@@ -29,29 +28,13 @@ class TitleBar(QMainWindow):
 
             #--------------
             parent.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));border-radius: 10px;")
+            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
             parent.btn_max.setToolTip("Maximize")
             #--------------
 
     ## ==> UI DEFINITIONS
     def uiDefinitions(self, parent):
 
-        if parent.WINDOW_MAXED == False:
-            parent.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1)); border-radius: 10px;")
-        
-            parent.frame_2.setStyleSheet("border-radius: 10px;")
-            parent.frame_3.setStyleSheet("border-radius: 10px;")
-
-            parent.btn_max.setToolTip("Restore")
-        else:
-            parent.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1)); border-radius: 0px;")
-        
-            parent.frame_2.setStyleSheet("border-radius: 10px;")
-            parent.frame_3.setStyleSheet("border-radius: 10px;")
-
-            parent.btn_max.setToolTip("Restore")
         # REMOVE TITLE BAR
         parent.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         parent.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
