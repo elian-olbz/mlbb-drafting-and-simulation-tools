@@ -25,13 +25,10 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        #Load the theme
-        theme_path = "ui/py_dracula_dark.qss"
-        theme = load_theme(theme_path)
-        self.setStyleSheet(theme)
-        
+        self.WINDOW_MAXED = True
         self.menu_width = 55
 
+        self.title_bar = TitleBar(self, self.WINDOW_MAXED)
         self.player1 = None
         self.player2 = None
 
@@ -48,12 +45,17 @@ class MainWindow(QMainWindow):
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
         self.menu_button.clicked.connect(self.toggle_menu)
         
-        
+        #Load the theme
+        #theme_path = "ui/py_dracula_dark.qss"
+        #theme = load_theme(theme_path)
+        #self.setStyleSheet(theme)
+
+#############################################################       
         # MOVE WINDOW
         def moveWindow(event):
             # RESTORE BEFORE MOVE
-            if UIFunctions.returnStatus() == True:
-                UIFunctions.maximize_restore(self)
+            if self.title_bar.returnStatus() == True:
+                self.title_bar.maximize_restore(self)
 
             # IF LEFT CLICK MOVE WINDOW
             if event.buttons() == Qt.MouseButton.LeftButton:
@@ -66,12 +68,11 @@ class MainWindow(QMainWindow):
         self.header_container.mouseMoveEvent = moveWindow
 
         ## ==> SET UI DEFINITIONS
-        UIFunctions.uiDefinitions(self)
+        self.title_bar.uiDefinitions(self)
         self.showMaximized()
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
-
 
 #######################################################################
 
@@ -90,21 +91,32 @@ class MainWindow(QMainWindow):
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_ai()
 
         self.practice_dialog.close()
-        self.draft_window.show()
+        if self.isMaximized():
+            self.draft_window.showMaximized()
+        else:
+            self.draft_window.show()
         #self.hide()
 
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow(self)
-        #self.hide()
-        self.quick_draft.show()
+        if self.isMaximized():
+            self.quick_draft.showMaximized()
+        else:
+            self.quick_draft.show()
 
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
-        self.heatmap.show()
+        if self.isMaximized():
+            self.heatmap.showMaximized()
+        else:
+            self.heatmap.show()
     
     def open_board(self):
         self.board = BoardWindow()
-        self.board.show()
+        if self.isMaximized():
+            self.board.showMaximized()
+        else:
+            self.board.show()
 
     def toggle_menu(self):
         if self.menu_width == 55:
