@@ -36,7 +36,7 @@ class DraftWindow(QMainWindow):
     def __init__(self, parent):
         super(DraftWindow, self).__init__(parent)
 
-        self.WINDOW_MAXED = True
+        self.WINDOW_MAXED = False
         self.menu_width = 55
         self.title_bar = TitleBar(self)
 

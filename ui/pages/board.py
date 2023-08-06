@@ -15,7 +15,7 @@ class BoardWindow(QMainWindow):
     def __init__(self):
         super(BoardWindow, self).__init__()
 
-        self.WINDOW_MAXED = True
+        self.WINDOW_MAXED = False
         self.menu_width = 55
         self.title_bar = TitleBar(self)
 

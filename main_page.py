@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
                 self.dragPos = event.globalPosition().toPoint()
                 event.accept()
 
-            #self.WINDOW_MAXED = False
+            self.WINDOW_MAXED = False
 
         # SET TITLE BAR
         #-----------------
@@ -96,6 +96,10 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.draft_window.showMaximized()
         else:
+            self.draft_window.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.draft_window.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.draft_window.btn_max.setToolTip("Maximize")
+            self.draft_window.show()
             self.draft_window.show()
         #self.hide()
 
@@ -104,6 +108,9 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.quick_draft.showMaximized()
         else:
+            self.quick_draft.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.quick_draft.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.quick_draft.btn_max.setToolTip("Maximize")
             self.quick_draft.show()
 
     def open_heatmap(self):
@@ -111,6 +118,9 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.heatmap.showMaximized()
         else:
+            self.heatmap.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.heatmap.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.heatmap.btn_max.setToolTip("Maximize")
             self.heatmap.show()
     
     def open_board(self):
@@ -118,6 +128,10 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.board.showMaximized()
         else:
+            self.board.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.board.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.board.btn_max.setToolTip("Maximize")
+            self.board.show()
             self.board.show()
 
     def toggle_menu(self):
