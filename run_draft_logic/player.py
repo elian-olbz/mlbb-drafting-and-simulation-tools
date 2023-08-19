@@ -1,4 +1,3 @@
-from run_draft_logic.draft_state import DraftState
 from run_draft_logic.utils import get_name
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.lite.python.interpreter import Interpreter

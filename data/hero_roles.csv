@@ -7,7 +7,7 @@ Nana,5,Mid ,hero_icon (5).jpg,Mage
 Tigreal,6,Roamer,hero_icon (6).jpg,Tank /  Support
 Alucard,7,EXP ,hero_icon (7).jpg,Fighter /  Assassin
 Karina,8,Jungler,hero_icon (8).jpg,Assassin
-Akai,9,Jungler / Roamer,hero_icon (9).jpg,Tank /  Support
+Akai,9,Jungler,hero_icon (9).jpg,Tank /  Support
 Franco,10,Roamer,hero_icon (10).jpg,Tank /  Support
 Bane,11,Jungler,hero_icon (11).jpg,Fighter /  Mage
 Bruno,12,Gold ,hero_icon (12).jpg,Marksman
@@ -72,7 +72,7 @@ Belerick,70,Roamer,hero_icon (70).jpg,Tank
 Kimmy,71,Gold ,hero_icon (71).jpg,Marksman /  Mage
 Thamuz,72,EXP ,hero_icon (72).jpg,Fighter
 Harith,73,Gold,hero_icon (73).jpg,Mage
-Minsitthar,74,EXP / Gold,hero_icon (74).jpg,Fighter
+Minsitthar,74,EXP,hero_icon (74).jpg,Fighter
 Kadita,75,Mid / Roamer,hero_icon (75).jpg,Mage /  Assassin
 Faramis,76,Mid / Roamer,hero_icon (76).jpg,Support /  Mage
 Badang,77,EXP ,hero_icon (77).jpg,Fighter
