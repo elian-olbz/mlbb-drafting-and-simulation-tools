@@ -8,6 +8,7 @@ class TitleBar(QMainWindow):
     def __init__(self, parent):
         super(TitleBar, self).__init__(parent)
         self.win_maxed = True
+        self.shadow_style = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))"
         
     ## ==> MAXIMIZE RESTORE FUNCTION
     def maximize_restore(self, parent):
@@ -19,7 +20,7 @@ class TitleBar(QMainWindow):
 
             # IF MAXIMIZED REMOVE MARGINS AND BORDER RADIUS
             parent.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Restore")
         else:
             self.win_maxed = False
@@ -28,7 +29,7 @@ class TitleBar(QMainWindow):
 
             #--------------
             parent.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            parent.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Maximize")
             #--------------
 
@@ -38,6 +39,7 @@ class TitleBar(QMainWindow):
         # REMOVE TITLE BAR
         parent.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         parent.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        parent.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # SET DROPSHADOW WINDOW
         parent.shadow = QGraphicsDropShadowEffect(parent)

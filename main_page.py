@@ -13,7 +13,6 @@ from ui.pages.practice_draft import DraftWindow
 from ui.pages.quick_draft import QuickDraftWindow
 from ui.pages.heatmap import HeatMapWindow
 from ui.pages.board import BoardWindow
-#from ui.misc.titlebar import TitleBar
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
 from ui.misc.titlebar import*
@@ -31,8 +30,10 @@ class MainWindow(QMainWindow):
         self.title_bar = TitleBar(self)
         self.player1 = None
         self.player2 = None
-
+     
+        # Dialogs
         self.practice_dialog = OpenPracticeDraft()
+        
         ui_path = os.path.join(script_dir,  "ui/pages/main_page.ui")
 
         uic.loadUi(ui_path, self)
@@ -83,6 +84,7 @@ class MainWindow(QMainWindow):
 
     def open_practice_page(self):
         self.draft_window = DraftWindow(self)
+        
         if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
         elif self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 1:
@@ -97,9 +99,8 @@ class MainWindow(QMainWindow):
             self.draft_window.showMaximized()
         else:
             self.draft_window.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            self.draft_window.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.draft_window.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.draft_window.btn_max.setToolTip("Maximize")
-            self.draft_window.show()
             self.draft_window.show()
         #self.hide()
 
@@ -109,7 +110,7 @@ class MainWindow(QMainWindow):
             self.quick_draft.showMaximized()
         else:
             self.quick_draft.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            self.quick_draft.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.quick_draft.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.quick_draft.btn_max.setToolTip("Maximize")
             self.quick_draft.show()
 
@@ -119,7 +120,7 @@ class MainWindow(QMainWindow):
             self.heatmap.showMaximized()
         else:
             self.heatmap.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            self.heatmap.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.heatmap.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.heatmap.btn_max.setToolTip("Maximize")
             self.heatmap.show()
     
@@ -129,7 +130,7 @@ class MainWindow(QMainWindow):
             self.board.showMaximized()
         else:
             self.board.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            self.board.drop_shadow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))")
+            self.board.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.board.btn_max.setToolTip("Maximize")
             self.board.show()
             self.board.show()

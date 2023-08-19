@@ -58,9 +58,7 @@ class DraftWindow(QMainWindow):
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
         self.hero_to_disp = None
-        self.ai_prediction = None
         self.unavailable_hero_ids = []
-        self.ai_prediction = None
 
         # Initialize the current_tab_index to the index of the first tab (All)
         self.current_tab_index = 0
