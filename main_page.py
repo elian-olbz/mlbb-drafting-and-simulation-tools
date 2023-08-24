@@ -3,11 +3,19 @@ from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
 
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+from math import ceil
+from plotly.subplots import make_subplots
+import plotly.io as pio
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+
 import sys
 import os
 from ui.rsc_rc import *
 from run_draft_logic.utils import load_theme
-from run_draft_logic.modes import human_vs_human, human_vs_ai, ai_vs_human, ai_vs_ai
+from run_draft_logic.modes import *
 
 from ui.pages.practice_draft import DraftWindow
 from ui.pages.quick_draft import QuickDraftWindow
@@ -44,12 +52,9 @@ class MainWindow(QMainWindow):
         self.board_button.clicked.connect(self.open_board)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
-        self.menu_button.clicked.connect(self.toggle_menu)
+        self.menu_button.clicked.connect(self.toggle_home_menu)
         
-        #Load the theme
-        theme_path = "ui/py_dracula_dark.qss"
-        theme = load_theme(theme_path)
-        self.setStyleSheet(theme)
+        
 
 #############################################################       
         # MOVE WINDOW
@@ -83,7 +88,7 @@ class MainWindow(QMainWindow):
         self.practice_dialog.show()
 
     def open_practice_page(self):
-        self.draft_window = DraftWindow(self)
+        self.draft_window = DraftWindow()
         
         if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
@@ -98,18 +103,18 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.draft_window.showMaximized()
         else:
-            self.draft_window.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.draft_window.central_layout.setContentsMargins(10, 10, 10, 10)
             self.draft_window.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.draft_window.btn_max.setToolTip("Maximize")
             self.draft_window.show()
         #self.hide()
 
     def open_quick_draft(self):
-        self.quick_draft = QuickDraftWindow(self)
+        self.quick_draft = QuickDraftWindow()
         if self.isMaximized():
             self.quick_draft.showMaximized()
         else:
-            self.quick_draft.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.quick_draft.central_layout.setContentsMargins(10, 10, 10, 10)
             self.quick_draft.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.quick_draft.btn_max.setToolTip("Maximize")
             self.quick_draft.show()
@@ -119,30 +124,29 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.heatmap.showMaximized()
         else:
-            self.heatmap.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            self.heatmap.central_layout.setContentsMargins(10, 10, 10, 10)
             self.heatmap.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.heatmap.btn_max.setToolTip("Maximize")
             self.heatmap.show()
     
     def open_board(self):
-        self.board = BoardWindow()
+        board = BoardWindow()
         if self.isMaximized():
-            self.board.showMaximized()
+            board.showMaximized()
         else:
-            self.board.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-            self.board.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
-            self.board.btn_max.setToolTip("Maximize")
-            self.board.show()
-            self.board.show()
+            board.central_layout.setContentsMargins(10, 10, 10, 10)
+            board.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
+            board.btn_max.setToolTip("Maximize")
+            board.show()
+            board.show()
 
-    def toggle_menu(self):
+    def toggle_home_menu(self):
         if self.menu_width == 55:
             self.menu_width = 150  # New width when menu is collapsed
         else:
             self.menu_width = 55  # Original width when menu is expanded
 
         self.left_menu_subcontainer.setFixedWidth(self.menu_width)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

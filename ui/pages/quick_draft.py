@@ -4,6 +4,7 @@ from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
 import sys
 import os
+from run_draft_logic.utils import load_theme
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
@@ -12,15 +13,17 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
 class QuickDraftWindow(QMainWindow):
-    def __init__(self, parent):
-        super(QuickDraftWindow, self).__init__(parent)
+    def __init__(self):
+        super(QuickDraftWindow, self).__init__()
 
         self.WINDOW_MAXED = False
+        self.menu_width = 55
         self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
 
         uic.loadUi(ui_path, self)
+        
 #############################################################       
         # MOVE WINDOW
         def moveWindow(event):
@@ -45,7 +48,7 @@ class QuickDraftWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
-#######################################################################       
+#######################################################################     
 
 
 if __name__ == "__main__":

@@ -35,8 +35,9 @@ class TitleBar(QMainWindow):
         parent.exit_button.clicked.connect(lambda: parent.close())
         #----------------------
 
+"""
         ## ==> CREATE SIZE GRIP TO RESIZE WINDOW
         parent.sizegrip = QSizeGrip(parent.frame_grip)
         parent.sizegrip.setStyleSheet("QSizeGrip { width: 10px; height: 10px; margin: 5px } QSizeGrip:hover { background-color: rgb(50, 42, 94) }")
         parent.sizegrip.setToolTip("Resize Window")
-
+"""

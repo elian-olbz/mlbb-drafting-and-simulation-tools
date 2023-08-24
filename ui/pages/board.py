@@ -17,11 +17,15 @@ class BoardWindow(QMainWindow):
 
         self.WINDOW_MAXED = False
         self.menu_width = 55
+        self.snap_menu_width = 55
         self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "board.ui")
 
         uic.loadUi(ui_path, self)
+
+        self.menu_button.clicked.connect(self.toggle_home_menu)
+        self.snap_menu_btn.clicked.connect(self.toggle_snap_menu)
     
 #############################################################       
         # MOVE WINDOW
@@ -47,6 +51,21 @@ class BoardWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
+
+    def toggle_home_menu(self):
+        if self.menu_width == 55:
+            self.menu_width = 150  # New width when menu is collapsed
+        else:
+            self.menu_width = 55  # Original width when menu is expanded
+
+        self.left_menu_subcontainer.setFixedWidth(self.menu_width)
+
+    def toggle_snap_menu(self):
+        if self.snap_menu_width == 55:
+            self.snap_menu_width = 150
+        else:
+            self.snap_menu_width = 55
+        self.right_menu_subcontainer.setFixedWidth(self.snap_menu_width)
 #######################################################################
 
 

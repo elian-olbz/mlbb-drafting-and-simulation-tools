@@ -150,7 +150,7 @@ border-bottom-left-radius: 10px;
           <widget class="QWidget" name="tab_container" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QTabWidget" name="hero_selector_2">
+             <widget class="QTabWidget" name="hero_tab">
               <property name="currentIndex">
                <number>0</number>
               </property>
