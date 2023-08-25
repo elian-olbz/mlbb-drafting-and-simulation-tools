@@ -7,7 +7,7 @@ import os
 from functools import partial
 from ui.rsc_rc import *
 from run_draft_logic.draft_state import DraftState
-from run_draft_logic.hero_selector import *
+from run_draft_logic.setup_selector import *
 from ui.misc.titlebar import*
 
 
@@ -29,7 +29,6 @@ class DraftWindow(QMainWindow):
 
         self.WINDOW_MAXED = False
         self.menu_width = 55
-        self.hero_selector = HeroSelector(self)
         self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
@@ -40,6 +39,7 @@ class DraftWindow(QMainWindow):
         self.blue_player = None
         self.red_player = None
         self.mode = None
+        self.hero_selector = SetupHeroSelector(self)
 
         self.hero_selector.hero_roles = self.draft_state.hero_roles
         self.hero_selector.hero_names = self.draft_state.hero_names
@@ -47,7 +47,7 @@ class DraftWindow(QMainWindow):
         self.hero_selector.hero_types = self.draft_state.hero_types
 
         self.hero_selector.populate_tabs(self)
-        # Connect the pick_button click signal to display_clicked_image with the last stored hero_id
+        # Connect the pick_button click signal to disp_selected_image with the last stored hero_id
         self.pick_button.clicked.connect(self.on_button_click)
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
@@ -144,7 +144,7 @@ class DraftWindow(QMainWindow):
                 self.blue_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvH':
@@ -154,7 +154,7 @@ class DraftWindow(QMainWindow):
                 self.red_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
         else:
             if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn:
@@ -169,7 +169,7 @@ class DraftWindow(QMainWindow):
                     self.red_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
 
 
@@ -180,7 +180,7 @@ class DraftWindow(QMainWindow):
             else:
                 self.hero_selector.hero_to_disp = self.blue_player.ban(draft_state)
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
         elif mode == 'HvA':
             if is_pick:
@@ -188,7 +188,7 @@ class DraftWindow(QMainWindow):
             else:
                 self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvA':
@@ -203,7 +203,7 @@ class DraftWindow(QMainWindow):
                 else:
                     self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
-            self.hero_selector.display_clicked_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.hero_to_disp = None
 
 

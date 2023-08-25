@@ -15,7 +15,7 @@ class OpenBoard(QDialog):
               ui_path = os.path.join(script_dir,  "open_board.ui")
 
               uic.loadUi(ui_path, self)
-              self.title_bar = TitleBar(self)
+              self.t_bar = DialogBar(self)
 #############################################################       
         # MOVE WINDOW
               def moveWindow(event):
@@ -25,12 +25,12 @@ class OpenBoard(QDialog):
                             self.dragPos = event.globalPosition().toPoint()
                             event.accept()
 
-                     # SET TITLE BAR
-                     #-----------------
-                     self.exit_frame.mouseMoveEvent = moveWindow
+              # SET TITLE BAR
+              #-----------------
+              self.exit_frame.mouseMoveEvent = moveWindow
 
-                     ## ==> SET UI DEFINITIONS
-                     self.title_bar.uiDefinitions(self)
+              ## ==> SET UI DEFINITIONS
+              self.t_bar.DialogAttrs(self)
 
        def mousePressEvent(self, event):
               self.dragPos = event.globalPosition().toPoint()

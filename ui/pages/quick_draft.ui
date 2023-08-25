@@ -220,7 +220,7 @@ color:#fff
                     <number>0</number>
                    </property>
                    <item alignment="Qt::AlignLeft">
-                    <widget class="QPushButton" name="pushButton_4">
+                    <widget class="QPushButton" name="logo_btn">
                      <property name="text">
                       <string/>
                      </property>
@@ -497,6 +497,12 @@ color:#fff
                 </property>
                 <item alignment="Qt::AlignLeft">
                  <widget class="QFrame" name="blue_hero_frame">
+                  <property name="minimumSize">
+                   <size>
+                    <width>300</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -520,7 +526,7 @@ color:#fff
                     <number>0</number>
                    </property>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame">
+                    <widget class="QFrame" name="blue_roam_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -544,17 +550,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton">
+                       <widget class="QLabel" name="blue_roam">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
-                         </size>
-                        </property>
-                        <property name="sizeIncrement">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -566,7 +566,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_2">
+                       <widget class="QLabel" name="roam1">
                         <property name="text">
                          <string>ROAM</string>
                         </property>
@@ -576,7 +576,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_2">
+                    <widget class="QFrame" name="blue_mid_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -600,11 +600,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_2">
+                       <widget class="QLabel" name="blue_mid">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -616,7 +616,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_3">
+                       <widget class="QLabel" name="mid1">
                         <property name="text">
                          <string>MID</string>
                         </property>
@@ -626,7 +626,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_4">
+                    <widget class="QFrame" name="blue_exp_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -650,11 +650,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_3">
+                       <widget class="QLabel" name="blue_exp">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -676,7 +676,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_5">
+                    <widget class="QFrame" name="blue_jungle_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -700,11 +700,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_5">
+                       <widget class="QLabel" name="blue_jungle">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -716,7 +716,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_5">
+                       <widget class="QLabel" name="jungle1">
                         <property name="text">
                          <string>JUNGLE</string>
                         </property>
@@ -726,7 +726,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_6">
+                    <widget class="QFrame" name="blue_gold_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -750,15 +750,16 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_6">
+                       <widget class="QLabel" name="blue_gold">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);
+</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -766,7 +767,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_6">
+                       <widget class="QLabel" name="gold1">
                         <property name="text">
                          <string>GOLD</string>
                         </property>
@@ -780,6 +781,12 @@ color:#fff
                 </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QFrame" name="red_hero_frame">
+                  <property name="minimumSize">
+                   <size>
+                    <width>300</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -803,7 +810,7 @@ color:#fff
                     <number>0</number>
                    </property>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_11">
+                    <widget class="QFrame" name="red_gold_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -827,11 +834,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_8">
+                       <widget class="QLabel" name="red_gold">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -843,7 +850,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_8">
+                       <widget class="QLabel" name="gold2">
                         <property name="text">
                          <string>GOLD</string>
                         </property>
@@ -853,7 +860,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_7">
+                    <widget class="QFrame" name="red_jungle_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -877,16 +884,15 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_9">
+                       <widget class="QLabel" name="red_jungle">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);
-</string>
+                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -894,7 +900,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_9">
+                       <widget class="QLabel" name="jungle2">
                         <property name="text">
                          <string>JUNGLE</string>
                         </property>
@@ -904,7 +910,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_8">
+                    <widget class="QFrame" name="red_exp_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -928,11 +934,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_10">
+                       <widget class="QLabel" name="red_exp">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -944,7 +950,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_10">
+                       <widget class="QLabel" name="exp2">
                         <property name="text">
                          <string>EXP</string>
                         </property>
@@ -954,7 +960,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_9">
+                    <widget class="QFrame" name="red_mid_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -978,11 +984,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_11">
+                       <widget class="QLabel" name="red_mid">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -994,7 +1000,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_11">
+                       <widget class="QLabel" name="mid2">
                         <property name="text">
                          <string>MID</string>
                         </property>
@@ -1004,7 +1010,7 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                    <widget class="QFrame" name="frame_10">
+                    <widget class="QFrame" name="red_roam_frame">
                      <property name="frameShape">
                       <enum>QFrame::StyledPanel</enum>
                      </property>
@@ -1028,11 +1034,11 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QPushButton" name="pushButton_7">
+                       <widget class="QLabel" name="red_roam">
                         <property name="minimumSize">
                          <size>
-                          <width>60</width>
-                          <height>60</height>
+                          <width>40</width>
+                          <height>40</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -1044,7 +1050,7 @@ color:#fff
                        </widget>
                       </item>
                       <item alignment="Qt::AlignHCenter">
-                       <widget class="QLabel" name="label_7">
+                       <widget class="QLabel" name="roma2">
                         <property name="text">
                          <string>ROAM</string>
                         </property>

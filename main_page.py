@@ -24,6 +24,8 @@ from ui.pages.board import BoardWindow
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
 from ui.misc.titlebar import*
+from ui.dialogs.open_board import *
+from ui.dialogs.hero_selector_tab import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
@@ -54,6 +56,8 @@ class MainWindow(QMainWindow):
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
         self.menu_button.clicked.connect(self.toggle_home_menu)
         
+        self.dial = OpenPracticeDraft()
+        self.ai_button.clicked.connect(self.test_dialog)
         
 
 #############################################################       
@@ -83,6 +87,8 @@ class MainWindow(QMainWindow):
         self.dragPos = event.globalPosition().toPoint()
 
 #######################################################################
+    def test_dialog(self):
+        self.dial.show()
 
     def open_practice_dialog(self):
         self.practice_dialog.show()
@@ -111,6 +117,7 @@ class MainWindow(QMainWindow):
 
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
+        self.quick_draft.logo_btn.clicked.connect(self.test_dialog)
         if self.isMaximized():
             self.quick_draft.showMaximized()
         else:

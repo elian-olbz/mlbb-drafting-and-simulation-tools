@@ -4,14 +4,14 @@ from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
 
 
-class TitleBar(QMainWindow):
+class DialogBar(QMainWindow):
     def __init__(self, parent):
-        super(TitleBar, self).__init__(parent)
+        super(DialogBar, self).__init__(parent)
 
         self.shadow_style = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))"
 
     ## ==> UI DEFINITIONS
-    def uiDefinitions(self, parent):
+    def DialogAttrs(self, parent):
 
         parent.verticalLayout.setContentsMargins(10, 10, 10, 10)
         parent.drop_shadow.setStyleSheet(self.shadow_style)

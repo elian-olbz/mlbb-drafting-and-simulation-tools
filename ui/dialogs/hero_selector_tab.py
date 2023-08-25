@@ -5,20 +5,25 @@ import os
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.dialog_nav import*
+from run_draft_logic.setup_selector import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
-class HeroSelector(QDialog):
+class HeroSelectorDialog(QDialog):
        def __init__(self):
-              super(HeroSelector, self).__init__()
+              super(HeroSelectorDialog, self).__init__()
 
               ui_path = os.path.join(script_dir,  "hero_selector_tab.ui")
-
               uic.loadUi(ui_path, self)
-              self.title_bar = TitleBar(self)
+              self.t_bar = DialogBar(self) 
+
+              self.selector = SetupHeroDialog(self)
+
+              self.selector.populate_tabs(self)
+
 #############################################################       
-        # MOVE WINDOW
+              # MOVE WINDOW
               def moveWindow(event):
                      # IF LEFT CLICK MOVE WINDOW
                      if event.buttons() == Qt.MouseButton.LeftButton:
@@ -26,14 +31,17 @@ class HeroSelector(QDialog):
                             self.dragPos = event.globalPosition().toPoint()
                             event.accept()
 
-                     # SET TITLE BAR
-                     #-----------------
-                     self.exit_frame.mouseMoveEvent = moveWindow
+              # SET TITLE BAR
+              #-----------------
+              self.exit_frame.mouseMoveEvent = moveWindow
 
-                     ## ==> SET UI DEFINITIONS
-                     self.title_bar.uiDefinitions(self)
+              ## ==> SET UI DEFINITIONS
+              self.t_bar.DialogAttrs(self)
 
        def mousePressEvent(self, event):
               self.dragPos = event.globalPosition().toPoint()
 #######################################################################
+
+              
+                     
        

@@ -1,3 +1,5 @@
+import typing
+from PyQt6 import QtGui
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
@@ -5,6 +7,7 @@ from functools import partial
 from run_draft_logic.utils import *
 
 
+# class for qlabels (hero icons) that will populate the tabs and can be clicked
 class ClickableLabel(QLabel):
     clicked = pyqtSignal(int)
 
@@ -15,9 +18,10 @@ class ClickableLabel(QLabel):
     def mousePressEvent(self, event):
         self.clicked.emit(self.hero_id)
 
-class HeroSelector(QMainWindow):
+# Hero selector for the practice draft
+class SetupHeroSelector(QMainWindow):
     def __init__(self, parent):
-        super(HeroSelector, self).__init__(parent)
+        super(SetupHeroSelector, self).__init__(parent)
 
         self.pick_indices = [6, 7, 8, 9, 10, 11, 16, 17, 18, 19]
         self.blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]
@@ -28,7 +32,7 @@ class HeroSelector(QMainWindow):
         self.hero_names = []
         self.hero_icons = []
 
-        self.current_clicked_label = None
+        self.current_clicked_label = None  # Clicked qlabel from the tab (the hero icon itself)
         self.clickable_labels = {}
         self.label_images = {} # Dictionary to track QLabel images
         self.selected_id = None
@@ -38,6 +42,7 @@ class HeroSelector(QMainWindow):
         # Initialize the current_tab_index to the index of the first tab (All)
         self.current_tab_index = 0
         self.pick_button_clicked = False
+        
 
     def clear_tabs(self, parent):
         #Clear existing tabs from the widget
@@ -179,7 +184,8 @@ class HeroSelector(QMainWindow):
                 self.selected_id = None
 
     
-    def display_clicked_image(self, parent, hero_id):
+    # Displaying images on the practice draft window
+    def disp_selected_image(self, parent, hero_id):
         
         if hero_id is not None and hero_id not in self.unavailable_hero_ids:
 
@@ -212,14 +218,46 @@ class HeroSelector(QMainWindow):
                 self.remaining_clicks -= 1
 
     def get_next_empty_qlabel(self, parent):
-        qlabels_list = [parent.blue_ban1, parent.red_ban1, parent.blue_ban2, parent.red_ban2,
+
+        pd_qlabels_list = [parent.blue_ban1, parent.red_ban1, parent.blue_ban2, parent.red_ban2,
                         parent.blue_ban3, parent.red_ban3, parent.blue_pick1, parent.red_pick1,
                         parent.red_pick2, parent.blue_pick2, parent.blue_pick3, parent.red_pick3,
                         parent.red_ban4, parent.blue_ban4, parent.red_ban5, parent.blue_ban5,
                         parent.red_pick4, parent.blue_pick4, parent.blue_pick5, parent.red_pick5]
-        for qlabel in qlabels_list:
+        for qlabel in pd_qlabels_list:
             if qlabel not in self.label_images or self.label_images[qlabel] is None:
                 return qlabel
 
         return None
+
+# Hero selector for the quick draft
+class SetupHeroDialog(SetupHeroSelector):
+    def __init__(self, parent):
+        super(SetupHeroDialog, self).__init__(parent)
+
+        ###################
+        # Instance variables for quick draft only
+        hero_roles_path = 'data/hero_roles.csv'
+        self.hero_roles, self.hero_names, self.hero_icons, self.hero_types = load_hero_roles(hero_roles_path)
+        self.remaining_qlabels = 10
+        ###################
+
+    # Displaying images on the quick draft window
+    def disp_selected_image(self,hero_id, qlabel):
+        
+        if hero_id is not None and hero_id not in self.unavailable_hero_ids:
+
+            if self.remaining_clicks <= 0:
+                return
+            if qlabel:
+                image_path = get_icon(hero_id)
+                pixmap = QPixmap(image_path)
+                round_pix = rounded_pixmap(pixmap, 97)
+                # Get the size of the QLabel and scale the pixmap to fit
+                label_size = qlabel.size()
+                scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                qlabel.setPixmap(scaled_pixmap)
+                self.label_images[qlabel] = hero_id  # Update the label_images dictionary
+                self.unavailable_hero_ids.append(hero_id)
     

@@ -15,7 +15,7 @@ class OpenPracticeDraft(QDialog):
 
         ui_path = os.path.join(script_dir,  "open_practice_draft.ui")
         uic.loadUi(ui_path, self)
-        self.title_bar = TitleBar(self) 
+        self.t_bar = DialogBar(self) 
 
         self.blue_intelligence.setDisabled(True)
         self.red_intelligence.setDisabled(True)
@@ -37,7 +37,7 @@ class OpenPracticeDraft(QDialog):
         self.exit_frame.mouseMoveEvent = moveWindow
 
         ## ==> SET UI DEFINITIONS
-        self.title_bar.uiDefinitions(self)
+        self.t_bar.DialogAttrs(self)
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
