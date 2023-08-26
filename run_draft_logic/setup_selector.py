@@ -5,6 +5,7 @@ from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
 from functools import partial
 from run_draft_logic.utils import *
+from math import ceil
 
 
 # class for qlabels (hero icons) that will populate the tabs and can be clicked
@@ -13,10 +14,27 @@ class ClickableLabel(QLabel):
 
     def __init__(self, hero_id):
         super().__init__()
+        # self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setScaledContents(True)  # Disable scaled contents to maintain aspect ratio
         self.hero_id = hero_id
+        self.highlight_radius = 0  # Initialize the highlight radius
+
+    def hasHeightForWidth(self):
+        return self.pixmap() is not None
+
+    def heightForWidth(self, w):
+        if self.pixmap():
+            return int(w * (self.pixmap().height() / self.pixmap().width()))
 
     def mousePressEvent(self, event):
         self.clicked.emit(self.hero_id)
+
+    def resizeEvent(self, event):
+        # Calculate the new highlight radius based on the size of the smallest dimension
+        min_dimension = min(self.width(), self.height())
+        self.highlight_radius = min_dimension / 2  # Use the smaller dimension for radius
+
+
 
 # Hero selector for the practice draft
 class SetupHeroSelector(QMainWindow):
@@ -58,7 +76,7 @@ class SetupHeroSelector(QMainWindow):
             self.selected_id = None
 
             
-    def populate_tabs(self, parent):
+    def populate_tabs(self, parent, img_size):
 
         tab_names = ["All", "Tank", "Fighter", "Assassin", "Marksman", "Mage", "Support"]
 
@@ -68,8 +86,10 @@ class SetupHeroSelector(QMainWindow):
         for tab_name in tab_names:
             # Create a scroll area and grid layout for each tab
             scroll_area = QScrollArea()
+            scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
             scroll_area.setWidgetResizable(True)
             tab_widget = QWidget()
+            tab_widget.setMinimumSize(500, 250)
             tab_layout = QGridLayout(tab_widget)
             spacing = 4  # Set the spacing value as per your preference
 
@@ -104,7 +124,8 @@ class SetupHeroSelector(QMainWindow):
 
                 hero_image_label.setPixmap(round_pix)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-                hero_image_label.setFixedSize(100, 100)  # Set a fixed size for uniformity
+                hero_image_label.setMinimumSize(int(img_size / 1.5), int(img_size / 1.5))
+                hero_image_label.setMaximumSize(img_size, img_size)  # Set a fixed size for uniformity
 
                 # Connect the clicked signal of each ClickableLabel to the display_clicked_image method
                 hero_image_label.clicked.connect(partial(self.store_hero_id, parent, hero_id))
@@ -116,12 +137,14 @@ class SetupHeroSelector(QMainWindow):
                 hero_name_label = QLabel(get_name(hero_id, self.hero_names))
                 hero_name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_name_label.setWordWrap(True)
-                hero_name_label.setFixedWidth(100)  # Set a fixed width to match the image width
+                hero_name_label.setMinimumWidth(img_size / 2)
+                hero_name_label.setMaximumWidth(img_size)  # Set a fixed width to match the image width
 
                 # Add the QLabel for the hero name below the image
                 hero_layout.addWidget(hero_image_label)
                 hero_layout.addWidget(hero_name_label)
 
+                hero_widget.setLayout(hero_layout)
                 # Add the hero widget to the grid layout
                 tab_layout.addWidget(hero_widget, row, column)
                 column += 1
@@ -136,7 +159,7 @@ class SetupHeroSelector(QMainWindow):
             tab_layout.addItem(spacer, row, column)
 
             # Add fixed-sized widgets to fill empty spaces and ensure uniform spacing between rows
-            while row < 3:  # Assuming you want a maximum of 5 rows in each tab
+            while row < 30:  # Assuming you want a maximum of 5 rows in each tab
                 empty_widget = QWidget()
                 empty_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
                 tab_layout.addWidget(empty_widget, row, column)
@@ -155,8 +178,8 @@ class SetupHeroSelector(QMainWindow):
         clicked_label = self.sender()
 
         if self.remaining_clicks <= 0:
-                return
-        
+            return
+
         if clicked_label:
             # Get the current tab index
             current_tab_index = parent.hero_tab.currentIndex()
@@ -170,11 +193,10 @@ class SetupHeroSelector(QMainWindow):
             if hero_id not in self.unavailable_hero_ids:
                 # Apply a highlight style to the clicked label
                 highlight_color = QColor(69, 202, 255)  # Replace with the desired highlight color
-                highlight_radius = 50  # Adjust the radius as needed
+                highlight_radius = clicked_label.highlight_radius  # Use the dynamically calculated radius
 
                 circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
                 clicked_label.setStyleSheet(circular_style)
-                #clicked_label.setStyleSheet(f"border: 2px solid {highlight_color.name()};")
 
                 # Store the clicked label as the current clicked label for the current tab
                 self.current_clicked_label = clicked_label
@@ -182,6 +204,7 @@ class SetupHeroSelector(QMainWindow):
                 self.selected_id = hero_id
             else:
                 self.selected_id = None
+
 
     
     # Displaying images on the practice draft window
@@ -239,7 +262,6 @@ class SetupHeroDialog(SetupHeroSelector):
         # Instance variables for quick draft only
         hero_roles_path = 'data/hero_roles.csv'
         self.hero_roles, self.hero_names, self.hero_icons, self.hero_types = load_hero_roles(hero_roles_path)
-        self.remaining_qlabels = 10
         ###################
 
     # Displaying images on the quick draft window

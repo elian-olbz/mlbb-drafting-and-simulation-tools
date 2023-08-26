@@ -20,7 +20,8 @@ class HeroSelectorDialog(QDialog):
 
               self.selector = SetupHeroDialog(self)
 
-              self.selector.populate_tabs(self)
+              self.selector.populate_tabs(self, 60)
+              self.hero_tab.currentChanged.connect(self.selector.update_current_tab)
 
 #############################################################       
               # MOVE WINDOW

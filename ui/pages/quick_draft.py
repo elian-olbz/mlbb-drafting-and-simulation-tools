@@ -20,6 +20,10 @@ class QuickDraftWindow(QMainWindow):
         self.WINDOW_MAXED = False
         self.menu_width = 55
         self.qlabel_to_update = None
+        self.obj_name = None
+        self.blue_heroes = {"blue_roam":"", "blue_mid":"", "blue_exp":"", "blue_jungle":"", "blue_gold":""}
+        self.red_heroes = {"red_gold":"", "red_jungle":"", "red_exp":"", "red_mid":"", "red_roam":""}
+        self.prev_qlabel = None
 
         self.title_bar = TitleBar(self)
         self.hero_dialog = HeroSelectorDialog()
@@ -33,9 +37,10 @@ class QuickDraftWindow(QMainWindow):
 
         self.labels = {}
 
-        label_names = ["blue_roam", "blue_mid", "blue_exp", "blue_jungle", "blue_gold", "red_roam", "red_mid", "red_exp", "red_jungle", "red_gold"]
+        self.label_names = list(self.blue_heroes.keys()) + list(self.red_heroes.keys())
+        #self.label_names = ["blue_roam", "blue_mid", "blue_exp", "blue_jungle", "blue_gold", "red_gold", "red_jungle", "red_exp", "red_mid", "red_roam"]
 
-        for name in label_names:
+        for name in self.label_names:
             label = self.findChild(QLabel, name)
             if label:
                 self.labels[name] = label
@@ -69,25 +74,62 @@ class QuickDraftWindow(QMainWindow):
     def eventFilter(self, obj, event):
         if event.type() == QEvent.Type.MouseButtonPress:
             if event.button() == Qt.MouseButton.LeftButton:
-                object_name = obj.objectName()
+
+                self.obj_name = obj.objectName()
                 self.qlabel_to_update = obj
-                if object_name in self.labels:
+                self.set_highlight(20)
+                if self.obj_name in self.labels:
                     self.show_dial()
-                    
+
+        self.prev_qlabel = self.qlabel_to_update    
         return super().eventFilter(obj, event)
     
     def show_dial(self):
         self.hero_dialog.show()
     
     # when "Select" button from the selector is clicked
-    def select_button_click(self, qlabel):
-              if self.hero_dialog.selector.selected_id is not None and self.qlabel_to_update is not None:
-                     self.hero_dialog.hide()
-                     self.hero_dialog.selector.disp_selected_image(self.hero_dialog.selector.selected_id, self.qlabel_to_update)
-                     self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
+    def select_button_click(self):
+        if self.hero_dialog.selector.selected_id is not None and self.qlabel_to_update is not None:
+            self.qlabel_to_update.setStyleSheet("")
+            self.hero_dialog.hide()
+            self.hero_dialog.selector.disp_selected_image(self.hero_dialog.selector.selected_id, self.qlabel_to_update)
+            self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
 
-                     self.qlabel_to_update.setStyleSheet("")
-                     self.qlabel_to_update = None
+            if str(self.obj_name).startswith("blue"):
+                if self.blue_heroes[self.obj_name] == "":
+                    self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                else:
+                    self.hero_dialog.selector.unavailable_hero_ids.remove(self.blue_heroes[self.obj_name])
+                    self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+            else:
+                if self.red_heroes[self.obj_name] == "":
+                    self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                else:
+                    self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
+                    self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+
+            print("Unavailable Heroes: {}".format(self.hero_dialog.selector.unavailable_hero_ids))
+            print("blue heroes: {}\t\tred heroes: {}\n".format(list(self.blue_heroes.values()), list(self.red_heroes.values())))
+            self.qlabel_to_update = None
+            self.hero_dialog.selector.selected_id = None
+
+    def get_index(self, name):
+        if isinstance(name, str):
+            indexx = self.label_names.index(name)
+
+            if indexx > 4:
+                return indexx - 5
+            return indexx
+        
+    def set_highlight(self, radius):
+        if self.prev_qlabel is not None and self.qlabel_to_update != self.prev_qlabel:
+            self.prev_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+
+        highlight_color = QColor(69, 202, 255)  # Replace with the desired highlight color
+        highlight_radius = radius / 2  # Adjust the radius as needed
+
+        circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
+        self.qlabel_to_update.setStyleSheet(circular_style + "image: url(:/icons/icons/plus-circle.svg);")
 
 
 if __name__ == "__main__":

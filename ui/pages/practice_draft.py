@@ -46,7 +46,7 @@ class DraftWindow(QMainWindow):
         self.hero_selector.hero_icons = self.draft_state.hero_icons
         self.hero_selector.hero_types = self.draft_state.hero_types
 
-        self.hero_selector.populate_tabs(self)
+        self.hero_selector.populate_tabs(self, 90)
         # Connect the pick_button click signal to disp_selected_image with the last stored hero_id
         self.pick_button.clicked.connect(self.on_button_click)
 
@@ -88,6 +88,9 @@ class DraftWindow(QMainWindow):
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
+
+    def resizeEvent(self, event):
+        self.hero_selector.update_current_tab(self.hero_tab.currentIndex)
 
 #######################################################################
             
