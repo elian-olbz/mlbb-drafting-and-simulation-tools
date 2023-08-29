@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
         
-        ui_path = os.path.join(script_dir,  "ui/pages/main_page.ui")
+        ui_path = os.path.join(script_dir,  "main_page.ui")
 
         uic.loadUi(ui_path, self)
 
@@ -91,7 +91,7 @@ class MainWindow(QMainWindow):
     # Initialize and open practice draft window
     def open_practice_page(self):
         self.draft_window = DraftWindow()
-        
+    
         # set the player types from the combo box index/value
         if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
@@ -153,13 +153,3 @@ class MainWindow(QMainWindow):
             self.menu_width = 55  # Original width when menu is expanded
 
         self.left_menu_subcontainer.setFixedWidth(self.menu_width)
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    #Apply the theme as a global stylesheet to the application
-    window = MainWindow()
-    #app.setStyle('Fusion')
-    window.show()
-
-    sys.exit(app.exec())

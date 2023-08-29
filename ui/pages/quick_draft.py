@@ -163,12 +163,3 @@ class QuickDraftWindow(QMainWindow):
 
         circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
         self.qlabel_to_update.setStyleSheet(circular_style + "image: url(:/icons/icons/plus-circle.svg);")
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    window = QuickDraftWindow()
-    window.show()
-
-    sys.exit(app.exec())

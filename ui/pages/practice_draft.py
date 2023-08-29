@@ -54,7 +54,7 @@ class DraftWindow(QMainWindow):
         self.hero_tab.currentChanged.connect(self.hero_selector.update_current_tab)
 
         self.auto_player = AutoPlayer()
-        self.auto_player.auto_player_signal.connect(self.auto_player_pick_or_ban)
+        self.auto_player.auto_player_signal.connect(self.auto_player_next_move)
         # Start the automatic AI predictions and UI updates by calling the start method
         self.delay_timer = QTimer(self)
         self.delay_timer.timeout.connect(self.emit_auto_player_signal)
@@ -114,9 +114,9 @@ class DraftWindow(QMainWindow):
         if self.hero_selector.remaining_clicks <= 0 or self.hero_selector.selected_id is None:
             return
         if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.pick_indices:
-            self.pick_or_ban(self.draft_state, self.hero_selector.selected_id, self.mode, True)
+            self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, True)
         else:
-            self.pick_or_ban(self.draft_state, self.hero_selector.selected_id, self.mode, False)
+            self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
         
         # Set the desired delay time (in milliseconds) before emitting the signal
         delay_milliseconds = 1000  # Adjust the delay time as needed
@@ -126,13 +126,13 @@ class DraftWindow(QMainWindow):
             self.hero_selector.current_clicked_label.setStyleSheet("")
             self.hero_selector.current_clicked_label = None
 
-    def auto_player_pick_or_ban(self):
+    def auto_player_next_move(self):
         if self.hero_selector.remaining_clicks <= 0:
             return
         if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.pick_indices:
-            self.pick_or_ban(self.draft_state, self.hero_selector.selected_id, self.mode, True)
+            self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, True)
         else:
-            self.pick_or_ban(self.draft_state, self.hero_selector.selected_id, self.mode, False)
+            self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
 
         # Set the desired delay time (in milliseconds) before emitting the signal
         delay_milliseconds = 1000  # Adjust the delay time as needed
@@ -211,7 +211,7 @@ class DraftWindow(QMainWindow):
 
 
             
-    def pick_or_ban(self, draft_state, selected_id, mode, is_pick):
+    def next_move(self, draft_state, selected_id, mode, is_pick):
 
         if mode is not None and mode == 'HvH': # Human vs Human
             # blue player is human
