@@ -55,10 +55,7 @@ class MainWindow(QMainWindow):
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
         self.menu_button.clicked.connect(self.toggle_home_menu)
-        
-        self.dial = OpenPracticeDraft()
-        self.ai_button.clicked.connect(self.test_dialog)
-        
+
 
 #############################################################       
         # MOVE WINDOW
@@ -76,7 +73,6 @@ class MainWindow(QMainWindow):
             self.WINDOW_MAXED = False
 
         # SET TITLE BAR
-        #-----------------
         self.header_container.mouseMoveEvent = moveWindow
 
         ## ==> SET UI DEFINITIONS
@@ -87,15 +83,16 @@ class MainWindow(QMainWindow):
         self.dragPos = event.globalPosition().toPoint()
 
 #######################################################################
-    def test_dialog(self):
-        self.dial.show()
-
+    
+    # Dialog for setting up parameters(player type, intelligence) before opening the practice draft window
     def open_practice_dialog(self):
         self.practice_dialog.show()
 
+    # Initialize and open practice draft window
     def open_practice_page(self):
         self.draft_window = DraftWindow()
         
+        # set the player types from the combo box index/value
         if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
         elif self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 1:
@@ -113,11 +110,10 @@ class MainWindow(QMainWindow):
             self.draft_window.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.draft_window.btn_max.setToolTip("Maximize")
             self.draft_window.show()
-        #self.hide()
 
+    # Initialize and open quick draft window
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
-        self.quick_draft.logo_btn.clicked.connect(self.test_dialog)
         if self.isMaximized():
             self.quick_draft.showMaximized()
         else:
@@ -126,6 +122,7 @@ class MainWindow(QMainWindow):
             self.quick_draft.btn_max.setToolTip("Maximize")
             self.quick_draft.show()
 
+    # Initialize and open heatmap window
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
         if self.isMaximized():
@@ -136,6 +133,7 @@ class MainWindow(QMainWindow):
             self.heatmap.btn_max.setToolTip("Maximize")
             self.heatmap.show()
     
+    # Initialize and open coaching board window
     def open_board(self):
         board = BoardWindow()
         if self.isMaximized():
@@ -147,6 +145,7 @@ class MainWindow(QMainWindow):
             board.show()
             board.show()
 
+    # Toggle the side menu
     def toggle_home_menu(self):
         if self.menu_width == 55:
             self.menu_width = 150  # New width when menu is collapsed

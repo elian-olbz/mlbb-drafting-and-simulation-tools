@@ -4,11 +4,18 @@ from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource, QEvent
 from PyQt6 import uic
 import sys
 import os
+import pandas as pg
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+import numpy as np
+
 from run_draft_logic.utils import load_theme
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
 from ui.dialogs.hero_selector_tab import *
+from ui.misc.graphs import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
@@ -31,20 +38,46 @@ class QuickDraftWindow(QMainWindow):
 
         uic.loadUi(ui_path, self)
 
-        #self.logo_btn.clicked.connect(self.show_dial)
-
         self.hero_dialog.select_btn.clicked.connect(self.select_button_click)
 
         self.labels = {}
 
         self.label_names = list(self.blue_heroes.keys()) + list(self.red_heroes.keys())
-        #self.label_names = ["blue_roam", "blue_mid", "blue_exp", "blue_jungle", "blue_gold", "red_gold", "red_jungle", "red_exp", "red_mid", "red_roam"]
 
+        # Find the child qlabels to properly connect an event filter
         for name in self.label_names:
             label = self.findChild(QLabel, name)
             if label:
                 self.labels[name] = label
                 label.installEventFilter(self)
+        
+        # Canvas for the graphs
+        self.fig = Figure(figsize=(10,10))
+        self.canvas = FigureCanvas(self.fig)
+        self.graph_layout.addWidget(self.canvas)
+
+        self.axs = self.fig.subplots(2,3)
+
+        self.fig.patch.set_visible(False)
+
+        # Create instances of the graphs and pass the subplots
+        radar_blue = RadarChart(self.axs[0, 0], pos_x=1, fig=self.fig)
+        diverging_team = DivergingChart(self.axs[0,1])
+        radar_red = RadarChart(self.axs[0, 2], pos_x=3, fig=self.fig)
+
+        horizotal_indiv = HorizontalChart(self.axs[1, 0])
+        diverging_indiv = DivergingChart(self.axs[1, 1])
+        donut_indiv = DonutChart(self.axs[1, 2])
+
+        for i, ax in enumerate(self.axs.flatten()):
+            ax.set_frame_on(False)
+            if i in [0, 2]:
+                ax.set_yticklabels([])
+                ax.set_xticklabels([])
+                ax.set_yticks([])
+                ax.set_xticks([])
+        
+        self.fig.tight_layout()
         
 #############################################################       
         # MOVE WINDOW
@@ -91,7 +124,7 @@ class QuickDraftWindow(QMainWindow):
     def select_button_click(self):
         if self.hero_dialog.selector.selected_id is not None and self.qlabel_to_update is not None:
             self.qlabel_to_update.setStyleSheet("")
-            self.hero_dialog.hide()
+            #self.hero_dialog.hide()
             self.hero_dialog.selector.disp_selected_image(self.hero_dialog.selector.selected_id, self.qlabel_to_update)
             self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
 
