@@ -19,7 +19,7 @@ class TitleBar(QMainWindow):
             self.win_maxed = True
 
             # IF MAXIMIZED REMOVE MARGINS AND BORDER RADIUS
-            parent.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+            parent.central_layout.setContentsMargins(0, 0, 0, 0)
             parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Restore")
         else:
@@ -28,7 +28,7 @@ class TitleBar(QMainWindow):
             parent.resize(parent.width()+1, parent.height()+1)
 
             #--------------
-            parent.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+            parent.central_layout.setContentsMargins(10, 10, 10, 10)
             parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Maximize")
             #--------------

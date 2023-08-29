@@ -38,7 +38,7 @@ class AIPlayer:
     def pick(self, draft_state):
         while True:
             padded_sequence = pad_sequences([draft_state.draft_sequence], maxlen=max_sequence_length, padding='post')
-            next_hero_id = self.generate_draft_sequence(draft_state, padded_sequence, self.team_color, True)
+            next_hero_id = self.generate_predictions(draft_state, padded_sequence, self.team_color, True)
             if next_hero_id not in draft_state.draft_sequence:
                 break
         draft_state.draft_sequence.append(next_hero_id)
@@ -50,7 +50,7 @@ class AIPlayer:
     def ban(self, draft_state):
         while True:
             padded_sequence = pad_sequences([draft_state.draft_sequence], maxlen=max_sequence_length, padding='post')
-            next_ban_id = self.generate_draft_sequence(draft_state, padded_sequence, self.team_color, False)
+            next_ban_id = self.generate_predictions(draft_state, padded_sequence, self.team_color, False)
             if next_ban_id not in draft_state.draft_sequence:
                 break
         draft_state.draft_sequence.append(next_ban_id)
@@ -60,7 +60,7 @@ class AIPlayer:
         return next_ban_id
 
 
-    def generate_draft_sequence(self, draft_state, padded_sequence, team_color, is_picking):
+    def generate_predictions(self, draft_state, padded_sequence, team_color, is_picking):
         time.sleep(1)  # Delay for x seconds
         
         input_data = np.array(padded_sequence, dtype=np.float32)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>913</width>
-    <height>631</height>
+    <width>978</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="central_layout">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -1118,6 +1118,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1136,6 +1139,9 @@ border-radius: 10px;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1156,6 +1162,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1174,6 +1183,9 @@ border-radius: 10px;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1194,6 +1206,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1204,6 +1219,12 @@ border-radius: 10px;</string>
                                </item>
                                <item>
                                 <widget class="QFrame" name="hero_frame">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
                                  <property name="styleSheet">
                                   <string notr="true">background-color:transparent;
 border-radius: 10px;</string>
@@ -1217,6 +1238,12 @@ border-radius: 10px;</string>
                                  <layout class="QVBoxLayout" name="verticalLayout_8">
                                   <item>
                                    <widget class="QTabWidget" name="hero_tab">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>550</width>
+                                      <height>350</height>
+                                     </size>
+                                    </property>
                                     <property name="font">
                                      <font>
                                       <pointsize>12</pointsize>
@@ -1373,6 +1400,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1391,6 +1421,9 @@ border-radius: 10px;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1411,6 +1444,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1430,6 +1466,9 @@ border-radius: 10px;</string>
                                     <property name="text">
                                      <string/>
                                     </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
+                                    </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
                                     </property>
@@ -1448,6 +1487,9 @@ border-radius: 10px;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>

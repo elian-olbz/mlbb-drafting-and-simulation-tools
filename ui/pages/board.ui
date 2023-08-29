@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>914</width>
-    <height>625</height>
+    <width>920</width>
+    <height>618</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,22 +29,7 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
+   <layout class="QVBoxLayout" name="central_layout">
     <item>
      <widget class="QFrame" name="drop_shadow">
       <property name="styleSheet">
@@ -223,7 +208,7 @@ color:#fff
                     <number>0</number>
                    </property>
                    <item alignment="Qt::AlignLeft">
-                    <widget class="QPushButton" name="pushButton_4">
+                    <widget class="QPushButton" name="icon_btn">
                      <property name="text">
                       <string/>
                      </property>
@@ -240,19 +225,35 @@ color:#fff
                     </widget>
                    </item>
                    <item alignment="Qt::AlignVCenter">
-                    <widget class="QLabel" name="label">
+                    <widget class="QLabel" name="page_label">
                      <property name="font">
                       <font>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Coaching Board&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Tactical Board&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                   </layout>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QWidget" name="color_widget" native="true">
@@ -290,7 +291,7 @@ color:#fff
                       <item>
                        <widget class="QPushButton" name="size_button">
                         <property name="toolTip">
-                         <string>Heatmap Heatmp</string>
+                         <string>Size</string>
                         </property>
                         <property name="text">
                          <string>Size</string>
@@ -301,8 +302,8 @@ color:#fff
                         </property>
                         <property name="iconSize">
                          <size>
-                          <width>20</width>
-                          <height>20</height>
+                          <width>15</width>
+                          <height>15</height>
                          </size>
                         </property>
                        </widget>
@@ -310,7 +311,7 @@ color:#fff
                       <item>
                        <widget class="QPushButton" name="color_button">
                         <property name="toolTip">
-                         <string>Heatmap Heatmp</string>
+                         <string>Color</string>
                         </property>
                         <property name="text">
                          <string>Color</string>
@@ -321,8 +322,8 @@ color:#fff
                         </property>
                         <property name="iconSize">
                          <size>
-                          <width>20</width>
-                          <height>20</height>
+                          <width>15</width>
+                          <height>15</height>
                          </size>
                         </property>
                        </widget>
@@ -374,6 +375,9 @@ color:#fff
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>40</width>
@@ -383,7 +387,7 @@ color:#fff
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QFrame" name="frame_btns">
+                 <widget class="QFrame" name="nav_btns_frame">
                   <property name="minimumSize">
                    <size>
                     <width>100</width>
@@ -707,9 +711,9 @@ color:#fff
                         <property name="frameShadow">
                          <enum>QFrame::Raised</enum>
                         </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_23">
+                        <layout class="QVBoxLayout" name="verticalLayout_6">
                          <property name="spacing">
-                          <number>10</number>
+                          <number>12</number>
                          </property>
                          <property name="leftMargin">
                           <number>0</number>
@@ -721,22 +725,22 @@ color:#fff
                           <number>0</number>
                          </property>
                          <property name="bottomMargin">
-                          <number>10</number>
+                          <number>0</number>
                          </property>
                          <item>
-                          <widget class="QPushButton" name="arrow_button">
+                          <widget class="QPushButton" name="tracker_button">
                            <property name="toolTip">
-                            <string>Arrow</string>
+                            <string>Tracker</string>
                            </property>
                            <property name="styleSheet">
                             <string notr="true"/>
                            </property>
                            <property name="text">
-                            <string>  Arrow</string>
+                            <string>  Tracker</string>
                            </property>
                            <property name="icon">
                             <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/arrow-up-right.svg</normaloff>:/icons/icons/arrow-up-right.svg</iconset>
+                             <normaloff>:/icons/icons/crosshair.svg</normaloff>:/icons/icons/crosshair.svg</iconset>
                            </property>
                            <property name="iconSize">
                             <size>
@@ -747,16 +751,65 @@ color:#fff
                           </widget>
                          </item>
                          <item>
-                          <widget class="QPushButton" name="circle_button">
+                          <widget class="QPushButton" name="map_button">
                            <property name="toolTip">
-                            <string>Circle</string>
+                            <string>Map</string>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
                            </property>
                            <property name="text">
-                            <string>  Circle</string>
+                            <string>  Map</string>
                            </property>
                            <property name="icon">
                             <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/circle.svg</normaloff>:/icons/icons/circle.svg</iconset>
+                             <normaloff>:/icons/icons/map.svg</normaloff>:/icons/icons/map.svg</iconset>
+                           </property>
+                           <property name="iconSize">
+                            <size>
+                             <width>22</width>
+                             <height>22</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="image_button">
+                           <property name="toolTip">
+                            <string>Image</string>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="text">
+                            <string>  Image</string>
+                           </property>
+                           <property name="icon">
+                            <iconset resource="../rsc.qrc">
+                             <normaloff>:/icons/icons/image.svg</normaloff>:/icons/icons/image.svg</iconset>
+                           </property>
+                           <property name="iconSize">
+                            <size>
+                             <width>22</width>
+                             <height>22</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="video_button">
+                           <property name="toolTip">
+                            <string>Video</string>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="text">
+                            <string>  Video</string>
+                           </property>
+                           <property name="icon">
+                            <iconset resource="../rsc.qrc">
+                             <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
                            </property>
                            <property name="iconSize">
                             <size>
@@ -823,7 +876,7 @@ color:#fff
                        </spacer>
                       </item>
                       <item>
-                       <widget class="QFrame" name="frame_4">
+                       <widget class="QFrame" name="settings_frame">
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
                         </property>
@@ -947,7 +1000,7 @@ color:#fff
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QWidget" name="map_container" native="true">
+                       <widget class="QWidget" name="stacked_widget_container" native="true">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                           <horstretch>0</horstretch>
@@ -966,7 +1019,7 @@ color:#fff
                           <height>16777215</height>
                          </size>
                         </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_12">
+                        <layout class="QVBoxLayout" name="verticalLayout_7">
                          <property name="spacing">
                           <number>0</number>
                          </property>
@@ -983,300 +1036,605 @@ color:#fff
                           <number>0</number>
                          </property>
                          <item>
-                          <widget class="QFrame" name="map_frame_2">
+                          <widget class="QStackedWidget" name="stackedWidget">
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
                            </property>
-                           <property name="frameShape">
-                            <enum>QFrame::StyledPanel</enum>
+                           <property name="currentIndex">
+                            <number>0</number>
                            </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Raised</enum>
-                           </property>
-                           <layout class="QHBoxLayout" name="horizontalLayout_14">
-                            <property name="spacing">
-                             <number>10</number>
+                           <widget class="QWidget" name="board_page">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
-                            <property name="leftMargin">
-                             <number>0</number>
+                            <layout class="QVBoxLayout" name="verticalLayout_15">
+                             <property name="spacing">
+                              <number>0</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QWidget" name="map_container" native="true">
+                               <layout class="QVBoxLayout" name="verticalLayout_10">
+                                <item>
+                                 <widget class="QFrame" name="map_frame">
+                                  <property name="sizePolicy">
+                                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                   </sizepolicy>
+                                  </property>
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                                   <property name="spacing">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="leftMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="topMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="rightMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="bottomMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <item alignment="Qt::AlignTop">
+                                    <widget class="QWidget" name="blue_hero_icons" native="true">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>60</width>
+                                       <height>200</height>
+                                      </size>
+                                     </property>
+                                     <property name="layoutDirection">
+                                      <enum>Qt::RightToLeft</enum>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true"/>
+                                     </property>
+                                     <layout class="QVBoxLayout" name="verticalLayout_19">
+                                      <property name="spacing">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="leftMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <item>
+                                       <widget class="QPushButton" name="blue_hero5">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="blue_hero4">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);
+</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="blue_hero3">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="blue_hero2">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="blue_hero1">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QWidget" name="map_widget" native="true">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <layout class="QVBoxLayout" name="verticalLayout_28">
+                                      <property name="spacing">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="leftMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>5</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>5</number>
+                                      </property>
+                                      <item>
+                                       <widget class="QLabel" name="map_6">
+                                        <property name="sizePolicy">
+                                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                          <horstretch>0</horstretch>
+                                          <verstretch>0</verstretch>
+                                         </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>500</width>
+                                          <height>500</height>
+                                         </size>
+                                        </property>
+                                        <property name="layoutDirection">
+                                         <enum>Qt::LeftToRight</enum>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/map.png);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                   <item alignment="Qt::AlignBottom">
+                                    <widget class="QWidget" name="red_hero_icons" native="true">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>60</width>
+                                       <height>200</height>
+                                      </size>
+                                     </property>
+                                     <property name="layoutDirection">
+                                      <enum>Qt::LeftToRight</enum>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true"/>
+                                     </property>
+                                     <layout class="QVBoxLayout" name="verticalLayout_23">
+                                      <property name="spacing">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="leftMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <item>
+                                       <widget class="QPushButton" name="red_hero1">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="red_hero2">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="red_hero3">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="red_hero4">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="red_hero5">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>40</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                           <widget class="QWidget" name="image_page">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
-                            <property name="topMargin">
-                             <number>10</number>
-                            </property>
-                            <property name="rightMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="bottomMargin">
-                             <number>10</number>
-                            </property>
-                            <item>
-                             <widget class="QWidget" name="blue_hero_icons_2" native="true">
-                              <property name="sizePolicy">
-                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                               </sizepolicy>
-                              </property>
-                              <property name="minimumSize">
-                               <size>
-                                <width>60</width>
-                                <height>300</height>
-                               </size>
-                              </property>
-                              <property name="styleSheet">
-                               <string notr="true"/>
-                              </property>
-                              <layout class="QVBoxLayout" name="verticalLayout_11">
-                               <property name="spacing">
-                                <number>5</number>
+                            <layout class="QVBoxLayout" name="verticalLayout_12">
+                             <property name="spacing">
+                              <number>0</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QWidget" name="image_container" native="true">
+                               <property name="sizePolicy">
+                                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                                </sizepolicy>
                                </property>
-                               <property name="leftMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="topMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="rightMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="bottomMargin">
-                                <number>0</number>
-                               </property>
-                               <item>
-                                <widget class="QPushButton" name="blue_hero5_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="blue_hero4_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="blue_hero3_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="blue_hero2_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="blue_hero1_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </widget>
-                            </item>
-                            <item>
-                             <widget class="QLabel" name="map_2">
-                              <property name="sizePolicy">
-                               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                               </sizepolicy>
-                              </property>
-                              <property name="minimumSize">
-                               <size>
-                                <width>500</width>
-                                <height>500</height>
-                               </size>
-                              </property>
-                              <property name="styleSheet">
-                               <string notr="true">image: url(:/icons/icons/map.png);</string>
-                              </property>
-                              <property name="text">
-                               <string/>
-                              </property>
-                             </widget>
-                            </item>
-                            <item>
-                             <widget class="QWidget" name="red_hero_icons_2" native="true">
-                              <property name="sizePolicy">
-                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                               </sizepolicy>
-                              </property>
-                              <property name="minimumSize">
-                               <size>
-                                <width>60</width>
-                                <height>300</height>
-                               </size>
-                              </property>
-                              <property name="styleSheet">
-                               <string notr="true"/>
-                              </property>
-                              <layout class="QVBoxLayout" name="verticalLayout_12">
-                               <property name="spacing">
-                                <number>5</number>
-                               </property>
-                               <property name="leftMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="topMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="rightMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="bottomMargin">
-                                <number>0</number>
-                               </property>
-                               <item>
-                                <widget class="QPushButton" name="red_hero1_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="red_hero2_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item alignment="Qt::AlignHCenter">
-                                <widget class="QPushButton" name="red_hero3_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="red_hero4_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QPushButton" name="red_hero5_2">
-                                 <property name="text">
-                                  <string/>
-                                 </property>
-                                 <property name="icon">
-                                  <iconset resource="../rsc.qrc">
-                                   <normaloff>:/icons/icons/plus-circle.svg</normaloff>:/icons/icons/plus-circle.svg</iconset>
-                                 </property>
-                                 <property name="iconSize">
-                                  <size>
-                                   <width>45</width>
-                                   <height>45</height>
-                                  </size>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </widget>
-                            </item>
-                           </layout>
+                               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                                <property name="spacing">
+                                 <number>0</number>
+                                </property>
+                                <property name="leftMargin">
+                                 <number>0</number>
+                                </property>
+                                <property name="topMargin">
+                                 <number>0</number>
+                                </property>
+                                <property name="rightMargin">
+                                 <number>0</number>
+                                </property>
+                                <property name="bottomMargin">
+                                 <number>0</number>
+                                </property>
+                                <item>
+                                 <widget class="QFrame" name="image_frame">
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QVBoxLayout" name="verticalLayout_9">
+                                   <property name="spacing">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="leftMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="topMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="rightMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <property name="bottomMargin">
+                                    <number>0</number>
+                                   </property>
+                                   <item alignment="Qt::AlignHCenter">
+                                    <widget class="QLabel" name="image">
+                                     <property name="text">
+                                      <string>Image Page</string>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                           <widget class="QWidget" name="video_page">
+                            <layout class="QVBoxLayout" name="verticalLayout_13">
+                             <property name="spacing">
+                              <number>0</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QWidget" name="video_container" native="true">
+                               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                                <item>
+                                 <widget class="QFrame" name="frame">
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QVBoxLayout" name="verticalLayout_16">
+                                   <item>
+                                    <widget class="QWidget" name="video_widget" native="true">
+                                     <layout class="QVBoxLayout" name="verticalLayout_17">
+                                      <item alignment="Qt::AlignHCenter">
+                                       <widget class="QLabel" name="label_2">
+                                        <property name="text">
+                                         <string>Main video widget</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QFrame" name="minimaps_container">
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QVBoxLayout" name="verticalLayout_14">
+                                   <item>
+                                    <widget class="QWidget" name="minimap_widget" native="true">
+                                     <layout class="QVBoxLayout" name="verticalLayout_18">
+                                      <item alignment="Qt::AlignHCenter">
+                                       <widget class="QLabel" name="label_3">
+                                        <property name="text">
+                                         <string>Minimap widget</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QWidget" name="track_widget" native="true">
+                                     <layout class="QVBoxLayout" name="verticalLayout_25">
+                                      <item alignment="Qt::AlignHCenter">
+                                       <widget class="QLabel" name="label_4">
+                                        <property name="text">
+                                         <string>Track Widget</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
+                                    </widget>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
                           </widget>
                          </item>
                         </layout>
@@ -1285,7 +1643,7 @@ color:#fff
                       <item>
                        <widget class="QWidget" name="right_menu_container" native="true">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
@@ -1298,14 +1656,17 @@ color:#fff
                         </property>
                         <property name="maximumSize">
                          <size>
-                          <width>55</width>
+                          <width>16777215</width>
                           <height>16777215</height>
                          </size>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))</string>
                         </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_5">
+                        <layout class="QVBoxLayout" name="verticalLayout_26">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
                          <property name="leftMargin">
                           <number>0</number>
                          </property>
@@ -1318,45 +1679,125 @@ color:#fff
                          <property name="bottomMargin">
                           <number>0</number>
                          </property>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                          <widget class="QFrame" name="frame_6">
+                         <item>
+                          <widget class="QFrame" name="right_menu_subcontainer">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>55</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                           <property name="layoutDirection">
+                            <enum>Qt::RightToLeft</enum>
+                           </property>
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
                            </property>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <layout class="QVBoxLayout" name="verticalLayout_8">
-                            <property name="spacing">
-                             <number>0</number>
-                            </property>
-                            <property name="leftMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="topMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="rightMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="bottomMargin">
-                             <number>0</number>
-                            </property>
-                            <item alignment="Qt::AlignTop">
-                             <widget class="QPushButton" name="pushButton_2">
-                              <property name="text">
-                               <string/>
+                           <layout class="QVBoxLayout" name="verticalLayout_5">
+                            <item alignment="Qt::AlignRight|Qt::AlignTop">
+                             <widget class="QFrame" name="snaps_btn_frame">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
                               </property>
-                              <property name="icon">
-                               <iconset resource="../rsc.qrc">
-                                <normaloff>:/icons/icons/edit-3.svg</normaloff>:/icons/icons/edit-3.svg</iconset>
+                              <property name="layoutDirection">
+                               <enum>Qt::LeftToRight</enum>
                               </property>
-                              <property name="iconSize">
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_8">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item alignment="Qt::AlignRight">
+                                <widget class="QPushButton" name="snap_menu_btn">
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                 <property name="icon">
+                                  <iconset resource="../rsc.qrc">
+                                   <normaloff>:/icons/icons/edit-3.svg</normaloff>:/icons/icons/edit-3.svg</iconset>
+                                 </property>
+                                 <property name="iconSize">
+                                  <size>
+                                   <width>24</width>
+                                   <height>24</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QFrame" name="snaps_frame">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
                                <size>
-                                <width>24</width>
-                                <height>24</height>
+                                <width>200</width>
+                                <height>0</height>
                                </size>
                               </property>
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_27">
+                               <item>
+                                <widget class="QLabel" name="image1">
+                                 <property name="text">
+                                  <string>Image 1</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="image2">
+                                 <property name="text">
+                                  <string>Image 2</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
                              </widget>
                             </item>
                            </layout>
