@@ -8,59 +8,58 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 class RadarChart():
-    def __init__(self, ax, pos_x, fig):
+    def __init__(self, ax, pos_x, fig, team_color, team_label):
         plt.style.use('ggplot')
 
-        self.subjects = ['Team\nFight', 'Objectives', 'Early\nGame', 'Late\nGame', 'Laning', 'Mobility']
+        self.subjects = ['Objectives', 'Early\nGame', 'Late\nGame', 'Team Fight', 'Map\nControl', 'Sustain']
 
-        self.alice = [1.3, 5.7, 6.2, 7.2, 1.3, 7.4]
-        self.bob = [5.3, 3.2, 2.5, 7.1, 3.3, 6.2]
+        self.team_data = [0, 0, 0, 0, 0, 0]
 
         self.angles = np.linspace(0, 2 * np.pi, len(self.subjects), endpoint=False)
         self.angles = np.concatenate((self.angles, [self.angles[0]]))
 
         self.subjects.append(self.subjects[0])
-        self.alice.append(self.alice[0])
-        self.bob.append(self.bob[0])
+        self.team_data.append(self.team_data[0])
 
         # Create a polar subplot for the radar chart
         ax = fig.add_subplot(2, 3, pos_x, polar=True)
+        
+        ax.set_ylim(0, 10)  # Adjust the limits according to your data range
 
-        ax.plot(self.angles, self.alice, 'o--', color='g', label='Alice')
-        ax.fill(self.angles, self.alice, alpha=0.25, color='g')
+        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label)
+        
+        self.team_line.set_data(self.angles, self.team_data)
 
-        ax.plot(self.angles, self.bob, 'o--', color='orange', label='Bob')
-        ax.fill(self.angles, self.bob, alpha=0.25, color='orange')
+        self.team_line.set_markerfacecolor(team_color)
+
+        ax.fill(self.angles, self.team_data, alpha=0.25, color=team_color)
 
         ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects)
     
         ax.grid(True)
         ax.legend(loc='upper right')
+    
+    def update_graph(self, new_team_data, team_color, team_label):
+        self.team_data = new_team_data
 
-class DonutChart():
-    def __init__(self, ax):        
-        ax.set_title('Donut Chart')
-        # Sample data as percentages
-        self.categories = ['Category A', 'Category B']
-        self.percentages = [25, 40]
-        self.colors = ['#ff9999', '#66b3ff']
-        self.explode = (0.01, 0.01)  # Explode slices slightly
+        self.team_data.append(self.team_data[0])
 
-        # Create a donut chart with customizations
-        ax.pie(self.percentages, labels=self.categories, autopct='%1.1f%%', startangle=75, colors=self.colors, pctdistance=0.5, explode=self.explode)
+        ax = self.team_line.axes
+        ax.clear()  # Clear the axes
 
-        # Draw a white circle in the center to create a hole (donut)
-        center_circle = plt.Circle((0, 0), 0.60, fc='white')
-        ax.add_artist(center_circle)
+        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label)
 
-        # Equal aspect ratio ensures that pie is drawn as a circle
-        ax.axis('equal')
+        self.team_line.set_data(self.angles, self.team_data)
 
-        # Add a title with a shadow effect
-        ax.set_title('Fancy Donut Chart', fontsize=16, fontweight='bold', loc='center', pad=20, color='navy', backgroundcolor='lightgrey')
+        self.team_line.set_markerfacecolor(team_color)
 
-        # Add a legend with custom colors
-        ax.legend(self.categories, title="Categories", loc="upper right", bbox_to_anchor=(1.3, 1))
+        ax.fill(self.angles, self.team_data, alpha=0.25, color=team_color)
+
+        ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects)
+        ax.set_ylim(0, 10)
+        ax.grid(True)
+        ax.legend(loc='upper right')
+
 
 class DivergingChart():
     def __init__(self, ax):
@@ -115,3 +114,35 @@ class HorizontalChart():
 
         ax.legend([males], ['Males'])
         ax.set_title(f'Population of Canada in {filtered["Year"].values[0]}', size=16, weight='bold')
+
+class WinrateChart():
+    def __init__(self, ax):
+        self.ax = ax  # Pass the ax object to store it for plotting later
+        self.selected_hero = 'Hero 1'
+        self.hero_names = ['Hero 2', 'Hero 3', 'Hero 4', 'Hero 5', 'Hero 6', 'Hero 7', 'Hero 8', 'Hero 9', 'Hero 10']
+
+        # Random win rates for illustration (excluding the selected hero)
+        self.win_rates_allies = [12, 45, 56, 100]
+        self.win_rates_enemies = [72, 14, 66, 84, 37]
+
+        # Create a list of hero categories (allies and enemies)
+        self.categories = ['Allies'] * len(self.win_rates_allies) + ['Enemies'] * len(self.win_rates_enemies)
+
+        # Concatenate the win rates for both allies and enemies
+        self.win_rates = np.concatenate([self.win_rates_allies, self.win_rates_enemies])
+
+        # Create colors for allies (lightblue) and enemies (lightcoral)
+        self.colors = ['lightblue'] * len(self.win_rates_allies) + ['lightcoral'] * len(self.win_rates_enemies)
+
+        # Create the horizontal bar chart within the constructor
+        self.ax.barh(self.hero_names, self.win_rates, color=self.colors)
+
+        # Set the y-axis label
+        #self.ax.set_xlabel('Win Rate')
+
+        # Set the title
+        self.ax.set_title(f'Win Rates for {self.selected_hero} (Allies vs. Enemies)')
+
+        # Invert the y-axis for better readability
+        self.ax.invert_yaxis()
+    

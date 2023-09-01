@@ -53,12 +53,12 @@ def get_role(hero_id, hero_roles):
 
 def get_icon(hero_id):
     image_filename = 'hero_icon ({})'.format(hero_id) + '.jpg'
-    image_path = os.path.join('D:/python_projects/gui/images/hero_icons/', image_filename)
+    image_path = os.path.join('images/hero_icons/', image_filename)
     return image_path
 
 def get_image(hero_id):
     image_filename = 'hero_image ({})'.format(hero_id) + '.jpg'
-    image_path = os.path.join('D:/python_projects/gui/images/hero_images/', image_filename)
+    image_path = os.path.join('images/hero_images/', image_filename)
     return image_path
 
 def get_type(hero_id, hero_types):

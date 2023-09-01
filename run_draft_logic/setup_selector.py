@@ -253,7 +253,7 @@ class SetupHeroSelector(QMainWindow):
 
         return None
 
-# Hero selector for the quick draft
+# Hero selector dialog for the quick draft
 class SetupHeroDialog(SetupHeroSelector):
     def __init__(self, parent):
         super(SetupHeroDialog, self).__init__(parent)
