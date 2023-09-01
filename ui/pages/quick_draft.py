@@ -4,13 +4,14 @@ from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource, QEvent
 from PyQt6 import uic
 import sys
 import os
-import pandas as pg
+import pandas as pd
+import ast
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
 
-from run_draft_logic.utils import load_theme
+from run_draft_logic.utils import load_names, get_name
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
@@ -28,10 +29,12 @@ class QuickDraftWindow(QMainWindow):
         self.menu_width = 55
         self.qlabel_to_update = None
         self.obj_name = None
-        self.blue_heroes = {"blue_roam":"", "blue_mid":"", "blue_exp":"", "blue_jungle":"", "blue_gold":""}
-        self.red_heroes = {"red_gold":"", "red_jungle":"", "red_exp":"", "red_mid":"", "red_roam":""}
+        self.blue_heroes = {"blue_roam":0, "blue_mid":0, "blue_exp":0, "blue_jungle":0, "blue_gold":0}
+        self.red_heroes = {"red_gold":0, "red_jungle":0, "red_exp":0, "red_mid":0, "red_roam":0}
         self.prev_qlabel = None
 
+        self.hero_names = load_names('data/hero_map.csv')
+        self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
         self.hero_burst , self.hero_dps, self.hero_scaling, self.hero_neutrals, self.hero_push, self.hero_clear, self.hero_cc, self.hero_sustain, self.hero_vision, self.hero_mobility = self.load_attr_csv('data/attr.csv')
 
         self.title_bar = TitleBar(self)
@@ -131,13 +134,13 @@ class QuickDraftWindow(QMainWindow):
             self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
 
             if str(self.obj_name).startswith("blue"):
-                if self.blue_heroes[self.obj_name] == "":
+                if self.blue_heroes[self.obj_name] == 0:
                     self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
                 else:
                     self.hero_dialog.selector.unavailable_hero_ids.remove(self.blue_heroes[self.obj_name])
                     self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
             else:
-                if self.red_heroes[self.obj_name] == "":
+                if self.red_heroes[self.obj_name] == 0:
                     self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
                 else:
                     self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
@@ -148,10 +151,14 @@ class QuickDraftWindow(QMainWindow):
             self.qlabel_to_update = None
             self.hero_dialog.selector.selected_id = None
 
+            # update the radar chart
             self.radar_blue.team_data = self.set_radar_data(self.blue_heroes)
             self.radar_red.team_data = self.set_radar_data(self.red_heroes)
             self.radar_blue.update_graph(self.radar_blue.team_data, team_color='blue', team_label='Team Blue')
             self.radar_red.update_graph(self.radar_red.team_data, team_color='red', team_label='Team Red')
+
+            ally_wr, enemy_wr = self.set_winrate_data(int(self.blue_heroes['blue_roam']), self.blue_heroes, self.red_heroes)
+            self.wr_chart.update_graph(ally_wr, enemy_wr, str(self.blue_heroes['blue_roam']))
             self.canvas.draw()
 
     def set_highlight(self, radius):
@@ -198,7 +205,7 @@ class QuickDraftWindow(QMainWindow):
                 hero_mobility.append(int(row['Mobility']))
 
         return hero_burst , hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility
-    
+     
     def set_radar_data(self, hero_dict):
         len_count = 5
         objectives =[]
@@ -211,7 +218,7 @@ class QuickDraftWindow(QMainWindow):
 
         if isinstance(hero_dict, dict):
             for val in hero_dict.values():
-                if val != '':
+                if val != 0:
                     objectives.append((self.hero_neutrals[int(val) - 1] + self.hero_push[int(val) - 1]) / 2)
                     late_game.append((self.hero_scaling[int(val) - 1] + self.hero_dps[int(val) - 1]) / 2)
                     early_game.append((self.hero_burst[int(val) - 1] + self.hero_cc[int(val) - 1]) / 2)
@@ -226,8 +233,39 @@ class QuickDraftWindow(QMainWindow):
             #print(f'team: {team_data}')
         return team_data
 
-    def load_winrate_csv(self):
+    def set_indiv_hchart_data(self, hero_id, color):
         pass
+
+    def get_winrate(self, current_hero, hero_dict, is_ally):
+        team_wr = []
+        print(current_hero)
+        for hero in list(hero_dict.values()):
+            if hero == 0:
+                team_wr.append(0)
+            else:
+                if int(hero) != current_hero:
+                    cell_str = self.df.loc[current_hero, str(hero)]
+                    cell_list = ast.literal_eval(cell_str)
+                    if is_ally:
+                        if cell_list[0] != 0 or cell_list[1] != 0:
+                            team_wr.append((cell_list[0] / (cell_list[0] + cell_list[1]) * 100))
+                        else:
+                            team_wr.append(0)
+                    else:
+                        if cell_list[2] != 0 or cell_list[3] != 0:
+                            team_wr.append((cell_list[2] / (cell_list[2] + cell_list[3]) * 100))
+                        else:
+                            team_wr.append(0)
+        return team_wr
+
+    def set_winrate_data(self, curr_hero, team_dict, enemy_dict):
+        ally_wr = []
+        enemy_wr = []
+
+        ally_wr = self.get_winrate(curr_hero, team_dict, True)
+        enemy_wr = self.get_winrate(curr_hero, enemy_dict, False)
+        print(f'{ally_wr}\t{enemy_wr}')
+        return ally_wr, enemy_wr
 
 
 if __name__ == "__main__":

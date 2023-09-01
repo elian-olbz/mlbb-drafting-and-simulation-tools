@@ -44,7 +44,15 @@ def load_hero_roles(hero_roles_path):
             hero_types[hero_id] = types
 
         return hero_roles, hero_names, hero_icons, hero_types
- 
+    
+def load_names(path):
+    hero_names = []
+    with open(path, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+             hero_names.append(row['Name'])
+        return hero_names
+
 def get_name(hero_id, hero_names):
     return hero_names[hero_id - 1]
 

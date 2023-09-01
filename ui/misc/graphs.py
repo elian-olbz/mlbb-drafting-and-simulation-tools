@@ -122,11 +122,8 @@ class WinrateChart():
         self.hero_names = ['Hero 2', 'Hero 3', 'Hero 4', 'Hero 5', 'Hero 6', 'Hero 7', 'Hero 8', 'Hero 9', 'Hero 10']
 
         # Random win rates for illustration (excluding the selected hero)
-        self.win_rates_allies = [12, 45, 56, 100]
-        self.win_rates_enemies = [72, 14, 66, 84, 37]
-
-        # Create a list of hero categories (allies and enemies)
-        self.categories = ['Allies'] * len(self.win_rates_allies) + ['Enemies'] * len(self.win_rates_enemies)
+        self.win_rates_allies = [0, 0, 0, 0]
+        self.win_rates_enemies = [0, 0, 0, 0, 0]
 
         # Concatenate the win rates for both allies and enemies
         self.win_rates = np.concatenate([self.win_rates_allies, self.win_rates_enemies])
@@ -137,11 +134,28 @@ class WinrateChart():
         # Create the horizontal bar chart within the constructor
         self.ax.barh(self.hero_names, self.win_rates, color=self.colors)
 
-        # Set the y-axis label
-        #self.ax.set_xlabel('Win Rate')
-
         # Set the title
         self.ax.set_title(f'Win Rates for {self.selected_hero} (Allies vs. Enemies)')
+
+        # Invert the y-axis for better readability
+        self.ax.invert_yaxis()
+
+    def update_graph(self, new_ally_winrate, new_enemy_winrate, selected_hero):
+        # Clear the existing bar chart
+        self.ax.clear()
+
+        # Update the win rates and colors
+        self.win_rates = np.concatenate([new_ally_winrate, new_enemy_winrate])
+        self.colors = ['lightblue'] * len(self.win_rates_allies) + ['lightcoral'] * len(self.win_rates_enemies)
+
+        # Create the updated horizontal bar chart
+        self.ax.barh(self.hero_names, self.win_rates, color=self.colors)
+
+        # Set the y-axis label
+        # self.ax.set_xlabel('Win Rate')
+
+        # Set the title
+        self.ax.set_title(f'Win Rates for {selected_hero} (Allies vs. Enemies)')
 
         # Invert the y-axis for better readability
         self.ax.invert_yaxis()
