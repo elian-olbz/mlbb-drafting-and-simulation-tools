@@ -35,7 +35,8 @@ class QuickDraftWindow(QMainWindow):
 
         self.hero_names = load_names('data/hero_map.csv')
         self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
-        self.hero_burst , self.hero_dps, self.hero_scaling, self.hero_neutrals, self.hero_push, self.hero_clear, self.hero_cc, self.hero_sustain, self.hero_vision, self.hero_mobility = self.load_attr_csv('data/attr.csv')
+        
+        self.hero_data = self.load_attr('data/attr.csv')
 
         self.title_bar = TitleBar(self)
         self.hero_dialog = HeroSelectorDialog()
@@ -57,7 +58,7 @@ class QuickDraftWindow(QMainWindow):
                 label.installEventFilter(self)
         
         # Canvas for the graphs
-        self.fig = Figure(figsize=(10,10))
+        self.fig = Figure(figsize=(9,9))
         self.canvas = FigureCanvas(self.fig)
         self.graph_layout.addWidget(self.canvas)
 
@@ -66,13 +67,13 @@ class QuickDraftWindow(QMainWindow):
         self.fig.patch.set_visible(False)
 
         # Create instances of the graphs and pass the subplots
-        self.radar_blue = RadarChart(self.axs[0, 0], pos_x=1, fig=self.fig, team_color='blue', team_label='Blue Team')
-        self.diverging_team = DivergingChart(self.axs[0,1])
-        self.radar_red = RadarChart(self.axs[0, 2], pos_x=3, fig=self.fig, team_color='red', team_label='Team Red')
+        self.blue_win_attr = TeamWinAttr(self.axs[0, 0], pos_x=1, fig=self.fig, team_color='blue', team_label='Blue Team')
+        self.team_head_to_head = HeadToHeadAttr(self.axs[0,1])
+        self.red_win_attr = TeamWinAttr(self.axs[0, 2], pos_x=3, fig=self.fig, team_color='red', team_label='Team Red')
 
-        self.horizotal_indiv = HorizontalChart(self.axs[1, 0])
-        self.diverging_indiv = DivergingChart(self.axs[1, 1])
-        self.wr_chart = WinrateChart(self.axs[1, 2])
+        self.single_hero_attr = SingleHeroAttr(self.axs[1, 0], self.extract_attr(self.hero_data))
+        self.single_hero_stats = SingleHeroStats(self.axs[1, 1], self.extract_stats(self.hero_data))
+        self.wr_chart = LineUpWinrate(self.axs[1, 2])
 
         for i, ax in enumerate(self.axs.flatten()):
             ax.set_frame_on(False)
@@ -129,7 +130,7 @@ class QuickDraftWindow(QMainWindow):
     def select_button_click(self):
         if self.hero_dialog.selector.selected_id is not None and self.qlabel_to_update is not None:
             self.qlabel_to_update.setStyleSheet("")
-            #self.hero_dialog.hide()
+            self.hero_dialog.hide()
             self.hero_dialog.selector.disp_selected_image(self.hero_dialog.selector.selected_id, self.qlabel_to_update)
             self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
 
@@ -152,13 +153,20 @@ class QuickDraftWindow(QMainWindow):
             self.hero_dialog.selector.selected_id = None
 
             # update the radar chart
-            self.radar_blue.team_data = self.set_radar_data(self.blue_heroes)
-            self.radar_red.team_data = self.set_radar_data(self.red_heroes)
-            self.radar_blue.update_graph(self.radar_blue.team_data, team_color='blue', team_label='Team Blue')
-            self.radar_red.update_graph(self.radar_red.team_data, team_color='red', team_label='Team Red')
+            self.blue_win_attr.team_data = self.set_radar_data(self.blue_heroes)
+            self.red_win_attr.team_data = self.set_radar_data(self.red_heroes)
+            self.blue_win_attr.update_graph(self.blue_win_attr.team_data, team_color='blue', team_label='Team Blue')
+            self.red_win_attr.update_graph(self.red_win_attr.team_data, team_color='red', team_label='Team Red')
 
+            #update win rate chart
             ally_wr, enemy_wr = self.set_winrate_data(int(self.blue_heroes['blue_roam']), self.blue_heroes, self.red_heroes)
             self.wr_chart.update_graph(ally_wr, enemy_wr, str(self.blue_heroes['blue_roam']))
+
+            #update individual stats horizontal chart
+            self.single_hero_attr.update_graph(hero_id=117, team_color='blue')
+            self.single_hero_stats.update_graph(hero_id=117)
+
+            self.extract_stats(self.hero_data)
             self.canvas.draw()
 
     def set_highlight(self, radius):
@@ -176,37 +184,35 @@ class QuickDraftWindow(QMainWindow):
             return 0
         total = sum(x for x in list_x)
         return total/len_x
-    
-    def load_attr_csv(self, path):
-        hero_burst = []
-        hero_dps = []
-        hero_scaling = []
-        hero_neutrals = []
-        hero_push = []
-        hero_clear = []
-        hero_cc = []
-        hero_sustain = []
-        hero_vision = []
-        hero_mobility = []
 
+    def load_attr(self, path):
+        hero_data = []
         with open(path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                #hero_id = int(row['HeroID'])
-                hero_burst.append(int(row['Burst']))
-                hero_dps.append(int(row['DPS']))
-                hero_scaling.append(int(row['Scaling']))
-                hero_neutrals.append(int(row['Neutrals']))
-                hero_push.append(int(row['Push']))
-                hero_clear.append(int(row['Clear']))
-                hero_cc.append(int(row['CC']))
-                hero_sustain.append(int(row['Sustain']))
-                hero_vision.append(int(row['Vision']))
-                hero_mobility.append(int(row['Mobility']))
+                hero_data.append([int(row['Burst']), int(row['DPS']), int(row['Scaling']), int(row['Neutrals']),
+                                int(row['Push']), int(row['Clear']), int(row['CC']), int(row['Sustain']),
+                                int(row['Vision']), int(row['Mobility']), float(eval(row['Pick Rate'])), float(eval(row['Ban Rate'])), float(eval(row['Win Rate']))])
+        return hero_data
+    
+    def extract_attr(self, hero_data):
+        hero_stats = []
+        for row in hero_data:
+            last_three_values = row[:10]
+            hero_stats.append(last_three_values)
+        return hero_stats
+    
+    def extract_stats(self, hero_data):
+        hero_stats = []
+        for row in hero_data:
+            last_three_values = row[10:13]
+            rounded_values = [round(value * 100, 2) for value in last_three_values]
+            hero_stats.append(rounded_values)
+        return hero_stats
 
-        return hero_burst , hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility
-     
     def set_radar_data(self, hero_dict):
+        hero_burst, hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
         len_count = 5
         objectives =[]
         early_game = []
@@ -219,13 +225,14 @@ class QuickDraftWindow(QMainWindow):
         if isinstance(hero_dict, dict):
             for val in hero_dict.values():
                 if val != 0:
-                    objectives.append((self.hero_neutrals[int(val) - 1] + self.hero_push[int(val) - 1]) / 2)
-                    late_game.append((self.hero_scaling[int(val) - 1] + self.hero_dps[int(val) - 1]) / 2)
-                    early_game.append((self.hero_burst[int(val) - 1] + self.hero_cc[int(val) - 1]) / 2)
-                    team_fight.append((self.hero_burst[int(val) - 1] + self.hero_cc[int(val) - 1]) / 2)
-                    map_control.append((self.hero_mobility[int(val) - 1] + self.hero_clear[int(val) - 1]) / 2)
-                    sustain.append((self.hero_sustain[int(val) - 1]))
-                    #print(f'ID: {val}\tobj: {objectives}\tearly: {early_game}\tlate: {late_game}\tteamfight: {team_fight}\tmapcontrol: {map_control}')
+                    hero_id = int(val) - 1
+                    # neutrals + push
+                    objectives.append((self.hero_data[hero_id][hero_neutrals] + self.hero_data[hero_id][hero_push]) / 2)
+                    late_game.append((self.hero_data[hero_id][hero_scaling] + self.hero_data[hero_id][hero_dps]) / 2)
+                    early_game.append((self.hero_data[hero_id][hero_burst] + self.hero_data[hero_id][hero_cc]) / 2)
+                    team_fight.append((self.hero_data[hero_id][hero_burst] + self.hero_data[hero_id][hero_cc]) / 2)
+                    map_control.append((self.hero_data[hero_id][hero_mobility] + self.hero_data[hero_id][hero_clear]) / 2)
+                    sustain.append((self.hero_data[hero_id][hero_sustain]))
 
             team_data = [self.get_average(objectives, len_count), self.get_average(early_game, len_count), 
                          self.get_average(late_game, len_count), self.get_average(team_fight, len_count), 
@@ -233,17 +240,14 @@ class QuickDraftWindow(QMainWindow):
             #print(f'team: {team_data}')
         return team_data
 
-    def set_indiv_hchart_data(self, hero_id, color):
-        pass
 
     def get_winrate(self, current_hero, hero_dict, is_ally):
         team_wr = []
-        print(current_hero)
         for hero in list(hero_dict.values()):
             if hero == 0:
                 team_wr.append(0)
             else:
-                if int(hero) != current_hero:
+                if int(hero) != current_hero and current_hero != 0:
                     cell_str = self.df.loc[current_hero, str(hero)]
                     cell_list = ast.literal_eval(cell_str)
                     if is_ally:
@@ -264,8 +268,11 @@ class QuickDraftWindow(QMainWindow):
 
         ally_wr = self.get_winrate(curr_hero, team_dict, True)
         enemy_wr = self.get_winrate(curr_hero, enemy_dict, False)
-        print(f'{ally_wr}\t{enemy_wr}')
         return ally_wr, enemy_wr
+    
+    def set_indiv_hchart_data(self, hero_id, color):
+        pass
+
 
 
 if __name__ == "__main__":
