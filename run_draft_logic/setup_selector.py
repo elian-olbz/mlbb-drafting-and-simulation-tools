@@ -159,7 +159,7 @@ class SetupHeroSelector(QMainWindow):
             tab_layout.addItem(spacer, row, column)
 
             # Add fixed-sized widgets to fill empty spaces and ensure uniform spacing between rows
-            while row < 30:  # Assuming you want a maximum of 5 rows in each tab
+            while row < 30:  # 
                 empty_widget = QWidget()
                 empty_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
                 tab_layout.addWidget(empty_widget, row, column)
@@ -274,12 +274,15 @@ class SetupHeroDialog(SetupHeroSelector):
             if qlabel:
                 image_path = get_icon(hero_id)
                 pixmap = QPixmap(image_path)
-                round_pix = rounded_pixmap(pixmap, 97)
+                round_pix = rounded_pixmap(pixmap, 97, 3)
+
                 # Get the size of the QLabel and scale the pixmap to fit
                 label_size = qlabel.size()
                 scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                 qlabel.setPixmap(scaled_pixmap)
+                qlabel.setFixedSize(50, 50)
+                qlabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                 self.unavailable_hero_ids.append(hero_id)
     

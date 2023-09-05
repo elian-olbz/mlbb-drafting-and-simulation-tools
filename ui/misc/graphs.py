@@ -22,11 +22,11 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
         self.team_data.append(self.team_data[0])
 
         # Create a polar subplot for the radar chart
-        ax = fig.add_subplot(2, 3, pos_x, polar=True)
+        ax = fig.add_subplot(1, 2, pos_x, polar=True)
         
         ax.set_ylim(0, 10)  # Adjust the limits according to your data range
 
-        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label)
+        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label, markersize=3)
         
         self.team_line.set_data(self.angles, self.team_data)
 
@@ -37,7 +37,7 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
         ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects)
     
         ax.grid(True)
-        ax.legend(loc='upper right')
+        ax.tick_params(left=False)
     
     def update_graph(self, new_team_data, team_color, team_label):
         self.team_data = new_team_data
@@ -47,7 +47,7 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
         ax = self.team_line.axes
         ax.clear()  # Clear the axes
 
-        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label)
+        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label, markersize=3)
 
         self.team_line.set_data(self.angles, self.team_data)
 
@@ -58,37 +58,33 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
         ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects)
         ax.set_ylim(0, 10)
         ax.grid(True)
-        ax.legend(loc='upper right')
+        ax.tick_params(left=False)
 
+class HeadToHeadAttr:
+    def __init__(self, ax, blue_values, red_values):
+        self.blue_values = [-value for value in blue_values]  # Multiply blue team values by -1
+        self.red_values = red_values
+        labels = ['Burst', 'DPS', 'Scaling', 'Neutrals', 'Push', 'Clear', 'CC', 'Sustain', 'Vision', 'Mobility']
 
-class HeadToHeadAttr(): # Diverging H_Chart reflecting head to head attributes
-    def __init__(self, ax):
-        file_path = "C:/Users/Marlon/Desktop/graph/data/pop.csv"
-
-        self.df = pd.read_csv(file_path)
-
-        self.df['Age Group'] = self.df['Age Group'].fillna(method='ffill')
-
-        self.df['Males'] = self.df['Males'].str.replace(',','').astype('int')
-        self.df['Females'] = self.df['Females'].str.replace(',','').astype('int')
-        self.df['Females'] = self.df['Females'] * -1
-
-        ax.set_xlim(-2000_000, 2000_000)
-        filtered = self.df[self.df['Year']==self.df['Year'].min()]
-        males = ax.barh(y=filtered['Age Group'], width=filtered['Males'], color='red')
-        females = ax.barh(y=filtered['Age Group'], width=filtered['Females'], color='blue')
-
-        ax.bar_label(males, padding=3, labels=[f'{round(value, -3):,}' for value in filtered['Males']])
-        ax.bar_label(females, padding=3, labels=[f'{-1*round(value, -3):,}' for value in filtered['Females']])
+        ax.set_xlim(min(min(self.blue_values), min(self.red_values)), max(max(self.blue_values), max(self.red_values)))
+        x_ticks = np.arange(-10, 11, 1)  # Create an array of x-tick positions
+        bars_blue = ax.barh(y=range(len(labels)), width=self.blue_values, color='blue')
+        bars_red = ax.barh(y=range(len(labels)), width=red_values, color='red')
 
         for edge in ['top', 'right', 'bottom', 'left']:
             ax.spines[edge].set_visible(False)
 
-        ax.tick_params(left=False)
-        ax.get_xaxis().set_visible(False)
+        ax.tick_params(left=False, bottom=True)
+        ax.get_xaxis().set_visible(True)
+        ax.set_xticks(x_ticks)
+        ax.set_xticklabels([str(abs(value)) for value in x_ticks])
 
-        ax.legend([males, females], ['Males', 'Females'])
-        ax.set_title(f'Population of Canada in {filtered["Year"].values[0]}', size=16, weight='bold')
+        #ax.legend([bars_blue, bars_red], ['Blue Team', 'Red Team'])
+        ax.set_title('Head-to-Head Attributes', size=16, weight='bold')
+
+        # Set y-axis tick labels and values
+        ax.set_yticks(range(len(labels)))
+        ax.set_yticklabels(labels)
 
 class SingleHeroAttr(): # H_Chart reflecting single hero attributes
     def __init__(self, ax, hero_data):
@@ -129,47 +125,41 @@ class SingleHeroAttr(): # H_Chart reflecting single hero attributes
 
         self.ax.set_title(f'Hero Attributes of Hero X', size=16)
 
-class SingleHeroStats():
-    def __init__(self, ax, hero_data):
-        self.hero_data = hero_data
+class SingleHeroStats:
+    def __init__(self, ax, hero_stats):
         self.ax = ax
-        self.labels = ['Pick Rate', 'Ban Rate', 'Win Rate']
-        self.colors = ['blue', 'red', 'green']  # Define colors for the bars
+        self.hero_stats = hero_stats
 
-        initial_data = [0] * len(self.labels)
+        self.value = 0.0  # Initial value
+        self.hero_id = 0  # Initial hero ID
+        self.index = 0    # Initial index
 
-        self.ax.set_ylim(0, 100)  # y-axis limits
-        self.bars = self.ax.bar(x=range(1, len(initial_data) + 1), height=initial_data, width=0.5, color=self.colors)
+        # Create a donut chart with a single wedge
+        self.wedge, _ = self.ax.pie([1], colors=['white'], radius=1.0, wedgeprops={'linewidth': 2, 'edgecolor': 'gray'})
+        self.center_circle = plt.Circle((0, 0), 0.7, color='white', fc='white', lw=1.0)
+        self.ax.add_artist(self.center_circle)
 
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
+        # Add a text label to display self.value in the center
+        self.value_text = self.ax.text(0, 0, str(self.value), va='center', ha='center', fontsize=10)
 
-        self.ax.tick_params(left=False)
+        # Set axis limits and remove axis labels
+        self.ax.set_xlim(-1, 1)
+        self.ax.set_ylim(-1, 1)
+        self.ax.axis('off')
 
-        self.ax.set_xticks(range(1, len(self.labels) + 1))
-        self.ax.set_xticklabels([label for label in self.labels])
-
-        self.ax.set_title(f'Hero Attributes of Hero X', size=16)
-
-    def update_graph(self, hero_id):
+    def update_graph(self, hero_id, index):
         if hero_id != 0:
             self.hero_id = hero_id - 1
-        self.ax.set_ylim(0, 100)  # y-axis limits
         
-        # Assign different colors to each bar based on the defined colors list
-        for bar, data, color in zip(self.bars, self.hero_data[self.hero_id], self.colors):
-            bar.set_height(data)
-            bar.set_color(color)
+        win_rate = self.hero_stats[self.hero_id][index] # Get the Win Rate
 
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
+        # Update the donut chart wedge with the win rate
+        self.wedge[0].set_theta1(180 - win_rate * 3.6)
+        self.wedge[0].set_theta2(180)
+        self.wedge[0].set_facecolor('blue')
 
-        self.ax.tick_params(left=False)
-
-        self.ax.set_xticks(range(1, len(self.labels) + 1))
-        self.ax.set_xticklabels([label for label in self.labels])
-
-        self.ax.set_title(f'Hero Attributes of Hero X', size=16)
+        # Update the text label with the win rate
+        self.value_text.set_text(f'{win_rate}%')
 
 
 class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero against or with each hero on the line up
@@ -193,6 +183,7 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
 
         # Set the title
         self.ax.set_title(f'Win Rates for {self.selected_hero} (Allies vs. Enemies)')
+        self.ax.tick_params(left=False)
         self.ax.set_xlim(0, 100)
 
         # Invert the y-axis for better readability
@@ -214,6 +205,7 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
 
         # Set the title
         self.ax.set_title(f'Win Rates for {selected_hero} (Allies vs. Enemies)')
+        self.ax.tick_params(left=False)
         self.ax.set_xlim(0, 100)
 
         # Invert the y-axis for better readability

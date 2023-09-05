@@ -56,35 +56,10 @@ class QuickDraftWindow(QMainWindow):
             if label:
                 self.labels[name] = label
                 label.installEventFilter(self)
-        
-        # Canvas for the graphs
-        self.fig = Figure(figsize=(9,9))
-        self.canvas = FigureCanvas(self.fig)
-        self.graph_layout.addWidget(self.canvas)
 
-        self.axs = self.fig.subplots(2,3)
+        self.create_all_charts()
 
-        self.fig.patch.set_visible(False)
-
-        # Create instances of the graphs and pass the subplots
-        self.blue_win_attr = TeamWinAttr(self.axs[0, 0], pos_x=1, fig=self.fig, team_color='blue', team_label='Blue Team')
-        self.team_head_to_head = HeadToHeadAttr(self.axs[0,1])
-        self.red_win_attr = TeamWinAttr(self.axs[0, 2], pos_x=3, fig=self.fig, team_color='red', team_label='Team Red')
-
-        self.single_hero_attr = SingleHeroAttr(self.axs[1, 0], self.extract_attr(self.hero_data))
-        self.single_hero_stats = SingleHeroStats(self.axs[1, 1], self.extract_stats(self.hero_data))
-        self.wr_chart = LineUpWinrate(self.axs[1, 2])
-
-        for i, ax in enumerate(self.axs.flatten()):
-            ax.set_frame_on(False)
-            if i in [0, 2]:
-                ax.set_yticklabels([])
-                ax.set_xticklabels([])
-                ax.set_yticks([])
-                ax.set_xticks([])
-        
-        self.fig.tight_layout()
-        
+     
 #############################################################       
         # MOVE WINDOW
         def moveWindow(event):
@@ -116,7 +91,7 @@ class QuickDraftWindow(QMainWindow):
 
                 self.obj_name = obj.objectName()
                 self.qlabel_to_update = obj
-                self.set_highlight(20)
+                self.set_highlight(25)
                 if self.obj_name in self.labels:
                     self.show_dial()
 
@@ -161,14 +136,27 @@ class QuickDraftWindow(QMainWindow):
             #update win rate chart
             ally_wr, enemy_wr = self.set_winrate_data(int(self.blue_heroes['blue_roam']), self.blue_heroes, self.red_heroes)
             self.wr_chart.update_graph(ally_wr, enemy_wr, str(self.blue_heroes['blue_roam']))
-
             #update individual stats horizontal chart
             self.single_hero_attr.update_graph(hero_id=117, team_color='blue')
-            self.single_hero_stats.update_graph(hero_id=117)
 
-            self.extract_stats(self.hero_data)
+            self.hero_wr.update_graph(int(self.blue_heroes['blue_roam']), 0)
+            self.hero_pr.update_graph(int(self.blue_heroes['blue_roam']), 1)
+            self.hero_br.update_graph(int(self.blue_heroes['blue_roam']), 2)
+            self.canvas4.draw()
+
             self.canvas.draw()
+            self.canvas2.draw()
 
+    def create_all_charts(self):
+        self.canvas, self.blue_win_attr, self.red_win_attr = self.crete_radar_chart()
+        self.canvas2, self.single_hero_attr, self.wr_chart = self.create_horizontal_stats()
+
+        blue_team = [5, 7.6, 9, 4.9, 5.1, 4.3, 7.2, 8.4, 8.2, 7.7]
+        red_team = [6.9, 7, 6.1, 8.6, 5.3, 6, 9, 8.2, 6.6, 8]
+        self.canvas3, self.head_to_head_attr = self.create_diverging_stats(blue_team, red_team)
+
+        self.canvas4, self.hero_wr, self.hero_pr, self.hero_br = self.create_single_hero_stats(self.extract_stats(self.hero_data))
+        
     def set_highlight(self, radius):
         if self.prev_qlabel is not None and self.qlabel_to_update != self.prev_qlabel:
             self.prev_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
@@ -210,6 +198,76 @@ class QuickDraftWindow(QMainWindow):
             hero_stats.append(rounded_values)
         return hero_stats
 
+    def crete_radar_chart(self):
+        # Canvas for the graphs
+        fig = Figure(figsize=(5,5))
+        canvas = FigureCanvas(fig)
+        self.radar_layout.addWidget(canvas)
+
+        axs = fig.subplots(1, 2)
+        fig.patch.set_visible(False)
+
+        # Create instances of the graphs and pass the subplots
+        blue_win_attr = TeamWinAttr(axs[0], pos_x=1, fig=fig, team_color='blue', team_label='Blue Team')
+        red_win_attr = TeamWinAttr(axs[1], pos_x=2, fig=fig, team_color='red', team_label='Team Red')
+        
+        for i, ax in enumerate(axs.flatten()):
+            ax.set_frame_on(False)
+            if i in [0, 1]:
+                ax.set_yticklabels([])
+                ax.set_xticklabels([])
+                ax.set_yticks([])
+                ax.set_xticks([])
+        fig.tight_layout()
+        return canvas, blue_win_attr, red_win_attr
+    
+    def create_horizontal_stats(self):
+        # Create a Matplotlib figure and canvas
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(2, 2))
+        canvas = FigureCanvas(fig)
+        self.attr_layout.addWidget(canvas)
+
+        # Create instances of SingleHeroAttr and LineUpWinrate, passing the axes
+        wr_chart = LineUpWinrate(ax1)
+        single_hero_attr = SingleHeroAttr(ax2, self.extract_attr(self.hero_data))
+
+        return canvas, single_hero_attr, wr_chart
+
+    def create_diverging_stats(self, blue_team, red_team):
+        # Create a Matplotlib figure and canvas
+        fig, ax = plt.subplots(figsize=(8, 8))
+        canvas = FigureCanvas(fig)
+        self.diverging_layout.addWidget(canvas)
+
+        # Create an instance of HeadToHeadAttr, passing the Matplotlib axes
+        head_to_head_attr = HeadToHeadAttr(ax, blue_team, red_team)
+
+        return canvas, head_to_head_attr
+    
+    def create_single_hero_stats(self, hero_stats):
+        # Create a Matplotlib figure and canvas for the three donut charts
+        fig = Figure(figsize=(10,10))
+        axs = fig.subplots(1, 3)
+        canvas = FigureCanvas(fig)
+        self.pie_layout.addWidget(canvas)
+
+        fig.patch.set_visible(False)
+
+        # Create instances of SingleHeroStats and pass the subplots and hero_data for each instance
+        hero_wr = SingleHeroStats(axs[0], hero_stats)
+        hero_pr = SingleHeroStats(axs[1], hero_stats)
+        hero_br = SingleHeroStats(axs[2], hero_stats)
+
+        for ax in axs.flatten():
+            ax.set_frame_on(False)
+            ax.set_yticklabels([])
+            ax.set_xticklabels([])
+            ax.set_yticks([])
+            ax.set_xticks([])
+
+        print(len(hero_stats))
+        return canvas, hero_wr, hero_pr, hero_br
+    
     def set_radar_data(self, hero_dict):
         hero_burst, hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 
@@ -244,36 +302,38 @@ class QuickDraftWindow(QMainWindow):
     def get_winrate(self, current_hero, hero_dict, is_ally):
         team_wr = []
         for hero in list(hero_dict.values()):
-            if hero == 0:
-                team_wr.append(0)
-            else:
-                if int(hero) != current_hero and current_hero != 0:
-                    cell_str = self.df.loc[current_hero, str(hero)]
-                    cell_list = ast.literal_eval(cell_str)
-                    if is_ally:
-                        if cell_list[0] != 0 or cell_list[1] != 0:
-                            team_wr.append((cell_list[0] / (cell_list[0] + cell_list[1]) * 100))
+                if hero == 0:
+                    team_wr.append(0)
+                else:
+                    if int(hero) != current_hero:
+                        cell_str = self.df.loc[current_hero, str(hero)]
+                        cell_list = ast.literal_eval(cell_str)
+                        if is_ally:
+                            if cell_list[0] != 0 or cell_list[1] != 0:
+                                team_wr.append((cell_list[0] / (cell_list[0] + cell_list[1]) * 100))
+                            else:
+                                team_wr.append(0)
                         else:
-                            team_wr.append(0)
-                    else:
-                        if cell_list[2] != 0 or cell_list[3] != 0:
-                            team_wr.append((cell_list[2] / (cell_list[2] + cell_list[3]) * 100))
-                        else:
-                            team_wr.append(0)
+                            if cell_list[2] != 0 or cell_list[3] != 0:
+                                team_wr.append((cell_list[2] / (cell_list[2] + cell_list[3]) * 100))
+                            else:
+                                team_wr.append(0)
         return team_wr
 
     def set_winrate_data(self, curr_hero, team_dict, enemy_dict):
         ally_wr = []
         enemy_wr = []
 
-        ally_wr = self.get_winrate(curr_hero, team_dict, True)
-        enemy_wr = self.get_winrate(curr_hero, enemy_dict, False)
+        if curr_hero != 0:
+            ally_wr = self.get_winrate(curr_hero, team_dict, True)
+            enemy_wr = self.get_winrate(curr_hero, enemy_dict, False)
+        else:
+            ally_wr = [0] * 4
+            enemy_wr = [0] * 5
         return ally_wr, enemy_wr
     
     def set_indiv_hchart_data(self, hero_id, color):
         pass
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
