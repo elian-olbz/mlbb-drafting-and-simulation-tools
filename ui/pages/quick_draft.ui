@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>972</width>
-    <height>622</height>
+    <width>1044</width>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -19,8 +25,8 @@
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
-     <width>800</width>
-     <height>500</height>
+     <width>0</width>
+     <height>700</height>
     </size>
    </property>
    <property name="styleSheet">
@@ -45,8 +51,8 @@
     <item>
      <widget class="QFrame" name="drop_shadow">
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-
+       <string notr="true">
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
 </string>
       </property>
       <property name="frameShape">
@@ -273,7 +279,7 @@ color:#fff
                    <enum>Qt::RightToLeft</enum>
                   </property>
                   <property name="text">
-                   <string>Open in Tactical Board</string>
+                   <string/>
                   </property>
                   <property name="icon">
                    <iconset resource="../rsc.qrc">
@@ -482,18 +488,18 @@ color:#fff
                  <height>0</height>
                 </size>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout" stretch="6,4">
+               <layout class="QHBoxLayout" name="horizontalLayout" stretch="6,3">
                 <property name="spacing">
-                 <number>0</number>
+                 <number>10</number>
                 </property>
                 <property name="leftMargin">
-                 <number>0</number>
+                 <number>10</number>
                 </property>
                 <property name="topMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
-                 <number>0</number>
+                 <number>10</number>
                 </property>
                 <property name="bottomMargin">
                  <number>0</number>
@@ -518,21 +524,25 @@ color:#fff
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px;</string>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_17">
                    <property name="spacing">
-                    <number>8</number>
+                    <number>4</number>
                    </property>
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="topMargin">
                     <number>0</number>
                    </property>
                    <property name="rightMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="bottomMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <item>
                     <widget class="QWidget" name="hero_widget" native="true">
@@ -545,21 +555,21 @@ color:#fff
                      <property name="styleSheet">
                       <string notr="true"/>
                      </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_4">
+                     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="5,0,5">
                       <property name="spacing">
-                       <number>40</number>
+                       <number>10</number>
                       </property>
                       <property name="leftMargin">
-                       <number>10</number>
+                       <number>0</number>
                       </property>
                       <property name="topMargin">
-                       <number>5</number>
+                       <number>4</number>
                       </property>
                       <property name="rightMargin">
-                       <number>10</number>
+                       <number>0</number>
                       </property>
                       <property name="bottomMargin">
-                       <number>5</number>
+                       <number>3</number>
                       </property>
                       <item alignment="Qt::AlignLeft">
                        <widget class="QFrame" name="blue_hero_frame">
@@ -577,7 +587,7 @@ color:#fff
                         </property>
                         <layout class="QHBoxLayout" name="horizontalLayout_5">
                          <property name="spacing">
-                          <number>8</number>
+                          <number>5</number>
                          </property>
                          <property name="leftMargin">
                           <number>0</number>
@@ -617,6 +627,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="blue_roam">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -628,6 +644,9 @@ color:#fff
                               </property>
                               <property name="text">
                                <string/>
+                              </property>
+                              <property name="scaledContents">
+                               <bool>false</bool>
                               </property>
                              </widget>
                             </item>
@@ -660,6 +679,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="blue_mid">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -703,6 +728,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="blue_exp">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -746,6 +777,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="blue_jungle">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -789,6 +826,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="blue_gold">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -810,6 +853,93 @@ color:#fff
                         </layout>
                        </widget>
                       </item>
+                      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                       <widget class="QFrame" name="select_frame">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>100</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="baseSize">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">border-radius: 15px;</string>
+                        </property>
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout_16">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>0</number>
+                         </property>
+                         <item>
+                          <widget class="QPushButton" name="picker_btn">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>46</width>
+                             <height>46</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>100</width>
+                             <height>100</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <pointsize>1</pointsize>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">image: url(:/icons/icons/pick-icon.png);</string>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                           <property name="iconSize">
+                            <size>
+                             <width>30</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
                       <item alignment="Qt::AlignRight">
                        <widget class="QFrame" name="red_hero_frame">
                         <property name="minimumSize">
@@ -826,7 +956,7 @@ color:#fff
                         </property>
                         <layout class="QHBoxLayout" name="horizontalLayout_6">
                          <property name="spacing">
-                          <number>8</number>
+                          <number>5</number>
                          </property>
                          <property name="leftMargin">
                           <number>0</number>
@@ -866,6 +996,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="red_gold">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -909,6 +1045,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="red_jungle">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -952,6 +1094,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="red_exp">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -995,6 +1143,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="red_mid">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -1038,6 +1192,12 @@ color:#fff
                             </property>
                             <item>
                              <widget class="QLabel" name="red_roam">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
                               <property name="minimumSize">
                                <size>
                                 <width>50</width>
@@ -1069,12 +1229,12 @@ color:#fff
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="4,6">
+                     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="4,5">
                       <property name="spacing">
-                       <number>5</number>
+                       <number>8</number>
                       </property>
                       <property name="leftMargin">
-                       <number>10</number>
+                       <number>0</number>
                       </property>
                       <property name="topMargin">
                        <number>0</number>
@@ -1088,7 +1248,8 @@ color:#fff
                       <item>
                        <widget class="QWidget" name="radar_widget" native="true">
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                         <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;</string>
                         </property>
                         <layout class="QHBoxLayout" name="horizontalLayout_17">
                          <property name="spacing">
@@ -1107,7 +1268,23 @@ color:#fff
                           <number>0</number>
                          </property>
                          <item>
-                          <layout class="QHBoxLayout" name="radar_layout"/>
+                          <layout class="QHBoxLayout" name="radar_layout">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>5</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>4</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>5</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>4</number>
+                           </property>
+                          </layout>
                          </item>
                         </layout>
                        </widget>
@@ -1115,7 +1292,8 @@ color:#fff
                       <item>
                        <widget class="QWidget" name="diverging_widget" native="true">
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                         <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;</string>
                         </property>
                         <layout class="QHBoxLayout" name="horizontalLayout_18">
                          <property name="spacing">
@@ -1184,23 +1362,27 @@ color:#fff
                     <height>0</height>
                    </size>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_19" stretch="1,3,6">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px;</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_19" stretch="1,3,7">
                    <property name="spacing">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="topMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="rightMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
                    <property name="bottomMargin">
-                    <number>0</number>
+                    <number>10</number>
                    </property>
-                   <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+                   <item alignment="Qt::AlignVCenter">
                     <widget class="QWidget" name="hero_info" native="true">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1208,15 +1390,24 @@ color:#fff
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
-                       <height>60</height>
+                       <height>100</height>
                       </size>
                      </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="5">
                       <property name="spacing">
-                       <number>20</number>
+                       <number>8</number>
                       </property>
                       <property name="leftMargin">
                        <number>0</number>
@@ -1230,63 +1421,111 @@ color:#fff
                       <property name="bottomMargin">
                        <number>0</number>
                       </property>
-                      <item>
-                       <widget class="QWidget" name="name_widget" native="true">
+                      <item alignment="Qt::AlignVCenter">
+                       <widget class="QFrame" name="frame">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_22">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                        </property>
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5,1">
                          <property name="leftMargin">
-                          <number>0</number>
+                          <number>2</number>
                          </property>
                          <property name="topMargin">
-                          <number>0</number>
+                          <number>2</number>
                          </property>
                          <property name="rightMargin">
-                          <number>0</number>
+                          <number>2</number>
                          </property>
                          <property name="bottomMargin">
-                          <number>0</number>
+                          <number>2</number>
                          </property>
-                         <item>
-                          <widget class="QFrame" name="name_frame">
-                           <property name="frameShape">
-                            <enum>QFrame::StyledPanel</enum>
+                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                          <widget class="QWidget" name="icon_widget" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>100</width>
+                             <height>65</height>
+                            </size>
                            </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Raised</enum>
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(127, 127, 190);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 40px;</string>
                            </property>
-                           <layout class="QVBoxLayout" name="verticalLayout_23">
-                            <item alignment="Qt::AlignHCenter">
-                             <widget class="QLabel" name="label_2">
+                           <layout class="QHBoxLayout" name="horizontalLayout_12">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>20</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>8</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>8</number>
+                            </property>
+                            <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                             <widget class="QLabel" name="hero_icon">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>60</width>
+                                <height>60</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/empty_hero.png);
+border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string>
+                              </property>
                               <property name="text">
-                               <string>hero_name</string>
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
                               </property>
                              </widget>
                             </item>
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignHCenter">
-                          <widget class="QFrame" name="role_frame">
-                           <property name="frameShape">
-                            <enum>QFrame::StyledPanel</enum>
+                         <item alignment="Qt::AlignVCenter">
+                          <widget class="QWidget" name="name_widget" native="true">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Raised</enum>
-                           </property>
-                           <layout class="QHBoxLayout" name="horizontalLayout_13">
+                           <layout class="QVBoxLayout" name="verticalLayout_22">
                             <property name="spacing">
-                             <number>20</number>
+                             <number>0</number>
                             </property>
                             <property name="leftMargin">
-                             <number>0</number>
+                             <number>10</number>
                             </property>
                             <property name="topMargin">
                              <number>0</number>
@@ -1294,65 +1533,226 @@ color:#fff
                             <property name="rightMargin">
                              <number>0</number>
                             </property>
-                            <item alignment="Qt::AlignHCenter">
-                             <widget class="QLabel" name="role1">
-                              <property name="text">
-                               <string>role1</string>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item alignment="Qt::AlignVCenter">
+                             <widget class="QFrame" name="name_frame">
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
                               </property>
-                             </widget>
-                            </item>
-                            <item alignment="Qt::AlignHCenter">
-                             <widget class="QLabel" name="role2">
-                              <property name="text">
-                               <string>role2</string>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
                               </property>
-                             </widget>
-                            </item>
-                            <item alignment="Qt::AlignHCenter">
-                             <widget class="QLabel" name="role3">
-                              <property name="text">
-                               <string>role3</string>
-                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_23">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                                <widget class="QLabel" name="hero_name">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>150</width>
+                                   <height>0</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700; color:#00aaff;&quot;&gt;Select Hero&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
                              </widget>
                             </item>
                            </layout>
                           </widget>
                          </item>
-                        </layout>
-                       </widget>
-                      </item>
-                      <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-                       <widget class="QWidget" name="icon_widget" native="true">
-                        <layout class="QHBoxLayout" name="horizontalLayout_12">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>10</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item>
-                          <widget class="QLabel" name="hero_icon">
+                         <item alignment="Qt::AlignHCenter">
+                          <widget class="QFrame" name="role_info">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
                            <property name="minimumSize">
                             <size>
-                             <width>60</width>
-                             <height>60</height>
+                             <width>90</width>
+                             <height>0</height>
                             </size>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
+                            <string notr="true">background-color: rgb(85, 255, 127);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 40px;
+border-top-right-radius: 10px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 10px;
+
+
+</string>
                            </property>
-                           <property name="text">
-                            <string/>
+                           <property name="frameShape">
+                            <enum>QFrame::StyledPanel</enum>
                            </property>
+                           <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_5">
+                            <property name="spacing">
+                             <number>8</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>15</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>8</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>10</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>8</number>
+                            </property>
+                            <item alignment="Qt::AlignHCenter">
+                             <widget class="QFrame" name="frame_2">
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QHBoxLayout" name="horizontalLayout_15">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item alignment="Qt::AlignHCenter">
+                                <widget class="QLabel" name="hero_lane">
+                                 <property name="text">
+                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#fff;&quot;&gt;Lane&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter">
+                             <widget class="QFrame" name="role_frame">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true"/>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Plain</enum>
+                              </property>
+                              <layout class="QHBoxLayout" name="horizontalLayout_7">
+                               <property name="spacing">
+                                <number>4</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item>
+                                <widget class="QLabel" name="role1">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>0</height>
+                                  </size>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>30</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                 <property name="pixmap">
+                                  <pixmap resource="../rsc.qrc">:/icons/images/hero_roles/no_role.png</pixmap>
+                                 </property>
+                                 <property name="scaledContents">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="role2">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>0</height>
+                                  </size>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>30</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                 <property name="pixmap">
+                                  <pixmap resource="../rsc.qrc">:/icons/images/hero_roles/no_role.png</pixmap>
+                                 </property>
+                                 <property name="scaledContents">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                         </layout>
@@ -1372,10 +1772,26 @@ color:#fff
                      <property name="maximumSize">
                       <size>
                        <width>16777215</width>
-                       <height>200</height>
+                       <height>150</height>
                       </size>
                      </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;</string>
+                     </property>
                      <layout class="QVBoxLayout" name="verticalLayout_21">
+                      <property name="leftMargin">
+                       <number>5</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>5</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>5</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>5</number>
+                      </property>
                       <item>
                        <widget class="QWidget" name="pie_widget" native="true">
                         <property name="sizePolicy">
@@ -1385,8 +1801,7 @@ color:#fff
                          </sizepolicy>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
-</string>
+                         <string notr="true"/>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_26">
                          <property name="spacing">
@@ -1410,54 +1825,6 @@ color:#fff
                         </layout>
                        </widget>
                       </item>
-                      <item alignment="Qt::AlignBottom">
-                       <widget class="QFrame" name="frame_4">
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_14">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                          <widget class="QLabel" name="pie1">
-                           <property name="text">
-                            <string>pie1</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                          <widget class="QLabel" name="pie2">
-                           <property name="text">
-                            <string>pie2</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-                          <widget class="QLabel" name="pie3">
-                           <property name="text">
-                            <string>pie3</string>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
                      </layout>
                     </widget>
                    </item>
@@ -1470,6 +1837,15 @@ color:#fff
                       </sizepolicy>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_20">
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
                       <property name="bottomMargin">
                        <number>0</number>
                       </property>
@@ -1477,7 +1853,7 @@ color:#fff
                        <widget class="QWidget" name="attr_container" native="true">
                         <property name="styleSheet">
                          <string notr="true">background-color: rgb(255, 255, 255);
-</string>
+border-radius: 15px;</string>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_24">
                          <property name="spacing">
@@ -1635,7 +2011,6 @@ color:#fff
   </widget>
  </widget>
  <resources>
-  <include location="../rsc.qrc"/>
   <include location="../rsc.qrc"/>
  </resources>
  <connections/>

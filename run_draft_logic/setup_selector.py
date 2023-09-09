@@ -122,7 +122,10 @@ class SetupHeroSelector(QMainWindow):
                 # Add the custom class selector to the label
                 hero_image_label.setObjectName("clicked-label")
 
-                hero_image_label.setPixmap(round_pix)
+                label_size = hero_image_label.size()
+                scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+                hero_image_label.setPixmap(scaled_pixmap)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 hero_image_label.setMinimumSize(int(img_size / 1.5), int(img_size / 1.5))
                 hero_image_label.setMaximumSize(img_size, img_size)  # Set a fixed size for uniformity

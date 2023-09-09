@@ -2,15 +2,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QVBoxLay
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
-
-from PyQt6.QtWebEngineWidgets import QWebEngineView
-from math import ceil
-from plotly.subplots import make_subplots
-import plotly.io as pio
-import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
-
 import sys
 import os
 from ui.rsc_rc import *

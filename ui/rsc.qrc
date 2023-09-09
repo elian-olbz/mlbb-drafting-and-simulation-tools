@@ -1,5 +1,13 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../icons/pick-icon.png</file>
+    <file>../icons/empty_hero.png</file>
+    <file>../images/hero_roles/exp.png</file>
+    <file>../images/hero_roles/gold.png</file>
+    <file>../images/hero_roles/jungle.png</file>
+    <file>../images/hero_roles/mid.png</file>
+    <file>../images/hero_roles/no_role.png</file>
+    <file>../images/hero_roles/roam.png</file>
     <file>../icons/activity.svg</file>
     <file>../icons/airplay.svg</file>
     <file>../icons/alert-circle.svg</file>
