@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>Select Player Types</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 10px;</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>

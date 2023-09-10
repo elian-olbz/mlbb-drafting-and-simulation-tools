@@ -97,6 +97,7 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.draft_window.showMaximized()
         else:
+            self.draft_window.setStyleSheet("border-radius: 10px;")
             self.draft_window.central_layout.setContentsMargins(10, 10, 10, 10)
             self.draft_window.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.draft_window.btn_max.setToolTip("Maximize")
@@ -108,6 +109,7 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.quick_draft.showMaximized()
         else:
+            self.quick_draft.setStyleSheet("border-radius: 10px;")
             self.quick_draft.central_layout.setContentsMargins(10, 10, 10, 10)
             self.quick_draft.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.quick_draft.btn_max.setToolTip("Maximize")
@@ -119,6 +121,7 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             self.heatmap.showMaximized()
         else:
+            self.heatmap.setStyleSheet("border-radius: 10px;")
             self.heatmap.central_layout.setContentsMargins(10, 10, 10, 10)
             self.heatmap.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             self.heatmap.btn_max.setToolTip("Maximize")
@@ -130,6 +133,7 @@ class MainWindow(QMainWindow):
         if self.isMaximized():
             board.showMaximized()
         else:
+            board.setStyleSheet("border-radius: 10px;")
             board.central_layout.setContentsMargins(10, 10, 10, 10)
             board.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
             board.btn_max.setToolTip("Maximize")

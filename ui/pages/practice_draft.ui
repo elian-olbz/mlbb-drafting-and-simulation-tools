@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
-    <height>625</height>
+    <width>1017</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,6 +66,7 @@
          <property name="styleSheet">
           <string notr="true">*{
 border:none;
+border-radius: 0px;
 background-color:transparent;
 background:transparent;
 padding:0;
@@ -77,9 +78,7 @@ text-align:left;
 padding: 5px 10px;
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
-}
-
-</string>
+}</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -431,7 +430,13 @@ color:#fff
           <item>
            <widget class="QFrame" name="frame_2">
             <property name="styleSheet">
-             <string notr="true">background-color: none;</string>
+             <string notr="true">QFrame #frame_2{
+background-color: none;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 10px;
+}</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -521,6 +526,18 @@ color:#fff
                       <enum>QFrame::Raised</enum>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_10">
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
                       <item>
                        <widget class="QWidget" name="main_container" native="true">
                         <property name="styleSheet">
@@ -575,8 +592,7 @@ color:#fff
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-border-radius: 10px;</string>
+                               <string notr="true"/>
                               </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
@@ -588,11 +604,14 @@ border-radius: 10px;</string>
                                <property name="spacing">
                                 <number>6</number>
                                </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
                                <property name="topMargin">
                                 <number>0</number>
                                </property>
                                <property name="rightMargin">
-                                <number>9</number>
+                                <number>0</number>
                                </property>
                                <property name="bottomMargin">
                                 <number>0</number>
@@ -605,6 +624,16 @@ border-radius: 10px;</string>
                                    <height>0</height>
                                   </size>
                                  </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #blue_ban_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 25px;
+}</string>
+                                 </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
                                  </property>
@@ -612,6 +641,18 @@ border-radius: 10px;</string>
                                   <enum>QFrame::Raised</enum>
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                                  <property name="leftMargin">
+                                   <number>10</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>8</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>10</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>8</number>
+                                  </property>
                                   <item>
                                    <widget class="QLabel" name="blue_ban1">
                                     <property name="sizePolicy">
@@ -633,10 +674,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -664,10 +710,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -695,10 +746,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -726,10 +782,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -757,10 +818,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -783,7 +849,7 @@ border-radius: 10px;</string>
                                  </property>
                                 </spacer>
                                </item>
-                               <item>
+                               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
                                 <widget class="QFrame" name="welcome_frame">
                                  <property name="sizePolicy">
                                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -793,15 +859,25 @@ border-radius: 10px;</string>
                                  </property>
                                  <property name="minimumSize">
                                   <size>
-                                   <width>0</width>
-                                   <height>50</height>
+                                   <width>250</width>
+                                   <height>75</height>
                                   </size>
                                  </property>
                                  <property name="maximumSize">
                                   <size>
-                                   <width>200</width>
+                                   <width>16777215</width>
                                    <height>16777215</height>
                                   </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #welcome_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 25px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 25px;
+}</string>
                                  </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
@@ -826,26 +902,38 @@ border-radius: 10px;</string>
                                    <number>0</number>
                                   </property>
                                   <item>
+                                   <widget class="QFrame" name="frame">
+                                    <property name="maximumSize">
+                                     <size>
+                                      <width>16777215</width>
+                                      <height>8</height>
+                                     </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 0px; 
+</string>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                    <widget class="QLabel" name="top_label1">
                                     <property name="font">
                                      <font>
                                       <pointsize>14</pointsize>
                                      </font>
                                     </property>
-                                    <property name="text">
-                                     <string>Welcome to Draft</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignHCenter">
-                                   <widget class="QLabel" name="top_label2">
-                                    <property name="font">
-                                     <font>
-                                      <pointsize>16</pointsize>
-                                     </font>
+                                    <property name="styleSheet">
+                                     <string notr="true">background-color: transparent;</string>
                                     </property>
                                     <property name="text">
-                                     <string>Simulator</string>
+                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Welcome to Draft Simulator&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                     </property>
                                    </widget>
                                   </item>
@@ -873,6 +961,16 @@ border-radius: 10px;</string>
                                    <height>0</height>
                                   </size>
                                  </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #red_ban_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 25px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+}</string>
+                                 </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
                                  </property>
@@ -881,13 +979,16 @@ border-radius: 10px;</string>
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_12">
                                   <property name="leftMargin">
-                                   <number>0</number>
+                                   <number>10</number>
                                   </property>
                                   <property name="topMargin">
-                                   <number>0</number>
+                                   <number>8</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>10</number>
                                   </property>
                                   <property name="bottomMargin">
-                                   <number>0</number>
+                                   <number>8</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="red_ban1">
@@ -910,10 +1011,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -941,10 +1047,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -972,10 +1083,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1003,10 +1119,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1034,10 +1155,15 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 30px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
+                                    </property>
+                                    <property name="scaledContents">
+                                     <bool>true</bool>
                                     </property>
                                     <property name="alignment">
                                      <set>Qt::AlignCenter</set>
@@ -1062,6 +1188,15 @@ border-radius: 10px;</string>
                                <enum>QFrame::Raised</enum>
                               </property>
                               <layout class="QHBoxLayout" name="horizontalLayout_14">
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>15</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
                                <property name="bottomMargin">
                                 <number>0</number>
                                </property>
@@ -1091,8 +1226,14 @@ border-radius: 10px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-border-radius: 10px;</string>
+                                  <string notr="true">QFrame #blue_pick_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 15px;
+}</string>
                                  </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
@@ -1113,7 +1254,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1135,7 +1278,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1157,7 +1302,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1179,7 +1326,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1201,7 +1350,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);</string>
+                                     <string notr="true">background-color: rgb(85, 170, 255);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1237,35 +1388,167 @@ border-radius: 10px;</string>
                                  </property>
                                  <layout class="QVBoxLayout" name="verticalLayout_8">
                                   <item>
-                                   <widget class="QTabWidget" name="hero_tab">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>550</width>
-                                      <height>350</height>
-                                     </size>
-                                    </property>
-                                    <property name="font">
-                                     <font>
-                                      <pointsize>12</pointsize>
-                                     </font>
-                                    </property>
+                                   <widget class="QFrame" name="tab_frame">
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(35, 39, 46);
+                                     <string notr="true">QFrame #tab_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+}
 </string>
                                     </property>
-                                    <property name="currentIndex">
-                                     <number>1</number>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
                                     </property>
-                                    <widget class="QWidget" name="tab">
-                                     <attribute name="title">
-                                      <string>Tab 1</string>
-                                     </attribute>
-                                    </widget>
-                                    <widget class="QWidget" name="tab_2">
-                                     <attribute name="title">
-                                      <string>Tab 2</string>
-                                     </attribute>
-                                    </widget>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                                     <property name="leftMargin">
+                                      <number>4</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>4</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>4</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QTabWidget" name="hero_tab">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>600</width>
+                                         <height>350</height>
+                                        </size>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>12</pointsize>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">*{
+background-color: rgb(35, 39, 46);
+border-radius: 0px;
+}
+
+QTabBar::tab {
+    /* Set the background color of each tab */
+   background-color: rgb(170, 170, 255);
+    /* Set the color of the tab title text */
+    color: #ffffff;
+    /* Set the padding around each tab */
+    padding:4 px 8px;
+    /* Set a minimum and maximum width for all tabs to equally divide the available space */
+    min-width: 80px;
+    max-width: 100px;
+    height: 18px;
+    font-size: 13px; 
+    font-family: 'Segoe UI' ;
+	 border: 1px solid rgb(170, 170, 255);
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    /* Set the background color of the selected/hovered tab */
+    background-color: #323842; /* Darker accent color */
+}
+
+/* Tab content area styles */
+QTabWidget::pane {
+    /* Set the background color of the tab content area */
+    background-color: rgb(35, 39, 46);
+}
+
+QScrollBar:vertical {
+	border: none;
+    background: rgb(52, 59, 72);
+    width: 12px;
+    margin: 15px 0 15px 0;
+	 border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: rgb(189, 147, 249);
+    min-height: 25px;
+	border-radius: 4px
+ }
+ QScrollBar::add-line:vertical {
+     border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+</string>
+                                       </property>
+                                       <property name="currentIndex">
+                                        <number>3</number>
+                                       </property>
+                                       <widget class="QWidget" name="tab">
+                                        <attribute name="title">
+                                         <string>All</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_2">
+                                        <attribute name="title">
+                                         <string>Tank</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_3">
+                                        <attribute name="title">
+                                         <string>Fighter</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_4">
+                                        <attribute name="title">
+                                         <string>Assassin</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_6">
+                                        <attribute name="title">
+                                         <string>Marksman</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_5">
+                                        <attribute name="title">
+                                         <string>Mage</string>
+                                        </attribute>
+                                       </widget>
+                                       <widget class="QWidget" name="tab_7">
+                                        <attribute name="title">
+                                         <string>Support</string>
+                                        </attribute>
+                                       </widget>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                   <item alignment="Qt::AlignHCenter">
@@ -1373,8 +1656,14 @@ border-radius: 10px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-border-radius: 10px;</string>
+                                  <string notr="true">QFrame #red_pick_frame{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+}</string>
                                  </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
@@ -1395,7 +1684,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1417,7 +1708,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1439,7 +1732,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1461,7 +1756,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1483,7 +1780,9 @@ border-radius: 10px;</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);</string>
+                                     <string notr="true">background-color: rgb(255, 85, 0);
+border-radius: 10px; border: 3px solid;
+border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1520,7 +1819,13 @@ border-radius: 10px;</string>
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color:#1f232a;</string>
+                      <string notr="true">QFrame #grip{
+background-color:#1f232a;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 10px;
+}</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>

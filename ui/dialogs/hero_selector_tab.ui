@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
+    <width>706</width>
     <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Select Hero</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 10px;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -85,13 +88,13 @@ border-bottom-left-radius: 10px;
           <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="topMargin">
           <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -149,26 +152,143 @@ border-bottom-left-radius: 10px;
          <item>
           <widget class="QWidget" name="tab_container" native="true">
            <property name="styleSheet">
-            <string notr="true">background-color:transparent;
-border-radius: 10px;</string>
+            <string notr="true">QWidget #tab_container{
+border: 1px solid rgb(170, 170, 255);
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="leftMargin">
+             <number>8</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>8</number>
+            </property>
+            <property name="bottomMargin">
+             <number>8</number>
+            </property>
             <item>
              <widget class="QTabWidget" name="hero_tab">
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(35, 39, 46);</string>
+               <string notr="true">*{
+background-color: rgb(35, 39, 46);
+border-radius: 0px;
+}
+
+QTabBar::tab {
+    /* Set the background color of each tab */
+   background-color: rgb(170, 170, 255);
+    /* Set the color of the tab title text */
+    color: #ffffff;
+    /* Set the padding around each tab */
+    padding:4 px 8px;
+    /* Set a minimum and maximum width for all tabs to equally divide the available space */
+    min-width: 90px;
+    max-width: 100px;
+    height: 18px;
+    font-size: 13px; 
+    font-family: 'Segoe UI' ;
+	 border: 1px solid rgb(170, 170, 255);
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    /* Set the background color of the selected/hovered tab */
+    background-color: #323842; /* Darker accent color */
+}
+
+/* Tab content area styles */
+QTabWidget::pane {
+    /* Set the background color of the tab content area */
+    background-color: rgb(35, 39, 46);
+}
+
+QScrollBar:vertical {
+	border: none;
+    background: rgb(52, 59, 72);
+    width: 12px;
+    margin: 15px 0 15px 0;
+	 border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: rgb(189, 147, 249);
+    min-height: 25px;
+	border-radius: 4px
+ }
+ QScrollBar::add-line:vertical {
+     border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+</string>
               </property>
               <property name="currentIndex">
                <number>0</number>
               </property>
               <widget class="QWidget" name="tab_5">
                <attribute name="title">
-                <string>Tab 1</string>
+                <string>All</string>
                </attribute>
               </widget>
               <widget class="QWidget" name="tab_6">
                <attribute name="title">
-                <string>Tab 2</string>
+                <string>Tank</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="tab">
+               <attribute name="title">
+                <string>Fighter</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="tab_2">
+               <attribute name="title">
+                <string>Assasin</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="tab_3">
+               <attribute name="title">
+                <string>Marskman</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="tab_4">
+               <attribute name="title">
+                <string>Mage</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="tab_7">
+               <attribute name="title">
+                <string>Support</string>
                </attribute>
               </widget>
              </widget>

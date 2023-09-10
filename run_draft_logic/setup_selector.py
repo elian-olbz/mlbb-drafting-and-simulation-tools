@@ -188,10 +188,10 @@ class SetupHeroSelector(QMainWindow):
             current_tab_index = parent.hero_tab.currentIndex()
 
             # Check if the clicked label is within the current tab
-            if current_tab_index == self.current_tab_index or current_tab_index == 0:
-                if self.current_clicked_label is not None:
-                    # Reset the style of the previously clicked label
-                    self.current_clicked_label.setStyleSheet("")
+            #if current_tab_index == self.current_tab_index or current_tab_index == 0:
+            if self.current_clicked_label is not None:
+                # Reset the style of the previously clicked label
+                self.current_clicked_label.setStyleSheet("")
 
             if hero_id not in self.unavailable_hero_ids:
                 # Apply a highlight style to the clicked label
