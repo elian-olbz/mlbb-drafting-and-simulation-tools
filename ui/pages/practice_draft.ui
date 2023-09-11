@@ -626,12 +626,12 @@ border-bottom-right-radius: 10px;
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #blue_ban_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 3px solid rgb(170, 170, 255);
+background-color: rgb(85, 170, 255);
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
-border-top-right-radius: 0px;
-border-bottom-right-radius: 25px;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 35px;
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -674,8 +674,8 @@ border-bottom-right-radius: 25px;
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -710,8 +710,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -746,8 +746,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -782,8 +782,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -818,8 +818,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -834,6 +834,11 @@ border-color:rgb(255, 255, 255);</string>
                                    </widget>
                                   </item>
                                  </layout>
+                                 <zorder>blue_ban2</zorder>
+                                 <zorder>blue_ban3</zorder>
+                                 <zorder>blue_ban4</zorder>
+                                 <zorder>blue_ban5</zorder>
+                                 <zorder>blue_ban1</zorder>
                                 </widget>
                                </item>
                                <item>
@@ -871,8 +876,8 @@ border-color:rgb(255, 255, 255);</string>
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #welcome_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 3px solid rgb(170, 170, 255);
+/*background-color: rgb(170, 170, 255);*/
 border-top-left-radius: 0px;
 border-bottom-left-radius: 25px;
 border-top-right-radius: 0px;
@@ -963,10 +968,10 @@ border-radius: 0px;
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #red_ban_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
-border-top-left-radius: 0px;
-border-bottom-left-radius: 25px;
+border: 3px solid rgb(170, 170, 255);
+background-color: rgb(255, 85, 0);
+border-top-left-radius: 20px;
+border-bottom-left-radius: 35px;
 border-top-right-radius: 0px;
 border-bottom-right-radius: 0px;
 }</string>
@@ -1011,8 +1016,8 @@ border-bottom-right-radius: 0px;
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1047,8 +1052,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1083,8 +1088,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1119,8 +1124,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1155,8 +1160,8 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 85, 0);
-border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 30px; border: 3px solid;
+image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1227,8 +1232,8 @@ border-color:rgb(255, 255, 255);</string>
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #blue_pick_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 3px solid rgb(170, 170, 255);
+/*background-color: rgb(170, 170, 255);*/
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
 border-top-right-radius: 15px;
@@ -1509,7 +1514,7 @@ QScrollBar:vertical {
 </string>
                                        </property>
                                        <property name="currentIndex">
-                                        <number>3</number>
+                                        <number>1</number>
                                        </property>
                                        <widget class="QWidget" name="tab">
                                         <attribute name="title">
@@ -1657,8 +1662,8 @@ QScrollBar:vertical {
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #red_pick_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 3px solid rgb(170, 170, 255);
+/*background-color: rgb(170, 170, 255);*/
 border-top-left-radius: 15px;
 border-bottom-left-radius: 15px;
 border-top-right-radius: 0px;

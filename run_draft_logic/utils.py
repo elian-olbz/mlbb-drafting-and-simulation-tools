@@ -78,6 +78,9 @@ def load_theme(theme_path):
         theme = file.read()
     return theme
 
+def get_curr_index(rem_clicks):
+        return abs(rem_clicks - 20)
+
 def print_draft_status(draft_state):
     print("=========== Draft Status ===========")
     print("Blue Bans:  ", ', '.join(get_name(hero_id, draft_state.hero_names) for hero_id in draft_state.blue_actions[0]))

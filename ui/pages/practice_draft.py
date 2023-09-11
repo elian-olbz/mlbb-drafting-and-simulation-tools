@@ -8,6 +8,7 @@ from functools import partial
 from ui.rsc_rc import *
 from run_draft_logic.draft_state import DraftState
 from run_draft_logic.setup_selector import *
+from run_draft_logic.utils import get_curr_index
 from ui.misc.titlebar import*
 
 
@@ -99,13 +100,13 @@ class DraftWindow(QMainWindow):
         if self.mode == 'HvH':
             pass
         elif self.mode == 'HvA':
-            if abs(self.hero_selector.remaining_clicks - 20) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
+            if get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
         elif self.mode == 'AvH':
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
         elif self.mode == 'AvA':
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn or abs(self.hero_selector.remaining_clicks - 20) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn or get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
 
     def on_button_click(self):
@@ -113,7 +114,7 @@ class DraftWindow(QMainWindow):
 
         if self.hero_selector.remaining_clicks <= 0 or self.hero_selector.selected_id is None:
             return
-        if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.pick_indices:
+        if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, True)
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
@@ -124,16 +125,19 @@ class DraftWindow(QMainWindow):
 
         if self.hero_selector.current_clicked_label is not None:
             self.hero_selector.current_clicked_label.setStyleSheet("")
+            self.hero_selector.update_labels_in_tabs(self)
             self.hero_selector.current_clicked_label = None
 
     def auto_player_next_move(self):
         if self.hero_selector.remaining_clicks <= 0:
             return
-        if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.pick_indices:
+        if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, True)
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
-
+        
+        self.hero_selector.update_labels_in_tabs(self)
+        
         # Set the desired delay time (in milliseconds) before emitting the signal
         delay_milliseconds = 1000  # Adjust the delay time as needed
         self.delay_timer.start(delay_milliseconds)
@@ -148,7 +152,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
+            #self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvH':
             if is_pick:
@@ -158,9 +162,9 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
+            #self.hero_selector.hero_to_disp = None
         else:
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 if is_pick:
                     self.blue_player.pick(draft_state, selected_id)
                 else:
@@ -173,7 +177,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
+            #self.hero_selector.hero_to_disp = None
 
 
     def ai_move(self, draft_state, mode, is_pick):
@@ -184,7 +188,7 @@ class DraftWindow(QMainWindow):
                 self.hero_selector.hero_to_disp = self.blue_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
+            #self.hero_selector.hero_to_disp = None
         elif mode == 'HvA':
             if is_pick:
                 self.hero_selector.hero_to_disp = self.red_player.pick(draft_state)
@@ -192,10 +196,10 @@ class DraftWindow(QMainWindow):
                 self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
+            #self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvA':
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 if is_pick:
                     self.hero_selector.hero_to_disp = self.blue_player.pick(draft_state)
                 else:
@@ -207,9 +211,7 @@ class DraftWindow(QMainWindow):
                     self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            self.hero_selector.hero_to_disp = None
-
-
+            #self.hero_selector.hero_to_disp = None
             
     def next_move(self, draft_state, selected_id, mode, is_pick):
 
@@ -219,7 +221,7 @@ class DraftWindow(QMainWindow):
 
         elif mode is not None and mode == 'HvA': # HUman vs Ai
             # blue player is human
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.human_move(draft_state, selected_id, mode, is_pick)
 
             else:  # red player is AI
@@ -227,7 +229,7 @@ class DraftWindow(QMainWindow):
 
         elif mode is not None and mode == 'AvH':
             # blue player is AI
-            if abs(self.hero_selector.remaining_clicks - 20) in self.hero_selector.blue_turn:
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.ai_move(draft_state, mode, is_pick)
 
             else:  # red player is Human

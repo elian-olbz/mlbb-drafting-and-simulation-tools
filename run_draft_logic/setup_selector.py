@@ -1,12 +1,11 @@
 import typing
 from PyQt6 import QtGui
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
-from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy, QGraphicsColorizeEffect
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QPainter, QImage, QBrush, QPen, QPalette, QBitmap
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QSize
 from functools import partial
 from run_draft_logic.utils import *
 from math import ceil
-
 
 # class for qlabels (hero icons) that will populate the tabs and can be clicked
 class ClickableLabel(QLabel):
@@ -75,6 +74,13 @@ class SetupHeroSelector(QMainWindow):
             self.current_clicked_label = None
             self.selected_id = None
 
+    def create_scaled_round_pixmap(self, qlabel, hero_id):
+                    hero_image_path = get_icon(hero_id)
+                    pixmap = QPixmap(hero_image_path)
+                    round_pix = rounded_pixmap(pixmap=pixmap, size=97, border_thickness=4)
+                    label_size = qlabel.size()
+                    scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                    return scaled_pixmap
             
     def populate_tabs(self, parent, img_size):
 
@@ -103,15 +109,6 @@ class SetupHeroSelector(QMainWindow):
             column = 0
 
             for hero_id in hero_ids_for_tab:
-                # Get the hero image path based on the hero_id
-                hero_image_path = get_icon(hero_id)
-
-                # Load the hero image using QPixmap
-                pixmap = QPixmap(hero_image_path)
-
-                # Apply a circular mask to the hero image
-                round_pix = rounded_pixmap(pixmap=pixmap, size=97, border_thickness=4)
-
                 # Create a widget to hold the image and name QLabel
                 hero_widget = QWidget()
                 hero_layout = QVBoxLayout(hero_widget)
@@ -121,9 +118,7 @@ class SetupHeroSelector(QMainWindow):
 
                 # Add the custom class selector to the label
                 hero_image_label.setObjectName("clicked-label")
-
-                label_size = hero_image_label.size()
-                scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                scaled_pixmap = self.create_scaled_round_pixmap(hero_image_label, hero_id)
 
                 hero_image_label.setPixmap(scaled_pixmap)
                 hero_image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -183,16 +178,21 @@ class SetupHeroSelector(QMainWindow):
         if self.remaining_clicks <= 0:
             return
 
+        if parent.mode == 'HvH':
+            self.higlight_image(hero_id, clicked_label)
+        elif parent.mode == 'HvA' and get_curr_index(self.remaining_clicks) in self.blue_turn:
+            self.higlight_image(hero_id, clicked_label)
+        elif parent.mode == 'AvH' and get_curr_index(self.remaining_clicks) not in self.blue_turn:
+            self.higlight_image(hero_id, clicked_label)
+        else:
+            return
+        
+    def higlight_image(self, hero_id, clicked_label):
         if clicked_label:
-            # Get the current tab index
-            current_tab_index = parent.hero_tab.currentIndex()
-
-            # Check if the clicked label is within the current tab
-            #if current_tab_index == self.current_tab_index or current_tab_index == 0:
             if self.current_clicked_label is not None:
                 # Reset the style of the previously clicked label
                 self.current_clicked_label.setStyleSheet("")
-
+            
             if hero_id not in self.unavailable_hero_ids:
                 # Apply a highlight style to the clicked label
                 highlight_color = QColor(69, 202, 255)  # Replace with the desired highlight color
@@ -208,19 +208,15 @@ class SetupHeroSelector(QMainWindow):
             else:
                 self.selected_id = None
 
-
-    
     # Displaying images on the practice draft window
     def disp_selected_image(self, parent, hero_id):
-        
         if hero_id is not None and hero_id not in self.unavailable_hero_ids:
-
             if self.remaining_clicks <= 0:
                 return
 
             qlabel = self.get_next_empty_qlabel(parent)
             if qlabel:
-                if abs(self.remaining_clicks - 20) in self.pick_indices:
+                if get_curr_index(self.remaining_clicks) in self.pick_indices:
                     image_path = get_image(hero_id)
                     pixmap = QPixmap(image_path)
                     # Get the size of the QLabel and scale the pixmap to fit
@@ -238,10 +234,121 @@ class SetupHeroSelector(QMainWindow):
                     label_size = qlabel.size()
                     scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
-                    qlabel.setPixmap(scaled_pixmap)
+                    image_overlay_path = "icons/x-circle.svg"
+                    self.create_ban_overlay_indicator(qlabel, label_size, scaled_pixmap, image_overlay_path, 30) # indicator on the ban frame only
+                    qlabel.setStyleSheet("border-radius: 0px;")
+
                     self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(hero_id)
                 self.remaining_clicks -= 1
+                #self.update_labels_in_tabs(parent, hero_id) # indicator on the tabs that a hero is banned or picked
+
+    def create_ban_overlay_indicator(self, qlabel, label_size, scaled_pixmap, image_overlay_path, image_overlay_size):
+        print(f'{label_size}')
+        # Create a QImage from the scaled pixmap
+        composite_image = QImage(label_size, QImage.Format.Format_ARGB32)
+        composite_image.fill(QColor(0, 0, 0, 0))  # Fill with transparent color
+
+        # Create a QPainter to draw on the composite image
+        painter = QPainter(composite_image)
+
+        # Draw the scaled pixmap on the composite image
+        painter.drawPixmap(0, 0, scaled_pixmap)
+
+        # Load and draw the overlay image (x-circle.svg) on top of the scaled pixmap
+        #overlay_pixmap = QPixmap("icons/x-circle.svg")
+        overlay_pixmap = QPixmap(image_overlay_path)
+        #overlay_size = QSize(30, 30)  # Replace with the dimensions you want
+        overlay_size = QSize(image_overlay_size, image_overlay_size)
+        scaled_overlay_pixmap = overlay_pixmap.scaled(overlay_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+
+        # Create a QImage for the overlay pixmap
+        overlay_image = QImage(overlay_size, QImage.Format.Format_ARGB32)
+        overlay_image.fill(QColor(0, 0, 0, 0))  # Fill with transparent color
+
+        # Create a QPainter to draw on the overlay image
+        overlay_painter = QPainter(overlay_image)
+
+        # Check if it's the "blue turn"
+        is_blue_turn = get_curr_index(self.remaining_clicks) in self.blue_turn
+
+        # Calculate the position based on the "blue turn" condition
+        if is_blue_turn:
+            overlay_x = label_size.width() - overlay_size.width()
+        else:
+            overlay_x = 0
+
+        overlay_y = label_size.height() - overlay_size.height()
+
+        # Draw the scaled overlay pixmap at the calculated position
+        painter.drawPixmap(overlay_x, overlay_y, scaled_overlay_pixmap)
+
+        # Draw the scaled overlay pixmap at the calculated position
+        painter.drawPixmap(overlay_x, overlay_y, scaled_overlay_pixmap)
+
+        # End painting for overlay image
+        overlay_painter.end()
+
+        # Draw the overlay image on top of the composite image
+        painter.drawImage(0, 0, overlay_image)
+
+        # End painting for the composite image
+        painter.end()
+
+        # Set the resulting composite image as the pixmap for the QLabel
+        qlabel.setPixmap(QPixmap.fromImage(composite_image))
+
+    def create_gray_overlay_indicator(self, qlabel, circular_pixmap, opacity):
+        # Create a circular mask
+        mask = QBitmap(circular_pixmap.size())
+        mask.fill(Qt.GlobalColor.color0)
+        painter = QPainter(mask)
+        painter.setBrush(Qt.GlobalColor.color1)
+        painter.drawEllipse(0, 0, circular_pixmap.width() - 2, circular_pixmap.width() - 2)
+        painter.end()
+
+        # Create a transparent gray overlay pixmap
+        overlay_pixmap = QPixmap(circular_pixmap.size())
+        overlay_pixmap.fill(QColor(0, 0, 0, opacity))  # Adjust opacity as needed
+        overlay_pixmap.setMask(mask)
+
+        # Combine the circular_pixmap and the overlay_pixmap
+        combined_pixmap = QPixmap(circular_pixmap.size())
+        combined_pixmap.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(combined_pixmap)
+        painter.drawPixmap(0, 0, circular_pixmap)
+        painter.drawPixmap(0, 0, overlay_pixmap)
+        painter.end()
+
+        # Set the combined_pixmap as the pixmap for the QLabel
+        qlabel.setPixmap(combined_pixmap)
+        
+
+    def update_labels_in_tabs(self, parent): # indicator on the tabs that a hero is banned or picked
+        # Iterate through all tabs
+        hero_id = self.selected_id
+        for tab_index in range(parent.hero_tab.count()):
+            tab_widget = parent.hero_tab.widget(tab_index)
+            if tab_widget:
+                # Iterate through all QLabels in the current tab
+                for hero_label in tab_widget.findChildren(ClickableLabel):
+                    if hero_label.hero_id == hero_id:
+                        # Check if the hero_id is in the unavailable_hero_ids list
+                        if hero_id in self.unavailable_hero_ids:
+                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                            self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 180)
+                        else:   
+                            # Reset the QLabel style if the hero is available
+                            #hero_label.setPixmap(QPixmap("icons/x-circle.svg")) # Remove any custom styles
+                            hero_label.setStyleSheet("")
+                            img_size = hero_label.width()
+                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                            hero_label.setPixmap(scaled_pixmap)
+                            hero_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                            hero_label.setMinimumSize(int(img_size / 1.5), int(img_size / 1.5))
+                            hero_label.setMaximumSize(img_size, img_size)  # Set a fixed size for uniformity
+
 
     def get_next_empty_qlabel(self, parent):
 
@@ -266,7 +373,6 @@ class SetupHeroDialog(SetupHeroSelector):
         hero_roles_path = 'data/hero_roles.csv'
         self.hero_roles, self.hero_names, self.hero_icons, self.hero_types = load_hero_roles(hero_roles_path)
         ###################
-
     # Displaying images on the quick draft window
     def disp_selected_image(self,hero_id, qlabel):
         
@@ -288,4 +394,42 @@ class SetupHeroDialog(SetupHeroSelector):
                 qlabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                 self.unavailable_hero_ids.append(hero_id)
-    
+                
+    def store_hero_id(self, parent, hero_id):
+        # Get the sender of the signal (i.e., the ClickableLabel instance that emitted the signal)
+        clicked_label = self.sender()
+        if self.remaining_clicks <= 0:
+            return
+        self.higlight_image(hero_id, clicked_label)
+
+    def update_labels_in_tabs(self, parent, prev_id, is_swap): # indicator on the tabs that a hero is banned or picked
+        # Iterate through all tabs
+        hero_id = self.selected_id
+        for tab_index in range(parent.hero_tab.count()):
+            tab_widget = parent.hero_tab.widget(tab_index)
+            if tab_widget:
+                # Iterate through all QLabels in the current tab
+                for hero_label in tab_widget.findChildren(ClickableLabel):
+                    if is_swap == False:
+                        if hero_label.hero_id == hero_id:
+                            # Check if the hero_id is in the unavailable_hero_ids list
+                            if hero_id in self.unavailable_hero_ids:
+                                scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                                self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 180)
+                            else:   
+                                scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                                self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 0) # remove gray overlay
+                    else:
+                        if hero_label.hero_id == hero_id:
+                            # Check if the hero_id is in the unavailable_hero_ids list
+                            if hero_id in self.unavailable_hero_ids:
+                                scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                                self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 180)
+                            else:   
+                                scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                                self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 0) # remove gray overlay
+                                
+                        elif hero_label.hero_id == prev_id:
+                                scaled_pixmap = self.create_scaled_round_pixmap(hero_label, prev_id)
+                                self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 0)
+                    

@@ -117,10 +117,11 @@ class QuickDraftWindow(QMainWindow):
         return super().eventFilter(obj, event)
     
     def show_dial(self):
-        self.hero_dialog.show()
+        self.hero_dialog.show()  
 
     def on_dialog_exit(self):
-        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+        if self.picker_button_active == False:
+            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
 
     def merge_heroes_dict(self, dict1, dict2):
         res = {**dict1, **dict2}
@@ -137,19 +138,22 @@ class QuickDraftWindow(QMainWindow):
             if str(self.obj_name).startswith("blue"):
                 if self.blue_heroes[self.obj_name] == 0:
                     self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.hero_dialog.selector.selected_id, False) 
                 else:
                     self.hero_dialog.selector.unavailable_hero_ids.remove(self.blue_heroes[self.obj_name])
+                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.blue_heroes[self.obj_name], True)
                     self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
             else:
                 if self.red_heroes[self.obj_name] == 0:
                     self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.hero_dialog.selector.selected_id, False)
                 else:
                     self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
+                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.red_heroes[self.obj_name], True)
                     self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+            print(f'unvail: {self.hero_dialog.selector.unavailable_hero_ids}')
 
             self.qlabel_to_update = None
-            self.hero_dialog.selector.selected_id = None
-
             # update the radar chart
             new_blue_win_attr = self.set_radar_data(self.blue_heroes)
             new_red_win_attr = self.set_radar_data(self.red_heroes)
@@ -172,7 +176,7 @@ class QuickDraftWindow(QMainWindow):
                     ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
                     self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
             self.h_charts_canvas.draw()
-
+            
     def set_highlight(self, radius):
         highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color
         highlight_radius = radius / 2  # Adjust the radius as needed
