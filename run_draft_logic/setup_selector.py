@@ -30,10 +30,8 @@ class ClickableLabel(QLabel):
 
     def resizeEvent(self, event):
         # Calculate the new highlight radius based on the size of the smallest dimension
-        min_dimension = min(self.width(), self.height())
-        self.highlight_radius = min_dimension / 2  # Use the smaller dimension for radius
-
-
+        x = min(self.width(), self.height())
+        self.highlight_radius = x**2 / (2.00001 * x)  # Use the smaller dimension for radius
 
 # Hero selector for the practice draft
 class SetupHeroSelector(QMainWindow):
@@ -97,7 +95,7 @@ class SetupHeroSelector(QMainWindow):
             tab_widget = QWidget()
             tab_widget.setMinimumSize(500, 250)
             tab_layout = QGridLayout(tab_widget)
-            spacing = 4  # Set the spacing value as per your preference
+            spacing = 5  # Set the spacing value as per your preference
 
             # Get all hero IDs for the current tab
             if tab_name == "All":
@@ -179,15 +177,15 @@ class SetupHeroSelector(QMainWindow):
             return
 
         if parent.mode == 'HvH':
-            self.higlight_image(hero_id, clicked_label)
+            self.highlight_image(hero_id, clicked_label)
         elif parent.mode == 'HvA' and get_curr_index(self.remaining_clicks) in self.blue_turn:
-            self.higlight_image(hero_id, clicked_label)
+            self.highlight_image(hero_id, clicked_label)
         elif parent.mode == 'AvH' and get_curr_index(self.remaining_clicks) not in self.blue_turn:
-            self.higlight_image(hero_id, clicked_label)
+            self.highlight_image(hero_id, clicked_label)
         else:
             return
         
-    def higlight_image(self, hero_id, clicked_label):
+    def highlight_image(self, hero_id, clicked_label):
         if clicked_label:
             if self.current_clicked_label is not None:
                 # Reset the style of the previously clicked label
@@ -327,7 +325,7 @@ class SetupHeroSelector(QMainWindow):
 
     def update_labels_in_tabs(self, parent): # indicator on the tabs that a hero is banned or picked
         # Iterate through all tabs
-        hero_id = self.selected_id
+        hero_id = self.hero_to_disp
         for tab_index in range(parent.hero_tab.count()):
             tab_widget = parent.hero_tab.widget(tab_index)
             if tab_widget:
@@ -400,7 +398,7 @@ class SetupHeroDialog(SetupHeroSelector):
         clicked_label = self.sender()
         if self.remaining_clicks <= 0:
             return
-        self.higlight_image(hero_id, clicked_label)
+        self.highlight_image(hero_id, clicked_label)
 
     def update_labels_in_tabs(self, parent, prev_id, is_swap): # indicator on the tabs that a hero is banned or picked
         # Iterate through all tabs

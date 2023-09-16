@@ -14,6 +14,7 @@ from ui.pages.heatmap import HeatMapWindow
 from ui.pages.board import BoardWindow
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
+from ui.dialogs.board_selector import OpenBoardSelector
 from ui.misc.titlebar import*
 from ui.dialogs.open_board import *
 from ui.dialogs.hero_selector_tab import *
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow):
      
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
+        self.board_selector_dialog = OpenBoardSelector()
         
         ui_path = os.path.join(script_dir,  "main_page.ui")
 
@@ -42,9 +44,10 @@ class MainWindow(QMainWindow):
         self.practice_button.clicked.connect(self.open_practice_dialog)
         self.quick_button.clicked.connect(self.open_quick_draft)
         self.heatmap_button.clicked.connect(self.open_heatmap)
-        self.board_button.clicked.connect(self.open_board)
+        self.board_button.clicked.connect(self.open_board_selector)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
+        self.board_selector_dialog.create_btn.clicked.connect(self.open_board)
         self.menu_button.clicked.connect(self.toggle_home_menu)
 
 
@@ -78,6 +81,10 @@ class MainWindow(QMainWindow):
     # Dialog for setting up parameters(player type, intelligence) before opening the practice draft window
     def open_practice_dialog(self):
         self.practice_dialog.show()
+
+    # Dialog for selecting what type of board to create
+    def open_board_selector(self):
+        self.board_selector_dialog.show()
 
     # Initialize and open practice draft window
     def open_practice_page(self):

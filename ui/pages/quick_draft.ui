@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1044</width>
+    <width>1064</width>
     <height>700</height>
    </rect>
   </property>
@@ -540,13 +540,13 @@ border-radius: 10px;</string>
                     <number>4</number>
                    </property>
                    <property name="leftMargin">
-                    <number>10</number>
+                    <number>0</number>
                    </property>
                    <property name="topMargin">
                     <number>0</number>
                    </property>
                    <property name="rightMargin">
-                    <number>10</number>
+                    <number>0</number>
                    </property>
                    <property name="bottomMargin">
                     <number>10</number>
@@ -570,7 +570,7 @@ border-radius: 10px;</string>
                        <number>0</number>
                       </property>
                       <property name="topMargin">
-                       <number>4</number>
+                       <number>6</number>
                       </property>
                       <property name="rightMargin">
                        <number>0</number>
@@ -586,6 +586,20 @@ border-radius: 10px;</string>
                           <height>0</height>
                          </size>
                         </property>
+                        <property name="styleSheet">
+                         <string notr="true">QFrame{
+background-color:rgb(106, 112, 214);
+border-top-left-radius: 1px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 20px;
+}
+
+QFrame #blue_hero_frame{
+border: 2px solid; border-color:rgb(255, 255, 255);
+border-left-color: transparent
+}</string>
+                        </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
                         </property>
@@ -597,18 +611,18 @@ border-radius: 10px;</string>
                           <number>5</number>
                          </property>
                          <property name="leftMargin">
-                          <number>0</number>
+                          <number>8</number>
                          </property>
                          <property name="topMargin">
-                          <number>0</number>
+                          <number>4</number>
                          </property>
                          <property name="rightMargin">
-                          <number>0</number>
+                          <number>8</number>
                          </property>
                          <property name="bottomMargin">
-                          <number>0</number>
+                          <number>4</number>
                          </property>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                         <item>
                           <widget class="QFrame" name="blue_roam_frame">
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
@@ -660,7 +674,7 @@ border-radius: 10px;</string>
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                         <item>
                           <widget class="QFrame" name="blue_mid_frame">
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
@@ -709,7 +723,7 @@ border-radius: 10px;</string>
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                         <item>
                           <widget class="QFrame" name="blue_exp_frame">
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
@@ -758,7 +772,7 @@ border-radius: 10px;</string>
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                         <item>
                           <widget class="QFrame" name="blue_jungle_frame">
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
@@ -807,8 +821,11 @@ border-radius: 10px;</string>
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                         <item>
                           <widget class="QFrame" name="blue_gold_frame">
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
                            </property>
@@ -955,6 +972,21 @@ border-radius: 10px;</string>
                           <height>0</height>
                          </size>
                         </property>
+                        <property name="styleSheet">
+                         <string notr="true">QFrame{
+background-color:rgb(106, 112, 214);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 20px;
+border-top-right-radius: 1px;
+border-bottom-right-radius: 0px;
+}
+
+QFrame #red_hero_frame{
+border: 2px solid; border-color:rgb(255, 255, 255);
+border-right-color: transparent
+}
+</string>
+                        </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
                         </property>
@@ -966,16 +998,16 @@ border-radius: 10px;</string>
                           <number>5</number>
                          </property>
                          <property name="leftMargin">
-                          <number>0</number>
+                          <number>8</number>
                          </property>
                          <property name="topMargin">
-                          <number>0</number>
+                          <number>4</number>
                          </property>
                          <property name="rightMargin">
-                          <number>0</number>
+                          <number>8</number>
                          </property>
                          <property name="bottomMargin">
-                          <number>0</number>
+                          <number>4</number>
                          </property>
                          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                           <widget class="QFrame" name="red_gold_frame">
@@ -1229,38 +1261,25 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QWidget" name="graph_widget" native="true">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                    <widget class="QFrame" name="frame_4">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
                      </property>
-                     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="4,5">
-                      <property name="spacing">
-                       <number>8</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>0</number>
-                      </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_18">
                       <item>
-                       <widget class="QWidget" name="radar_widget" native="true">
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 15px;</string>
+                       <widget class="QWidget" name="graph_widget" native="true">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
                         </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_17">
+                        <layout class="QVBoxLayout" name="verticalLayout_7" stretch="4,5">
                          <property name="spacing">
-                          <number>0</number>
+                          <number>8</number>
                          </property>
                          <property name="leftMargin">
                           <number>0</number>
@@ -1275,64 +1294,89 @@ border-radius: 15px;</string>
                           <number>0</number>
                          </property>
                          <item>
-                          <layout class="QHBoxLayout" name="radar_layout">
-                           <property name="spacing">
-                            <number>0</number>
+                          <widget class="QWidget" name="radar_widget" native="true">
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;</string>
                            </property>
-                           <property name="leftMargin">
-                            <number>5</number>
-                           </property>
-                           <property name="topMargin">
-                            <number>4</number>
-                           </property>
-                           <property name="rightMargin">
-                            <number>5</number>
-                           </property>
-                           <property name="bottomMargin">
-                            <number>4</number>
-                           </property>
-                          </layout>
+                           <layout class="QHBoxLayout" name="horizontalLayout_17">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item>
+                             <layout class="QHBoxLayout" name="radar_layout">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <property name="leftMargin">
+                               <number>5</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>4</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>5</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>4</number>
+                              </property>
+                             </layout>
+                            </item>
+                           </layout>
+                          </widget>
                          </item>
-                        </layout>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QWidget" name="diverging_widget" native="true">
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 15px;</string>
-                        </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_18">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
                          <item>
-                          <layout class="QHBoxLayout" name="diverging_layout">
-                           <property name="leftMargin">
-                            <number>10</number>
+                          <widget class="QWidget" name="diverging_widget" native="true">
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;</string>
                            </property>
-                           <property name="topMargin">
-                            <number>10</number>
-                           </property>
-                           <property name="rightMargin">
-                            <number>10</number>
-                           </property>
-                           <property name="bottomMargin">
-                            <number>10</number>
-                           </property>
-                          </layout>
+                           <layout class="QHBoxLayout" name="horizontalLayout_18">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item>
+                             <layout class="QHBoxLayout" name="diverging_layout">
+                              <property name="leftMargin">
+                               <number>10</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>10</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>10</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>10</number>
+                              </property>
+                             </layout>
+                            </item>
+                           </layout>
+                          </widget>
                          </item>
                         </layout>
                        </widget>
@@ -1504,7 +1548,7 @@ border-bottom-right-radius: 40px;</string>
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">image: url(:/icons/icons/empty_hero.png);
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);
 border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string>
                               </property>
                               <property name="text">

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>618</height>
+    <width>1000</width>
+    <height>663</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -189,7 +189,7 @@ color:#fff
                  <number>0</number>
                 </property>
                 <item alignment="Qt::AlignLeft">
-                 <widget class="QFrame" name="icon_frame">
+                 <widget class="QFrame" name="manu_title_frame">
                   <property name="minimumSize">
                    <size>
                     <width>100</width>
@@ -221,21 +221,51 @@ color:#fff
                    <property name="bottomMargin">
                     <number>0</number>
                    </property>
-                   <item alignment="Qt::AlignLeft">
-                    <widget class="QPushButton" name="icon_btn">
-                     <property name="text">
-                      <string/>
+                   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                    <widget class="QFrame" name="menu_frame">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
                      </property>
-                     <property name="icon">
-                      <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
                      </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>23</width>
-                       <height>23</height>
-                      </size>
-                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_22">
+                      <property name="spacing">
+                       <number>0</number>
+                      </property>
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <widget class="QPushButton" name="menu_button">
+                        <property name="toolTip">
+                         <string>Menu</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="../rsc.qrc">
+                          <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>22</width>
+                          <height>22</height>
+                         </size>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                    <item alignment="Qt::AlignVCenter">
@@ -254,12 +284,98 @@ color:#fff
                  </widget>
                 </item>
                 <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QFrame" name="options_frame">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <property name="spacing">
+                    <number>20</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>5</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="pen_button">
+                     <property name="toolTip">
+                      <string>Pen</string>
+                     </property>
+                     <property name="text">
+                      <string>  Pen</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../rsc.qrc">
+                       <normaloff>:/icons/icons/pen-tool.svg</normaloff>:/icons/icons/pen-tool.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>22</width>
+                       <height>22</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="eraser_button">
+                     <property name="toolTip">
+                      <string>Eraser</string>
+                     </property>
+                     <property name="text">
+                      <string>  Eraser</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../rsc.qrc">
+                       <normaloff>:/icons/icons/box.svg</normaloff>:/icons/icons/box.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>22</width>
+                       <height>22</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <spacer name="horizontalSpacer_3">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
+                   <enum>QSizePolicy::Expanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -352,6 +468,9 @@ color:#fff
                  <spacer name="horizontalSpacer">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Expanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -677,57 +796,10 @@ border-bottom-right-radius: 0px;
                       <property name="bottomMargin">
                        <number>0</number>
                       </property>
-                      <item>
-                       <widget class="QFrame" name="menu_frame">
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_22">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>4</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item>
-                          <widget class="QPushButton" name="menu_button">
-                           <property name="toolTip">
-                            <string>Menu</string>
-                           </property>
-                           <property name="text">
-                            <string/>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/align-justify.svg</normaloff>:/icons/icons/align-justify.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QFrame" name="options_frame">
+                      <item alignment="Qt::AlignLeft">
+                       <widget class="QFrame" name="hero_frame">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
@@ -738,15 +810,12 @@ border-bottom-right-radius: 0px;
                         <property name="frameShadow">
                          <enum>QFrame::Raised</enum>
                         </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_6">
-                         <property name="spacing">
-                          <number>12</number>
-                         </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_11">
                          <property name="leftMargin">
                           <number>0</number>
                          </property>
                          <property name="topMargin">
-                          <number>5</number>
+                          <number>0</number>
                          </property>
                          <property name="rightMargin">
                           <number>0</number>
@@ -755,154 +824,307 @@ border-bottom-right-radius: 0px;
                           <number>0</number>
                          </property>
                          <item>
-                          <widget class="QPushButton" name="tracker_button">
-                           <property name="toolTip">
-                            <string>Tracker</string>
+                          <widget class="QWidget" name="blue_heroes" native="true">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="layoutDirection">
+                            <enum>Qt::LeftToRight</enum>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true"/>
+                            <string notr="true">background-color: rgb(0, 170, 255);</string>
                            </property>
-                           <property name="text">
-                            <string>  Tracker</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/crosshair.svg</normaloff>:/icons/icons/crosshair.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_23">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="blue_hero_1">
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="blue_hero_3">
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="blue_hero_4">
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="blue_hero_5">
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="blue_hero_2">
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                          <item>
-                          <widget class="QPushButton" name="map_button">
-                           <property name="toolTip">
-                            <string>Map</string>
+                          <widget class="QWidget" name="red_heroes" native="true">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="layoutDirection">
+                            <enum>Qt::RightToLeft</enum>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true"/>
+                            <string notr="true">background-color: rgb(255, 57, 57);</string>
                            </property>
-                           <property name="text">
-                            <string>  Map</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/map.svg</normaloff>:/icons/icons/map.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="image_button">
-                           <property name="toolTip">
-                            <string>Image</string>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true"/>
-                           </property>
-                           <property name="text">
-                            <string>  Image</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/image.svg</normaloff>:/icons/icons/image.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="video_button">
-                           <property name="toolTip">
-                            <string>Video</string>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true"/>
-                           </property>
-                           <property name="text">
-                            <string>  Video</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="pen_button">
-                           <property name="toolTip">
-                            <string>Pen</string>
-                           </property>
-                           <property name="text">
-                            <string>  Pen</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/pen-tool.svg</normaloff>:/icons/icons/pen-tool.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="eraser_button">
-                           <property name="toolTip">
-                            <string>Eraser</string>
-                           </property>
-                           <property name="text">
-                            <string>  Eraser</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/box.svg</normaloff>:/icons/icons/box.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_19">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="red_hero_2">
+                              <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="red_hero_3">
+                              <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="red_hero_4">
+                              <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="red_hero_5">
+                              <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                             <widget class="QPushButton" name="red_hero_1">
+                              <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">image: url(:/icons/icons/question_mark.png);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>40</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                         </layout>
                        </widget>
                       </item>
-                      <item>
-                       <spacer name="verticalSpacer_2">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
+                      <item alignment="Qt::AlignBottom">
                        <widget class="QFrame" name="settings_frame">
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
@@ -926,26 +1148,6 @@ border-bottom-right-radius: 0px;
                          <property name="bottomMargin">
                           <number>10</number>
                          </property>
-                         <item>
-                          <widget class="QPushButton" name="settings_button">
-                           <property name="toolTip">
-                            <string>Settings</string>
-                           </property>
-                           <property name="text">
-                            <string>   Settings</string>
-                           </property>
-                           <property name="icon">
-                            <iconset resource="../rsc.qrc">
-                             <normaloff>:/icons/icons/settings.svg</normaloff>:/icons/icons/settings.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>22</width>
-                             <height>22</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
                          <item>
                           <widget class="QPushButton" name="help_button">
                            <property name="toolTip">
@@ -1129,156 +1331,6 @@ border-bottom-right-radius: 0px;
                                    <property name="bottomMargin">
                                     <number>0</number>
                                    </property>
-                                   <item alignment="Qt::AlignTop">
-                                    <widget class="QWidget" name="blue_hero_icons" native="true">
-                                     <property name="sizePolicy">
-                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                       <horstretch>0</horstretch>
-                                       <verstretch>0</verstretch>
-                                      </sizepolicy>
-                                     </property>
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>60</width>
-                                       <height>200</height>
-                                      </size>
-                                     </property>
-                                     <property name="layoutDirection">
-                                      <enum>Qt::RightToLeft</enum>
-                                     </property>
-                                     <property name="styleSheet">
-                                      <string notr="true"/>
-                                     </property>
-                                     <layout class="QVBoxLayout" name="verticalLayout_19">
-                                      <property name="spacing">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="leftMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="topMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="rightMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="bottomMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <item>
-                                       <widget class="QPushButton" name="blue_hero5">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="blue_hero4">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);
-</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="blue_hero3">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="blue_hero2">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="blue_hero1">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                     </layout>
-                                    </widget>
-                                   </item>
                                    <item>
                                     <widget class="QWidget" name="map_widget" native="true">
                                      <property name="sizePolicy">
@@ -1325,155 +1377,6 @@ border-bottom-right-radius: 0px;
                                         </property>
                                         <property name="text">
                                          <string/>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                     </layout>
-                                    </widget>
-                                   </item>
-                                   <item alignment="Qt::AlignBottom">
-                                    <widget class="QWidget" name="red_hero_icons" native="true">
-                                     <property name="sizePolicy">
-                                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                       <horstretch>0</horstretch>
-                                       <verstretch>0</verstretch>
-                                      </sizepolicy>
-                                     </property>
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>60</width>
-                                       <height>200</height>
-                                      </size>
-                                     </property>
-                                     <property name="layoutDirection">
-                                      <enum>Qt::LeftToRight</enum>
-                                     </property>
-                                     <property name="styleSheet">
-                                      <string notr="true"/>
-                                     </property>
-                                     <layout class="QVBoxLayout" name="verticalLayout_23">
-                                      <property name="spacing">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="leftMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="topMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="rightMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="bottomMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <item>
-                                       <widget class="QPushButton" name="red_hero1">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="red_hero2">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="red_hero3">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="red_hero4">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="red_hero5">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>40</width>
-                                          <height>40</height>
-                                         </size>
                                         </property>
                                        </widget>
                                       </item>
@@ -1544,25 +1447,26 @@ border-bottom-right-radius: 0px;
                                    <enum>QFrame::Raised</enum>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_9">
-                                   <property name="spacing">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="leftMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="topMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="rightMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <property name="bottomMargin">
-                                    <number>0</number>
-                                   </property>
-                                   <item alignment="Qt::AlignHCenter">
-                                    <widget class="QLabel" name="image">
+                                   <item alignment="Qt::AlignTop">
+                                    <widget class="QLabel" name="label">
                                      <property name="text">
                                       <string>Image Page</string>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QLabel" name="image">
+                                     <property name="sizePolicy">
+                                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                       <horstretch>0</horstretch>
+                                       <verstretch>0</verstretch>
+                                      </sizepolicy>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">background-color: rgb(255, 255, 255);</string>
+                                     </property>
+                                     <property name="text">
+                                      <string/>
                                      </property>
                                     </widget>
                                    </item>
@@ -1662,6 +1566,7 @@ border-bottom-right-radius: 0px;
                              </item>
                             </layout>
                            </widget>
+                           <widget class="QWidget" name="tracker_page"/>
                           </widget>
                          </item>
                         </layout>

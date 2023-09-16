@@ -93,6 +93,12 @@ class QuickDraftWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
+    def resizeEvent(self, event):
+        self.hero_dialog.selector.update_current_tab(self.hero_dialog.hero_tab.currentIndex)
+        if self.qlabel_to_update is not None:
+            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+
+
 #######################################################################     
     def eventFilter(self, obj, event):
         self.combined_hero_dict = self.merge_heroes_dict(self.blue_heroes, self.red_heroes)
