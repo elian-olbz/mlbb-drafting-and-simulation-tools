@@ -24,7 +24,7 @@ class BoardWindow(QMainWindow):
 
         uic.loadUi(ui_path, self)
 
-        self.menu_button.clicked.connect(self.toggle_home_menu)
+        #self.home_btn.clicked.connect(self.toggle_home_menu)
         self.snap_menu_btn.clicked.connect(self.toggle_snap_menu)
     
 #############################################################       
@@ -67,7 +67,6 @@ class BoardWindow(QMainWindow):
             self.snap_menu_width = 55
         self.right_menu_subcontainer.setFixedWidth(self.snap_menu_width)
 #######################################################################
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

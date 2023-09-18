@@ -9,31 +9,28 @@ class TitleBar(QMainWindow):
         super(TitleBar, self).__init__(parent)
         self.win_maxed = True
         self.shadow_style = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))"
+        self.main_frame_max = "*{border:none; border-radius: 0px; background-color:transparent; background:transparent; padding:0; margin:0; color:#fff} QFrame #main_frame{border:0px solid; border-radius: 0px} QPushButton{text-align:left; padding: 5px 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;}"
+        self.main_frame_min = "*{border:none; border-radius: 0px; background-color:transparent; background:transparent; padding:0; margin:0; color:#fff} QFrame #main_frame{border:1px solid; border-radius: 10px; border-color:rgb(83, 89, 98);} QPushButton{text-align:left; padding: 5px 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;}"
         
     ## ==> MAXIMIZE RESTORE FUNCTION
     def maximize_restore(self, parent):
-        # IF NOT MAXIMIZED
-        if self.win_maxed == False:
-            parent.showMaximized()
-
-            self.win_maxed = True
-
-            # IF MAXIMIZED REMOVE MARGINS AND BORDER RADIUS
-            parent.setStyleSheet("border-radius: 0px;")
+        if self.win_maxed == False:    # IF NOT MAXIMIZED
             parent.central_layout.setContentsMargins(0, 0, 0, 0)
+            parent.main_frame.setStyleSheet(self.main_frame_max)
+            parent.showMaximized()
+            parent.setStyleSheet("border-radius: 0px;")
             parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Restore")
+            self.win_maxed = True
         else:
-            self.win_maxed = False
-            parent.showNormal()
-            parent.resize(parent.width()+1, parent.height()+1)
-
-            #--------------
-            parent.setStyleSheet("border-radius: 10px;")
+            parent.main_frame.setStyleSheet(self.main_frame_min)
             parent.central_layout.setContentsMargins(10, 10, 10, 10)
+            parent.showNormal()
+            #parent.resize(parent.width()+1, parent.height()+1)
+            parent.setStyleSheet("border-radius: 10px;")
             parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Maximize")
-            #--------------
+            self.win_maxed = False
 
     ## ==> UI DEFINITIONS
     def uiDefinitions(self, parent):
@@ -41,7 +38,7 @@ class TitleBar(QMainWindow):
         # REMOVE TITLE BAR
         parent.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         parent.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        parent.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
+        #parent.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # SET DROPSHADOW WINDOW
         parent.shadow = QGraphicsDropShadowEffect(parent)

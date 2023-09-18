@@ -225,7 +225,7 @@ color:#fff
                     <number>0</number>
                    </property>
                    <item alignment="Qt::AlignLeft">
-                    <widget class="QPushButton" name="logo_btn">
+                    <widget class="QPushButton" name="home_btn">
                      <property name="text">
                       <string/>
                      </property>
@@ -1269,6 +1269,15 @@ border-right-color: transparent
                       <enum>QFrame::Raised</enum>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_18">
+                      <property name="leftMargin">
+                       <number>9</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
                       <item>
                        <widget class="QWidget" name="graph_widget" native="true">
                         <property name="sizePolicy">

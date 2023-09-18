@@ -32,9 +32,7 @@
    <item>
     <widget class="QFrame" name="drop_shadow">
      <property name="styleSheet">
-      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-
-</string>
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>

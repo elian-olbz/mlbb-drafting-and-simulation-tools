@@ -20,7 +20,9 @@
    <string>Select Player Types</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-radius: 10px;</string>
+   <string notr="true">border-radius: 10px;
+border:1px solid; 
+border-color:rgb(83, 89, 98);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -42,7 +44,6 @@
     <widget class="QFrame" name="drop_shadow">
      <property name="styleSheet">
       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-
 </string>
      </property>
      <property name="frameShape">

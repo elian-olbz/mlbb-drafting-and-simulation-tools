@@ -3,9 +3,9 @@ import csv
 import numpy as np
 from math import ceil
 from ultralytics import YOLO
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QSizePolicy
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QSizePolicy, QDialog, QVBoxLayout, QProgressBar
 from PyQt6.QtGui import QPixmap, QImage
-from PyQt6.QtCore import Qt, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QTimer
 from PyQt6 import uic
 import sys
 import os
@@ -14,14 +14,14 @@ from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import TitleBar
 
-os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
+#os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 class PredictionThread(QThread):
     update_frame = pyqtSignal(QImage)
     update_progress = pyqtSignal(float)  # Signal for updating the progress bar
-
+    
     def __init__(self, parent, video_path, csv_filename, csv_file, csv_writer):
         super(PredictionThread, self).__init__(parent)
         self.parent = parent
@@ -34,6 +34,8 @@ class PredictionThread(QThread):
         cap = cv2.VideoCapture(self.video_path)
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))  # Get the total number of frames
         frame_count = 0
+        frame_skip_factor = 2 # 2 for normal speed
+        results = None
 
         while cap.isOpened() and self.parent.is_running:
             success, frame = cap.read()
@@ -41,9 +43,13 @@ class PredictionThread(QThread):
             if success:
                 frame_count += 1
 
+                # Apply frame skipping
+                if frame_count % frame_skip_factor != 0:
+                    continue  # Skip this frame
+
                 if self.parent.is_cropping:
                     frame = frame[self.parent.crop_coordinates[1]:self.parent.crop_coordinates[1] + self.parent.crop_coordinates[3],
-                                  self.parent.crop_coordinates[0]:self.parent.crop_coordinates[0] + self.parent.crop_coordinates[2]]
+                                self.parent.crop_coordinates[0]:self.parent.crop_coordinates[0] + self.parent.crop_coordinates[2]]
 
                 results = self.parent.model.predict(frame, conf=0.5)
 
@@ -66,7 +72,7 @@ class PredictionThread(QThread):
                 self.update_frame.emit(q_image)
 
                 # Calculate and emit the progress percentage
-                progress_percentage = (frame_count / total_frames) * 100
+                progress_percentage = (frame_count / (total_frames - (total_frames % frame_skip_factor))) * 100
                 self.update_progress.emit(progress_percentage)
 
                 if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -81,19 +87,18 @@ class PredictionThread(QThread):
         self.parent.is_running = False
         self.parent.prediction_thread = None
 
-
 class HeatMapWindow(QMainWindow):
     def __init__(self):
         super(HeatMapWindow, self).__init__()
 
-        self.model = YOLO('model/yolov8_custom.pt')
+        self.model = None
         self.WINDOW_MAXED = False
-        self.menu_width = 55
         self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir, "heatmap.ui")
 
         uic.loadUi(ui_path, self)
+        self.load_ai_model()
 
         self.open_btn.clicked.connect(self.open_video_file)
         self.play_btn.clicked.connect(self.start_prediction)
@@ -148,65 +153,72 @@ class HeatMapWindow(QMainWindow):
         if self.csv_file:
             self.csv_file.close()
             self.csv_file = None
-
         event.accept()
     
+    def load_ai_model(self):
+        self.model = YOLO('model/yolov8_custom.pt')
+
+
     def update_file_name_label(self):
         file_name = os.path.basename(self.video_path)
         self.file_name_label.setText(f"{file_name}")
     
-    
-
     def resize_video(self, event):
-        if self.original_frame is not None:
+        if self.original_frame is not None and self.is_running == False:
             self.display_frame(self.frame_to_disp)
 
     def open_video_file(self):
-        self.is_cropping = False
-        video_path, _ = QFileDialog.getOpenFileName(self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mkv);;All Files (*)")
-        if video_path:
-            if self.is_running:
-                self.stop_prediction()  # Stop any ongoing prediction
+        if self.is_running == True:
+            return
+        else:
+            self.is_cropping = False
+            video_path, _ = QFileDialog.getOpenFileName(self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mkv);;All Files (*)")
+            if video_path:
+                if self.is_running:
+                    self.stop_prediction()  # Stop any ongoing prediction
 
-            if self.cap and self.cap.isOpened():
-                self.cap.release()  # Close the previous video if it's open
+                if self.cap and self.cap.isOpened():
+                    self.cap.release()  # Close the previous video if it's open
 
-            self.video_path = video_path
-            self.cap = cv2.VideoCapture(self.video_path)
-            success, frame = self.cap.read()
-            if success:
-                self.original_frame = frame
-                self.frame_to_disp = frame
-                self.display_frame(frame)
+                self.video_path = video_path
+                self.cap = cv2.VideoCapture(self.video_path)
+                success, frame = self.cap.read()
+                if success:
+                    self.original_frame = frame
+                    self.frame_to_disp = frame
+                    self.display_frame(frame)
 
-            if self.csv_file:
-                self.csv_file.close()  # Close the previous CSV file if it exists
-                self.csv_file = None
-        self.update_file_name_label()
-        self.progress_bar.setValue(0)
+                if self.csv_file:
+                    self.csv_file.close()  # Close the previous CSV file if it exists
+                    self.csv_file = None
+            self.update_file_name_label()
+            self.progress_bar.setValue(0)
 
     def crop_video(self):
-        self.is_cropping = True
-        self.crop_coordinates = cv2.selectROI("Crop Video", self.original_frame)
-        cv2.destroyAllWindows()
+        if self.is_running == True or self.original_frame is None:
+            return
+        else:
+            self.is_cropping = True
+            self.crop_coordinates = cv2.selectROI("Crop Video", self.original_frame)
+            cv2.destroyAllWindows()
 
-        # Crop the original frame using the selected coordinates
-        if self.crop_coordinates:
-            x, y, w, h = self.crop_coordinates
-            cropped_frame = self.original_frame[y:y+h, x:x+w]
+            # Crop the original frame using the selected coordinates
+            if self.crop_coordinates:
+                x, y, w, h = self.crop_coordinates
+                cropped_frame = self.original_frame[y:y+h, x:x+w]
 
-            # Convert the cropped frame to a format suitable for QImage
-            height, width, channel = cropped_frame.shape
-            bytes_per_line = 3 * width
-            byte_string = cropped_frame.tobytes()
+                # Convert the cropped frame to a format suitable for QImage
+                height, width, channel = cropped_frame.shape
+                bytes_per_line = 3 * width
+                byte_string = cropped_frame.tobytes()
 
-            # Create the QImage from the byte string
-            q_image = QImage(byte_string, width, height, bytes_per_line, QImage.Format.Format_BGR888)
+                # Create the QImage from the byte string
+                q_image = QImage(byte_string, width, height, bytes_per_line, QImage.Format.Format_BGR888)
 
-            self.frame_to_disp = q_image
+                self.frame_to_disp = q_image
 
-            # Display the cropped frame
-            self.display_frame(q_image)
+                # Display the cropped frame
+                self.display_frame(q_image)
 
     def display_frame(self, frame):
         if isinstance(frame, QImage):
@@ -220,29 +232,53 @@ class HeatMapWindow(QMainWindow):
         self.video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.video_label.setPixmap(QPixmap.fromImage(scaled_image))
 
+    
     def start_prediction(self):
-        print("Starting predictions")
-        if not self.cap or not self.cap.isOpened():
-            self.cap = cv2.VideoCapture(self.video_path)
+        if self.original_frame is not None:
+            print("Starting predictions")
+            if not self.cap or not self.cap.isOpened():
+                self.cap = cv2.VideoCapture(self.video_path)
 
-        if not self.cap.isOpened():
+            if not self.cap.isOpened():
+                return
+
+            if self.prediction_thread is not None:
+                # If a prediction thread is already running, stop it gracefully
+                self.stop_prediction()
+
+            if not self.csv_file:
+                self.csv_file = open(self.csv_filename, 'w', newline='')
+                self.csv_writer = csv.writer(self.csv_file)
+                self.csv_writer.writerow(['Frame', 'Class', 'X', 'Y'])
+
+            self.is_running = True
+            self.is_stopping = False  # Reset the stopping flag
+
+            # Disable UI elements during prediction
+            self.open_btn.setDisabled(True)
+            self.play_btn.setDisabled(True)
+            self.crop_btn.setDisabled(True)
+
+            # Load the AI model asynchronously
+            self.prediction_thread = PredictionThread(self, self.video_path, self.csv_filename, self.csv_file, self.csv_writer)
+            self.prediction_thread.update_frame.connect(self.display_frame)
+            self.prediction_thread.update_progress.connect(self.update_progress_bar)
+            self.prediction_thread.finished.connect(self.prediction_finished)
+            self.prediction_thread.start()
+        else:
             return
+        
+    def enable_buttons(self):
+        self.open_btn.setEnabled(True)
+        self.play_btn.setEnabled(True)
+        self.crop_btn.setEnabled(True)
+    
+    def prediction_finished(self):
+        self.is_running = False
+        self.prediction_thread = None
 
-        if self.prediction_thread is not None:
-            # If a prediction thread is already running, stop it gracefully
-            self.stop_prediction()
-
-        if not self.csv_file:
-            self.csv_file = open(self.csv_filename, 'w', newline='')
-            self.csv_writer = csv.writer(self.csv_file)
-            self.csv_writer.writerow(['Frame', 'Class', 'X', 'Y'])
-
-        self.is_running = True
-        self.is_stopping = False  # Reset the stopping flag
-        self.prediction_thread = PredictionThread(self, self.video_path, self.csv_filename, self.csv_file, self.csv_writer)
-        self.prediction_thread.update_frame.connect(self.display_frame)
-        self.prediction_thread.update_progress.connect(self.update_progress_bar)
-        self.prediction_thread.start()
+        # Re-enable the buttons
+        self.enable_buttons()
 
     def stop_prediction(self):
         if self.is_running:

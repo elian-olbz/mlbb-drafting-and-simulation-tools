@@ -41,6 +41,11 @@ class MainWindow(QMainWindow):
 
         uic.loadUi(ui_path, self)
 
+        self.draft_window = None
+        self.quick_draft = None
+        self.heatmap = None
+        self.board = None
+
         self.practice_button.clicked.connect(self.open_practice_dialog)
         self.quick_button.clicked.connect(self.open_quick_draft)
         self.heatmap_button.clicked.connect(self.open_heatmap)
@@ -49,7 +54,6 @@ class MainWindow(QMainWindow):
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
         self.board_selector_dialog.create_btn.clicked.connect(self.open_board)
         self.menu_button.clicked.connect(self.toggle_home_menu)
-
 
 #############################################################       
         # MOVE WINDOW
@@ -86,10 +90,12 @@ class MainWindow(QMainWindow):
     def open_board_selector(self):
         self.board_selector_dialog.show()
 
+#########################################################################
     # Initialize and open practice draft window
     def open_practice_page(self):
         self.draft_window = DraftWindow()
-    
+        self.draft_window.home_btn.clicked.connect(self.close_practice_draft)
+        
         # set the player types from the combo box index/value
         if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
@@ -101,51 +107,49 @@ class MainWindow(QMainWindow):
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_ai()
 
         self.practice_dialog.close()
-        if self.isMaximized():
-            self.draft_window.showMaximized()
-        else:
-            self.draft_window.setStyleSheet("border-radius: 10px;")
-            self.draft_window.central_layout.setContentsMargins(10, 10, 10, 10)
-            self.draft_window.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
-            self.draft_window.btn_max.setToolTip("Maximize")
-            self.draft_window.show()
+        self.draft_window.showMaximized()
+        self.hide()
 
+    def close_practice_draft(self):
+        self.draft_window.close()
+        self.show()
+
+########################################################################
     # Initialize and open quick draft window
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
-        if self.isMaximized():
-            self.quick_draft.showMaximized()
-        else:
-            self.quick_draft.setStyleSheet("border-radius: 10px;")
-            self.quick_draft.central_layout.setContentsMargins(10, 10, 10, 10)
-            self.quick_draft.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
-            self.quick_draft.btn_max.setToolTip("Maximize")
-            self.quick_draft.show()
+        self.quick_draft.home_btn.clicked.connect(self.close_quick_draft)
+        self.quick_draft.showMaximized()
+        self.hide()
 
+    def close_quick_draft(self):
+        self.quick_draft.close()
+        self.show()
+
+########################################################################
     # Initialize and open heatmap window
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
-        if self.isMaximized():
-            self.heatmap.showMaximized()
-        else:
-            self.heatmap.setStyleSheet("border-radius: 10px;")
-            self.heatmap.central_layout.setContentsMargins(10, 10, 10, 10)
-            self.heatmap.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
-            self.heatmap.btn_max.setToolTip("Maximize")
-            self.heatmap.show()
-    
+        self.heatmap.home_btn.clicked.connect(self.close_heatmap)
+        self.heatmap.showMaximized()
+        self.hide()
+
+    def close_heatmap(self):
+        self.heatmap.close()
+        self.show()
+#########################################################################
     # Initialize and open coaching board window
     def open_board(self):
-        board = BoardWindow()
-        if self.isMaximized():
-            board.showMaximized()
-        else:
-            board.setStyleSheet("border-radius: 10px;")
-            board.central_layout.setContentsMargins(10, 10, 10, 10)
-            board.drop_shadow.setStyleSheet(self.title_bar.shadow_style)
-            board.btn_max.setToolTip("Maximize")
-            board.show()
-            board.show()
+        self.board = BoardWindow()
+        self.board.home_btn.clicked.connect(self.close_board)
+        self.board_selector_dialog.close()
+        self.board.showMaximized()
+        self.hide()
+            
+    def close_board(self):
+        self.board.close()
+        self.show()
+##########################################################################
 
     # Toggle the side menu
     def toggle_home_menu(self):

@@ -515,11 +515,12 @@ class QuickDraftWindow(QMainWindow):
             elif role == 'Roamer':
                 pix_map = QPixmap("images/hero_roles/roam.png")   
             return pix_map
-        
     
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = QuickDraftWindow()
     window.show()
 
     sys.exit(app.exec())
+    
