@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>600</height>
+    <width>1002</width>
+    <height>637</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,27 +253,91 @@ color:#fff
                   </property>
                  </spacer>
                 </item>
-                <item>
-                 <widget class="QPushButton" name="intent_button">
-                  <property name="toolTip">
-                   <string>Add AI</string>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::RightToLeft</enum>
-                  </property>
-                  <property name="text">
-                   <string>Open in Quick Draft</string>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="../rsc.qrc">
-                    <normaloff>:/icons/icons/chevron-right.svg</normaloff>:/icons/icons/chevron-right.svg</iconset>
-                  </property>
-                  <property name="iconSize">
+                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                 <widget class="QFrame" name="frame">
+                  <property name="minimumSize">
                    <size>
-                    <width>24</width>
-                    <height>24</height>
+                    <width>100</width>
+                    <height>0</height>
                    </size>
                   </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <property name="spacing">
+                    <number>20</number>
+                   </property>
+                   <item alignment="Qt::AlignHCenter">
+                    <widget class="QPushButton" name="refresh_btn">
+                     <property name="toolTip">
+                      <string>Rest All</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../rsc.qrc">
+                       <normaloff>:/icons/icons/refresh-cw.svg</normaloff>:/icons/icons/refresh-cw.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="save_btn">
+                     <property name="toolTip">
+                      <string>Save</string>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::RightToLeft</enum>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../rsc.qrc">
+                       <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item alignment="Qt::AlignHCenter">
+                    <widget class="QPushButton" name="export_btn">
+                     <property name="toolTip">
+                      <string>Analyze Draft</string>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::RightToLeft</enum>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../rsc.qrc">
+                       <normaloff>:/icons/icons/external-link.svg</normaloff>:/icons/icons/external-link.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -281,19 +345,28 @@ color:#fff
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>40</width>
+                    <width>20</width>
                     <height>20</height>
                    </size>
                   </property>
                  </spacer>
                 </item>
-                <item>
+                <item alignment="Qt::AlignRight">
                  <widget class="QFrame" name="frame_btns">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -309,18 +382,18 @@ color:#fff
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <layout class="QHBoxLayout" name="horizontalLayout_8">
                    <property name="spacing">
-                    <number>5</number>
+                    <number>20</number>
                    </property>
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>20</number>
                    </property>
                    <property name="topMargin">
                     <number>0</number>
                    </property>
                    <property name="rightMargin">
-                    <number>0</number>
+                    <number>4</number>
                    </property>
                    <property name="bottomMargin">
                     <number>0</number>
@@ -592,7 +665,13 @@ border-bottom-right-radius: 10px;
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true"/>
+                               <string notr="true">QFrame #ban_frame{
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+background-color:rgb(15, 15, 26);
+}</string>
                               </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
@@ -605,18 +684,18 @@ border-bottom-right-radius: 10px;
                                 <number>6</number>
                                </property>
                                <property name="leftMargin">
-                                <number>0</number>
+                                <number>10</number>
                                </property>
                                <property name="topMargin">
-                                <number>0</number>
+                                <number>4</number>
                                </property>
                                <property name="rightMargin">
-                                <number>0</number>
+                                <number>10</number>
                                </property>
                                <property name="bottomMargin">
-                                <number>0</number>
+                                <number>4</number>
                                </property>
-                               <item>
+                               <item alignment="Qt::AlignVCenter">
                                 <widget class="QFrame" name="blue_ban_frame">
                                  <property name="minimumSize">
                                   <size>
@@ -625,14 +704,16 @@ border-bottom-right-radius: 10px;
                                   </size>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">QFrame #blue_ban_frame{
-border: 3px solid rgb(170, 170, 255);
-border-left-color: rgb(85, 170, 255);
-background-color: rgb(85, 170, 255);
-border-top-left-radius: 0px;
-border-bottom-left-radius: 0px;
-border-top-right-radius: 20px;
-border-bottom-right-radius: 35px;
+                                  <string notr="true">QFrame{
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+
+QFrame #blue_ban_frame{
+border: 2px solid; border-color:rgb(255, 255, 255);
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -646,13 +727,13 @@ border-bottom-right-radius: 35px;
                                    <number>5</number>
                                   </property>
                                   <property name="topMargin">
-                                   <number>8</number>
+                                   <number>4</number>
                                   </property>
                                   <property name="rightMargin">
-                                   <number>10</number>
+                                   <number>8</number>
                                   </property>
                                   <property name="bottomMargin">
-                                   <number>8</number>
+                                   <number>4</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="blue_ban1">
@@ -664,18 +745,18 @@ border-bottom-right-radius: 35px;
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -700,18 +781,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -736,18 +817,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -772,18 +853,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -808,18 +889,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -858,14 +939,14 @@ border-color:rgb(255, 255, 255);</string>
                                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                 <widget class="QFrame" name="welcome_frame">
                                  <property name="sizePolicy">
-                                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                                    <horstretch>0</horstretch>
                                    <verstretch>0</verstretch>
                                   </sizepolicy>
                                  </property>
                                  <property name="minimumSize">
                                   <size>
-                                   <width>250</width>
+                                   <width>0</width>
                                    <height>75</height>
                                   </size>
                                  </property>
@@ -884,60 +965,29 @@ border-color:rgb(255, 255, 255);</string>
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout">
-                                  <property name="spacing">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>0</number>
-                                  </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_10">
                                   <property name="topMargin">
                                    <number>0</number>
                                   </property>
-                                  <property name="rightMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QFrame" name="left_frame">
+                                  <item alignment="Qt::AlignHCenter">
+                                   <widget class="QFrame" name="wel_frame">
                                     <property name="sizePolicy">
-                                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                                       <horstretch>0</horstretch>
                                       <verstretch>0</verstretch>
                                      </sizepolicy>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>15</width>
+                                      <width>170</width>
                                       <height>0</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">QFrame #left_frame{
-border: 3px solid rgb(170, 170, 255);
-border-top-color: rgb(170, 170, 255);
-border-left-color: transparent;
-border-right-color: transparent;
-border-bottom-color: transparent;
-}</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignHCenter">
-                                   <widget class="QFrame" name="wel_frame">
-                                    <property name="styleSheet">
                                      <string notr="true">QFrame #wel_frame{
 border: 3px solid rgb(170, 170, 255);
-border-top-color: transparent;
-/*background-color: rgb(170, 170, 255);*/
+border-top: 10px solid;
+border-top-color: rgb(170, 170, 255);
 border-top-left-radius: 0px;
 border-bottom-left-radius: 35px;
 border-top-right-radius: 0px;
@@ -950,66 +1000,30 @@ border-bottom-right-radius: 35px;
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                                    <layout class="QHBoxLayout" name="horizontalLayout">
+                                     <property name="leftMargin">
+                                      <number>15</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>15</number>
+                                     </property>
                                      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                                      <widget class="QLabel" name="top_label1">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>215</width>
-                                         <height>0</height>
-                                        </size>
-                                       </property>
-                                       <property name="font">
-                                        <font>
-                                         <pointsize>14</pointsize>
-                                        </font>
-                                       </property>
-                                       <property name="styleSheet">
-                                        <string notr="true">background-color: transparent;</string>
+                                      <widget class="QLabel" name="top_text">
+                                       <property name="sizePolicy">
+                                        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                                         <horstretch>0</horstretch>
+                                         <verstretch>0</verstretch>
+                                        </sizepolicy>
                                        </property>
                                        <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Welcome to Draft Simulator&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Blue Team Ban&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                        </property>
                                       </widget>
                                      </item>
                                     </layout>
                                    </widget>
                                   </item>
-                                  <item>
-                                   <widget class="QFrame" name="right_frame">
-                                    <property name="sizePolicy">
-                                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                                      <horstretch>0</horstretch>
-                                      <verstretch>0</verstretch>
-                                     </sizepolicy>
-                                    </property>
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>15</width>
-                                      <height>0</height>
-                                     </size>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QFrame #right_frame{
-border: 3px solid rgb(170, 170, 255);
-border-top-color: rgb(170, 170, 255);
-border-left-color: transparent;
-border-right-color: transparent;
-border-bottom-color: transparent;
-}</string>
-                                    </property>
-                                    <property name="frameShape">
-                                     <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                     <enum>QFrame::Raised</enum>
-                                    </property>
-                                   </widget>
-                                  </item>
                                  </layout>
-                                 <zorder>left_frame</zorder>
-                                 <zorder>right_frame</zorder>
-                                 <zorder>wel_frame</zorder>
                                 </widget>
                                </item>
                                <item>
@@ -1025,7 +1039,7 @@ border-bottom-color: transparent;
                                  </property>
                                 </spacer>
                                </item>
-                               <item>
+                               <item alignment="Qt::AlignVCenter">
                                 <widget class="QFrame" name="red_ban_frame">
                                  <property name="minimumSize">
                                   <size>
@@ -1034,14 +1048,16 @@ border-bottom-color: transparent;
                                   </size>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">QFrame #red_ban_frame{
-border: 3px solid rgb(170, 170, 255);
-border-right-color: rgb(255, 92, 92);
-background-color: rgb(255, 92, 92);
-border-top-left-radius: 20px;
-border-bottom-left-radius: 35px;
-border-top-right-radius: 0px;
-border-bottom-right-radius: 0px;
+                                  <string notr="true">QFrame{
+background-color: rgb(170, 170, 255);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+
+QFrame #red_ban_frame{
+border: 2px solid; border-color:rgb(255, 255, 255);
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -1052,16 +1068,16 @@ border-bottom-right-radius: 0px;
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_12">
                                   <property name="leftMargin">
-                                   <number>10</number>
+                                   <number>8</number>
                                   </property>
                                   <property name="topMargin">
-                                   <number>8</number>
+                                   <number>4</number>
                                   </property>
                                   <property name="rightMargin">
                                    <number>5</number>
                                   </property>
                                   <property name="bottomMargin">
-                                   <number>8</number>
+                                   <number>4</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="red_ban1">
@@ -1073,18 +1089,18 @@ border-bottom-right-radius: 0px;
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -1109,18 +1125,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -1145,18 +1161,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -1181,18 +1197,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -1217,18 +1233,18 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
-                                      <height>60</height>
+                                      <width>56</width>
+                                      <height>56</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">border-radius: 30px; border: 3px solid;
+                                     <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
 border-color:rgb(255, 255, 255);</string>
                                     </property>
@@ -1265,7 +1281,7 @@ border-color:rgb(255, 255, 255);</string>
                                 <number>0</number>
                                </property>
                                <property name="topMargin">
-                                <number>15</number>
+                                <number>4</number>
                                </property>
                                <property name="rightMargin">
                                 <number>0</number>
@@ -1300,13 +1316,12 @@ border-color:rgb(255, 255, 255);</string>
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #blue_pick_frame{
-border: 3px solid rgb(170, 170, 255);
+background-color:rgb(15, 15, 26);
 border-left-color: transparent;
-/*background-color: rgb(170, 170, 255);*/
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
-border-top-right-radius: 15px;
-border-bottom-right-radius: 15px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -1315,24 +1330,30 @@ border-bottom-right-radius: 15px;
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                                 <layout class="QVBoxLayout" name="verticalLayout_7" stretch="2,2,2,2,2">
                                   <property name="spacing">
                                    <number>10</number>
                                   </property>
                                   <property name="leftMargin">
-                                   <number>6</number>
+                                   <number>10</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>10</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>10</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="blue_pick1">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1350,13 +1371,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="blue_pick2">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1374,13 +1395,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="blue_pick3">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1398,13 +1419,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="blue_pick4">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1422,13 +1443,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="blue_pick5">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(85, 170, 255);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1501,7 +1522,7 @@ border-bottom-right-radius: 10px;
                                        <property name="minimumSize">
                                         <size>
                                          <width>600</width>
-                                         <height>350</height>
+                                         <height>400</height>
                                         </size>
                                        </property>
                                        <property name="font">
@@ -1586,7 +1607,7 @@ QScrollBar:vertical {
 </string>
                                        </property>
                                        <property name="currentIndex">
-                                        <number>1</number>
+                                        <number>0</number>
                                        </property>
                                        <widget class="QWidget" name="tab">
                                         <attribute name="title">
@@ -1628,7 +1649,7 @@ QScrollBar:vertical {
                                     </layout>
                                    </widget>
                                   </item>
-                                  <item alignment="Qt::AlignHCenter">
+                                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                    <widget class="QFrame" name="bottom_frame">
                                     <property name="maximumSize">
                                      <size>
@@ -1647,20 +1668,34 @@ QScrollBar:vertical {
                                       <widget class="QPushButton" name="undo_button">
                                        <property name="minimumSize">
                                         <size>
-                                         <width>60</width>
+                                         <width>0</width>
                                          <height>40</height>
                                         </size>
                                        </property>
                                        <property name="font">
                                         <font>
                                          <pointsize>12</pointsize>
+                                         <bold>false</bold>
                                         </font>
                                        </property>
+                                       <property name="toolTip">
+                                        <string>Undo</string>
+                                       </property>
                                        <property name="styleSheet">
-                                        <string notr="true"/>
+                                        <string notr="true">background-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
-                                        <string>Undo</string>
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="../rsc.qrc">
+                                         <normaloff>:/icons/icons/corner-up-left.svg</normaloff>:/icons/icons/corner-up-left.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>25</width>
+                                         <height>25</height>
+                                        </size>
                                        </property>
                                       </widget>
                                      </item>
@@ -1680,21 +1715,22 @@ QScrollBar:vertical {
                                        </property>
                                       </spacer>
                                      </item>
-                                     <item>
+                                     <item alignment="Qt::AlignHCenter">
                                       <widget class="QPushButton" name="pick_button">
                                        <property name="minimumSize">
                                         <size>
-                                         <width>60</width>
+                                         <width>0</width>
                                          <height>40</height>
                                         </size>
                                        </property>
                                        <property name="font">
                                         <font>
                                          <pointsize>12</pointsize>
+                                         <bold>true</bold>
                                         </font>
                                        </property>
                                        <property name="styleSheet">
-                                        <string notr="true"/>
+                                        <string notr="true">background-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
                                         <string>Pick</string>
@@ -1734,11 +1770,10 @@ QScrollBar:vertical {
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #red_pick_frame{
-border: 3px solid rgb(170, 170, 255);
-border-right-color: transparent;
-/*background-color: rgb(170, 170, 255);*/
-border-top-left-radius: 15px;
-border-bottom-left-radius: 15px;
+background-color:rgb(15, 15, 26);
+border-left-color: transparent;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
 border-top-right-radius: 0px;
 border-bottom-right-radius: 0px;
 }</string>
@@ -1749,24 +1784,30 @@ border-bottom-right-radius: 0px;
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_9">
+                                 <layout class="QVBoxLayout" name="verticalLayout_9" stretch="2,2,2,2,2">
                                   <property name="spacing">
                                    <number>10</number>
                                   </property>
+                                  <property name="topMargin">
+                                   <number>4</number>
+                                  </property>
                                   <property name="rightMargin">
-                                   <number>6</number>
+                                   <number>10</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="red_pick1">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 92, 92);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1784,13 +1825,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="red_pick2">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 92, 92);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1808,13 +1849,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="red_pick3">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 92, 92);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1832,13 +1873,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="red_pick4">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 92, 92);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">
@@ -1856,13 +1897,13 @@ border-color:rgb(255, 255, 255);</string>
                                    <widget class="QLabel" name="red_pick5">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>140</width>
+                                      <width>160</width>
                                       <height>80</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(255, 92, 92);
-border-radius: 10px; border: 5px solid;
+                                     <string notr="true">background-color: rgb(170, 170, 255);
+border-radius: 10px; border: 3px solid;
 border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="text">

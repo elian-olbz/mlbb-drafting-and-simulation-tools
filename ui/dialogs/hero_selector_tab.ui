@@ -310,7 +310,7 @@ QScrollBar:vertical {
              <number>0</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>10</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
@@ -344,6 +344,9 @@ QScrollBar:vertical {
                </property>
                <item>
                 <widget class="QPushButton" name="select_btn">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(0, 170, 255);</string>
+                 </property>
                  <property name="text">
                   <string>Select</string>
                  </property>

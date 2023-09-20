@@ -25,7 +25,7 @@ class BoardWindow(QMainWindow):
         uic.loadUi(ui_path, self)
 
         #self.home_btn.clicked.connect(self.toggle_home_menu)
-        self.snap_menu_btn.clicked.connect(self.toggle_snap_menu)
+        #self.snap_menu_btn.clicked.connect(self.toggle_snap_menu)
     
 #############################################################       
         # MOVE WINDOW

@@ -16,14 +16,38 @@ def rounded_pixmap(pixmap, size, border_thickness=0):
         painter.setClipPath(clip_path)
 
         # Use the mask to draw the pixmap as a rounded shape
-        rounded_pixmap = QPixmap(size, size)
-        rounded_pixmap.fill(Qt.GlobalColor.transparent)
-        painter = QPainter(rounded_pixmap)
+        rounded_pix = QPixmap(size, size)
+        rounded_pix.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(rounded_pix)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setClipPath(clip_path)  # Set the same clip path for the pixmap
         painter.drawPixmap(0, 0, pixmap)
 
-        return rounded_pixmap
+        return rounded_pix
+
+def oval_pixmap(pixmap):
+        # Create a transparent mask and painter
+        width = pixmap.width()
+        height = pixmap.height()
+        mask = QPixmap(1, 1)
+        mask.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(mask)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        # Draw a circle on the mask using QPainterPath with an increased border thickness
+        clip_path = QPainterPath()
+        clip_path.addRoundedRect(0, 0, width, height, 90, 90)
+        painter.setClipPath(clip_path)
+
+        # Use the mask to draw the pixmap as a rounded shape
+        oval_pix = QPixmap(width, height)
+        oval_pix.fill(Qt.GlobalColor.transparent)
+        painter = QPainter(oval_pix)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setClipPath(clip_path)  # Set the same clip path for the pixmap
+        painter.drawPixmap(0, 0, pixmap)
+
+        return oval_pix
 
 def load_hero_roles(hero_roles_path):
     hero_roles = {}

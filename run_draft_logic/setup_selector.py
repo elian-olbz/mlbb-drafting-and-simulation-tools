@@ -208,6 +208,7 @@ class SetupHeroSelector(QMainWindow):
 
     # Displaying images on the practice draft window
     def disp_selected_image(self, parent, hero_id):
+        white_border = "border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"  # bring back the white border
         if hero_id is not None and hero_id not in self.unavailable_hero_ids:
             if self.remaining_clicks <= 0:
                 return
@@ -217,10 +218,12 @@ class SetupHeroSelector(QMainWindow):
                 if get_curr_index(self.remaining_clicks) in self.pick_indices:
                     image_path = get_image(hero_id)
                     pixmap = QPixmap(image_path)
+                    oval_pix = oval_pixmap(pixmap)
                     # Get the size of the QLabel and scale the pixmap to fit
                     label_size = qlabel.size()
-                    scaled_pixmap = pixmap.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                    scaled_pixmap = oval_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
+                    qlabel.setStyleSheet(white_border)
                     qlabel.setPixmap(scaled_pixmap)
                     self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(hero_id)
@@ -242,7 +245,6 @@ class SetupHeroSelector(QMainWindow):
                 #self.update_labels_in_tabs(parent, hero_id) # indicator on the tabs that a hero is banned or picked
 
     def create_ban_overlay_indicator(self, qlabel, label_size, scaled_pixmap, image_overlay_path, image_overlay_size):
-        print(f'{label_size}')
         # Create a QImage from the scaled pixmap
         composite_image = QImage(label_size, QImage.Format.Format_ARGB32)
         composite_image.fill(QColor(0, 0, 0, 0))  # Fill with transparent color
@@ -349,7 +351,6 @@ class SetupHeroSelector(QMainWindow):
 
 
     def get_next_empty_qlabel(self, parent):
-
         pd_qlabels_list = [parent.blue_ban1, parent.red_ban5, parent.blue_ban2, parent.red_ban4,
                         parent.blue_ban3, parent.red_ban3, parent.blue_pick1, parent.red_pick1,
                         parent.red_pick2, parent.blue_pick2, parent.blue_pick3, parent.red_pick3,
@@ -358,7 +359,6 @@ class SetupHeroSelector(QMainWindow):
         for qlabel in pd_qlabels_list:
             if qlabel not in self.label_images or self.label_images[qlabel] is None:
                 return qlabel
-
         return None
 
 # Hero selector dialog for the quick draft

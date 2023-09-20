@@ -116,8 +116,8 @@ class QuickDraftWindow(QMainWindow):
                         self.set_highlight(25)
                 else:
                     if self.obj_name in self.labels:
-                        self.show_dial()
                         self.set_highlight(25)
+                        self.show_dial()
         self.prev_selected_qlbel = self.curr_selected_qlabel
         self.prev_qlabel = self.qlabel_to_update    
         return super().eventFilter(obj, event)
@@ -203,7 +203,7 @@ class QuickDraftWindow(QMainWindow):
                 self.picker_button_active = True
                 highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color
                 highlight_radius = 23  # Adjust the radius as needed
-                circular_style = f"border-radius: {highlight_radius}px; border: 3px solid {highlight_color.name()};"
+                circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
                 self.picker_btn.setStyleSheet(circular_style + "image: url(:/icons/icons/pick-icon.png);")
                 # Remove recent highlight from the hero selector dialog if there is any
                 if self.qlabel_to_update is not None: 

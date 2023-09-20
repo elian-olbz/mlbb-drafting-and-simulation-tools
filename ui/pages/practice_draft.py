@@ -12,7 +12,7 @@ from run_draft_logic.utils import get_curr_index
 from ui.misc.titlebar import*
 
 
-from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme
+from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme, get_curr_index
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
@@ -111,7 +111,6 @@ class DraftWindow(QMainWindow):
 
     def on_button_click(self):
         self.pick_button_clicked = True
-
         if self.hero_selector.remaining_clicks <= 0 or self.hero_selector.selected_id is None:
             return
         if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
@@ -127,6 +126,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.current_clicked_label.setStyleSheet("")
             self.hero_selector.update_labels_in_tabs(self)
             self.hero_selector.current_clicked_label = None
+            self.update_button_text()
 
     def auto_player_next_move(self):
         if self.hero_selector.remaining_clicks <= 0:
@@ -137,6 +137,7 @@ class DraftWindow(QMainWindow):
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
         
         self.hero_selector.update_labels_in_tabs(self)
+        self.update_button_text()
         
         # Set the desired delay time (in milliseconds) before emitting the signal
         delay_milliseconds = 1000  # Adjust the delay time as needed
@@ -152,7 +153,6 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvH':
             if is_pick:
@@ -162,7 +162,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
+            
         else:
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 if is_pick:
@@ -177,8 +177,6 @@ class DraftWindow(QMainWindow):
             self.hero_selector.hero_to_disp = selected_id
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
-
 
     def ai_move(self, draft_state, mode, is_pick):
         if mode == 'AvH':
@@ -188,7 +186,7 @@ class DraftWindow(QMainWindow):
                 self.hero_selector.hero_to_disp = self.blue_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
+        
         elif mode == 'HvA':
             if is_pick:
                 self.hero_selector.hero_to_disp = self.red_player.pick(draft_state)
@@ -196,7 +194,6 @@ class DraftWindow(QMainWindow):
                 self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
 
         elif mode == 'AvA':
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
@@ -211,10 +208,8 @@ class DraftWindow(QMainWindow):
                     self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
             print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
-            #self.hero_selector.hero_to_disp = None
             
     def next_move(self, draft_state, selected_id, mode, is_pick):
-
         if mode is not None and mode == 'HvH': # Human vs Human
             # blue player is human
             self.human_move(draft_state, selected_id, mode, is_pick)
@@ -237,3 +232,62 @@ class DraftWindow(QMainWindow):
 
         elif mode is not None and mode == 'AvA':
             self.ai_move(draft_state, mode, is_pick)
+
+    def update_button_text(self):
+        self.highlight_next_qlabel()
+        if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
+            self.pick_button.setText("Pick")
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
+                self.top_text.setText("Blue Team Pick")
+                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+
+            elif get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn:
+                self.top_text.setText("Red Team Pick")
+                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+        else:
+            self.pick_button.setText("Ban")
+            if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
+                self.top_text.setText("Blue Team Ban")
+                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+            
+            elif get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn:
+                self.top_text.setText("Red Team Ban")
+                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+
+    def highlight_next_qlabel(self):
+        style = ""
+        ban_style = "background-color: rgb(85, 255, 127); border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
+        pick_style = "background-color: rgb(85, 255, 127); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
+        index = get_curr_index(self.hero_selector.remaining_clicks)
+        blue_turn = self.hero_selector.blue_turn
+        pick_turn = self.hero_selector.pick_indices
+
+        qlabels_list = [self.blue_ban1, self.red_ban5, self.blue_ban2, self.red_ban4,
+                        self.blue_ban3, self.red_ban3, self.blue_pick1, self.red_pick1,
+                        self.red_pick2, self.blue_pick2, self.blue_pick3, self.red_pick3,
+                        self.red_ban2, self.blue_ban4, self.red_ban1, self.blue_ban5,
+                        self.red_pick4, self.blue_pick4, self.blue_pick5, self.red_pick5]
+        
+        if index in pick_turn:
+            style = pick_style
+        else:
+            style = ban_style
+
+        if index in blue_turn and index + 1 in blue_turn:
+            qlabels_list[index].setStyleSheet(style)
+            qlabels_list[index + 1].setStyleSheet(style)
+
+        elif index not in blue_turn and index + 1 not in blue_turn:
+            if index < 19 and index != 11:
+                qlabels_list[index].setStyleSheet(style)
+                qlabels_list[index + 1].setStyleSheet(style)
+            elif index == 11 or index == 19:
+                qlabels_list[index].setStyleSheet(style)
+        else:
+            qlabels_list[index].setStyleSheet(style)
+                
+    def undo_move(self):
+        pass
+
+    def reset_all(self):
+        pass
