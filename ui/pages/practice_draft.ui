@@ -272,7 +272,7 @@ color:#fff
                     <number>20</number>
                    </property>
                    <item alignment="Qt::AlignHCenter">
-                    <widget class="QPushButton" name="refresh_btn">
+                    <widget class="QPushButton" name="reset_btn">
                      <property name="toolTip">
                       <string>Rest All</string>
                      </property>
@@ -281,7 +281,7 @@ color:#fff
                      </property>
                      <property name="icon">
                       <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/refresh-cw.svg</normaloff>:/icons/icons/refresh-cw.svg</iconset>
+                       <normaloff>:/icons/icons/trash-2.svg</normaloff>:/icons/icons/trash-2.svg</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1789,13 +1789,13 @@ border-bottom-right-radius: 0px;
                                    <number>10</number>
                                   </property>
                                   <property name="topMargin">
-                                   <number>4</number>
+                                   <number>10</number>
                                   </property>
                                   <property name="rightMargin">
                                    <number>10</number>
                                   </property>
                                   <property name="bottomMargin">
-                                   <number>0</number>
+                                   <number>10</number>
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="red_pick1">

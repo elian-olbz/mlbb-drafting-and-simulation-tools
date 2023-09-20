@@ -10,6 +10,7 @@ from run_draft_logic.draft_state import DraftState
 from run_draft_logic.setup_selector import *
 from run_draft_logic.utils import get_curr_index
 from ui.misc.titlebar import*
+from ui.dialogs.reset_heroes import*
 
 
 from run_draft_logic.utils import print_draft_status, print_final_draft, rounded_pixmap, get_icon, get_image, get_name, load_theme, get_curr_index
@@ -41,6 +42,7 @@ class DraftWindow(QMainWindow):
         self.red_player = None
         self.mode = None
         self.hero_selector = SetupHeroSelector(self)
+        self.reset_dialog = ResetDialog()
 
         self.hero_selector.hero_roles = self.draft_state.hero_roles
         self.hero_selector.hero_names = self.draft_state.hero_names
@@ -57,6 +59,10 @@ class DraftWindow(QMainWindow):
         # Connect the pick_button click signal to disp_selected_image with the last stored hero_id
         self.pick_button.clicked.connect(self.on_button_click)
         self.undo_button.clicked.connect(self.undo_move)
+
+        self.reset_btn.clicked.connect(self.show_reset_dialog)
+        self.reset_dialog.okay_btn.clicked.connect(self.reset_all)
+        self.reset_dialog.cancel_btn.clicked.connect(self.close_reset_dialog)
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.hero_tab.currentChanged.connect(self.hero_selector.update_current_tab)
@@ -101,6 +107,14 @@ class DraftWindow(QMainWindow):
         self.hero_selector.update_current_tab(self.hero_tab.currentIndex)
 
 #######################################################################
+
+    def show_reset_dialog(self):
+        if len(self.draft_state.draft_sequence) > 0:
+            self.reset_dialog.show()
+        else:
+            return
+    def close_reset_dialog(self):
+        self.reset_dialog.close()
             
     def emit_auto_player_signal(self):
         # Trigger the AI move after the delay
@@ -290,11 +304,8 @@ class DraftWindow(QMainWindow):
             qlabels_list[index].setStyleSheet(style)
                 
     def undo_move(self):
-        style = ""
         pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
         ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
-        blue_pick_roles = self.draft_state.blue_pick_roles
-        red_pick_roles = self.draft_state.red_pick_roles
         
         blue_turn = self.hero_selector.blue_turn
         pick_turn = self.hero_selector.pick_indices
@@ -305,12 +316,18 @@ class DraftWindow(QMainWindow):
             if index in blue_turn and index in pick_turn:
                 if len(self.draft_state.blue_actions[1]) > 0:
                     self.draft_state.blue_actions[1].pop()
+                    if len(self.draft_state.blue_pick_roles) > 0:
+                        self.draft_state.blue_pick_roles.pop()
+
             elif index in blue_turn and index not in pick_turn:
                 if len(self.draft_state.blue_actions[0]) > 0:
                     self.draft_state.blue_actions[0].pop()
+
             elif index not in blue_turn and index in pick_turn:
                 if len(self.draft_state.red_actions[1]) > 0:
                     self.draft_state.red_actions[1].pop()
+                    if len(self.draft_state.red_pick_roles) > 0:
+                        self.draft_state.red_pick_roles.pop()
             else:
                 if len(self.draft_state.red_actions[0]) > 0:
                     self.draft_state.red_actions[0].pop()
@@ -349,4 +366,42 @@ class DraftWindow(QMainWindow):
             print_draft_status(self.draft_state)
 
     def reset_all(self):
-        pass
+        self.reset_dialog.close()
+        pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
+        ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
+
+        pick_turn = self.hero_selector.pick_indices
+
+        if len(self.draft_state.draft_sequence) > 0:
+            for qlabel in self.qlabel_list:
+                if self.qlabel_list.index(qlabel) < len(self.draft_state.draft_sequence) + 2:
+                    qlabel.clear()
+                    if self.qlabel_list.index(qlabel) in pick_turn:
+                        qlabel.setStyleSheet(pick_style)
+                    else:
+                        qlabel.setStyleSheet(ban_style)
+
+            self.draft_state.draft_sequence.clear()
+            self.draft_state.blue_actions[0].clear()
+            self.draft_state.blue_actions[1].clear()
+            self.draft_state.blue_pick_roles.clear()
+
+            self.draft_state.red_actions[0].clear()
+            self.draft_state.red_actions[1].clear()
+            self.draft_state.red_pick_roles.clear()
+
+            self.hero_selector.label_images.clear()
+
+            self.hero_selector.selected_id = None
+            self.hero_selector.hero_to_disp = None
+
+            if self.hero_selector.current_clicked_label is not None:
+                self.hero_selector.current_clicked_label.setStyleSheet("")
+
+            self.hero_selector.remaining_clicks = 20
+            self.highlight_next_qlabel()
+            self.update_button_text()
+            self.hero_selector.unavailable_hero_ids.clear()
+            self.hero_selector.populate_tabs(self, 90)
+
+            print_draft_status(self.draft_state)

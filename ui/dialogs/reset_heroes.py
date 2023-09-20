@@ -7,11 +7,11 @@ from ui.misc.dialog_nav import*
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
-class OpenQuickDraft(QDialog):
+class ResetDialog(QDialog):
        def __init__(self):
-              super(OpenQuickDraft, self).__init__()
+              super(ResetDialog, self).__init__()
 
-              ui_path = os.path.join(script_dir,  "open_quick_draft.ui")
+              ui_path = os.path.join(script_dir,  "reset_heroes.ui")
 
               uic.loadUi(ui_path, self)
               self.title_bar = DialogBar(self)

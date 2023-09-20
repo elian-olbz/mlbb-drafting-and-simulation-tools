@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>335</width>
-    <height>241</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -403,10 +403,18 @@ border-bottom-left-radius: 10px;
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>10</number>
+             <number>15</number>
             </property>
             <item alignment="Qt::AlignHCenter">
              <widget class="QPushButton" name="start_button">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(85, 170, 255);</string>
+              </property>
               <property name="text">
                <string>Start</string>
               </property>

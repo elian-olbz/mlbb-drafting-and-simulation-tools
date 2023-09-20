@@ -327,7 +327,6 @@ class SetupHeroSelector(QMainWindow):
 
     def update_labels_in_tabs(self, parent, hero_idx): # indicator on the tabs that a hero is banned or picked
         # Iterate through all tabs
-        print(hero_idx)
         for tab_index in range(parent.hero_tab.count()):
             tab_widget = parent.hero_tab.widget(tab_index)
             if tab_widget:
