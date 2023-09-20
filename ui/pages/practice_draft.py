@@ -47,9 +47,16 @@ class DraftWindow(QMainWindow):
         self.hero_selector.hero_icons = self.draft_state.hero_icons
         self.hero_selector.hero_types = self.draft_state.hero_types
 
+        self.qlabel_list = [self.blue_ban1, self.red_ban5, self.blue_ban2, self.red_ban4,
+                        self.blue_ban3, self.red_ban3, self.blue_pick1, self.red_pick1,
+                        self.red_pick2, self.blue_pick2, self.blue_pick3, self.red_pick3,
+                        self.red_ban2, self.blue_ban4, self.red_ban1, self.blue_ban5,
+                        self.red_pick4, self.blue_pick4, self.blue_pick5, self.red_pick5]
+
         self.hero_selector.populate_tabs(self, 90)
         # Connect the pick_button click signal to disp_selected_image with the last stored hero_id
         self.pick_button.clicked.connect(self.on_button_click)
+        self.undo_button.clicked.connect(self.undo_move)
 
         # Connect the currentChanged signal of hero_tab to update_current_tab method
         self.hero_tab.currentChanged.connect(self.hero_selector.update_current_tab)
@@ -124,7 +131,7 @@ class DraftWindow(QMainWindow):
 
         if self.hero_selector.current_clicked_label is not None:
             self.hero_selector.current_clicked_label.setStyleSheet("")
-            self.hero_selector.update_labels_in_tabs(self)
+            self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.hero_selector.current_clicked_label = None
             self.update_button_text()
 
@@ -136,7 +143,7 @@ class DraftWindow(QMainWindow):
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
         
-        self.hero_selector.update_labels_in_tabs(self)
+        self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
         self.update_button_text()
         
         # Set the desired delay time (in milliseconds) before emitting the signal
@@ -262,11 +269,7 @@ class DraftWindow(QMainWindow):
         blue_turn = self.hero_selector.blue_turn
         pick_turn = self.hero_selector.pick_indices
 
-        qlabels_list = [self.blue_ban1, self.red_ban5, self.blue_ban2, self.red_ban4,
-                        self.blue_ban3, self.red_ban3, self.blue_pick1, self.red_pick1,
-                        self.red_pick2, self.blue_pick2, self.blue_pick3, self.red_pick3,
-                        self.red_ban2, self.blue_ban4, self.red_ban1, self.blue_ban5,
-                        self.red_pick4, self.blue_pick4, self.blue_pick5, self.red_pick5]
+        qlabels_list = self.qlabel_list
         
         if index in pick_turn:
             style = pick_style
@@ -287,7 +290,63 @@ class DraftWindow(QMainWindow):
             qlabels_list[index].setStyleSheet(style)
                 
     def undo_move(self):
-        pass
+        style = ""
+        pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
+        ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
+        blue_pick_roles = self.draft_state.blue_pick_roles
+        red_pick_roles = self.draft_state.red_pick_roles
+        
+        blue_turn = self.hero_selector.blue_turn
+        pick_turn = self.hero_selector.pick_indices
+
+        if len(self.draft_state.draft_sequence) > 0:
+            index = len(self.draft_state.draft_sequence) - 1
+
+            if index in blue_turn and index in pick_turn:
+                if len(self.draft_state.blue_actions[1]) > 0:
+                    self.draft_state.blue_actions[1].pop()
+            elif index in blue_turn and index not in pick_turn:
+                if len(self.draft_state.blue_actions[0]) > 0:
+                    self.draft_state.blue_actions[0].pop()
+            elif index not in blue_turn and index in pick_turn:
+                if len(self.draft_state.red_actions[1]) > 0:
+                    self.draft_state.red_actions[1].pop()
+            else:
+                if len(self.draft_state.red_actions[0]) > 0:
+                    self.draft_state.red_actions[0].pop()
+
+            self.hero_selector.unavailable_hero_ids.pop()
+            self.hero_selector.label_images.pop(list(self.hero_selector.label_images.keys())[-1])
+
+            curr_qlabel = self.qlabel_list[index]
+            curr_qlabel.clear()
+            
+            if index < 19:
+                if index + 1 in pick_turn:
+                    self.qlabel_list[index + 1].setStyleSheet(pick_style)
+                else:
+                    self.qlabel_list[index + 1].setStyleSheet(ban_style)
+
+            if index < 18:
+                if index + 2 in pick_turn:
+                    self.qlabel_list[index + 2].setStyleSheet(pick_style)
+                else:
+                    self.qlabel_list[index + 2].setStyleSheet(ban_style)
+                    
+            self.hero_selector.update_labels_in_tabs(self, self.draft_state.draft_sequence[-1])
+            self.draft_state.draft_sequence.pop()
+            if self.hero_selector.remaining_clicks < 20:
+                self.hero_selector.remaining_clicks += 1
+                
+            self.highlight_next_qlabel()
+            self.update_button_text()
+            self.hero_selector.selected_id = None
+            self.hero_selector.hero_to_disp = None
+
+            if self.hero_selector.current_clicked_label is not None:
+                self.hero_selector.current_clicked_label.setStyleSheet("")
+
+            print_draft_status(self.draft_state)
 
     def reset_all(self):
         pass

@@ -325,29 +325,23 @@ class SetupHeroSelector(QMainWindow):
         qlabel.setPixmap(combined_pixmap)
         
 
-    def update_labels_in_tabs(self, parent): # indicator on the tabs that a hero is banned or picked
+    def update_labels_in_tabs(self, parent, hero_idx): # indicator on the tabs that a hero is banned or picked
         # Iterate through all tabs
-        hero_id = self.hero_to_disp
+        print(hero_idx)
         for tab_index in range(parent.hero_tab.count()):
             tab_widget = parent.hero_tab.widget(tab_index)
             if tab_widget:
                 # Iterate through all QLabels in the current tab
                 for hero_label in tab_widget.findChildren(ClickableLabel):
-                    if hero_label.hero_id == hero_id:
+                    if hero_label.hero_id == hero_idx:
                         # Check if the hero_id is in the unavailable_hero_ids list
-                        if hero_id in self.unavailable_hero_ids:
-                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
+                        if hero_idx in self.unavailable_hero_ids:
+                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_idx)
                             self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 180)
                         else:   
                             # Reset the QLabel style if the hero is available
-                            #hero_label.setPixmap(QPixmap("icons/x-circle.svg")) # Remove any custom styles
-                            hero_label.setStyleSheet("")
-                            img_size = hero_label.width()
-                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_id)
-                            hero_label.setPixmap(scaled_pixmap)
-                            hero_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-                            hero_label.setMinimumSize(int(img_size / 1.5), int(img_size / 1.5))
-                            hero_label.setMaximumSize(img_size, img_size)  # Set a fixed size for uniformity
+                            scaled_pixmap = self.create_scaled_round_pixmap(hero_label, hero_idx)
+                            self.create_gray_overlay_indicator(hero_label, scaled_pixmap, 0) # remove gray overlay
 
 
     def get_next_empty_qlabel(self, parent):
