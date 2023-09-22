@@ -86,8 +86,8 @@ class AIPlayer:
             print("Random selection:", next_hero_id)
         else:
             if team_color == 'Blue':
-                next_hero_id = draft_state.filter_predictions(valid_heroes, valid_predictions, draft_state.blue_pick_roles, draft_state.red_pick_roles, is_picking)
+                next_hero_id = draft_state.filter_predictions(valid_heroes, valid_predictions, draft_state.blue_pick_roles, draft_state.red_pick_roles, is_picking, draft_state.blue_level)
             elif team_color == 'Red':
-                next_hero_id = draft_state.filter_predictions(valid_heroes, valid_predictions, draft_state.red_pick_roles, draft_state.blue_pick_roles, is_picking)
+                next_hero_id = draft_state.filter_predictions(valid_heroes, valid_predictions, draft_state.red_pick_roles, draft_state.blue_pick_roles, is_picking, draft_state.red_level)
 
         return next_hero_id

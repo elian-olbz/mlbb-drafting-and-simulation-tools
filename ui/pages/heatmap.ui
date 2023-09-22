@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
+    <width>972</width>
     <height>626</height>
    </rect>
   </property>
@@ -36,7 +36,7 @@
     <item>
      <widget class="QFrame" name="drop_shadow">
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
+       <string notr="true">background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));
 </string>
       </property>
       <property name="frameShape">
@@ -409,11 +409,11 @@ color:#fff
               <widget class="QFrame" name="content_frame">
                <property name="styleSheet">
                 <string notr="true">QFrame #content_frame{
-background-color:#1f232a;
+background-color: transparent;
 border-top-left-radius: 0px;
-border-bottom-left-radius: 10px;
+border-bottom-left-radius: 0px;
 border-top-right-radius: 0px;
-border-bottom-right-radius: 10px;
+border-bottom-right-radius: 0px;
 }</string>
                </property>
                <property name="frameShape">
@@ -1024,14 +1024,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QFrame #credits_bar{
-background-color:#1f232a;
-border-top-left-radius: 0px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 0px;
-border-bottom-right-radius: 10px;
-}
-</string>
+                      <string notr="true">background-color: transparent;</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -1057,6 +1050,9 @@ border-bottom-right-radius: 10px;
                       </property>
                       <item>
                        <widget class="QFrame" name="frame_label_credits">
+                        <property name="styleSheet">
+                         <string notr="true">background-color: transparent;</string>
+                        </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
                         </property>
@@ -1090,7 +1086,7 @@ border-bottom-right-radius: 10px;
                             <string notr="true">color: rgb(128, 102, 168);</string>
                            </property>
                            <property name="text">
-                            <string>Credits Text</string>
+                            <string>Version 1.0</string>
                            </property>
                           </widget>
                          </item>

@@ -1,6 +1,5 @@
 from run_draft_logic.player import HumanPlayer, AIPlayer
 from run_draft_logic.utils import print_draft_status, print_final_draft
-import threading
 
 # Define the indices for blue and red turns
 blue_turn = [0, 2, 4, 6, 9, 10, 13, 15, 17, 18]

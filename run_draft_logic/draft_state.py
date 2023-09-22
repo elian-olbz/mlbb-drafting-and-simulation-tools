@@ -15,6 +15,8 @@ class DraftState:
         self.red_actions = [[], []]  # red ban is [0], red picks is [1]
         self.blue_pick_roles = []
         self.red_pick_roles = []
+        self.blue_level = None
+        self.red_level = None
         
         self.hero_roles, self.hero_names, self.hero_icons, self.hero_types = load_hero_roles(hero_roles_path)
 
@@ -49,7 +51,7 @@ class DraftState:
                 return hero_role[1]
         return None
 
-    def filter_predictions(self, valid_heroes, valid_predictions, team_pick_roles, enemy_pick_roles, is_picking):
+    def filter_predictions(self, valid_heroes, valid_predictions, team_pick_roles, enemy_pick_roles, is_picking, level):
         if is_picking:
             valid_predictions_filtered = []
             for hero_id, prediction in zip(valid_heroes, valid_predictions):
@@ -66,7 +68,7 @@ class DraftState:
                 print("Random selection:", next_hero_id)
             else:
                 # Obtain the indices of the top predictions
-                top_prediction_indices = np.argsort(valid_predictions_filtered)[-1:]
+                top_prediction_indices = np.argsort(valid_predictions_filtered)[level:]
                 # Select a random prediction among the top predictions
                 random_prediction_idx = random.choice(top_prediction_indices)
 
@@ -90,7 +92,7 @@ class DraftState:
                 print("Random selection:", next_hero_id)
             else:
                 # Obtain the indices of the top predictions
-                top_prediction_indices = np.argsort(valid_predictions_filtered)[-1:]
+                top_prediction_indices = np.argsort(valid_predictions_filtered)[level:]
                 # Select a random prediction among the top predictions
                 random_prediction_idx = random.choice(top_prediction_indices)
 

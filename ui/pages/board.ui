@@ -48,8 +48,7 @@
     <item>
      <widget class="QFrame" name="drop_shadow">
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-
+       <string notr="true">background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));
 </string>
       </property>
       <property name="frameShape">
@@ -1684,7 +1683,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color:#1f232a;</string>
+                      <string notr="true">background-color: transparent;</string>
                      </property>
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
@@ -1727,7 +1726,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                           <number>0</number>
                          </property>
                          <property name="leftMargin">
-                          <number>0</number>
+                          <number>10</number>
                          </property>
                          <property name="topMargin">
                           <number>0</number>
@@ -1749,7 +1748,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                             <string notr="true">color: rgb(128, 102, 168);</string>
                            </property>
                            <property name="text">
-                            <string/>
+                            <string>Version 1.0</string>
                            </property>
                           </widget>
                          </item>

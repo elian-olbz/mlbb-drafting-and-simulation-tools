@@ -4,6 +4,7 @@ from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
 import sys
 import os
+import random
 from ui.rsc_rc import *
 from run_draft_logic.utils import load_theme
 from run_draft_logic.modes import *
@@ -46,16 +47,17 @@ class MainWindow(QMainWindow):
         self.heatmap = None
         self.board = None
 
-        self.practice_button.clicked.connect(self.open_practice_dialog)
-        self.quick_button.clicked.connect(self.open_quick_draft)
-        self.heatmap_button.clicked.connect(self.open_heatmap)
-        self.board_button.clicked.connect(self.open_board_selector)
+        # Connect the mousePressEvent events of the existing widgets to custom functions
+        self.practice_widget.mousePressEvent = self.create_mousePressEvent(self.open_practice_dialog)
+        self.quick_widget.mousePressEvent = self.create_mousePressEvent(self.open_quick_draft)
+        self.tracker_widget.mousePressEvent = self.create_mousePressEvent(self.open_heatmap)
+        self.board_widget.mousePressEvent = self.create_mousePressEvent(self.open_board_selector)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
         self.board_selector_dialog.create_btn.clicked.connect(self.open_board)
-        self.menu_button.clicked.connect(self.toggle_home_menu)
 
-#############################################################       
+#############################################################
+    
         # MOVE WINDOW
         def moveWindow(event):
             # RESTORE BEFORE MOVE
@@ -80,6 +82,13 @@ class MainWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
+    def create_mousePressEvent(self, custom_function):
+        # Create a new method that will call the custom function on mouse press event
+        def mousePressEvent(event):
+            if event.button() == Qt.MouseButton.LeftButton:
+                custom_function()
+        return mousePressEvent
+
 #######################################################################
     
     # Dialog for setting up parameters(player type, intelligence) before opening the practice draft window
@@ -101,10 +110,13 @@ class MainWindow(QMainWindow):
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
         elif self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 1:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_ai()
+            self.set_ai_level()
         elif self.practice_dialog.blue_combo_box.currentIndex() == 1 and self.practice_dialog.red_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_human()
+            self.set_ai_level()
         else:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_ai()
+            self.set_ai_level()
 
         self.practice_dialog.close()
         self.draft_window.showMaximized()
@@ -151,11 +163,21 @@ class MainWindow(QMainWindow):
         self.show()
 ##########################################################################
 
-    # Toggle the side menu
-    def toggle_home_menu(self):
-        if self.menu_width == 55:
-            self.menu_width = 150  # New width when menu is collapsed
-        else:
-            self.menu_width = 55  # Original width when menu is expanded
-
-        self.left_menu_subcontainer.setFixedWidth(self.menu_width)
+    def set_ai_level(self):
+            if self.draft_window.mode == "AvA":
+                if self.practice_dialog.blue_slider.value() == -1 and self.practice_dialog.red_slider.value() == -1:
+                    rand_choice = random.randint(0, 1)
+                    if rand_choice == 0:
+                        self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value() - 1
+                        self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
+                    else:
+                        self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value() - 1
+                        self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()
+                else:
+                    self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()
+                    self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
+                    
+            elif self.draft_window.mode == "HvA":
+                self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
+            elif self.draft_window.mode == "AvH":
+                self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()
