@@ -15,8 +15,7 @@ class DraftState:
         self.red_actions = [[], []]  # red ban is [0], red picks is [1]
         self.blue_pick_roles = []
         self.red_pick_roles = []
-        self.blue_level = None
-        self.red_level = None
+        self.ai_level = None
         
         self.hero_roles, self.hero_names, self.hero_icons, self.hero_types = load_hero_roles(hero_roles_path)
 

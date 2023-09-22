@@ -106,24 +106,26 @@ class MainWindow(QMainWindow):
         self.draft_window.home_btn.clicked.connect(self.close_practice_draft)
         
         # set the player types from the combo box index/value
-        if self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 0:
+        if self.practice_dialog.mode_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
-        elif self.practice_dialog.blue_combo_box.currentIndex() == 0 and self.practice_dialog.red_combo_box.currentIndex() == 1:
+        elif self.practice_dialog.mode_combo_box.currentIndex() == 1 and self.practice_dialog.side_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_ai()
-            self.set_ai_level()
-        elif self.practice_dialog.blue_combo_box.currentIndex() == 1 and self.practice_dialog.red_combo_box.currentIndex() == 0:
+            self.draft_window.undo_button.setEnabled(False)
+            self.draft_window.undo_button.setVisible(False)
+            self.draft_window.draft_state.ai_level = self.practice_dialog.ai_slider.value()
+        elif self.practice_dialog.mode_combo_box.currentIndex() == 1 and self.practice_dialog.side_combo_box.currentIndex() == 1:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_human()
-            self.set_ai_level()
-        else:
-            self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_ai()
-            self.set_ai_level()
-
+            self.draft_window.undo_button.setEnabled(False)
+            self.draft_window.undo_button.setVisible(False)
+            self.draft_window.draft_state.ai_level = self.practice_dialog.ai_slider.value()
+            
         self.practice_dialog.close()
         self.draft_window.showMaximized()
         self.hide()
 
     def close_practice_draft(self):
         self.draft_window.close()
+        self.draft_window.stop_ai_thread()
         self.show()
 
 ########################################################################
@@ -162,22 +164,3 @@ class MainWindow(QMainWindow):
         self.board.close()
         self.show()
 ##########################################################################
-
-    def set_ai_level(self):
-            if self.draft_window.mode == "AvA":
-                if self.practice_dialog.blue_slider.value() == -1 and self.practice_dialog.red_slider.value() == -1:
-                    rand_choice = random.randint(0, 1)
-                    if rand_choice == 0:
-                        self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value() - 1
-                        self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
-                    else:
-                        self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value() - 1
-                        self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()
-                else:
-                    self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()
-                    self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
-                    
-            elif self.draft_window.mode == "HvA":
-                self.draft_window.draft_state.red_level = self.practice_dialog.red_slider.value()
-            elif self.draft_window.mode == "AvH":
-                self.draft_window.draft_state.blue_level = self.practice_dialog.blue_slider.value()

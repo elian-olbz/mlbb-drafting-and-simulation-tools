@@ -17,11 +17,10 @@ class OpenPracticeDraft(QDialog):
         uic.loadUi(ui_path, self)
         self.t_bar = DialogBar(self) 
 
-        self.blue_intelligence.setDisabled(True)
-        self.red_intelligence.setDisabled(True)
+        self.side_combo_box.setDisabled(True)
+        self.ai_slider.setDisabled(True)
 
-        self.blue_combo_box.currentIndexChanged.connect(self.blue_index_changed)
-        self.red_combo_box.currentIndexChanged.connect(self.red_index_changed)
+        self.mode_combo_box.currentIndexChanged.connect(self.mode_index_changed)
 
     #############################################################       
         # MOVE WINDOW
@@ -43,14 +42,10 @@ class OpenPracticeDraft(QDialog):
         self.dragPos = event.globalPosition().toPoint()
 
 #######################################################################
-    def blue_index_changed(self):   
-        if self.blue_combo_box.currentIndex() == 1:
-            self.blue_intelligence.setDisabled(False)
+    def mode_index_changed(self):   
+        if self.mode_combo_box.currentIndex() == 1:
+            self.ai_slider.setDisabled(False)
+            self.side_combo_box.setDisabled(False)
         else:
-            self.blue_intelligence.setDisabled(True)
-
-    def red_index_changed(self):
-        if self.red_combo_box.currentIndex() == 1:
-            self.red_intelligence.setDisabled(False)
-        else:
-            self.red_intelligence.setDisabled(True)
+            self.ai_slider.setDisabled(True)
+            self.side_combo_box.setDisabled(True)

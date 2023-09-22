@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
-from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QThread
 from PyQt6 import uic
 import sys
 import os
@@ -18,6 +18,17 @@ from run_draft_logic.utils import print_draft_status, print_final_draft, rounded
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
+class AIThread(QThread):
+    def __init__(self, parent, draft_state, mode, is_pick):
+        super(AIThread, self).__init__(parent)
+        self.draft_state = draft_state
+        self.mode = mode
+        self.is_pick = is_pick
+
+    def run(self):
+        # Call the ai_move() function here
+        self.parent().ai_move(self.draft_state, self.mode, self.is_pick)
+
 class AutoPlayer(QObject):
     auto_player_signal = pyqtSignal()
 
@@ -32,6 +43,7 @@ class DraftWindow(QMainWindow):
         self.WINDOW_MAXED = False
         self.menu_width = 55
         self.title_bar = TitleBar(self)
+        self.delay = 2000
 
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
@@ -77,7 +89,10 @@ class DraftWindow(QMainWindow):
         shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self)
         shortcut.activated.connect(self.pick_button.click)
 
+        self.ai_thread = None
+
         self.auto_player.start()
+        self.highlight_next_qlabel()
 
 #############################################################       
         # MOVE WINDOW
@@ -106,10 +121,22 @@ class DraftWindow(QMainWindow):
     def resizeEvent(self, event):
         self.hero_selector.update_current_tab(self.hero_tab.currentIndex)
 
+    def stop_ai_thread(self):
+        if self.ai_thread is not None and self.ai_thread.isRunning():
+            self.ai_thread.quit()
+            self.ai_thread.wait()
+
+    def closeEvent(self, event):
+        # Stop and quit the thread when the window is closed
+        self.stop_ai_thread()
+        self.delay_timer.stop()
+        event.accept()
+
 #######################################################################
 
     def show_reset_dialog(self):
         if len(self.draft_state.draft_sequence) > 0:
+            self.delay_timer.stop()
             self.reset_dialog.show()
         else:
             return
@@ -118,17 +145,25 @@ class DraftWindow(QMainWindow):
             
     def emit_auto_player_signal(self):
         # Trigger the AI move after the delay
+        if self.ai_thread is not None and self.ai_thread.isRunning():
+            return
         if self.mode == 'HvH':
             pass
         elif self.mode == 'HvA':
             if get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
+                if self.ai_thread is not None:
+                    self.ai_thread.start()
         elif self.mode == 'AvH':
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
+                if self.ai_thread is not None:
+                    self.ai_thread.start()
         elif self.mode == 'AvA':
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn or get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn and self.hero_selector.remaining_clicks > 0:
                 self.auto_player.auto_player_signal.emit()
+                if self.ai_thread is not None:
+                    self.ai_thread.start()
 
     def on_button_click(self):
         self.pick_button_clicked = True
@@ -138,16 +173,16 @@ class DraftWindow(QMainWindow):
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, True)
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
-        
-        # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = 1000  # Adjust the delay time as needed
-        self.delay_timer.start(delay_milliseconds)
 
         if self.hero_selector.current_clicked_label is not None:
             self.hero_selector.current_clicked_label.setStyleSheet("")
             self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.hero_selector.current_clicked_label = None
             self.update_button_text()
+
+        # Set the desired delay time (in milliseconds) before emitting the signal
+        delay_milliseconds = self.delay  # Adjust the delay time as needed
+        self.delay_timer.start(delay_milliseconds)
 
     def auto_player_next_move(self):
         if self.hero_selector.remaining_clicks <= 0:
@@ -157,11 +192,8 @@ class DraftWindow(QMainWindow):
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
         
-        self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
-        self.update_button_text()
-        
         # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = 1000  # Adjust the delay time as needed
+        delay_milliseconds = self.delay  # Adjust the delay time as needed
         self.delay_timer.start(delay_milliseconds)
 
 
@@ -205,16 +237,21 @@ class DraftWindow(QMainWindow):
                 self.hero_selector.hero_to_disp = self.blue_player.pick(draft_state)
             else:
                 self.hero_selector.hero_to_disp = self.blue_player.ban(draft_state)
-            print_draft_status(draft_state)
+            
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
+            self.update_button_text()
+            print_draft_status(draft_state)
         
         elif mode == 'HvA':
             if is_pick:
                 self.hero_selector.hero_to_disp = self.red_player.pick(draft_state)
             else:
                 self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
-            print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
+            self.update_button_text()
+            print_draft_status(draft_state)
 
         elif mode == 'AvA':
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
@@ -227,8 +264,11 @@ class DraftWindow(QMainWindow):
                     self.hero_selector.hero_to_disp = self.red_player.pick(draft_state)
                 else:
                     self.hero_selector.hero_to_disp = self.red_player.ban(draft_state)
-            print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
+            self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
+            self.update_button_text()
+            print_draft_status(draft_state)
+            
             
     def next_move(self, draft_state, selected_id, mode, is_pick):
         if mode is not None and mode == 'HvH': # Human vs Human
@@ -241,23 +281,23 @@ class DraftWindow(QMainWindow):
                 self.human_move(draft_state, selected_id, mode, is_pick)
 
             else:  # red player is AI
-                self.ai_move(draft_state, mode, is_pick)
+                self.ai_thread = AIThread(self, draft_state, mode, is_pick)
 
         elif mode is not None and mode == 'AvH':
             # blue player is AI
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
-                self.ai_move(draft_state, mode, is_pick)
+                self.ai_thread = AIThread(self, draft_state, mode, is_pick)
 
             else:  # red player is Human
                 self.human_move(draft_state, selected_id, mode, is_pick)
 
         elif mode is not None and mode == 'AvA':
-            self.ai_move(draft_state, mode, is_pick)
+            self.ai_thread = AIThread(self, draft_state, mode, is_pick)
 
     def update_button_text(self):
         self.highlight_next_qlabel()
         if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
-            self.pick_button.setText("Pick")
+            self.pick_button.setText("   Pick   ")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
@@ -266,7 +306,7 @@ class DraftWindow(QMainWindow):
                 self.top_text.setText("Red Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
         else:
-            self.pick_button.setText("Ban")
+            self.pick_button.setText("   Ban   ")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Ban")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
@@ -362,11 +402,11 @@ class DraftWindow(QMainWindow):
 
             if self.hero_selector.current_clicked_label is not None:
                 self.hero_selector.current_clicked_label.setStyleSheet("")
-
             print_draft_status(self.draft_state)
 
     def reset_all(self):
         self.reset_dialog.close()
+        self.delay_timer.start(self.delay)
         pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
         ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
 

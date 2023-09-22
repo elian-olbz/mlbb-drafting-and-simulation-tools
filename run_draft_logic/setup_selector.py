@@ -230,7 +230,7 @@ class SetupHeroSelector(QMainWindow):
                 else:
                     image_path = get_icon(hero_id)
                     pixmap = QPixmap(image_path)
-                    round_pix = rounded_pixmap(pixmap, 97)
+                    round_pix = rounded_pixmap(pixmap, 97, 2)
                     # Get the size of the QLabel and scale the pixmap to fit
                     label_size = qlabel.size()
                     scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
@@ -344,12 +344,7 @@ class SetupHeroSelector(QMainWindow):
 
 
     def get_next_empty_qlabel(self, parent):
-        pd_qlabels_list = [parent.blue_ban1, parent.red_ban5, parent.blue_ban2, parent.red_ban4,
-                        parent.blue_ban3, parent.red_ban3, parent.blue_pick1, parent.red_pick1,
-                        parent.red_pick2, parent.blue_pick2, parent.blue_pick3, parent.red_pick3,
-                        parent.red_ban2, parent.blue_ban4, parent.red_ban1, parent.blue_ban5,
-                        parent.red_pick4, parent.blue_pick4, parent.blue_pick5, parent.red_pick5]
-        for qlabel in pd_qlabels_list:
+        for qlabel in parent.qlabel_list:
             if qlabel not in self.label_images or self.label_images[qlabel] is None:
                 return qlabel
         return None

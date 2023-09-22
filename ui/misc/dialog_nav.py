@@ -8,7 +8,7 @@ class DialogBar(QMainWindow):
     def __init__(self, parent):
         super(DialogBar, self).__init__(parent)
 
-        self.shadow_style = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1))"
+        self.shadow_style = "background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));"
 
     ## ==> UI DEFINITIONS
     def DialogAttrs(self, parent):

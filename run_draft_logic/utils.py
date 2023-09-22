@@ -36,7 +36,7 @@ def oval_pixmap(pixmap):
 
         # Draw a circle on the mask using QPainterPath with an increased border thickness
         clip_path = QPainterPath()
-        clip_path.addRoundedRect(0, 0, width, height, 90, 90)
+        clip_path.addRoundedRect(0, 0, width, height, 95, 95)
         painter.setClipPath(clip_path)
 
         # Use the mask to draw the pixmap as a rounded shape
