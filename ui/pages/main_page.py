@@ -144,6 +144,7 @@ class MainWindow(QMainWindow):
     # Initialize and open heatmap window
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
+        self.heatmap.open_video_file()
         self.heatmap.home_btn.clicked.connect(self.close_heatmap)
         self.heatmap.showMaximized()
         self.hide()

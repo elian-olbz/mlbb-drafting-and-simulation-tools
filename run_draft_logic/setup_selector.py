@@ -172,18 +172,9 @@ class SetupHeroSelector(QMainWindow):
     def store_hero_id(self, parent, hero_id):
         # Get the sender of the signal (i.e., the ClickableLabel instance that emitted the signal)
         clicked_label = self.sender()
-
         if self.remaining_clicks <= 0:
             return
-
-        if parent.mode == 'HvH':
-            self.highlight_image(hero_id, clicked_label)
-        elif parent.mode == 'HvA' and get_curr_index(self.remaining_clicks) in self.blue_turn:
-            self.highlight_image(hero_id, clicked_label)
-        elif parent.mode == 'AvH' and get_curr_index(self.remaining_clicks) not in self.blue_turn:
-            self.highlight_image(hero_id, clicked_label)
-        else:
-            return
+        self.highlight_image(hero_id, clicked_label)
         
     def highlight_image(self, hero_id, clicked_label):
         if clicked_label:
@@ -380,13 +371,6 @@ class SetupHeroDialog(SetupHeroSelector):
                 qlabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                 self.unavailable_hero_ids.append(hero_id)
-                
-    def store_hero_id(self, parent, hero_id):
-        # Get the sender of the signal (i.e., the ClickableLabel instance that emitted the signal)
-        clicked_label = self.sender()
-        if self.remaining_clicks <= 0:
-            return
-        self.highlight_image(hero_id, clicked_label)
 
     def update_labels_in_tabs(self, parent, prev_id, is_swap): # indicator on the tabs that a hero is banned or picked
         # Iterate through all tabs

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>468</width>
-    <height>279</height>
+    <height>305</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,8 +37,7 @@ border-color:rgb(83, 89, 98);</string>
    <item>
     <widget class="QFrame" name="drop_shadow">
      <property name="styleSheet">
-      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 1), stop:0.521368 rgba(31, 35, 42, 1));
-
+      <string notr="true">background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));
 </string>
      </property>
      <property name="frameShape">
@@ -79,9 +78,6 @@ background:transparent;
 padding:0;
 margin:0;
 color:#fff
-}
-#main_widget{
-background-color:#1f232a;
 }
 
 QPushButton{
@@ -186,7 +182,6 @@ border-bottom-left-radius: 10px;
            </property>
            <property name="styleSheet">
             <string notr="true">QWidget{
-background-color: rgb(58, 58, 58);
 border-top-left-radius: 0px;
 border-top-right-radius: 0px;
 }
@@ -442,7 +437,7 @@ border-bottom-right-radius: 10px;
                   <string notr="true"/>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="create_page">
                   <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -470,8 +465,8 @@ border-bottom-right-radius: 10px;
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color:#1f232a;
-border-radius:0px;</string>
+                      <string notr="true">border-radius:0px;
+</string>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_9">
                       <item>
@@ -512,7 +507,7 @@ border-bottom-right-radius: 0px;
 }
 
 QFrame #frame_8{
-	background-color: rgb(144, 144, 144);
+	background-color:#1f232a;
 }</string>
                            </property>
                            <property name="frameShape">
@@ -618,7 +613,7 @@ border-bottom-right-radius: 0px;
 }
 
 QFrame #frame_11{
-	background-color: rgb(144, 144, 144);
+	background-color:#1f232a;
 }</string>
                            </property>
                            <property name="frameShape">
@@ -737,7 +732,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                    <item>
                     <widget class="QWidget" name="open_container" native="true">
                      <property name="styleSheet">
-                      <string notr="true">background-color:#1f232a;
+                      <string notr="true">
 border-radius:0px;</string>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -753,7 +748,7 @@ border-radius:0px;</string>
                          </sizepolicy>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(85, 170, 255);
+                         <string notr="true">
 border-radius:10px;</string>
                         </property>
                         <property name="frameShape">
@@ -838,7 +833,7 @@ border-radius:10px;</string>
                   <item>
                    <widget class="QPushButton" name="create_btn">
                     <property name="styleSheet">
-                     <string notr="true">background-color: rgb(85, 255, 127);</string>
+                     <string notr="true">background-color: rgb(85, 170, 255);</string>
                     </property>
                     <property name="text">
                      <string>Create</string>
@@ -860,7 +855,7 @@ border-radius:10px;</string>
                   <item>
                    <widget class="QPushButton" name="close_btn">
                     <property name="styleSheet">
-                     <string notr="true">background-color: rgb(85, 255, 127);</string>
+                     <string notr="true">background-color: rgb(85, 170, 255);</string>
                     </property>
                     <property name="text">
                      <string>Close</string>
