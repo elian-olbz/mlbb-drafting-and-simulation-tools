@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1002</width>
+    <width>1012</width>
     <height>637</height>
    </rect>
   </property>
@@ -1691,7 +1691,7 @@ QScrollBar:vertical {
                                         <string notr="true">background-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
-                                        <string>  Undo  </string>
+                                        <string> Undo </string>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -1719,7 +1719,7 @@ QScrollBar:vertical {
                                         <string notr="true">background-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
-                                        <string>   Ban   </string>
+                                        <string>  Ban  </string>
                                        </property>
                                       </widget>
                                      </item>

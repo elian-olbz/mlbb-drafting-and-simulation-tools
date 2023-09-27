@@ -1,15 +1,33 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
-from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy,  QButtonGroup, QFontComboBox, QSlider, QColorDialog, QFileDialog
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QAction, QBrush, QPen, QPainter, QFont
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource, QSize, QRect, QPoint
 from PyQt6 import uic
 import sys
 import os
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
+import types
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
+
+class DraggableFrame(QFrame):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setMouseTracking(True)
+        self.mousePressPosition = None
+        self.mouseMoveOffset = None
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.mousePressPosition = event.globalPosition()
+            self.mouseMoveOffset = self.mousePressPosition.toPoint() - self.pos()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() and Qt.MouseButton.LeftButton:
+            globalPos = event.globalPosition()
+            self.move(globalPos.toPoint() - self.mouseMoveOffset)
 
 class BoardWindow(QMainWindow):
     def __init__(self):
@@ -24,9 +42,6 @@ class BoardWindow(QMainWindow):
 
         uic.loadUi(ui_path, self)
 
-        #self.home_btn.clicked.connect(self.toggle_home_menu)
-        #self.snap_menu_btn.clicked.connect(self.toggle_snap_menu)
-    
 #############################################################       
         # MOVE WINDOW
         def moveWindow(event):
@@ -51,21 +66,31 @@ class BoardWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
+    def setup_drag_item(self, name, locx, locy, image):
+        frame1 = DraggableFrame(self)
+        frame1.setObjectName(name)
+        lay = QVBoxLayout()
+        lay.setContentsMargins(8, 8, 8, 8)
+        img = QLabel()
+        lay.addWidget(img)
+        img.setStyleSheet(f"image: url(:/icons/images/hero_roles/{image});")
+        frame1.setLayout(lay)
+        frame1.setParent(self.map_6)
+        frame1.setGeometry(locx, locy, 50, 50)
+        frame1.setStyleSheet(f"QFrame #{name}{{background-color: rgba(80, 80, 80, 230);; border-radius: 25px; border:2px solid; border-color:white}}")
+    
+    def create_drag_items(self):
+        self.setup_drag_item("red", 100, 10, "gold_blue.png")
+        self.setup_drag_item("blue", 100, 60, "exp_blue.png")
+        self.setup_drag_item("red", 100, 110, "mid_blue.png")
+        self.setup_drag_item("blue", 100, 160, "roam_blue.png")
+        self.setup_drag_item("red", 100, 220, "jungle_blue.png")
 
-    def toggle_home_menu(self):
-        if self.menu_width == 55:
-            self.menu_width = 150  # New width when menu is collapsed
-        else:
-            self.menu_width = 55  # Original width when menu is expanded
-
-        self.left_menu_subcontainer.setFixedWidth(self.menu_width)
-
-    def toggle_snap_menu(self):
-        if self.snap_menu_width == 55:
-            self.snap_menu_width = 150
-        else:
-            self.snap_menu_width = 55
-        self.right_menu_subcontainer.setFixedWidth(self.snap_menu_width)
+        self.setup_drag_item("blue", 300, 10, "exp_red.png")
+        self.setup_drag_item("red", 300, 60, "gold_red.png")
+        self.setup_drag_item("blue", 300, 110, "roam_red.png")
+        self.setup_drag_item("red", 300, 160, "mid_red.png")
+        self.setup_drag_item("blue", 300, 220, "jungle_red.png")
 #######################################################################
 
 if __name__ == "__main__":

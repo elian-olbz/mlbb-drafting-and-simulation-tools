@@ -174,14 +174,15 @@ class QuickDraftWindow(QMainWindow):
             self.diverging_canvas.draw()
 
             #update win rate chart (h_chart)
-            if self.selected_hero is not None:
-                if self.curr_selected_qlabel.objectName().startswith("blue"):
-                    ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
-                    self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
-                else:
-                    ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
-                    self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
-            self.h_charts_canvas.draw()
+            if self.combined_hero_dict[self.obj_name] != self.selected_hero:
+                if self.selected_hero is not None:
+                    if self.curr_selected_qlabel.objectName().startswith("blue"):
+                        ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
+                        self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
+                    else:
+                        ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
+                        self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
+                self.h_charts_canvas.draw()
             
     def set_highlight(self, radius):
         highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color
@@ -505,15 +506,15 @@ class QuickDraftWindow(QMainWindow):
 
     def get_pix(self, role):
             if role == 'Gold':
-                pix_map = QPixmap("images/hero_roles/gold.png")
+                pix_map = QPixmap("images/hero_roles/gold_white.png")
             elif role == 'Jungler':
-                pix_map = QPixmap("images/hero_roles/jungle.png")
+                pix_map = QPixmap("images/hero_roles/jungle_white.png")
             elif role == 'EXP':
-                pix_map = QPixmap("images/hero_roles/exp.png")
+                pix_map = QPixmap("images/hero_roles/exp_white.png")
             elif role == 'Mid':
-                pix_map = QPixmap("images/hero_roles//mid.png")
+                pix_map = QPixmap("images/hero_roles//mid_white.png")
             elif role == 'Roamer':
-                pix_map = QPixmap("images/hero_roles/roam.png")   
+                pix_map = QPixmap("images/hero_roles/roam_white.png")   
             return pix_map
     
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
-    <height>648</height>
+    <width>1010</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -515,7 +515,6 @@ border-bottom-right-radius: 10px;
                           <widget class="QWidget" name="options_widget" native="true">
                            <property name="styleSheet">
                             <string notr="true">QWidget #options_widget{
-background-image: url(:/icons/icons/waves1.png);
 background-color: rgba(22, 22, 22, 175);
 border: 1px solid; 
 border-color: rgb(8, 8, 10);

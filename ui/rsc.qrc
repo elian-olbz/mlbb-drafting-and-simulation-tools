@@ -1,15 +1,30 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../icons/pencil.png</file>
+    <file>../icons/paint-brush.png</file>
+    <file>../icons/layer-shape-line.png</file>
+    <file>../icons/layer-shape-ellipse.png</file>
+    <file>../icons/layer-shape.png</file>
+    <file>../icons/eraser.png</file>
+    <file>../images/hero_roles/exp_blue.png</file>
+    <file>../images/hero_roles/exp_red.png</file>
+    <file>../images/hero_roles/exp_white.png</file>
+    <file>../images/hero_roles/gold_blue.png</file>
+    <file>../images/hero_roles/gold_red.png</file>
+    <file>../images/hero_roles/gold_white.png</file>
+    <file>../images/hero_roles/jungle_blue.png</file>
+    <file>../images/hero_roles/jungle_red.png</file>
+    <file>../images/hero_roles/jungle_white.png</file>
+    <file>../images/hero_roles/mid_blue.png</file>
+    <file>../images/hero_roles/mid_red.png</file>
+    <file>../images/hero_roles/mid_white.png</file>
+    <file>../images/hero_roles/mlbb_icon.png</file>
+    <file>../images/hero_roles/roam_blue.png</file>
+    <file>../images/hero_roles/roam_red.png</file>
+    <file>../images/hero_roles/roam_white.png</file>
     <file>../icons/pick-icon.png</file>
     <file>../icons/question_mark.png</file>
     <file>../icons/empty_hero.png</file>
-    <file>../images/hero_roles/exp.png</file>
-    <file>../icons/waves1.png</file>
-    <file>../images/hero_roles/gold.png</file>
-    <file>../images/hero_roles/jungle.png</file>
-    <file>../images/hero_roles/mid.png</file>
-    <file>../images/hero_roles/no_role.png</file>
-    <file>../images/hero_roles/roam.png</file>
     <file>../icons/activity.svg</file>
     <file>../icons/airplay.svg</file>
     <file>../icons/alert-circle.svg</file>

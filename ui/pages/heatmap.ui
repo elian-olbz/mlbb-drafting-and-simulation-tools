@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>590</height>
+    <width>1010</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -592,32 +592,22 @@ border-bottom-right-radius: 0px;
                            <property name="styleSheet">
                             <string notr="true"/>
                            </property>
-                           <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,8,0">
+                           <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="8">
                             <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
                              <number>0</number>
                             </property>
                             <property name="topMargin">
                              <number>4</number>
                             </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
                             <property name="bottomMargin">
                              <number>4</number>
                             </property>
-                            <item>
-                             <spacer name="horizontalSpacer">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeType">
-                               <enum>QSizePolicy::Fixed</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>180</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
                             <item>
                              <widget class="QFrame" name="frame_4">
                               <property name="sizePolicy">
@@ -641,7 +631,7 @@ border-bottom-right-radius: 0px;
                               <property name="styleSheet">
                                <string notr="true">QFrame #frame_4{
 background-color: rgba(77, 77, 77, 150);
-border-radius:15px;
+border-radius:0px;
 }</string>
                               </property>
                               <property name="frameShape">
@@ -682,7 +672,7 @@ border-radius:15px;
                                    <widget class="QFrame" name="frame_14">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>120</width>
+                                      <width>150</width>
                                       <height>0</height>
                                      </size>
                                     </property>
@@ -1019,22 +1009,6 @@ border-radius :2px;
                                </item>
                               </layout>
                              </widget>
-                            </item>
-                            <item>
-                             <spacer name="horizontalSpacer_2">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeType">
-                               <enum>QSizePolicy::Fixed</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>180</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
                             </item>
                            </layout>
                           </widget>

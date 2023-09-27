@@ -166,7 +166,7 @@ class HeatMapWindow(QMainWindow):
     def update_file_name_label(self):
         file_name = os.path.basename(self.video_path)
         self.file_name_label.setText(f"{file_name}")
-        self.file_name_label.setFixedWidth(100)
+        self.file_name_label.setFixedWidth(120)
 
     def resize_video(self, event):
         if self.original_frame is not None and self.is_running == False:
@@ -194,6 +194,8 @@ class HeatMapWindow(QMainWindow):
 
                 self.update_file_name_label()
                 self.progress_bar.setValue(0)
+            else:
+                return
 
     def display_frame(self, frame):
         if isinstance(frame, QImage):
@@ -237,32 +239,36 @@ class HeatMapWindow(QMainWindow):
             return
     
     def save_as_csv(self):
-        try:
-            with open(self.temp_pickle, 'rb') as pickle_file:
-                data = pickle.load(pickle_file)
+        if not self.is_running:
+            try:
+                with open(self.temp_pickle, 'rb') as pickle_file:
+                    data = pickle.load(pickle_file)
 
-            # Use QFileDialog to choose the CSV file save location
-            options = QFileDialog.Option.ReadOnly  # Ensure the user can select a save location
-            csv_filename, _ = QFileDialog.getSaveFileName(self, "Save as CSV File", "", "CSV Files (*.csv);;All Files (*)", options=options)
+                # Use QFileDialog to choose the CSV file save location
+                options = QFileDialog.Option.ReadOnly  # Ensure the user can select a save location
+                csv_filename, _ = QFileDialog.getSaveFileName(self, "Save as CSV File", "", "CSV Files (*.csv);;All Files (*)", options=options)
 
-            if csv_filename:
-                # Open the selected CSV file for writing
-                with open(csv_filename, 'w', newline='') as csv_file:
-                    csv_writer = csv.writer(csv_file)
-                    csv_writer.writerow(['Frame', 'Class', 'X', 'Y'])
+                if csv_filename:
+                    # Open the selected CSV file for writing
+                    with open(csv_filename, 'w', newline='') as csv_file:
+                        csv_writer = csv.writer(csv_file)
+                        csv_writer.writerow(['Frame', 'Class', 'X', 'Y'])
 
-                    # Iterate through the data and write each entry to the CSV file
-                    for entry in data:
-                        frame_count, class_name, x_center, y_center = entry
-                        csv_writer.writerow([frame_count, class_name, x_center, y_center])
+                        # Iterate through the data and write each entry to the CSV file
+                        for entry in data:
+                            frame_count, class_name, x_center, y_center = entry
+                            csv_writer.writerow([frame_count, class_name, x_center, y_center])
 
-            if os.path.exists(self.temp_pickle):
-                os.remove(self.temp_pickle)
+                    if os.path.exists(self.temp_pickle):
+                        os.remove(self.temp_pickle)
+                else:
+                    return
 
-        except FileNotFoundError:
-            print(f"Error: File '{self.temp_pickle}' not found.")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            except FileNotFoundError:
+                print(f"Error: File '{self.temp_pickle}' not found.")
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+
 
     def enable_buttons(self):
         self.open_btn.setEnabled(True)
