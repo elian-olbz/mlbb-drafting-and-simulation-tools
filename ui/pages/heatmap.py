@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal, QTimer
 from PyQt6 import uic
 import sys
 import os
-import pickle  # Import the pickle module
+import pickle 
 from run_draft_logic.utils import load_theme
 from functools import partial
 from ui.rsc_rc import *
@@ -33,7 +33,7 @@ class PredictionThread(QThread):
         cap = cv2.VideoCapture(self.video_path)
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_count = 0
-        frame_skip_factor = 2
+        frame_skip_factor = 1
         results = None
 
         # Create an empty list to hold detection data
@@ -65,8 +65,9 @@ class PredictionThread(QThread):
                             detection_data = (
                                 frame_count,
                                 self.parent.model.names[int(class_id)],
-                                round((x_min + x_max) / 2),  # Use round() for more accurate rounding
-                                round((y_min + y_max) / 2)
+                                int(class_id),
+                                round((x_min + x_max) / 2, 4),  
+                                round((y_min + y_max) / 2, 4)
                             )
 
                             data_to_save.append(detection_data)
@@ -194,8 +195,9 @@ class HeatMapWindow(QMainWindow):
 
                 self.update_file_name_label()
                 self.progress_bar.setValue(0)
+                return True
             else:
-                return
+                return False
 
     def display_frame(self, frame):
         if isinstance(frame, QImage):
@@ -252,12 +254,12 @@ class HeatMapWindow(QMainWindow):
                     # Open the selected CSV file for writing
                     with open(csv_filename, 'w', newline='') as csv_file:
                         csv_writer = csv.writer(csv_file)
-                        csv_writer.writerow(['Frame', 'Class', 'X', 'Y'])
+                        csv_writer.writerow(['Frame', 'Class', 'Class_ID', 'X', 'Y'])
 
                         # Iterate through the data and write each entry to the CSV file
                         for entry in data:
-                            frame_count, class_name, x_center, y_center = entry
-                            csv_writer.writerow([frame_count, class_name, x_center, y_center])
+                            frame_count, class_name, class_id, x_center, y_center = entry
+                            csv_writer.writerow([frame_count, class_name, class_id, x_center, y_center])
 
                     if os.path.exists(self.temp_pickle):
                         os.remove(self.temp_pickle)

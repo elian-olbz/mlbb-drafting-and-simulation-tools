@@ -348,7 +348,7 @@ QScrollBar:vertical {
 border-radius: 12px;</string>
                  </property>
                  <property name="text">
-                  <string>  Select  </string>
+                  <string> Select </string>
                  </property>
                 </widget>
                </item>

@@ -206,7 +206,7 @@ color:#fff
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_11">
                    <property name="spacing">
-                    <number>15</number>
+                    <number>8</number>
                    </property>
                    <property name="leftMargin">
                     <number>15</number>
@@ -254,12 +254,12 @@ color:#fff
                         </property>
                         <property name="icon">
                          <iconset resource="../rsc.qrc">
-                          <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                          <normaloff>:/icons/icons/logo_white.png</normaloff>:/icons/icons/logo_white.png</iconset>
                         </property>
                         <property name="iconSize">
                          <size>
-                          <width>22</width>
-                          <height>22</height>
+                          <width>23</width>
+                          <height>23</height>
                          </size>
                         </property>
                        </widget>
@@ -591,7 +591,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/eraser.png</normaloff>:/icons/icons/eraser.png</iconset>
                               </property>
                               <property name="checkable">
@@ -623,7 +623,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/paint-brush.png</normaloff>:/icons/icons/paint-brush.png</iconset>
                               </property>
                               <property name="checkable">
@@ -655,7 +655,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/pencil.png</normaloff>:/icons/icons/pencil.png</iconset>
                               </property>
                               <property name="checkable">
@@ -681,7 +681,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/layer-shape-line.png</normaloff>:/icons/icons/layer-shape-line.png</iconset>
                               </property>
                               <property name="checkable">
@@ -707,7 +707,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/layer-shape.png</normaloff>:/icons/icons/layer-shape.png</iconset>
                               </property>
                               <property name="checkable">
@@ -733,7 +733,7 @@ border-bottom-right-radius: 10px;
                                <string/>
                               </property>
                               <property name="icon">
-                               <iconset resource="../rsc.qrc">
+                               <iconset>
                                 <normaloff>:/icons/icons/layer-shape-ellipse.png</normaloff>:/icons/icons/layer-shape-ellipse.png</iconset>
                               </property>
                               <property name="checkable">

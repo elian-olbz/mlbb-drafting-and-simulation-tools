@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1010</width>
+    <width>920</width>
     <height>612</height>
    </rect>
   </property>
@@ -194,7 +194,7 @@ color:#fff
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_11">
                    <property name="spacing">
-                    <number>15</number>
+                    <number>8</number>
                    </property>
                    <property name="leftMargin">
                     <number>12</number>
@@ -215,7 +215,7 @@ color:#fff
                      </property>
                      <property name="icon">
                       <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                       <normaloff>:/icons/icons/logo_white.png</normaloff>:/icons/icons/logo_white.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>

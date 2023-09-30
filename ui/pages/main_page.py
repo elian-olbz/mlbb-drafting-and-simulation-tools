@@ -12,7 +12,7 @@ from run_draft_logic.modes import *
 from ui.pages.practice_draft import DraftWindow
 from ui.pages.quick_draft import QuickDraftWindow
 from ui.pages.heatmap import HeatMapWindow
-from ui.pages.board import BoardWindow
+from ui.pages.hmap_viewer import HeatmapViewerWindow
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
 from ui.dialogs.board_selector import OpenBoardSelector
@@ -36,7 +36,6 @@ class MainWindow(QMainWindow):
      
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
-        self.board_selector_dialog = OpenBoardSelector()
         
         ui_path = os.path.join(script_dir,  "main_page.ui")
 
@@ -45,16 +44,15 @@ class MainWindow(QMainWindow):
         self.draft_window = None
         self.quick_draft = None
         self.heatmap = None
-        self.board = None
+        self.hmap_viewer = None
 
         # Connect the mousePressEvent events of the existing widgets to custom functions
         self.practice_widget.mousePressEvent = self.create_mousePressEvent(self.open_practice_dialog)
         self.quick_widget.mousePressEvent = self.create_mousePressEvent(self.open_quick_draft)
         self.tracker_widget.mousePressEvent = self.create_mousePressEvent(self.open_heatmap)
-        self.board_widget.mousePressEvent = self.create_mousePressEvent(self.open_board_selector)
+        self.hmap_viewer_widget.mousePressEvent = self.create_mousePressEvent(self.open_hmap_viewer)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
-        self.board_selector_dialog.create_btn.clicked.connect(self.open_board)
 
 #############################################################
     
@@ -94,10 +92,6 @@ class MainWindow(QMainWindow):
     # Dialog for setting up parameters(player type, intelligence) before opening the practice draft window
     def open_practice_dialog(self):
         self.practice_dialog.show()
-
-    # Dialog for selecting what type of board to create
-    def open_board_selector(self):
-        self.board_selector_dialog.show()
 
 #########################################################################
     # Initialize and open practice draft window
@@ -144,24 +138,26 @@ class MainWindow(QMainWindow):
     # Initialize and open heatmap window
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
-        self.heatmap.open_video_file()
         self.heatmap.home_btn.clicked.connect(self.close_heatmap)
-        self.heatmap.showMaximized()
-        self.hide()
+        opened = self.heatmap.open_video_file()
+        if opened:
+            self.heatmap.showMaximized()
+            self.hide()
+        else:
+            return
 
     def close_heatmap(self):
         self.heatmap.close()
         self.show()
 #########################################################################
     # Initialize and open coaching board window
-    def open_board(self):
-        self.board = BoardWindow()
-        self.board.home_btn.clicked.connect(self.close_board)
-        self.board_selector_dialog.close()
-        self.board.showMaximized()
+    def open_hmap_viewer(self):
+        self.hmap_viewer = HeatmapViewerWindow()
+        self.hmap_viewer.home_btn.clicked.connect(self.close_board)
+        self.hmap_viewer.showMaximized()
         self.hide()
             
     def close_board(self):
-        self.board.close()
+        self.hmap_viewer.close()
         self.show()
 ##########################################################################
