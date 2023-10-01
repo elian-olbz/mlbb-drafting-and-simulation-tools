@@ -33,7 +33,7 @@ class PredictionThread(QThread):
         cap = cv2.VideoCapture(self.video_path)
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_count = 0
-        frame_skip_factor = 1
+        frame_skip_factor = 2
         results = None
 
         # Create an empty list to hold detection data

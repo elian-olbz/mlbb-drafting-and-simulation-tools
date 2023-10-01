@@ -129,7 +129,7 @@ border-bottom-left-radius: 10px;
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item>
+             <item alignment="Qt::AlignTop">
               <widget class="QWidget" name="header_container" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -493,7 +493,7 @@ border-bottom-right-radius: 0px;
                       <item>
                        <widget class="QWidget" name="map_container" native="true">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
@@ -526,24 +526,24 @@ border-bottom-right-radius: 0px;
                          <property name="bottomMargin">
                           <number>8</number>
                          </property>
-                         <item alignment="Qt::AlignHCenter">
+                         <item>
                           <widget class="QWidget" name="video_widget" native="true">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
                            </property>
                            <property name="minimumSize">
                             <size>
-                             <width>918</width>
-                             <height>468</height>
+                             <width>0</width>
+                             <height>0</height>
                             </size>
                            </property>
                            <property name="styleSheet">
                             <string notr="true"/>
                            </property>
-                           <layout class="QVBoxLayout" name="verticalLayout_6">
+                           <layout class="QHBoxLayout" name="horizontalLayout">
                             <property name="spacing">
                              <number>0</number>
                             </property>
@@ -562,7 +562,7 @@ border-bottom-right-radius: 0px;
                             <item>
                              <widget class="QGraphicsView" name="graphics_view">
                               <property name="sizePolicy">
-                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                                 <horstretch>0</horstretch>
                                 <verstretch>0</verstretch>
                                </sizepolicy>
@@ -581,6 +581,12 @@ border-bottom-right-radius: 0px;
                               </property>
                               <property name="horizontalScrollBarPolicy">
                                <enum>Qt::ScrollBarAlwaysOff</enum>
+                              </property>
+                              <property name="sizeAdjustPolicy">
+                               <enum>QAbstractScrollArea::AdjustToContents</enum>
+                              </property>
+                              <property name="resizeAnchor">
+                               <enum>QGraphicsView::AnchorViewCenter</enum>
                               </property>
                              </widget>
                             </item>
