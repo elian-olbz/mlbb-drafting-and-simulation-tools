@@ -226,7 +226,7 @@ class SetupHeroSelector(QMainWindow):
                     label_size = qlabel.size()
                     scaled_pixmap = round_pix.scaled(label_size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
-                    image_overlay_path = "icons/x-circle.svg"
+                    image_overlay_path = "icons/slash.svg"
                     self.create_ban_overlay_indicator(qlabel, label_size, scaled_pixmap, image_overlay_path, 30) # indicator on the ban frame only
                     qlabel.setStyleSheet("border-radius: 0px;")
 

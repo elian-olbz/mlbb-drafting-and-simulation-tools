@@ -875,7 +875,7 @@ border-radius: 40px;</string>
                                            </size>
                                           </property>
                                           <property name="styleSheet">
-                                           <string notr="true">image: url(:/icons/icons/book-open.svg);</string>
+                                           <string notr="true">image: url(:/icons/icons/edit-3.svg);</string>
                                           </property>
                                           <property name="text">
                                            <string/>
@@ -1053,7 +1053,7 @@ border-radius: 40px;</string>
                                            </size>
                                           </property>
                                           <property name="styleSheet">
-                                           <string notr="true">image: url(:/icons/icons/edit-3.svg);</string>
+                                           <string notr="true">image: url(:/icons/icons/pie-chart.svg);</string>
                                           </property>
                                           <property name="text">
                                            <string/>
