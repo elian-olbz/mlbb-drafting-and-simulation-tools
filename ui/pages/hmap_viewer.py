@@ -1,9 +1,8 @@
 import sys
 import csv
 import os
-import typing
 import cv2
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QGraphicsItemGroup ,QGraphicsScene, QGraphicsView, QGraphicsPixmapItem, QGraphicsEllipseItem, QHBoxLayout, QWidget, QFileDialog
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QGraphicsItemGroup ,QGraphicsScene, QGraphicsPathItem, QGraphicsView, QGraphicsPixmapItem, QGraphicsEllipseItem, QHBoxLayout, QWidget, QFileDialog, QMessageBox
 from PyQt6.QtGui import QPixmap, QImage, QBrush, QPainter, QPainterPath, QColor, QPen, QIcon
 from PyQt6.QtCore import Qt, QTimer, QRectF, QPointF, pyqtSignal, QThread, QSize
 from PyQt6 import uic
@@ -13,9 +12,9 @@ from run_draft_logic.utils import get_icon, rounded_pixmap, load_names, get_name
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 ORIGINAL_SIZE = 720
-FRAME_SKIP = 3
-DELAY = 40
-VISIBLE_HEROES = [110, 25, 16] #[110, 36, 18, 116, 25, 119, 87, 16, 64, 88]
+FRAME_SKIP = 1
+DELAY = 80
+VISIBLE_HEROES = [110, 36, 18, 116, 25, 119, 87, 16, 64, 88] #[110, 36, 18, 116, 25, 119, 87, 16, 64, 88]
 
 class VideoThread(QThread):
     frame_ready = pyqtSignal(QPixmap)
@@ -38,7 +37,7 @@ class VideoThread(QThread):
                     q_image = QImage(frame.data, width, height, bytes_per_line, QImage.Format.Format_RGB888)
                     pixmap = QPixmap.fromImage(q_image)
                     self.frame_ready.emit(pixmap)
-                    self.msleep(30)
+                    self.msleep(27)
             else:
                 return
 
@@ -121,9 +120,10 @@ class HeatmapViewerWindow(QMainWindow):
                              self.hero_button5, self.hero_button6, 
                              self.hero_button7, self.hero_button8, 
                              self.hero_button9, self.hero_button10]
-
         self.class_colors = None
         self.add_colors()
+
+        self.set_btn_colors()
 
         # Create a QGraphicsScene
         self.scene = QGraphicsScene()
@@ -142,9 +142,6 @@ class HeatmapViewerWindow(QMainWindow):
         self.open_vid_btn.clicked.connect(self.open_video_file)
         self.open_csv_btn.clicked.connect(self.open_csv_file)
 
-        # Add the background item to the scene
-        self.scene.addItem(self.background_item)
-
         self.data = None
         self.hero_names = load_names("data/hero_map.csv")
         self.class_names = []
@@ -154,7 +151,8 @@ class HeatmapViewerWindow(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_objects)
         self.play_btn.clicked.connect(self.play_pause)
-        self.object_group = QGraphicsItemGroup()  # Create a group for the objects
+        self.object_group = QGraphicsItemGroup()  # Create a group for the objectssel
+        self.object_group.setZValue(1)
 
         # Add the object group to the scene
         self.scene.addItem(self.object_group)
@@ -173,6 +171,9 @@ class HeatmapViewerWindow(QMainWindow):
 
         self.header_container.mouseMoveEvent = moveWindow
         self.title_bar.uiDefinitions(self)
+        
+        self.create_heatmap_item()
+
 
     def toggle_menu(self):
         if self.menu_width == 0:
@@ -216,13 +217,13 @@ class HeatmapViewerWindow(QMainWindow):
                 self.video.video_thread.resume()  # Resume the video thread
                 self.timer.start(DELAY)  # Adjust the timer interval
                 self.play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.play_btn.setIconSize(QSize(20, 20))
+                self.play_btn.setIconSize(QSize(22, 22))
             else:
                 self.is_running = False
                 self.video.video_thread.pause()  # Pause the video thread
                 self.timer.stop()
                 self.play_btn.setIcon(QIcon('icons/play.svg'))
-                self.play_btn.setIconSize(QSize(20, 20))
+                self.play_btn.setIconSize(QSize(22, 22))
 
     def update_file_name_label(self, path, qlabel):
         file_name = os.path.basename(path)
@@ -251,13 +252,39 @@ class HeatmapViewerWindow(QMainWindow):
         else:
             csv_path, _ = QFileDialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv)")
             if csv_path:
-                self.csv_path = csv_path
-                self.draw_objects_from_dataset()
-                self.load_classes()
-                self.update_btn_texts()
-                self.update_file_name_label(self.csv_path, self.csv_name)
+                # Validate the CSV format
+                if self.validate_csv_format(csv_path):
+                    self.csv_path = csv_path
+                    self.draw_objects_from_dataset()
+                    self.load_classes()
+                    self.update_btn_text()
+                    self.update_file_name_label(self.csv_path, self.csv_name)
+                    # Add the background item to the scene
+                    self.scene.addItem(self.background_item)
+                else:
+                    QMessageBox.critical(self, "Error", "CSV format does not match the desired format.")
             else:
                 return
+
+    def validate_csv_format(self, csv_path):
+        # Define your desired CSV format here
+        csv_format = ["Frame", "Class", "Class_ID", "X", "Y"]
+
+        # Read the CSV file and check its format
+        try:
+            with open(csv_path, 'r', newline='') as csv_file:
+                reader = csv.reader(csv_file)
+                header = next(reader)  # Read the header row
+
+                # Check if the header matches the desired format
+                if header == csv_format:
+                    return True
+                else:
+                    return False
+        except Exception as e:
+            # Handle any exceptions that may occur during file reading or validation
+            print(f"Error: {e}")
+            return False
             
     def display_first_frame(self):
         if not self.is_running:
@@ -309,16 +336,31 @@ class HeatmapViewerWindow(QMainWindow):
                 next(csv_reader)  # Skip the header row
                 self.data = list(csv_reader)
 
-    def update_btn_texts(self):
-        if self.class_names is not None:
+    def update_btn_text(self):
+            self.set_btn_colors()
             for i in range(10):
-                self.hero_buttons[i].setText(list(self.class_names)[i])
-                color = self.class_colors[i + 1]
-                color_hex = color.name()  # Get the hexadecimal representation of the QColor
-                parent_name = self.hero_buttons[i].parent().objectName()
-                style = f"QFrame #{parent_name} {{border: 2px solid; border-color: {color_hex}; border-radius:10px}}"
-                self.hero_buttons[i].parent().setStyleSheet(style)
+                if self.class_names is not None:
+                    self.hero_buttons[i].setText(list(self.class_names)[i])
+                else:
+                    return
+            
+    def set_btn_colors(self):
+        for i in range(10):
+            color = self.class_colors[i + 1]
+            color_hex = color.name()  # Get the hexadecimal representation of the QColor
+            style = f"background-color: {color_hex}; border-radius:10px"
+            self.hero_buttons[i].parent().setStyleSheet(style)
 
+    def create_heatmap_item(self):
+        self.prev_x = None
+        self.prev_y = None
+        self.prev_pixmap = None
+        self.heatmap_pixmap = QPixmap(self.background_item.pixmap().size())
+        self.heatmap_pixmap.fill(Qt.GlobalColor.transparent)
+        self.heatmap_painter = QPainter(self.heatmap_pixmap)
+        self.heatmap_item = QGraphicsPixmapItem(self.heatmap_pixmap)
+        self.heatmap_item.setZValue(0)
+        self.scene.addItem(self.heatmap_item)
 
     def update_objects(self):
         ratio = min(self.graphics_view.height(), self.graphics_view.width()) / ORIGINAL_SIZE
@@ -333,6 +375,9 @@ class HeatmapViewerWindow(QMainWindow):
                 self.current_frame += FRAME_SKIP
 
             background_position = self.background_item.pos()
+
+            if self.prev_pixmap is not None:
+                self.heatmap_pixmap = self.prev_pixmap
 
             for row in current_frame_data:
                 _, _, class_id, x, y = row[0], row[1], int(row[2]), float(row[3]), float(row[4])
@@ -352,42 +397,35 @@ class HeatmapViewerWindow(QMainWindow):
 
                     img_item.setPos(object_x, object_y)  # Update the position
 
-                    # You can update other properties of img_item here if needed
-
                     if img_item not in self.object_group.childItems():
                         self.object_group.addToGroup(img_item)  # Add the item to the object group
 
-                    # Create an ellipse (dot) at the calculated position
-                    dot_size = 12  # Adjust the size of the dots as needed
-                    dot = QGraphicsEllipseItem(
-                        object_x + (self.ICON_OFFSET / 2),
-                        object_y + (self.ICON_OFFSET / 2),
-                        dot_size,
-                        dot_size
-                    )
-                    dot.setZValue(-1)
-
+            # Paint the heatmap based on object positions for all frames
                     color_index = list(self.class_images.keys()).index(class_id)
-                    dot.setPen(QPen(Qt.GlobalColor.transparent))
-                    dot.setBrush(QBrush(self.class_colors[color_index + 1]))
-                    self.scene.addItem(dot)  # Add the dot to the object group
+                    self.heatmap_painter.setPen(QPen(QColor(83, 89, 98, 60)))
+                    self.heatmap_painter.setBrush(QBrush(self.class_colors[color_index + 1]))
+                    self.heatmap_painter.drawEllipse(
+                        int(object_x + (self.ICON_OFFSET / 2)), int(object_y + (self.ICON_OFFSET / 2)), 15, 15)
+
+            # Update the pixmap of the heatmap item in the scene
+            self.heatmap_item.setPixmap(self.heatmap_pixmap)
+            self.prev_pixmap = self.prev_pixmap
         else:
             self.timer.stop()
 
     def add_colors(self):
         self.class_colors = {
-            1: QColor(255, 0, 0, 75),      # Red
-            2: QColor(0, 255, 0, 75),      # Green
-            3: QColor(0, 0, 255, 75),      # Blue
-            4: QColor(255, 255, 0, 75),    # Yellow
-            5: QColor(255, 0, 255, 75),    # Magenta
-            6: QColor(0, 255, 255, 75),    # Cyan
-            7: QColor(255, 255, 255, 75),    # Orange
-            8: QColor(128, 0, 255, 75),    # Purple
-            9: QColor(0, 192, 192, 75),    # Lighter Teal
-            10: QColor(255, 128, 128, 75)  # Pink
+            1: QColor(1, 165, 141, 180),    # emerald
+            2: QColor(126, 183, 213, 180),  # dusk blue
+            3: QColor(152, 204, 182, 180),  # grayed jade
+            4: QColor(170, 170, 255, 180),  # lavander
+            5: QColor(254, 223, 94, 180),   # lemon zest
+            6: QColor(185, 149, 197, 180),  # african violet
+            7: QColor(249, 224, 201, 180),  # linen
+            8: QColor(21, 69, 118, 180),    # monaco blue
+            9: QColor(231, 50, 43, 180),    # poppy red
+            10: QColor(246, 142, 81, 180)   # nectarine
         }
-
             
 if __name__ == "__main__":
     app = QApplication(sys.argv)

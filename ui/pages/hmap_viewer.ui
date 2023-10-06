@@ -649,6 +649,9 @@ border-bottom-color: transparent;
                                   <enum>QFrame::Raised</enum>
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                                  <property name="leftMargin">
+                                   <number>12</number>
+                                  </property>
                                   <property name="topMargin">
                                    <number>4</number>
                                   </property>
@@ -773,6 +776,9 @@ border-bottom-color: transparent;
                                   <enum>QFrame::Raised</enum>
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                                  <property name="leftMargin">
+                                   <number>12</number>
+                                  </property>
                                   <property name="topMargin">
                                    <number>4</number>
                                   </property>
@@ -933,6 +939,9 @@ border-bottom-color: transparent;
                                   </property>
                                   <item>
                                    <widget class="QFrame" name="frame_28">
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -969,6 +978,9 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
@@ -1007,6 +1019,9 @@ border-bottom-color: transparent;
                                       <height>0</height>
                                      </size>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -1043,6 +1058,9 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
@@ -1081,6 +1099,9 @@ border-bottom-color: transparent;
                                       <height>0</height>
                                      </size>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -1117,6 +1138,9 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
@@ -1155,6 +1179,9 @@ border-bottom-color: transparent;
                                       <height>0</height>
                                      </size>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -1191,6 +1218,9 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
@@ -1229,6 +1259,9 @@ border-bottom-color: transparent;
                                       <height>0</height>
                                      </size>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -1265,6 +1298,9 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
@@ -1412,13 +1448,13 @@ border-radius:0px;
                                 <number>0</number>
                                </property>
                                <property name="topMargin">
-                                <number>0</number>
+                                <number>2</number>
                                </property>
                                <property name="rightMargin">
                                 <number>18</number>
                                </property>
                                <property name="bottomMargin">
-                                <number>0</number>
+                                <number>2</number>
                                </property>
                                <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
                                 <widget class="QFrame" name="frame_7">
@@ -1461,8 +1497,8 @@ border-radius:0px;
                                     </property>
                                     <property name="iconSize">
                                      <size>
-                                      <width>20</width>
-                                      <height>20</height>
+                                      <width>22</width>
+                                      <height>22</height>
                                      </size>
                                     </property>
                                    </widget>
