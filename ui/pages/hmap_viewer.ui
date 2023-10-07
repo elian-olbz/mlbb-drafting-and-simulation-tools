@@ -628,7 +628,7 @@ border-color: rgb(83, 89, 98);
                                 <number>0</number>
                                </property>
                                <property name="bottomMargin">
-                                <number>8</number>
+                                <number>0</number>
                                </property>
                                <item alignment="Qt::AlignTop">
                                 <widget class="QFrame" name="frame_6">
@@ -725,6 +725,72 @@ border-bottom-color: transparent;
                                     </property>
                                    </widget>
                                   </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_8">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>8</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>4</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="video_play_btn">
+                                       <property name="toolTip">
+                                        <string>Start</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="../rsc.qrc">
+                                         <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>18</width>
+                                         <height>18</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QSlider" name="video_slider">
+                                       <property name="minimum">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="maximum">
+                                        <number>100</number>
+                                       </property>
+                                       <property name="pageStep">
+                                        <number>5</number>
+                                       </property>
+                                       <property name="sliderPosition">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="orientation">
+                                        <enum>Qt::Horizontal</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
                                  </layout>
                                 </widget>
                                </item>
@@ -755,7 +821,7 @@ border-color: rgb(83, 89, 98);
                                 <number>0</number>
                                </property>
                                <property name="bottomMargin">
-                                <number>8</number>
+                                <number>0</number>
                                </property>
                                <item alignment="Qt::AlignTop">
                                 <widget class="QFrame" name="frame_14">
@@ -859,6 +925,72 @@ border-bottom-color: transparent;
                                     <property name="resizeAnchor">
                                      <enum>QGraphicsView::AnchorViewCenter</enum>
                                     </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_10">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_14">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>8</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>4</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="hmap_play_btn">
+                                       <property name="toolTip">
+                                        <string>Start</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="../rsc.qrc">
+                                         <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>18</width>
+                                         <height>18</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QSlider" name="hmap_slider">
+                                       <property name="minimum">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="maximum">
+                                        <number>100</number>
+                                       </property>
+                                       <property name="pageStep">
+                                        <number>5</number>
+                                       </property>
+                                       <property name="sliderPosition">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="orientation">
+                                        <enum>Qt::Horizontal</enum>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                  </layout>
@@ -1392,7 +1524,7 @@ border-radius: 10px;</string>
                            <property name="styleSheet">
                             <string notr="true"/>
                            </property>
-                           <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="8">
+                           <layout class="QHBoxLayout" name="horizontalLayout_5">
                             <property name="spacing">
                              <number>0</number>
                             </property>
@@ -1400,134 +1532,14 @@ border-radius: 10px;</string>
                              <number>0</number>
                             </property>
                             <property name="topMargin">
-                             <number>2</number>
+                             <number>0</number>
                             </property>
                             <property name="rightMargin">
                              <number>0</number>
                             </property>
                             <property name="bottomMargin">
-                             <number>4</number>
+                             <number>0</number>
                             </property>
-                            <item>
-                             <widget class="QFrame" name="frame_4">
-                              <property name="sizePolicy">
-                               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                               </sizepolicy>
-                              </property>
-                              <property name="minimumSize">
-                               <size>
-                                <width>0</width>
-                                <height>0</height>
-                               </size>
-                              </property>
-                              <property name="maximumSize">
-                               <size>
-                                <width>16777215</width>
-                                <height>16777215</height>
-                               </size>
-                              </property>
-                              <property name="styleSheet">
-                               <string notr="true">QFrame #frame_4{
-background-color: rgba(77, 77, 77, 150);
-border-radius:0px;
-}</string>
-                              </property>
-                              <property name="frameShape">
-                               <enum>QFrame::StyledPanel</enum>
-                              </property>
-                              <property name="frameShadow">
-                               <enum>QFrame::Raised</enum>
-                              </property>
-                              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
-                               <property name="spacing">
-                                <number>2</number>
-                               </property>
-                               <property name="leftMargin">
-                                <number>0</number>
-                               </property>
-                               <property name="topMargin">
-                                <number>2</number>
-                               </property>
-                               <property name="rightMargin">
-                                <number>18</number>
-                               </property>
-                               <property name="bottomMargin">
-                                <number>2</number>
-                               </property>
-                               <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                                <widget class="QFrame" name="frame_7">
-                                 <property name="styleSheet">
-                                  <string notr="true"/>
-                                 </property>
-                                 <property name="frameShape">
-                                  <enum>QFrame::StyledPanel</enum>
-                                 </property>
-                                 <property name="frameShadow">
-                                  <enum>QFrame::Raised</enum>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_6">
-                                  <property name="spacing">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>10</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QPushButton" name="play_btn">
-                                    <property name="toolTip">
-                                     <string>Start</string>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="../rsc.qrc">
-                                      <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
-                                    </property>
-                                    <property name="iconSize">
-                                     <size>
-                                      <width>22</width>
-                                      <height>22</height>
-                                     </size>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QSlider" name="horizontalSlider">
-                                 <property name="minimum">
-                                  <number>0</number>
-                                 </property>
-                                 <property name="maximum">
-                                  <number>100</number>
-                                 </property>
-                                 <property name="pageStep">
-                                  <number>5</number>
-                                 </property>
-                                 <property name="sliderPosition">
-                                  <number>0</number>
-                                 </property>
-                                 <property name="orientation">
-                                  <enum>Qt::Horizontal</enum>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </widget>
-                            </item>
                            </layout>
                           </widget>
                          </item>
