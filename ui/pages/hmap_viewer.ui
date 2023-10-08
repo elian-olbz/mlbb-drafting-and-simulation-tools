@@ -255,38 +255,6 @@ color:#fff
                  </spacer>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QFrame" name="frame_25">
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_17">
-                   <item>
-                    <widget class="QPushButton" name="hide_btn">
-                     <property name="styleSheet">
-                      <string notr="true"/>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/user-check.svg</normaloff>:/icons/icons/user-check.svg</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item alignment="Qt::AlignRight">
                  <widget class="QFrame" name="frame_btns">
                   <property name="minimumSize">
                    <size>
@@ -586,7 +554,48 @@ border-bottom-right-radius: 0px;
                             </size>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true"/>
+                            <string notr="true">
+QProgressBar
+{
+background-color: rgb(255, 255, 255);
+border-radius: 5px;
+color: transparent;
+}
+QProgressBar::chunk 
+{
+background-color: rgb(170, 170, 255);
+border-radius: 5px;
+} 
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+QSlider {
+    min-height: 10px;
+}
+
+QSlider::groove:horizontal {
+    border: 0px;
+    background: white;
+    height: 10px;
+    border-radius: 5px;
+}
+
+QSlider::handle {
+	background-color: rgb(170, 85, 255);
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
+}
+
+QSlider::sub-page:horizontal {
+    
+	background-color: rgb(170, 170, 255);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+QRangeSlider {
+    qproperty-barColor: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #227, stop:1 #77a);
+}</string>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,4,0">
                             <property name="spacing">
@@ -663,8 +672,13 @@ border-bottom-color: transparent;
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="vid_name">
+                                    <property name="font">
+                                     <font>
+                                      <pointsize>9</pointsize>
+                                     </font>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#ececec;&quot;&gt;FIlename&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#ececec;&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                     </property>
                                    </widget>
                                   </item>
@@ -725,17 +739,68 @@ border-bottom-color: transparent;
                                     </property>
                                    </widget>
                                   </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_8">
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #frame_8{
+background-color: rgb(22, 22, 22);
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+border: 1px solid;
+border-color: rgb(83, 89, 98);
+border-top-color: transparent;
+}</string>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                                  <property name="spacing">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="leftMargin">
+                                   <number>4</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>6</number>
+                                  </property>
+                                  <item alignment="Qt::AlignLeft">
+                                   <widget class="QPushButton" name="video_play_btn">
+                                    <property name="toolTip">
+                                     <string>Start</string>
+                                    </property>
+                                    <property name="text">
+                                     <string/>
+                                    </property>
+                                    <property name="icon">
+                                     <iconset resource="../rsc.qrc">
+                                      <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                                    </property>
+                                    <property name="iconSize">
+                                     <size>
+                                      <width>22</width>
+                                      <height>22</height>
+                                     </size>
+                                    </property>
+                                   </widget>
+                                  </item>
                                   <item>
-                                   <widget class="QFrame" name="frame_8">
+                                   <widget class="QFrame" name="frame_4">
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                                    <layout class="QVBoxLayout" name="verticalLayout_8">
                                      <property name="spacing">
-                                      <number>0</number>
+                                      <number>6</number>
                                      </property>
                                      <property name="leftMargin">
                                       <number>0</number>
@@ -744,33 +809,35 @@ border-bottom-color: transparent;
                                       <number>0</number>
                                      </property>
                                      <property name="rightMargin">
-                                      <number>8</number>
+                                      <number>0</number>
                                      </property>
                                      <property name="bottomMargin">
-                                      <number>4</number>
+                                      <number>0</number>
                                      </property>
                                      <item>
-                                      <widget class="QPushButton" name="video_play_btn">
-                                       <property name="toolTip">
-                                        <string>Start</string>
-                                       </property>
-                                       <property name="text">
-                                        <string/>
-                                       </property>
-                                       <property name="icon">
-                                        <iconset resource="../rsc.qrc">
-                                         <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
-                                       </property>
-                                       <property name="iconSize">
+                                      <widget class="QProgressBar" name="video_bar">
+                                       <property name="maximumSize">
                                         <size>
-                                         <width>18</width>
-                                         <height>18</height>
+                                         <width>16777215</width>
+                                         <height>10</height>
                                         </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true"/>
+                                       </property>
+                                       <property name="value">
+                                        <number>3</number>
                                        </property>
                                       </widget>
                                      </item>
                                      <item>
                                       <widget class="QSlider" name="video_slider">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>10</height>
+                                        </size>
+                                       </property>
                                        <property name="minimum">
                                         <number>0</number>
                                        </property>
@@ -856,8 +923,13 @@ border-bottom-color: transparent;
                                   </property>
                                   <item>
                                    <widget class="QLabel" name="csv_name">
+                                    <property name="font">
+                                     <font>
+                                      <pointsize>9</pointsize>
+                                     </font>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#ececec;&quot;&gt;FIlename&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#ececec;&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                     </property>
                                    </widget>
                                   </item>
@@ -895,7 +967,22 @@ border-bottom-color: transparent;
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                                 <layout class="QVBoxLayout" name="verticalLayout_11">
+                                  <property name="spacing">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="leftMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
+                                  </property>
                                   <item>
                                    <widget class="QGraphicsView" name="graphics_view">
                                     <property name="sizePolicy">
@@ -929,27 +1016,31 @@ border-bottom-color: transparent;
                                   </item>
                                   <item>
                                    <widget class="QFrame" name="frame_10">
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame #frame_10{
+background-color: rgb(22, 22, 22);
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+border: 1px solid;
+border-color: rgb(83, 89, 98);
+border-top-color: transparent;
+}</string>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
                                     <property name="frameShadow">
                                      <enum>QFrame::Raised</enum>
                                     </property>
-                                    <layout class="QHBoxLayout" name="horizontalLayout_14">
+                                    <layout class="QHBoxLayout" name="horizontalLayout_8">
                                      <property name="spacing">
                                       <number>0</number>
                                      </property>
                                      <property name="leftMargin">
-                                      <number>0</number>
-                                     </property>
-                                     <property name="topMargin">
-                                      <number>0</number>
-                                     </property>
-                                     <property name="rightMargin">
-                                      <number>8</number>
+                                      <number>4</number>
                                      </property>
                                      <property name="bottomMargin">
-                                      <number>4</number>
+                                      <number>6</number>
                                      </property>
                                      <item>
                                       <widget class="QPushButton" name="hmap_play_btn">
@@ -965,29 +1056,78 @@ border-bottom-color: transparent;
                                        </property>
                                        <property name="iconSize">
                                         <size>
-                                         <width>18</width>
-                                         <height>18</height>
+                                         <width>22</width>
+                                         <height>22</height>
                                         </size>
                                        </property>
                                       </widget>
                                      </item>
                                      <item>
-                                      <widget class="QSlider" name="hmap_slider">
-                                       <property name="minimum">
-                                        <number>0</number>
+                                      <widget class="QFrame" name="frame_7">
+                                       <property name="frameShape">
+                                        <enum>QFrame::StyledPanel</enum>
                                        </property>
-                                       <property name="maximum">
-                                        <number>100</number>
+                                       <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
                                        </property>
-                                       <property name="pageStep">
-                                        <number>5</number>
-                                       </property>
-                                       <property name="sliderPosition">
-                                        <number>0</number>
-                                       </property>
-                                       <property name="orientation">
-                                        <enum>Qt::Horizontal</enum>
-                                       </property>
+                                       <layout class="QVBoxLayout" name="verticalLayout_10">
+                                        <property name="spacing">
+                                         <number>6</number>
+                                        </property>
+                                        <property name="leftMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QProgressBar" name="hmap_bar">
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>16777215</width>
+                                            <height>10</height>
+                                           </size>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true"/>
+                                          </property>
+                                          <property name="value">
+                                           <number>3</number>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QSlider" name="hmap_slider">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>0</width>
+                                            <height>10</height>
+                                           </size>
+                                          </property>
+                                          <property name="minimum">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="maximum">
+                                           <number>100</number>
+                                          </property>
+                                          <property name="pageStep">
+                                           <number>5</number>
+                                          </property>
+                                          <property name="sliderPosition">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="orientation">
+                                           <enum>Qt::Horizontal</enum>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
                                       </widget>
                                      </item>
                                     </layout>
@@ -1012,6 +1152,11 @@ border-bottom-color: transparent;
                                 <width>16777215</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="font">
+                               <font>
+                                <bold>false</bold>
+                               </font>
                               </property>
                               <property name="styleSheet">
                                <string notr="true">background-color: rgb(44, 42, 66);</string>
@@ -1046,8 +1191,14 @@ border-bottom-color: transparent;
                                  <layout class="QVBoxLayout" name="verticalLayout_7">
                                   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                    <widget class="QLabel" name="label_2">
+                                    <property name="font">
+                                     <font>
+                                      <pointsize>12</pointsize>
+                                      <bold>true</bold>
+                                     </font>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#ececec;&quot;&gt;Hide Heroes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#ececec;&quot;&gt;Hide Heroes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                     </property>
                                    </widget>
                                   </item>
@@ -1064,7 +1215,7 @@ border-bottom-color: transparent;
                                  </property>
                                  <layout class="QVBoxLayout" name="verticalLayout_9">
                                   <property name="spacing">
-                                   <number>10</number>
+                                   <number>12</number>
                                   </property>
                                   <property name="topMargin">
                                    <number>8</number>
@@ -1095,8 +1246,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button1">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1135,8 +1292,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button2">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1175,8 +1338,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button3">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1215,8 +1384,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button4">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1255,8 +1430,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button5">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1270,6 +1451,12 @@ border-bottom-color: transparent;
                                       <width>0</width>
                                       <height>0</height>
                                      </size>
+                                    </property>
+                                    <property name="font">
+                                     <font>
+                                      <pointsize>10</pointsize>
+                                      <bold>true</bold>
+                                     </font>
                                     </property>
                                     <property name="styleSheet">
                                      <string notr="true"/>
@@ -1295,8 +1482,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button6">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1335,8 +1528,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button7">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1375,8 +1574,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button8">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1415,8 +1620,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button9">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1455,8 +1666,14 @@ border-bottom-color: transparent;
                                      </property>
                                      <item>
                                       <widget class="QRadioButton" name="hero_button10">
+                                       <property name="font">
+                                        <font>
+                                         <pointsize>9</pointsize>
+                                         <bold>true</bold>
+                                        </font>
+                                       </property>
                                        <property name="text">
-                                        <string>Hero Name</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1481,23 +1698,6 @@ border-bottom-color: transparent;
                                   <property name="bottomMargin">
                                    <number>6</number>
                                   </property>
-                                  <item alignment="Qt::AlignRight">
-                                   <widget class="QPushButton" name="ok_btn">
-                                    <property name="font">
-                                     <font>
-                                      <pointsize>10</pointsize>
-                                      <bold>true</bold>
-                                     </font>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(0, 170, 255);
-border-radius: 10px;</string>
-                                    </property>
-                                    <property name="text">
-                                     <string> Hide </string>
-                                    </property>
-                                   </widget>
-                                  </item>
                                  </layout>
                                 </widget>
                                </item>

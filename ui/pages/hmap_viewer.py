@@ -14,7 +14,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_SIZE = 720
 FRAME_SKIP = 1
 DELAY = 80
-VISIBLE_HEROES = [110, 36, 18, 116, 25, 119, 87, 16, 64, 88] #[110, 36, 18, 116, 25, 119, 87, 16, 64, 88]
+#VISIBLE_HEROES = [110, 36, 18, 116, 25, 119, 87, 16, 64, 88] #[110, 36, 18, 116, 25, 119, 87, 16, 64, 88]
 
 class VideoThread(QThread):
     frame_ready = pyqtSignal(QPixmap)
@@ -57,6 +57,7 @@ class RawVideo(QLabel):
         self.video_path = video_path
         self.qlabel = qlabel
         self.video_thread = None
+        self.v_timer = QTimer(self)
         self.setup_video_thread()
 
     def setup_video_thread(self):
@@ -110,13 +111,15 @@ class HeatmapViewerWindow(QMainWindow):
         self.is_video_running = False
         self.is_hmap_running = False
 
+        self.heroes = []
+        self.visible_heroes = {}
+
         self.video_path = None
         self.csv_path = None
 
         ui_path = os.path.join(script_dir, "hmap_viewer.ui")
         uic.loadUi(ui_path, self)
 
-        self.hide_btn.clicked.connect(self.toggle_menu)
         self.hero_buttons = [self.hero_button1, self.hero_button2, 
                              self.hero_button3, self.hero_button4, 
                              self.hero_button5, self.hero_button6, 
@@ -181,15 +184,7 @@ class HeatmapViewerWindow(QMainWindow):
         self.create_heatmap_item()
         self.video_slider.valueChanged.connect(self.seek_video_frame)
         self.hmap_slider.valueChanged.connect(self.seek_hmap_frame)
-
-
-    def toggle_menu(self):
-        if self.menu_width == 0:
-            self.right_frame.setFixedWidth(120)
-            self.menu_width = 120
-        else:
-            self.right_frame.setFixedWidth(0)
-            self.menu_width = 0
+        self.connect_hero_btns()
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
@@ -211,10 +206,25 @@ class HeatmapViewerWindow(QMainWindow):
         self.background_item.set_scale_factor()
         self.load_classes()
         self.display_first_frame()
+        self.hide_hero()
 
     def set_icon_offset(self):
         self.ICON_OFFSET = int((75 / ORIGINAL_SIZE) * min(self.graphics_view.height(), self.graphics_view.width()))
     
+    def update_hmap_bar(self):
+        val = int(self.current_row / len(self.data) * 100)
+
+        if not len(self.data) - self.current_row < 10:
+            self.hmap_bar.setValue(val)
+        else:
+            val = 100
+            self.hmap_bar.setValue(val)
+
+    def update_video_bar(self):
+        f = int(self.video.video_thread.cap.get(cv2.CAP_PROP_POS_FRAMES))
+        val = int((f / self.total_frames) * 100)
+        self.video_bar.setValue(val)
+
     def video_play_pause(self):
         if self.video_path is not None:
             if not self.is_video_running:
@@ -224,12 +234,13 @@ class HeatmapViewerWindow(QMainWindow):
                     self.video.video_thread.start()
                 self.video.video_thread.resume()  # Resume the video thread
                 self.video_play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.video_play_btn.setIconSize(QSize(18, 18))
+                self.video_play_btn.setIconSize(QSize(22, 22))
+                self.video.v_timer.start(27)
             else:
                 self.is_video_running = False
                 self.video.video_thread.pause()  # Pause the video thread
                 self.video_play_btn.setIcon(QIcon('icons/play.svg'))
-                self.video_play_btn.setIconSize(QSize(18, 18))
+                self.video_play_btn.setIconSize(QSize(22, 22))
 
     def hmap_play_pause(self):
         if self.csv_path is not None:
@@ -237,12 +248,12 @@ class HeatmapViewerWindow(QMainWindow):
                 self.is_hmap_running = True
                 self.timer.start(DELAY)  
                 self.hmap_play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.hmap_play_btn.setIconSize(QSize(18, 18))
+                self.hmap_play_btn.setIconSize(QSize(22, 22))
             else:
                 self.is_hmap_running = False
                 self.timer.stop()
                 self.hmap_play_btn.setIcon(QIcon('icons/play.svg'))
-                self.hmap_play_btn.setIconSize(QSize(18, 18))
+                self.hmap_play_btn.setIconSize(QSize(22, 22))
 
     def seek_hmap_frame(self):
         #fr = int((self.hmap_slider.value() / 100) * self.total_frames)
@@ -251,17 +262,19 @@ class HeatmapViewerWindow(QMainWindow):
         self.timer.stop()
         self.heatmap_pixmap.fill(Qt.GlobalColor.transparent)
         self.update_objects()
+        self.update_hmap_bar()
 
         if self.is_hmap_running:
             self.hmap_play_btn.setIcon(QIcon('icons/pause.svg'))
-            self.hmap_play_btn.setIconSize(QSize(18, 18))
+            self.hmap_play_btn.setIconSize(QSize(22, 22))
             self.timer.start(DELAY)
             self.is_hmap_running = True
         else:
             self.hmap_play_btn.setIcon(QIcon('icons/play.svg'))
-            self.hmap_play_btn.setIconSize(QSize(18, 18))
+            self.hmap_play_btn.setIconSize(QSize(22, 22))
             self.is_hmap_running = False
             self.timer.stop()
+        self.hide_hero()
 
     def seek_video_frame(self):
         if self.video is not None:
@@ -286,18 +299,27 @@ class HeatmapViewerWindow(QMainWindow):
                 self.video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.video_label.setPixmap(pixmap)
 
-        if not self.video.video_thread.isRunning():
-            if self.is_video_running:
-                self.video_play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.video_play_btn.setIconSize(QSize(18, 18))
-                self.is_video_running = True
-                self.video.video_thread.start()
-                self.video.video_thread.resume()
-            else:
-                self.video_play_btn.setIcon(QIcon('icons/play.svg'))
-                self.video_play_btn.setIconSize(QSize(18, 18))
-                self.is_video_running = False
-                self.video.video_thread.pause()
+        if self.video is not None:
+            if not self.video.video_thread.isRunning():
+                if self.is_video_running:
+                    self.video_play_btn.setIcon(QIcon('icons/pause.svg'))
+                    self.video_play_btn.setIconSize(QSize(22, 22))
+                    self.is_video_running = True
+                    self.video.video_thread.start()
+                    self.video.video_thread.resume()
+                    self.video.v_timer.stop()
+                    self.update_video_bar()
+                    self.video.v_timer.start(27)
+                else:
+                    self.video_play_btn.setIcon(QIcon('icons/play.svg'))
+                    self.video_play_btn.setIconSize(QSize(22, 22))
+                    self.is_video_running = False
+                    self.video.video_thread.pause()
+                    self.video.v_timer.stop()
+                    self.update_video_bar()
+                    self.video.v_timer.start(27)
+        else:
+            return
 
     def update_file_name_label(self, path, qlabel):
         file_name = os.path.basename(path)
@@ -316,9 +338,10 @@ class HeatmapViewerWindow(QMainWindow):
                 self.video_path = video_path
                 self.video = RawVideo(self.video_path, self.video_label)
                 self.total_frames = int(self.video.video_thread.cap.get(cv2.CAP_PROP_FRAME_COUNT))   # Get the total number of frames in the video
-                self.video_slider.setRange(0, self.total_frames)
+                self.video_slider.setRange(int(self.total_frames * 0.03), self.total_frames)
                 self.update_file_name_label(self.video_path, self.vid_name)
                 self.display_first_frame()
+                self.video.v_timer.timeout.connect(self.update_video_bar)
             else:
                 return
 
@@ -405,19 +428,42 @@ class HeatmapViewerWindow(QMainWindow):
             for item in id_list:
                 self.class_names.append(get_name(item + 1, self.hero_names))
 
+        self.heroes = list(class_ids)
+        for i, hero in enumerate(self.heroes):
+            self.visible_heroes[i] = hero
+
     def draw_objects_from_dataset(self):
         if self.csv_path is not None:
             with open(self.csv_path, "r") as file:
                 csv_reader = csv.reader(file)
                 next(csv_reader)  # Skip the header row
                 self.data = list(csv_reader)
-                self.hmap_slider.setRange(0, len(self.data))
+                self.hmap_slider.setRange(int(len(self.data) * 0.03), len(self.data))
+
+    def connect_hero_btns(self):
+        for btn in self.hero_buttons:
+            btn.toggled.connect(self.hide_hero)
+    
+    def hide_hero(self):
+        for i, btn in enumerate(self.hero_buttons):
+            if btn.isChecked() == False:
+                self.visible_heroes[i] = 0
+            else:
+                self.visible_heroes[i] = self.heroes[i]
+
+            for item in self.object_group.childItems():
+                if self.visible_heroes[i] == 0:
+                    cl = QPixmap(item.pixmap().size())
+                    self.object_group.removeFromGroup(item)
+                    cl.fill(Qt.GlobalColor.transparent)
+                    item.setPixmap(cl)
 
     def update_btn_text(self):
             self.set_btn_colors()
             for i in range(10):
                 if self.class_names is not None:
                     self.hero_buttons[i].setText(list(self.class_names)[i])
+                    self.hero_buttons[i].setChecked(True)
                 else:
                     return
             
@@ -442,8 +488,9 @@ class HeatmapViewerWindow(QMainWindow):
     def update_objects(self):
         ratio = min(self.graphics_view.height(), self.graphics_view.width()) / ORIGINAL_SIZE
         MAP_OFFSET = int((35 / ORIGINAL_SIZE) * min(self.scene.height(), self.scene.width()))
-        if self.current_row < len(self.data):
+        if self.data is not None and self.current_row < len(self.data):
             current_frame_data = []
+            self.update_hmap_bar()
 
             # Collect data for the current frame
             frame = int(self.data[self.current_row][0])  # Get the frame number of the current row
@@ -458,7 +505,7 @@ class HeatmapViewerWindow(QMainWindow):
 
             for row in current_frame_data:
                 _, _, class_id, x, y = row[0], row[1], int(row[2]), float(row[3]), float(row[4])
-                if class_id in self.class_images and class_id in VISIBLE_HEROES:
+                if class_id in self.class_images and class_id in self.visible_heroes.values():
                     pixmap = self.class_images[class_id]
 
                     if class_id in self.class_img_items:
@@ -489,7 +536,7 @@ class HeatmapViewerWindow(QMainWindow):
             self.prev_pixmap = self.heatmap_pixmap
         else:
             self.timer.stop()
-
+        
     def add_colors(self):
         self.class_colors = {
             1: QColor(1, 165, 141, 180),    # emerald
