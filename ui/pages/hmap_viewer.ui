@@ -73,12 +73,8 @@ padding:0;
 margin:0;
 color:#fff
 }
-QPushButton{
-text-align:left;
-padding: 5px 10px;
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
-}</string>
+
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -197,7 +193,7 @@ color:#fff
                     <number>8</number>
                    </property>
                    <property name="leftMargin">
-                    <number>12</number>
+                    <number>10</number>
                    </property>
                    <property name="topMargin">
                     <number>2</number>
@@ -210,6 +206,22 @@ color:#fff
                    </property>
                    <item alignment="Qt::AlignLeft">
                     <widget class="QPushButton" name="home_btn">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -268,6 +280,22 @@ color:#fff
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -276,7 +304,7 @@ color:#fff
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_10">
                    <property name="spacing">
-                    <number>20</number>
+                    <number>0</number>
                    </property>
                    <property name="leftMargin">
                     <number>20</number>
@@ -294,23 +322,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_min">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Minimize</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {	
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -325,23 +351,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_max">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Minimize</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {	
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -356,23 +380,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_close">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Close</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {		
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -595,6 +617,22 @@ QSlider::sub-page:horizontal {
 
 QRangeSlider {
     qproperty-barColor: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #227, stop:1 #77a);
+}
+
+
+QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
 }</string>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,4,0">
@@ -710,6 +748,15 @@ border-bottom-color: transparent;
                                </item>
                                <item>
                                 <widget class="QFrame" name="frame_15">
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #frame_15{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+border: 1px solid;
+border-color: rgb(83, 89, 98);
+border-top-color: transparent;
+border-bottom-color: transparent;
+}</string>
+                                 </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
                                  </property>
@@ -762,7 +809,7 @@ border-top-color: transparent;
                                  </property>
                                  <layout class="QHBoxLayout" name="horizontalLayout_6">
                                   <property name="spacing">
-                                   <number>0</number>
+                                   <number>6</number>
                                   </property>
                                   <property name="leftMargin">
                                    <number>4</number>
@@ -774,6 +821,9 @@ border-top-color: transparent;
                                    <widget class="QPushButton" name="video_play_btn">
                                     <property name="toolTip">
                                      <string>Start</string>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true"/>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -960,6 +1010,64 @@ border-bottom-color: transparent;
                                 </widget>
                                </item>
                                <item>
+                                <widget class="QFrame" name="frame_11">
+                                 <property name="styleSheet">
+                                  <string notr="true">QFrame #frame_11{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+border: 1px solid;
+border-color: rgb(83, 89, 98);
+border-top-color: transparent;
+border-bottom-color: transparent;
+}QFrame #frame_15{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+border: 1px solid;
+border-color: rgb(83, 89, 98);
+border-top-color: transparent;
+border-bottom-color: transparent;
+}</string>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                                  <item>
+                                   <widget class="QGraphicsView" name="graphics_view">
+                                    <property name="sizePolicy">
+                                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                                      <horstretch>0</horstretch>
+                                      <verstretch>0</verstretch>
+                                     </sizepolicy>
+                                    </property>
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>350</width>
+                                      <height>350</height>
+                                     </size>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));</string>
+                                    </property>
+                                    <property name="verticalScrollBarPolicy">
+                                     <enum>Qt::ScrollBarAlwaysOff</enum>
+                                    </property>
+                                    <property name="horizontalScrollBarPolicy">
+                                     <enum>Qt::ScrollBarAlwaysOff</enum>
+                                    </property>
+                                    <property name="sizeAdjustPolicy">
+                                     <enum>QAbstractScrollArea::AdjustToContents</enum>
+                                    </property>
+                                    <property name="resizeAnchor">
+                                     <enum>QGraphicsView::AnchorViewCenter</enum>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                               <item>
                                 <widget class="QFrame" name="frame_16">
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
@@ -984,37 +1092,6 @@ border-bottom-color: transparent;
                                    <number>0</number>
                                   </property>
                                   <item>
-                                   <widget class="QGraphicsView" name="graphics_view">
-                                    <property name="sizePolicy">
-                                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                                      <horstretch>0</horstretch>
-                                      <verstretch>0</verstretch>
-                                     </sizepolicy>
-                                    </property>
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>350</width>
-                                      <height>350</height>
-                                     </size>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true"/>
-                                    </property>
-                                    <property name="verticalScrollBarPolicy">
-                                     <enum>Qt::ScrollBarAlwaysOff</enum>
-                                    </property>
-                                    <property name="horizontalScrollBarPolicy">
-                                     <enum>Qt::ScrollBarAlwaysOff</enum>
-                                    </property>
-                                    <property name="sizeAdjustPolicy">
-                                     <enum>QAbstractScrollArea::AdjustToContents</enum>
-                                    </property>
-                                    <property name="resizeAnchor">
-                                     <enum>QGraphicsView::AnchorViewCenter</enum>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item>
                                    <widget class="QFrame" name="frame_10">
                                     <property name="styleSheet">
                                      <string notr="true">QFrame #frame_10{
@@ -1034,7 +1111,7 @@ border-top-color: transparent;
                                     </property>
                                     <layout class="QHBoxLayout" name="horizontalLayout_8">
                                      <property name="spacing">
-                                      <number>0</number>
+                                      <number>6</number>
                                      </property>
                                      <property name="leftMargin">
                                       <number>4</number>
@@ -1046,6 +1123,9 @@ border-top-color: transparent;
                                       <widget class="QPushButton" name="hmap_play_btn">
                                        <property name="toolTip">
                                         <string>Start</string>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true"/>
                                        </property>
                                        <property name="text">
                                         <string/>
@@ -1159,7 +1239,9 @@ border-top-color: transparent;
                                </font>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(44, 42, 66);</string>
+                               <string notr="true">QFrame #right_frame{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+}</string>
                               </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>

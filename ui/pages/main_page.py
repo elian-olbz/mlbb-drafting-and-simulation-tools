@@ -48,14 +48,12 @@ class MainWindow(QMainWindow):
         self.heatmap = None
         self.hmap_viewer = None
 
-        # Connect the mousePressEvent events of the existing widgets to custom functions
-        self.practice_widget.mousePressEvent = self.create_mousePressEvent(self.show_practice_dialog)
-        self.quick_widget.mousePressEvent = self.create_mousePressEvent(self.open_quick_draft)
-        self.tracker_widget.mousePressEvent = self.create_mousePressEvent(self.open_heatmap)
-        self.hmap_viewer_widget.mousePressEvent = self.create_mousePressEvent(self.open_hmap_viewer)
+        self.practice_btn.clicked.connect(self.show_practice_dialog)
+        self.quick_btn.clicked.connect(self.open_quick_draft)
+        self.tracker_btn.clicked.connect(self.open_heatmap)
+        self.viewer_btn.clicked.connect(self.open_hmap_viewer)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
-
 #############################################################
     
         # MOVE WINDOW
@@ -81,13 +79,6 @@ class MainWindow(QMainWindow):
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
-
-    def create_mousePressEvent(self, custom_function):
-        # Create a new method that will call the custom function on mouse press event
-        def mousePressEvent(event):
-            if event.button() == Qt.MouseButton.LeftButton:
-                custom_function()
-        return mousePressEvent
 
 #######################################################################
     

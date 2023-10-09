@@ -85,14 +85,7 @@ padding:0;
 margin:0;
 color:#fff
 }
-
-
-QPushButton{
-text-align:left;
-padding: 5px 10px;
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
-}</string>
+</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_11">
          <property name="spacing">
@@ -135,13 +128,29 @@ border-bottom-left-radius: 10px;
              <number>4</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>4</number>
             </property>
             <property name="bottomMargin">
              <number>4</number>
             </property>
             <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="exit_button">
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+} </string>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -554,6 +563,23 @@ QRangeSlider {
             </item>
             <item>
              <widget class="QFrame" name="button_frame">
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 15px;
+border-radius: 0px;
+}
+
+QPushButton:hover {
+    background-color: rgb(62, 69, 82);
+}
+
+QPushButton:pressed {	
+   
+	background-color: rgb(71, 77, 96);
+    color: rgb(255, 255, 255);
+}</string>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
@@ -587,10 +613,11 @@ QRangeSlider {
                   <string notr="true">border-radius: 16px;
 border: 2px solid; 
 border-color:rgb(83, 89, 98);
-border-color: rgb(0, 170, 255);</string>
+border-color: rgb(0, 170, 255);
+</string>
                  </property>
                  <property name="text">
-                  <string> Start </string>
+                  <string>Start</string>
                  </property>
                 </widget>
                </item>

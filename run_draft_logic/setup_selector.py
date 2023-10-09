@@ -184,7 +184,7 @@ class SetupHeroSelector(QMainWindow):
             
             if hero_id not in self.unavailable_hero_ids:
                 # Apply a highlight style to the clicked label
-                highlight_color = QColor(69, 202, 255)  # Replace with the desired highlight color
+                highlight_color = QColor(69, 202, 255) 
                 highlight_radius = clicked_label.highlight_radius  # Use the dynamically calculated radius
 
                 circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
@@ -300,7 +300,7 @@ class SetupHeroSelector(QMainWindow):
 
         # Create a transparent gray overlay pixmap
         overlay_pixmap = QPixmap(circular_pixmap.size())
-        overlay_pixmap.fill(QColor(0, 0, 0, opacity))  # Adjust opacity as needed
+        overlay_pixmap.fill(QColor(0, 0, 0, opacity)) 
         overlay_pixmap.setMask(mask)
 
         # Combine the circular_pixmap and the overlay_pixmap

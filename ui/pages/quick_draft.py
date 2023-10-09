@@ -21,6 +21,8 @@ from ui.misc.graphs import *
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
+QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+
 class QuickDraftWindow(QMainWindow):
     def __init__(self):
         super(QuickDraftWindow, self).__init__()
@@ -197,8 +199,8 @@ class QuickDraftWindow(QMainWindow):
             return
             
     def set_highlight(self, radius):
-        highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color
-        highlight_radius = radius / 2  # Adjust the radius as needed
+        highlight_color = QColor(85, 255, 127)
+        highlight_radius = radius / 2
         circular_style = f"border-radius: {highlight_radius}px; border: 3px solid {highlight_color.name()};"
         if self.picker_button_active:
             if self.selected_hero is not None and self.combined_hero_dict[self.obj_name] != 0:
@@ -214,10 +216,11 @@ class QuickDraftWindow(QMainWindow):
         if any(self.combined_hero_dict.values()) != 0:
             if self.picker_button_active == False:
                 self.picker_button_active = True
-                highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color
-                highlight_radius = 23  # Adjust the radius as needed
+                highlight_color = QColor(85, 255, 127)
+                highlight_radius = 23 
+                self.picker_btn.setFixedSize(46, 46)
                 circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
-                self.picker_btn.setStyleSheet(circular_style + "image: url(:/icons/icons/pick-icon.png);")
+                self.picker_btn.setStyleSheet(circular_style + QSS)
                 # Remove recent highlight from the hero selector dialog if there is any
                 if self.qlabel_to_update is not None: 
                     key = self.qlabel_to_update.objectName()
@@ -226,7 +229,8 @@ class QuickDraftWindow(QMainWindow):
                     else:
                         self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
             else:
-                self.picker_btn.setStyleSheet("image: url(:/icons/icons/pick-icon.png);")
+                self.picker_btn.setFixedSize(46, 46)
+                self.picker_btn.setStyleSheet(QSS)
                 self.picker_button_active = False
                 if self.curr_selected_qlabel is not None:
                     self.curr_selected_qlabel.setStyleSheet("")
@@ -320,7 +324,7 @@ class QuickDraftWindow(QMainWindow):
     
     def create_horizontal_stats(self):  # line up winrate and single hero attr 
         # Create a Matplotlib figure and canvas
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))  # Adjust the figsize as needed
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))
         canvas = FigureCanvas(fig)
         self.attr_layout.addWidget(canvas)
 

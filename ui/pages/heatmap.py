@@ -121,7 +121,7 @@ class HeatMapWindow(QMainWindow):
 
         self.cap = None
         self.video_path = ""
-        self.temp_pickle = "outputs/temp.pickle"  # Replace with the desired pickle file path
+        self.temp_pickle = "outputs/temp.pickle" 
         self.frame_count = 0
 
         self.original_frame = None
@@ -177,7 +177,7 @@ class HeatMapWindow(QMainWindow):
         if self.is_running == True:
             return
         else:
-            video_path, _ = QFileDialog.getOpenFileName(self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mkv);;All Files (*)")
+            video_path, _ = QFileDialog.getOpenFileName(self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mkv)")
             if video_path:
                 if self.is_running:
                     self.stop_prediction()  # Stop any ongoing prediction

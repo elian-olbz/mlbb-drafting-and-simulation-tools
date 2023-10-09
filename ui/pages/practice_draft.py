@@ -69,7 +69,7 @@ class DraftWindow(QMainWindow):
 
         self.hero_selector.populate_tabs(self, 90)
         # Connect the pick_button click signal to disp_selected_image with the last stored hero_id
-        self.pick_button.clicked.connect(self.on_button_click)
+        self.pick_button.clicked.connect(self.filter_btn_click)
         self.undo_button.clicked.connect(self.undo_move)
 
         self.reset_btn.clicked.connect(self.show_reset_dialog)
@@ -171,6 +171,15 @@ class DraftWindow(QMainWindow):
                 if self.ai_thread is not None:
                     self.ai_thread.start()
 
+    def filter_btn_click(self):
+        index = get_curr_index(self.hero_selector.remaining_clicks)
+        if self.mode == "HvA" and index in self.hero_selector.blue_turn:
+            self.on_button_click()
+        elif self.mode == "AvH" and index not in self.hero_selector.blue_turn:
+            self.on_button_click()
+        elif self.mode == "HvH":
+            self.on_button_click()
+
     def on_button_click(self):
         self.pick_button_clicked = True
         if self.hero_selector.remaining_clicks <= 0 or self.hero_selector.selected_id is None:
@@ -185,9 +194,11 @@ class DraftWindow(QMainWindow):
             self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.hero_selector.current_clicked_label = None
             self.update_button_text()
+        else:
+            return
 
-        # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = self.delay  # Adjust the delay time as needed
+        # Set the delay time before emitting the signal
+        delay_milliseconds = self.delay 
         self.delay_timer.start(delay_milliseconds)
 
     def auto_player_next_move(self):
@@ -198,8 +209,7 @@ class DraftWindow(QMainWindow):
         else:
             self.next_move(self.draft_state, self.hero_selector.selected_id, self.mode, False)
         
-        # Set the desired delay time (in milliseconds) before emitting the signal
-        delay_milliseconds = self.delay  # Adjust the delay time as needed
+        delay_milliseconds = self.delay
         self.delay_timer.start(delay_milliseconds)
 
 
@@ -303,7 +313,7 @@ class DraftWindow(QMainWindow):
     def update_button_text(self):
         self.highlight_next_qlabel()
         if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
-            self.pick_button.setText("  Pick  ")
+            self.pick_button.setText("Pick")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
@@ -312,7 +322,7 @@ class DraftWindow(QMainWindow):
                 self.top_text.setText("Red Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
         else:
-            self.pick_button.setText("  Ban  ")
+            self.pick_button.setText("Ban")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Ban")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")

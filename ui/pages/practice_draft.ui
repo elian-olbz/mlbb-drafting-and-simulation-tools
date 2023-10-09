@@ -197,7 +197,7 @@ color:#fff
                     <number>8</number>
                    </property>
                    <property name="leftMargin">
-                    <number>12</number>
+                    <number>10</number>
                    </property>
                    <property name="topMargin">
                     <number>2</number>
@@ -210,6 +210,22 @@ color:#fff
                    </property>
                    <item alignment="Qt::AlignLeft">
                     <widget class="QPushButton" name="home_btn">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -261,6 +277,22 @@ color:#fff
                     <height>0</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -269,10 +301,28 @@ color:#fff
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_7">
                    <property name="spacing">
-                    <number>20</number>
+                    <number>12</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>4</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>4</number>
                    </property>
                    <item alignment="Qt::AlignHCenter">
                     <widget class="QPushButton" name="reset_btn">
+                     <property name="maximumSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Rest All</string>
                      </property>
@@ -293,6 +343,12 @@ color:#fff
                    </item>
                    <item>
                     <widget class="QPushButton" name="save_btn">
+                     <property name="maximumSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Save</string>
                      </property>
@@ -316,6 +372,12 @@ color:#fff
                    </item>
                    <item alignment="Qt::AlignHCenter">
                     <widget class="QPushButton" name="export_btn">
+                     <property name="maximumSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
                      <property name="toolTip">
                       <string>Analyze Draft</string>
                      </property>
@@ -376,6 +438,22 @@ color:#fff
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -384,7 +462,7 @@ color:#fff
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_8">
                    <property name="spacing">
-                    <number>20</number>
+                    <number>0</number>
                    </property>
                    <property name="leftMargin">
                     <number>20</number>
@@ -402,23 +480,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_min">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Minimize</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {	
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -433,23 +509,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_max">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Minimize</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {	
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -464,23 +538,21 @@ color:#fff
                     <widget class="QPushButton" name="btn_close">
                      <property name="minimumSize">
                       <size>
-                       <width>16</width>
-                       <height>16</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>17</width>
-                       <height>17</height>
+                       <width>30</width>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="toolTip">
                       <string>Close</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton:hover {		
-	background-color: #23272e;
-}</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string/>
@@ -1556,9 +1628,12 @@ QTabBar::tab {
 	border-bottom-right-radius: 0px;
 }
 
-QTabBar::tab:selected, QTabBar::tab:hover {
+QTabBar::tab:selected {
     /* Set the background color of the selected/hovered tab */
-    background-color: #323842; /* Darker accent color */
+     background-color: #323842;
+}
+ QTabBar::tab:hover {
+	background-color: rgb(108, 108, 162);
 }
 
 /* Tab content area styles */
@@ -1657,6 +1732,20 @@ QScrollBar:vertical {
                                       <height>92</height>
                                      </size>
                                     </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">QPushButton{
+text-align:center;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+}</string>
+                                    </property>
                                     <property name="frameShape">
                                      <enum>QFrame::StyledPanel</enum>
                                     </property>
@@ -1691,7 +1780,8 @@ QScrollBar:vertical {
                                         <string notr="true">border-radius: 20px;
 border: 2px solid; 
 border-color:rgb(83, 89, 98);
-border-color: rgb(0, 170, 255);</string>
+border-color: rgb(0, 170, 255);
+padding: 5px 10px;</string>
                                        </property>
                                        <property name="text">
                                         <string> Undo </string>
@@ -1722,10 +1812,11 @@ border-color: rgb(0, 170, 255);</string>
                                         <string notr="true">border-radius: 20px;
 border: 2px solid; 
 border-color:rgb(83, 89, 98);
-border-color: rgb(0, 170, 255);</string>
+border-color: rgb(0, 170, 255);
+padding: 5px 20px;</string>
                                        </property>
                                        <property name="text">
-                                        <string>  Ban  </string>
+                                        <string>Ban</string>
                                        </property>
                                       </widget>
                                      </item>

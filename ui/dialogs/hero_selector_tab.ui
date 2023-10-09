@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>706</width>
-    <height>532</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,13 +73,6 @@ background:transparent;
 padding:0;
 margin:0;
 color:#fff
-}
-
-QPushButton{
-text-align:left;
-padding: 5px 10px;
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
 }</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -123,13 +116,29 @@ border-bottom-left-radius: 10px;
              <number>4</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>4</number>
             </property>
             <property name="bottomMargin">
              <number>4</number>
             </property>
             <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="exit_button">
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 5px;
+border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+} </string>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -201,9 +210,12 @@ QTabBar::tab {
 	border-bottom-right-radius: 0px;
 }
 
-QTabBar::tab:selected, QTabBar::tab:hover {
+QTabBar::tab:selected {
     /* Set the background color of the selected/hovered tab */
-    background-color: #323842; /* Darker accent color */
+     background-color: #323842;
+}
+ QTabBar::tab:hover {
+	background-color: rgb(108, 108, 162);
 }
 
 /* Tab content area styles */
@@ -296,6 +308,22 @@ QScrollBar:vertical {
          </item>
          <item>
           <widget class="QWidget" name="bottom_container" native="true">
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+text-align:center;
+padding: 5px 12px;
+border-radius: 0px;
+}
+
+QPushButton:hover {
+    background-color: #23272e;
+}
+
+QPushButton:pressed {	
+    background-color: rgb(62, 69, 82);
+    color: rgb(255, 255, 255);
+} </string>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="spacing">
              <number>0</number>
@@ -340,7 +368,7 @@ QScrollBar:vertical {
                 <widget class="QPushButton" name="select_btn">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -350,7 +378,7 @@ border-color:rgb(83, 89, 98);
 border-color: rgb(0, 170, 255);</string>
                  </property>
                  <property name="text">
-                  <string> Select </string>
+                  <string>Select</string>
                  </property>
                 </widget>
                </item>

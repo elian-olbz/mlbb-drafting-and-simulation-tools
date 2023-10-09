@@ -380,7 +380,6 @@ class HeatmapViewerWindow(QMainWindow):
                 return
 
     def validate_csv_format(self, csv_path):
-        # Define your desired CSV format here
         csv_format = ["Frame", "Class", "Class_ID", "X", "Y"]
 
         # Read the CSV file and check its format
@@ -524,7 +523,7 @@ class HeatmapViewerWindow(QMainWindow):
 
                     if class_id in self.class_img_items:
                         img_item = self.class_img_items[class_id]
-                        img_item.setPixmap(pixmap)  # Update the pixmap if needed
+                        img_item.setPixmap(pixmap)
                     else:
                         img_item = QGraphicsPixmapItem(pixmap, None)
                         self.class_img_items[class_id] = img_item  # Store the reference
