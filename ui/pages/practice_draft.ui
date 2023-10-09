@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1012</width>
+    <width>1002</width>
     <height>637</height>
    </rect>
   </property>
@@ -1688,7 +1688,10 @@ QScrollBar:vertical {
                                         <enum>Qt::LeftToRight</enum>
                                        </property>
                                        <property name="styleSheet">
-                                        <string notr="true">background-color: rgb(0, 170, 255);</string>
+                                        <string notr="true">border-radius: 20px;
+border: 2px solid; 
+border-color:rgb(83, 89, 98);
+border-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
                                         <string> Undo </string>
@@ -1716,7 +1719,10 @@ QScrollBar:vertical {
                                         </font>
                                        </property>
                                        <property name="styleSheet">
-                                        <string notr="true">background-color: rgb(0, 170, 255);</string>
+                                        <string notr="true">border-radius: 20px;
+border: 2px solid; 
+border-color:rgb(83, 89, 98);
+border-color: rgb(0, 170, 255);</string>
                                        </property>
                                        <property name="text">
                                         <string>  Ban  </string>

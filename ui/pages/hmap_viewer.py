@@ -3,7 +3,7 @@ import csv
 import os
 import cv2
 from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QGraphicsItemGroup ,QGraphicsScene, QGraphicsPathItem, QGraphicsView, QGraphicsPixmapItem, QGraphicsEllipseItem, QHBoxLayout, QWidget, QFileDialog, QMessageBox
-from PyQt6.QtGui import QPixmap, QImage, QBrush, QPainter, QPainterPath, QColor, QPen, QIcon
+from PyQt6.QtGui import QPixmap, QImage, QBrush, QPainter, QPainterPath, QColor, QPen, QIcon, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, QTimer, QRectF, QPointF, pyqtSignal, QThread, QSize
 from PyQt6 import uic
 from ui.rsc_rc import *
@@ -14,7 +14,6 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_SIZE = 720
 FRAME_SKIP = 1
 DELAY = 80
-#VISIBLE_HEROES = [110, 36, 18, 116, 25, 119, 87, 16, 64, 88] #[110, 36, 18, 116, 25, 119, 87, 16, 64, 88]
 
 class VideoThread(QThread):
     frame_ready = pyqtSignal(QPixmap)
@@ -186,8 +185,22 @@ class HeatmapViewerWindow(QMainWindow):
         self.hmap_slider.valueChanged.connect(self.seek_hmap_frame)
         self.connect_hero_btns()
 
+        # Create a QShortcut that triggers the button click event on "Enter" key press
+        shortcut = QShortcut(QKeySequence(Qt.Key.Key_Space), self)
+        shortcut.activated.connect(self.play_all_button)
+    
+    def play_all_button(self):
+        if (self.is_hmap_running and self.is_video_running) or (not self.is_hmap_running and not self.is_video_running):
+            self.hmap_play_pause()
+            self.video_play_pause()
+        elif not self.is_hmap_running and self.is_video_running:
+            self.video_play_pause()
+        elif self.is_hmap_running and not self.is_video_running:
+            self.hmap_play_pause()
+
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
+
 
     def clean(self):
         if self.video and self.video.video_thread:
@@ -359,7 +372,8 @@ class HeatmapViewerWindow(QMainWindow):
                     self.update_btn_text()
                     self.update_file_name_label(self.csv_path, self.csv_name)
                     # Add the background item to the scene
-                    self.scene.addItem(self.background_item)
+                    if self.background_item not in self.scene.items():
+                        self.scene.addItem(self.background_item)
                 else:
                     QMessageBox.critical(self, "Error", "CSV format does not match the desired format.")
             else:

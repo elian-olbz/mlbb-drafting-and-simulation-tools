@@ -70,6 +70,12 @@ class QuickDraftWindow(QMainWindow):
         self.create_all_charts()
         self.role2.setVisible(False)
 
+        space_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Space), self.hero_dialog)
+        space_shortcut.activated.connect(self.hero_dialog.select_btn.click)
+        
+        enter_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self.hero_dialog)
+        enter_shortcut.activated.connect(self.hero_dialog.select_btn.click)
+
 #############################################################       
         # MOVE WINDOW
         def moveWindow(event):
@@ -183,6 +189,12 @@ class QuickDraftWindow(QMainWindow):
                         ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
                         self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
                 self.h_charts_canvas.draw()
+
+            self.hero_dialog.selector.selected_id = None
+            self.qlabel_to_update = None
+
+        else:
+            return
             
     def set_highlight(self, radius):
         highlight_color = QColor(85, 255, 127)  # Replace with the desired highlight color

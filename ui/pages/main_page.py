@@ -15,10 +15,9 @@ from ui.pages.heatmap import HeatMapWindow
 from ui.pages.hmap_viewer import HeatmapViewerWindow
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
-from ui.dialogs.board_selector import OpenBoardSelector
 from ui.misc.titlebar import*
-from ui.dialogs.open_board import *
 from ui.dialogs.hero_selector_tab import *
+from ui.dialogs.exit_page import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
@@ -36,6 +35,9 @@ class MainWindow(QMainWindow):
      
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
+        self.exit_page_dialog = ExitDialog()
+
+        self.exit_page_dialog.cancel_btn.clicked.connect(self.close_exit_dialog)
         
         ui_path = os.path.join(script_dir,  "main_page.ui")
 
@@ -47,7 +49,7 @@ class MainWindow(QMainWindow):
         self.hmap_viewer = None
 
         # Connect the mousePressEvent events of the existing widgets to custom functions
-        self.practice_widget.mousePressEvent = self.create_mousePressEvent(self.open_practice_dialog)
+        self.practice_widget.mousePressEvent = self.create_mousePressEvent(self.show_practice_dialog)
         self.quick_widget.mousePressEvent = self.create_mousePressEvent(self.open_quick_draft)
         self.tracker_widget.mousePressEvent = self.create_mousePressEvent(self.open_heatmap)
         self.hmap_viewer_widget.mousePressEvent = self.create_mousePressEvent(self.open_hmap_viewer)
@@ -90,14 +92,21 @@ class MainWindow(QMainWindow):
 #######################################################################
     
     # Dialog for setting up parameters(player type, intelligence) before opening the practice draft window
-    def open_practice_dialog(self):
+    def show_practice_dialog(self):
         self.practice_dialog.show()
+    
+    def show_exit_dialog(self):
+        self.exit_page_dialog.show()
+
+    def close_exit_dialog(self):
+        self.exit_page_dialog.close()
 
 #########################################################################
     # Initialize and open practice draft window
     def open_practice_page(self):
         self.draft_window = DraftWindow()
-        self.draft_window.home_btn.clicked.connect(self.close_practice_draft)
+        self.draft_window.home_btn.clicked.connect(self.show_exit_dialog)
+        self.exit_page_dialog.okay_btn.clicked.connect(self.close_practice_draft)
         
         # set the player types from the combo box index/value
         if self.practice_dialog.mode_combo_box.currentIndex() == 0:
@@ -118,6 +127,7 @@ class MainWindow(QMainWindow):
         self.hide()
 
     def close_practice_draft(self):
+        self.close_exit_dialog()
         self.draft_window.close()
         self.draft_window.stop_ai_thread()
         self.show()
@@ -126,19 +136,22 @@ class MainWindow(QMainWindow):
     # Initialize and open quick draft window
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
-        self.quick_draft.home_btn.clicked.connect(self.close_quick_draft)
+        self.quick_draft.home_btn.clicked.connect(self.show_exit_dialog)
+        self.exit_page_dialog.okay_btn.clicked.connect(self.close_quick_draft)
         self.quick_draft.showMaximized()
         self.hide()
 
     def close_quick_draft(self):
         self.quick_draft.close()
+        self.close_exit_dialog()
         self.show()
 
 ########################################################################
     # Initialize and open heatmap window
     def open_heatmap(self):
         self.heatmap = HeatMapWindow()
-        self.heatmap.home_btn.clicked.connect(self.close_heatmap)
+        self.heatmap.home_btn.clicked.connect(self.show_exit_dialog)
+        self.exit_page_dialog.okay_btn.clicked.connect(self.close_heatmap)
         opened = self.heatmap.open_video_file()
         if opened:
             self.heatmap.showMaximized()
@@ -148,16 +161,19 @@ class MainWindow(QMainWindow):
 
     def close_heatmap(self):
         self.heatmap.close()
+        self.close_exit_dialog()
         self.show()
 #########################################################################
-    # Initialize and open coaching board window
+    # Initialize and open heatmap viewer window
     def open_hmap_viewer(self):
         self.hmap_viewer = HeatmapViewerWindow()
-        self.hmap_viewer.home_btn.clicked.connect(self.close_board)
+        self.hmap_viewer.home_btn.clicked.connect(self.show_exit_dialog)
+        self.exit_page_dialog.okay_btn.clicked.connect(self.close_hmap_viewer)
         self.hmap_viewer.showMaximized()
         self.hide()
             
-    def close_board(self):
+    def close_hmap_viewer(self):
         self.hmap_viewer.close()
+        self.close_exit_dialog()
         self.show()
 ##########################################################################

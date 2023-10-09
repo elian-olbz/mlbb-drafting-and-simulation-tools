@@ -1,6 +1,5 @@
-from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtWidgets import QDialog
 from PyQt6 import uic
-import sys
 import os
 from ui.rsc_rc import *
 from ui.misc.dialog_nav import*
@@ -8,14 +7,14 @@ from ui.misc.dialog_nav import*
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
-class OpenBoardSelector(QDialog):
+class ExitDialog(QDialog):
        def __init__(self):
-              super(OpenBoardSelector, self).__init__()
+              super(ExitDialog, self).__init__()
 
-              ui_path = os.path.join(script_dir,  "board_selector.ui")
+              ui_path = os.path.join(script_dir,  "exit_page.ui")
 
               uic.loadUi(ui_path, self)
-              self.t_bar = DialogBar(self)
+              self.title_bar = DialogBar(self)
 #############################################################       
         # MOVE WINDOW
               def moveWindow(event):
@@ -30,7 +29,7 @@ class OpenBoardSelector(QDialog):
               self.exit_frame.mouseMoveEvent = moveWindow
 
               ## ==> SET UI DEFINITIONS
-              self.t_bar.DialogAttrs(self)
+              self.title_bar.DialogAttrs(self)
 
        def mousePressEvent(self, event):
               self.dragPos = event.globalPosition().toPoint()

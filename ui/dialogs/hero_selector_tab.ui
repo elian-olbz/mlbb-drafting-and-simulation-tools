@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>706</width>
-    <height>500</height>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -126,7 +126,7 @@ border-bottom-left-radius: 10px;
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>4</number>
             </property>
             <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="exit_button">
@@ -310,7 +310,7 @@ QScrollBar:vertical {
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>10</number>
+             <number>12</number>
             </property>
             <item alignment="Qt::AlignHCenter">
              <widget class="QFrame" name="button_frame">
@@ -344,8 +344,10 @@ QScrollBar:vertical {
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color: rgb(0, 170, 255);
-border-radius: 12px;</string>
+                  <string notr="true">border-radius: 16px;
+border: 2px solid; 
+border-color:rgb(83, 89, 98);
+border-color: rgb(0, 170, 255);</string>
                  </property>
                  <property name="text">
                   <string> Select </string>

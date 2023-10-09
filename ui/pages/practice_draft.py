@@ -86,8 +86,14 @@ class DraftWindow(QMainWindow):
         self.delay_timer.timeout.connect(self.emit_auto_player_signal)
 
         # Create a QShortcut that triggers the button click event on "Enter" key press
-        shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self)
-        shortcut.activated.connect(self.pick_button.click)
+        enter_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self)
+        enter_shortcut.activated.connect(self.pick_button.click)
+
+        undo_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Z), self)
+        undo_shortcut.activated.connect(self.undo_button.click)
+
+        reset_shortcut = QShortcut(QKeySequence(Qt.Key.Key_R), self)
+        reset_shortcut.activated.connect(self.reset_btn.click)
 
         self.ai_thread = None
 
@@ -297,7 +303,7 @@ class DraftWindow(QMainWindow):
     def update_button_text(self):
         self.highlight_next_qlabel()
         if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
-            self.pick_button.setText("   Pick   ")
+            self.pick_button.setText("  Pick  ")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
@@ -306,7 +312,7 @@ class DraftWindow(QMainWindow):
                 self.top_text.setText("Red Team Pick")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
         else:
-            self.pick_button.setText("   Ban   ")
+            self.pick_button.setText("  Ban  ")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Ban")
                 self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
