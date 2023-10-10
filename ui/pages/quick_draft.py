@@ -165,14 +165,13 @@ class QuickDraftWindow(QMainWindow):
                     self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
                     self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.red_heroes[self.obj_name], True)
                     self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
-            print(f'unvail: {self.hero_dialog.selector.unavailable_hero_ids}')
 
             self.qlabel_to_update = None
             # update the radar chart
             new_blue_win_attr = self.set_radar_data(self.blue_heroes)
             new_red_win_attr = self.set_radar_data(self.red_heroes)
-            self.blue_win_attr.update_graph(new_blue_win_attr, team_label='Team Blue')
-            self.red_win_attr.update_graph(new_red_win_attr, team_label='Team Red')
+            self.blue_win_attr.update_graph(new_blue_win_attr)
+            self.red_win_attr.update_graph(new_red_win_attr)
             self.radar_canvas.draw()
 
             # update diverging h_chart
@@ -297,10 +296,10 @@ class QuickDraftWindow(QMainWindow):
 
     def crete_radar_chart(self):  # radar chart
         # Canvas for the graphs
-        fig = Figure(figsize=(4, 4))
+        fig = Figure(figsize=(5, 5))
         canvas = FigureCanvas(fig)
         self.radar_layout.addWidget(canvas)
-        #fig.subplots_adjust(left=0.15, right=0.9, top=0.9, bottom=0.1, hspace=0.45) 
+        #fig.subplots_adjust(top=0.8, bottom=0.2, left=0.15, right=0.89)
 
         axs = fig.subplots(1, 2)
         fig.patch.set_visible(False)
@@ -324,12 +323,13 @@ class QuickDraftWindow(QMainWindow):
     
     def create_horizontal_stats(self):  # line up winrate and single hero attr 
         # Create a Matplotlib figure and canvas
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(7, 7))
+        fig.patch.set_visible(False)
         canvas = FigureCanvas(fig)
         self.attr_layout.addWidget(canvas)
 
         # Adjust the subplots' position and spacing
-        fig.subplots_adjust(left=0.2, right=0.95, hspace=0.4)  # adjust values
+        fig.subplots_adjust(left=0.235, right=0.9, hspace=0.4)  # adjust values
 
         # Create instances of SingleHeroAttr and LineUpWinrate, passing the axes
         wr_chart = LineUpWinrate(ax1)
@@ -339,9 +339,12 @@ class QuickDraftWindow(QMainWindow):
 
 
     def create_diverging_stats(self):  # head to head attr
-        fig, ax = plt.subplots(figsize=(8, 8))
+        fig, ax = plt.subplots(figsize=(6, 8))
+        #ax.remove()
+        fig.patch.set_visible(False)
         canvas = FigureCanvas(fig)
         self.diverging_layout.addWidget(canvas)
+        fig.subplots_adjust(top=0.9, bottom=0.2, left=0.15, right=0.89)
 
         # Create an instance of HeadToHeadAttr, passing the Matplotlib axes
         head_to_head_attr = HeadToHeadAttr(ax)
@@ -352,6 +355,7 @@ class QuickDraftWindow(QMainWindow):
         # Create a Matplotlib figure and canvas for the three donut charts
         fig = Figure(figsize=(7,7))
         axs = fig.subplots(1, 3)
+        fig.patch.set_visible(False)
         canvas = FigureCanvas(fig)
         self.pie_layout.addWidget(canvas)
         fig.subplots_adjust(top=0.95, bottom=0.3, wspace=0.5 , hspace=0.4)
@@ -380,33 +384,36 @@ class QuickDraftWindow(QMainWindow):
     def load_attr(self, path):
         hero_data = []
         with open(path, 'r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                hero_data.append([int(row['Burst']), int(row['DPS']), int(row['Scaling']), 
-                                int(row['Neutrals']), int(row['Push']), int(row['Clear']),
-                                int(row['CC']), int(row['Sustain']), int(row['Vision']), int(row['Mobility']), 
-                                float(eval(row['Pick Rate'])), float(eval(row['Ban Rate'])), float(eval(row['Win Rate'])), 
-                                int(row['Pick']), int(row['Ban']), int(row['Win'])])
+            csv_reader = csv.reader(file)
+            next(csv_reader)  # Skip the header row
+            for row in csv_reader:
+                row_data = []
+                for i in range(1, 20):
+                    if i not in [14, 15, 16]:
+                        row_data.append(int(row[i].strip()))
+                    else:
+                        row_data.append(float(row[i].strip()))
+                hero_data.append(row_data)
         return hero_data
     
     def extract_attr(self, hero_data):
         hero_stats = []
         for row in hero_data:
-            first_tean_values = row[:10]
-            hero_stats.append(first_tean_values)
+            values = row[6:13]
+            hero_stats.append(values)
         return hero_stats
     
     def extract_stats(self, hero_data):
         hero_stats = []
         for row in hero_data:
-            last_six_values = row[10:16]
+            last_six_values = row[13:19]
             rounded_values = [round(value * 100, 2) if isinstance(value, float) else value for value in last_six_values]
             hero_stats.append(rounded_values)
         return hero_stats
     
     def set_radar_data(self, hero_dict):
-        hero_burst, hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-        objectives, early_game, late_game, team_fight, sustain, map_control = [], [], [], [], [], []
+        em, tf,  b, lg, i, ds   =  0, 1, 2, 3, 4, 5
+        early_to_mid, team_fight, burst,  late_game, iso, dot_sutain = [], [], [], [], [], []
 
         len_count = 5
         team_data = []
@@ -414,21 +421,21 @@ class QuickDraftWindow(QMainWindow):
             for val in hero_dict.values():
                 if val != 0:
                     hero_id = int(val) - 1
-                    objectives.append((self.hero_data[hero_id][hero_neutrals] + self.hero_data[hero_id][hero_push]) / 2)
-                    late_game.append((self.hero_data[hero_id][hero_scaling] + self.hero_data[hero_id][hero_dps]) / 2)
-                    early_game.append((self.hero_data[hero_id][hero_burst] + self.hero_data[hero_id][hero_cc]) / 2)
-                    team_fight.append((self.hero_data[hero_id][hero_burst] + self.hero_data[hero_id][hero_cc]) / 2)
-                    map_control.append((self.hero_data[hero_id][hero_mobility] + self.hero_data[hero_id][hero_clear]) / 2)
-                    sustain.append((self.hero_data[hero_id][hero_sustain]))
+                    early_to_mid.append(self.hero_data[hero_id][em])
+                    team_fight.append(self.hero_data[hero_id][tf])
+                    burst.append(self.hero_data[hero_id][b])
+                    late_game.append(self.hero_data[hero_id][lg])
+                    iso.append(self.hero_data[hero_id][i])
+                    dot_sutain.append(self.hero_data[hero_id][ds])
 
-            team_data = [self.get_average(objectives, len_count), self.get_average(early_game, len_count), 
-                         self.get_average(late_game, len_count), self.get_average(team_fight, len_count), 
-                         self.get_average(map_control, len_count), self.get_average(sustain, len_count)]
+            team_data = [self.get_average(early_to_mid, len_count), self.get_average(team_fight, len_count), 
+                         self.get_average(burst, len_count), self.get_average(late_game, len_count), 
+                         self.get_average(iso, len_count), self.get_average(dot_sutain, len_count)]
         return team_data
     
     def set_diverging_data(self, hero_dict):
-        hero_burst, hero_dps, hero_scaling, hero_neutrals, hero_push, hero_clear, hero_cc, hero_sustain, hero_vision, hero_mobility = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-        team_burst, team_dps, team_scaling, team_neutrals, team_push, team_clear, team_cc, team_sustain, team_vision, team_mobility = [], [], [], [], [], [], [], [], [], []
+        wc, hd, v, cc, o, p, u = 6, 7, 8, 9, 10, 11, 12
+        wave_clear, hero_dps, vision, crowd_control, objective, push, utility = [], [], [], [], [], [], []
 
         team_data = []
         len_count = 5
@@ -437,22 +444,18 @@ class QuickDraftWindow(QMainWindow):
             for val in hero_dict.values():
                 if val != 0:
                     hero_id = int(val) - 1
-                    team_burst.append(self.hero_data[hero_id][hero_burst])
-                    team_dps.append(self.hero_data[hero_id][hero_dps])
-                    team_scaling.append(self.hero_data[hero_id][hero_scaling])
-                    team_neutrals.append(self.hero_data[hero_id][hero_neutrals])
-                    team_push.append(self.hero_data[hero_id][hero_push])
-                    team_clear.append(self.hero_data[hero_id][hero_clear])
-                    team_cc.append(self.hero_data[hero_id][hero_cc])
-                    team_sustain.append(self.hero_data[hero_id][hero_sustain])
-                    team_vision.append(self.hero_data[hero_id][hero_vision])
-                    team_mobility.append(self.hero_data[hero_id][hero_mobility])
-
-        team_data = [self.get_average(team_burst, len_count), self.get_average(team_dps, len_count), 
-                     self.get_average(team_scaling, len_count), self.get_average(team_neutrals, len_count), 
-                     self.get_average(team_push, len_count), self.get_average(team_clear, len_count), 
-                     self.get_average(team_cc, len_count), self.get_average(team_sustain, len_count), 
-                     self.get_average(team_vision, len_count), self.get_average(team_mobility, len_count)]
+                    wave_clear.append(self.hero_data[hero_id][wc])
+                    hero_dps.append(self.hero_data[hero_id][hd])
+                    vision.append(self.hero_data[hero_id][v])
+                    crowd_control.append(self.hero_data[hero_id][cc])
+                    objective.append(self.hero_data[hero_id][o])
+                    push.append(self.hero_data[hero_id][p])
+                    utility.append(self.hero_data[hero_id][u])
+        
+        team_data = [self.get_average(wave_clear, len_count), self.get_average(hero_dps, len_count), 
+                     self.get_average(vision, len_count), self.get_average(crowd_control, len_count), 
+                     self.get_average(objective, len_count), self.get_average(push, len_count), 
+                     self.get_average(utility, len_count)]
         
         return team_data
 
