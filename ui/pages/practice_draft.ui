@@ -777,7 +777,7 @@ background-color:rgb(15, 15, 26);
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame{
-background-color: rgb(170, 170, 255);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -785,7 +785,7 @@ border-bottom-right-radius: 10px;
 }
 
 QFrame #blue_ban_frame{
-border: 2px solid; border-color:rgb(255, 255, 255);
+border: 2px solid; border-color: #d9d9d9
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -830,7 +830,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -866,7 +866,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -902,7 +902,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -938,7 +938,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -974,7 +974,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1057,9 +1057,10 @@ border-color:rgb(255, 255, 255);</string>
                                     </property>
                                     <property name="styleSheet">
                                      <string notr="true">QFrame #wel_frame{
-border: 3px solid rgb(170, 170, 255);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
+border: 3px solid #d9d9d9;
 border-top: 10px solid;
-border-top-color: rgb(170, 170, 255);
+border-top-color: #d9d9d9;
 border-top-left-radius: 0px;
 border-bottom-left-radius: 35px;
 border-top-right-radius: 0px;
@@ -1088,7 +1089,7 @@ border-bottom-right-radius: 35px;
                                         </sizepolicy>
                                        </property>
                                        <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Blue Team Ban&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#eaeaea;&quot;&gt;Blue Team Ban&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                        </property>
                                       </widget>
                                      </item>
@@ -1121,7 +1122,7 @@ border-bottom-right-radius: 35px;
                                  </property>
                                  <property name="styleSheet">
                                   <string notr="true">QFrame{
-background-color: rgb(170, 170, 255);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -1129,7 +1130,7 @@ border-bottom-right-radius: 10px;
 }
 
 QFrame #red_ban_frame{
-border: 2px solid; border-color:rgb(255, 255, 255);
+border: 2px solid; border-color: #d9d9d9;
 }</string>
                                  </property>
                                  <property name="frameShape">
@@ -1174,7 +1175,7 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1210,7 +1211,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1246,7 +1247,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1282,7 +1283,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1318,7 +1319,7 @@ border-color:rgb(255, 255, 255);</string>
                                     <property name="styleSheet">
                                      <string notr="true">border-radius: 28px; border: 3px solid;
 image: url(:/icons/icons/question_mark.png);
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1424,9 +1425,9 @@ border-bottom-right-radius: 10px;
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1448,9 +1449,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1472,9 +1473,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1496,9 +1497,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1520,9 +1521,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1561,8 +1562,8 @@ border-radius: 10px;</string>
                                    <widget class="QFrame" name="tab_frame">
                                     <property name="styleSheet">
                                      <string notr="true">QFrame #tab_frame{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 3px solid #d9d9d9;
+background-color: #3e3e62;
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -1610,7 +1611,7 @@ border-radius: 0px;
 
 QTabBar::tab {
     /* Set the background color of each tab */
-   background-color: rgb(170, 170, 255);
+   background-color: #3e3e62;
     /* Set the color of the tab title text */
     color: #ffffff;
     /* Set the padding around each tab */
@@ -1621,7 +1622,7 @@ QTabBar::tab {
     height: 18px;
     font-size: 13px; 
     font-family: 'Segoe UI' ;
-	 border: 1px solid rgb(170, 170, 255);
+	 border: 1px solid #3e3e62;
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	border-top-right-radius: 0px;
@@ -1650,7 +1651,7 @@ QScrollBar:vertical {
 	 border-radius: 0px;
  }
  QScrollBar::handle:vertical {	
-	background: rgb(189, 147, 249);
+	background: #606097;
     min-height: 25px;
 	border-radius: 4px
  }
@@ -1682,7 +1683,7 @@ QScrollBar:vertical {
 </string>
                                        </property>
                                        <property name="currentIndex">
-                                        <number>0</number>
+                                        <number>6</number>
                                        </property>
                                        <widget class="QWidget" name="tab">
                                         <attribute name="title">
@@ -1889,9 +1890,9 @@ border-bottom-right-radius: 0px;
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1913,9 +1914,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1937,9 +1938,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1961,9 +1962,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>
@@ -1985,9 +1986,9 @@ border-color:rgb(255, 255, 255);</string>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: rgb(170, 170, 255);
+                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-radius: 10px; border: 3px solid;
-border-color:rgb(255, 255, 255);</string>
+border-color: #d9d9d9;</string>
                                     </property>
                                     <property name="text">
                                      <string/>

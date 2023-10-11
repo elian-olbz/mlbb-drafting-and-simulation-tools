@@ -22,6 +22,8 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
 QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+BLUE_COLOR = "#2e6eea"
+RED_COLOR = "#ed0d3a" 
 
 class QuickDraftWindow(QMainWindow):
     def __init__(self):
@@ -253,27 +255,25 @@ class QuickDraftWindow(QMainWindow):
         if self.curr_selected_qlabel.objectName().startswith("blue"):
             self.hero_icon.setStyleSheet("border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
             # update and set the color for the pie chart
-            blue_rgba = (85 / 255, 170 / 255, 255 / 255)
-            self.hero_wr.update_graph(self.selected_hero, 0, 3,blue_rgba)
-            self.hero_pr.update_graph(self.selected_hero, 1, 4, blue_rgba)
-            self.hero_br.update_graph(self.selected_hero, 2, 5, blue_rgba)
-            self.single_hero_attr.update_graph(self.selected_hero, get_name(self.selected_hero, self.hero_names), team_color=blue_rgba)
+            self.hero_wr.update_graph(self.selected_hero, 0, 3,BLUE_COLOR)
+            self.hero_pr.update_graph(self.selected_hero, 1, 4, BLUE_COLOR)
+            self.hero_br.update_graph(self.selected_hero, 2, 5, BLUE_COLOR)
+            self.single_hero_attr.update_graph(self.selected_hero, get_name(self.selected_hero, self.hero_names), team_color=BLUE_COLOR)
 
             # update the hero name
             self.hero_name.setText(get_name(self.selected_hero, self.hero_names)) # Set the name on the qlabel
-            self.hero_name.setStyleSheet("font-size: 20pt; font-weight: bold; color: rgb(85, 170, 255);")
+            self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {BLUE_COLOR};")
         else:
             self.hero_icon.setStyleSheet("border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
             # update and set the color for the pie chart
-            red_gba = (255 / 255, 68 / 255, 62 / 255)
-            self.hero_wr.update_graph(self.selected_hero, 0, 3, red_gba)
-            self.hero_pr.update_graph(self.selected_hero, 1, 4, red_gba)
-            self.hero_br.update_graph(self.selected_hero, 2, 5, red_gba)
-            self.single_hero_attr.update_graph(self.selected_hero, get_name(self.selected_hero, self.hero_names), team_color=red_gba)
+            self.hero_wr.update_graph(self.selected_hero, 0, 3, RED_COLOR)
+            self.hero_pr.update_graph(self.selected_hero, 1, 4, RED_COLOR)
+            self.hero_br.update_graph(self.selected_hero, 2, 5, RED_COLOR)
+            self.single_hero_attr.update_graph(self.selected_hero, get_name(self.selected_hero, self.hero_names), team_color=RED_COLOR)
 
             # update the hero name
             self.hero_name.setText(get_name(self.selected_hero, self.hero_names)) # Set the name on the qlabel
-            self.hero_name.setStyleSheet("font-size: 20pt; font-weight: bold; color: rgb(255, 68, 62);")
+            self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {RED_COLOR};")
 
         #update win rate chart (h_chart)
         if self.curr_selected_qlabel.objectName().startswith("blue"):
@@ -299,17 +299,14 @@ class QuickDraftWindow(QMainWindow):
         fig = Figure(figsize=(5, 5))
         canvas = FigureCanvas(fig)
         self.radar_layout.addWidget(canvas)
-        #fig.subplots_adjust(top=0.8, bottom=0.2, left=0.15, right=0.89)
+        fig.subplots_adjust(top=0.89, bottom=0.7, left=0.7, right=0.89)
 
         axs = fig.subplots(1, 2)
         fig.patch.set_visible(False)
 
-        blue_color = (85 / 255, 170 / 255, 255 / 255)  # Blue
-        red_color = (255 / 255, 68 / 255, 62 / 255)     # Red
-
         # Create instances of the graphs and pass the subplots
-        blue_win_attr = TeamWinAttr(axs[0], pos_x=1, fig=fig, team_color=blue_color, team_label='Blue Team')
-        red_win_attr = TeamWinAttr(axs[1], pos_x=2, fig=fig, team_color=red_color, team_label='Team Red')
+        blue_win_attr = TeamWinAttr(axs[0], pos_x=1, fig=fig, team_color=BLUE_COLOR, team_label='Blue Team')
+        red_win_attr = TeamWinAttr(axs[1], pos_x=2, fig=fig, team_color=RED_COLOR, team_label='Team Red')
         
         for i, ax in enumerate(axs.flatten()):
             ax.set_frame_on(False)
@@ -340,7 +337,6 @@ class QuickDraftWindow(QMainWindow):
 
     def create_diverging_stats(self):  # head to head attr
         fig, ax = plt.subplots(figsize=(6, 8))
-        #ax.remove()
         fig.patch.set_visible(False)
         canvas = FigureCanvas(fig)
         self.diverging_layout.addWidget(canvas)

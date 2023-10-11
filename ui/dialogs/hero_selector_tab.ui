@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>706</width>
-    <height>539</height>
+    <width>686</width>
+    <height>523</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -161,8 +161,8 @@ QPushButton:pressed {
           <widget class="QWidget" name="tab_container" native="true">
            <property name="styleSheet">
             <string notr="true">QWidget #tab_container{
-border: 1px solid rgb(170, 170, 255);
-background-color: rgb(170, 170, 255);
+border: 1px solid  #3e3e62;
+background-color: #3e3e62;
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
 border-top-right-radius: 0px;
@@ -192,7 +192,7 @@ border-radius: 0px;
 }
 QTabBar::tab {
     /* Set the background color of each tab */
-   background-color: rgb(170, 170, 255);
+   background-color: #3e3e62;
     /* Set the color of the tab title text */
     color: #ffffff;
     /* Set the padding around each tab */
@@ -203,7 +203,7 @@ QTabBar::tab {
     height: 18px;
     font-size: 13px; 
     font-family: 'Segoe UI' ;
-	 border: 1px solid rgb(170, 170, 255);
+	 border: 1px solid #3e3e62;;
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	border-top-right-radius: 0px;
@@ -232,7 +232,7 @@ QScrollBar:vertical {
 	 border-radius: 0px;
  }
  QScrollBar::handle:vertical {	
-	background: rgb(189, 147, 249);
+	background: #606097;
     min-height: 25px;
 	border-radius: 4px
  }

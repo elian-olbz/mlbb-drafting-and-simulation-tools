@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1045</width>
+    <width>1028</width>
     <height>700</height>
    </rect>
   </property>
@@ -577,8 +577,8 @@ background-color:rgba(15, 15, 26, 180);
                          </size>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame{
-background-color: rgb(170, 170, 255);
+                         <string notr="true">QFrame #blue_hero_frame{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -978,8 +978,8 @@ QPushButton:pressed {
                          </size>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">QFrame{
-background-color: rgb(170, 170, 255);
+                         <string notr="true">QFrame #red_hero_frame{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -1315,8 +1315,9 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                          <item>
                           <widget class="QFrame" name="frame_5">
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(49, 49, 77);
-border-radius: 10px;</string>
+                            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+</string>
                            </property>
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
@@ -1338,8 +1339,9 @@ border-radius: 10px;</string>
                          <item>
                           <widget class="QWidget" name="radar_widget" native="true">
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(49, 49, 77);
-border-radius: 10px;</string>
+                            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+</string>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_17">
                             <property name="spacing">
@@ -1382,8 +1384,9 @@ border-radius: 10px;</string>
                          <item>
                           <widget class="QWidget" name="diverging_widget" native="true">
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(49, 49, 77);
-border-radius: 10px;</string>
+                            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.821368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+</string>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_18">
                             <property name="spacing">
@@ -1527,8 +1530,11 @@ border-bottom-right-radius: 0px;
                          </sizepolicy>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(44, 42, 66);
-border-radius:10px;</string>
+                         <string notr="true">QFrame #frame{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.821368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+}
+</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
@@ -1538,13 +1544,13 @@ border-radius:10px;</string>
                         </property>
                         <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5,1">
                          <property name="leftMargin">
-                          <number>2</number>
+                          <number>0</number>
                          </property>
                          <property name="topMargin">
-                          <number>2</number>
+                          <number>0</number>
                          </property>
                          <property name="rightMargin">
-                          <number>2</number>
+                          <number>0</number>
                          </property>
                          <property name="bottomMargin">
                           <number>2</number>
@@ -1558,7 +1564,7 @@ border-radius:10px;</string>
                             </size>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(170, 170, 255);
+                            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border-top-right-radius: 0px;
@@ -1569,10 +1575,10 @@ border-bottom-right-radius: 40px;</string>
                              <number>0</number>
                             </property>
                             <property name="leftMargin">
-                             <number>20</number>
+                             <number>4</number>
                             </property>
                             <property name="topMargin">
-                             <number>8</number>
+                             <number>4</number>
                             </property>
                             <property name="rightMargin">
                              <number>0</number>
@@ -1580,7 +1586,7 @@ border-bottom-right-radius: 40px;</string>
                             <property name="bottomMargin">
                              <number>8</number>
                             </property>
-                            <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                            <item>
                              <widget class="QLabel" name="hero_icon">
                               <property name="sizePolicy">
                                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1609,13 +1615,16 @@ border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignVCenter">
+                         <item>
                           <widget class="QWidget" name="name_widget" native="true">
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">background-color:transparent;</string>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_22">
                             <property name="spacing">
@@ -1633,7 +1642,7 @@ border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string
                             <property name="bottomMargin">
                              <number>0</number>
                             </property>
-                            <item alignment="Qt::AlignVCenter">
+                            <item>
                              <widget class="QFrame" name="name_frame">
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
@@ -1672,7 +1681,7 @@ border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string
                                   </size>
                                  </property>
                                  <property name="text">
-                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700; color:#00aaff;&quot;&gt;Select Hero&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700; color:#2e6eea;&quot;&gt;Select Hero&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                  </property>
                                 </widget>
                                </item>
@@ -1697,11 +1706,13 @@ border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string
                             </size>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(170, 170, 255);
+                            <string notr="true">QFrame #role_info{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255));
 border-top-left-radius: 40px;
 border-top-right-radius: 10px;
 border-bottom-left-radius: 0px;
 border-bottom-right-radius: 10px;
+}
 
 
 </string>
@@ -1728,8 +1739,11 @@ border-bottom-right-radius: 10px;
                             <property name="bottomMargin">
                              <number>8</number>
                             </property>
-                            <item alignment="Qt::AlignHCenter">
+                            <item>
                              <widget class="QFrame" name="frame_2">
+                              <property name="styleSheet">
+                               <string notr="true">background-color:transparent;</string>
+                              </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
                               </property>
@@ -1762,7 +1776,7 @@ border-bottom-right-radius: 10px;
                               </layout>
                              </widget>
                             </item>
-                            <item alignment="Qt::AlignHCenter">
+                            <item>
                              <widget class="QFrame" name="role_frame">
                               <property name="minimumSize">
                                <size>
@@ -1771,7 +1785,7 @@ border-bottom-right-radius: 10px;
                                </size>
                               </property>
                               <property name="styleSheet">
-                               <string notr="true"/>
+                               <string notr="true">background-color:transparent;</string>
                               </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
@@ -1878,8 +1892,9 @@ border-bottom-right-radius: 10px;
                       </size>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">background-color: rgb(49, 49, 77);
-border-radius: 10px;</string>
+                      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+</string>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_21">
                       <property name="leftMargin">
@@ -1954,8 +1969,9 @@ border-radius: 10px;</string>
                       <item>
                        <widget class="QWidget" name="attr_container" native="true">
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(49, 49, 77);
-border-radius: 10px;</string>
+                         <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.821368 rgba(29, 32, 38, 255));
+border-radius: 10px;
+</string>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_24">
                          <property name="spacing">

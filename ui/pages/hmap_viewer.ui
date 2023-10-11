@@ -576,17 +576,16 @@ border-bottom-right-radius: 0px;
                             </size>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true">
-QProgressBar
+                            <string notr="true">QProgressBar
 {
 background-color: rgb(255, 255, 255);
-border-radius: 5px;
+border-radius: 2px;
 color: transparent;
 }
 QProgressBar::chunk 
 {
 background-color: rgb(170, 170, 255);
-border-radius: 5px;
+border-radius :2px;
 } 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -602,7 +601,7 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle {
-	background-color: rgb(170, 85, 255);
+	background-color: #606097;
     height: 10px;
     width: 10px;
     border-radius: 5px;
@@ -681,7 +680,7 @@ border-color: rgb(83, 89, 98);
                                 <widget class="QFrame" name="frame_6">
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #frame_6{
-background-color: rgb(22, 22, 22);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
 border-top-left-radius:10px;
 border-top-right-radius:10px;
 border: 1px solid;
@@ -750,7 +749,7 @@ border-bottom-color: transparent;
                                 <widget class="QFrame" name="frame_15">
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #frame_15{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(22, 22, 36, 255), stop:0.521368 rgba(19, 19, 30, 255));
 border: 1px solid;
 border-color: rgb(83, 89, 98);
 border-top-color: transparent;
@@ -793,7 +792,7 @@ border-bottom-color: transparent;
                                 <widget class="QFrame" name="frame_8">
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #frame_8{
-background-color: rgb(22, 22, 22);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
 border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 border: 1px solid;
@@ -876,7 +875,7 @@ border-top-color: transparent;
                                         <string notr="true"/>
                                        </property>
                                        <property name="value">
-                                        <number>3</number>
+                                        <number>0</number>
                                        </property>
                                       </widget>
                                      </item>
@@ -944,7 +943,7 @@ border-color: rgb(83, 89, 98);
                                 <widget class="QFrame" name="frame_14">
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #frame_14{
-background-color: rgb(22, 22, 22);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
 border-top-left-radius:10px;
 border-top-right-radius:10px;
 border: 1px solid;
@@ -1013,13 +1012,7 @@ border-bottom-color: transparent;
                                 <widget class="QFrame" name="frame_11">
                                  <property name="styleSheet">
                                   <string notr="true">QFrame #frame_11{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
-border: 1px solid;
-border-color: rgb(83, 89, 98);
-border-top-color: transparent;
-border-bottom-color: transparent;
-}QFrame #frame_15{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(22, 22, 36, 255), stop:0.521368 rgba(19, 19, 30, 255));
 border: 1px solid;
 border-color: rgb(83, 89, 98);
 border-top-color: transparent;
@@ -1048,7 +1041,7 @@ border-bottom-color: transparent;
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));</string>
+                                     <string notr="true"/>
                                     </property>
                                     <property name="verticalScrollBarPolicy">
                                      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -1095,7 +1088,7 @@ border-bottom-color: transparent;
                                    <widget class="QFrame" name="frame_10">
                                     <property name="styleSheet">
                                      <string notr="true">QFrame #frame_10{
-background-color: rgb(22, 22, 22);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));
 border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 border: 1px solid;
@@ -1178,7 +1171,7 @@ border-top-color: transparent;
                                            <string notr="true"/>
                                           </property>
                                           <property name="value">
-                                           <number>3</number>
+                                           <number>0</number>
                                           </property>
                                          </widget>
                                         </item>
@@ -1240,7 +1233,7 @@ border-top-color: transparent;
                               </property>
                               <property name="styleSheet">
                                <string notr="true">QFrame #right_frame{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(22, 22, 36, 255), stop:0.521368 rgba(19, 19, 30, 255));
 }</string>
                               </property>
                               <property name="frameShape">
@@ -1262,7 +1255,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                <item alignment="Qt::AlignTop">
                                 <widget class="QFrame" name="frame">
                                  <property name="styleSheet">
-                                  <string notr="true">background-color: rgb(22, 22, 22);</string>
+                                  <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(35, 39, 46, 255), stop:0.521368 rgba(29, 32, 38, 255));</string>
                                  </property>
                                  <property name="frameShape">
                                   <enum>QFrame::StyledPanel</enum>
@@ -1335,7 +1328,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1381,7 +1374,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1427,7 +1420,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1473,7 +1466,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1519,7 +1512,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1571,7 +1564,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1617,7 +1610,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1663,7 +1656,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1709,7 +1702,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1755,7 +1748,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                         </font>
                                        </property>
                                        <property name="text">
-                                        <string> </string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>

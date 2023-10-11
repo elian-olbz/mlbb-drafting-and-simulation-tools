@@ -199,7 +199,7 @@ class SetupHeroSelector(QMainWindow):
 
     # Displaying images on the practice draft window
     def disp_selected_image(self, parent, hero_id):
-        white_border = "border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"  # bring back the white border
+        white_border = "border-radius: 10px; border: 3px solid; border-color: #d9d9d9;"  # bring back the white border
         if hero_id is not None and hero_id not in self.unavailable_hero_ids:
             if self.remaining_clicks <= 0:
                 return
@@ -228,7 +228,7 @@ class SetupHeroSelector(QMainWindow):
 
                     image_overlay_path = "icons/slash.svg"
                     self.create_ban_overlay_indicator(qlabel, label_size, scaled_pixmap, image_overlay_path, 30) # indicator on the ban frame only
-                    qlabel.setStyleSheet("border-radius: 0px;")
+                    qlabel.setStyleSheet("border-radius: 0px; background-color: transparent")
 
                     self.label_images[qlabel] = hero_id  # Update the label_images dictionary
                     self.unavailable_hero_ids.append(hero_id)

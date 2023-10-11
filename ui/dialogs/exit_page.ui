@@ -37,8 +37,7 @@ border-color:rgb(83, 89, 98);</string>
    <item>
     <widget class="QFrame" name="drop_shadow">
      <property name="styleSheet">
-      <string notr="true">background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));
-</string>
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(26, 26, 43, 255), stop:0.521368 rgba(19, 19, 30, 255));</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -104,6 +103,11 @@ color:#fff
              <width>16777215</width>
              <height>40</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #0f0f19;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -172,10 +176,7 @@ QPushButton:pressed {
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">QFrame #frame{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
-border-radius: 0px;
-}</string>
+            <string notr="true"/>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -190,7 +191,7 @@ border-radius: 0px;
                <item alignment="Qt::AlignHCenter">
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Exit Page?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#eaeaea;&quot;&gt;Exit Page?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -227,6 +228,7 @@ border-radius: 0px;
                   <string notr="true">QPushButton{
 text-align:center;
 border-radius: 0px;
+color: #eaeaea;
 }
 
 QPushButton:hover {

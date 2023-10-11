@@ -351,7 +351,7 @@ class HeatmapViewerWindow(QMainWindow):
                 self.video_path = video_path
                 self.video = RawVideo(self.video_path, self.video_label)
                 self.total_frames = int(self.video.video_thread.cap.get(cv2.CAP_PROP_FRAME_COUNT))   # Get the total number of frames in the video
-                self.video_slider.setRange(int(self.total_frames * 0.03), self.total_frames)
+                self.video_slider.setRange(0, self.total_frames)
                 self.update_file_name_label(self.video_path, self.vid_name)
                 self.display_first_frame()
                 self.video.v_timer.timeout.connect(self.update_video_bar)
@@ -451,7 +451,7 @@ class HeatmapViewerWindow(QMainWindow):
                 csv_reader = csv.reader(file)
                 next(csv_reader)  # Skip the header row
                 self.data = list(csv_reader)
-                self.hmap_slider.setRange(int(len(self.data) * 0.03), len(self.data))
+                self.hmap_slider.setRange(0, len(self.data))
 
     def connect_hero_btns(self):
         for btn in self.hero_buttons:

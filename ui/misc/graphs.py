@@ -7,10 +7,13 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
+plt.style.use('ggplot')
+
+FACE_COLOR = "#363655"
+EDGE_COLOR= "#d9d9d9"
+
 class TeamWinAttr():  # Radar chart reflecting win conditions
     def __init__(self, ax, pos_x, fig, team_color, team_label):
-        plt.style.use('ggplot')
-
         self.subjects = ['       EARLY\n       TO MID', 
                          'TEAM\n FIGHT\n', 
                          'BURST       ', 
@@ -28,11 +31,14 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
 
         # Create a polar subplot for the radar chart
         ax = fig.add_subplot(1, 2, pos_x, polar=True)
+        ax.set_facecolor(FACE_COLOR)
+        ax.grid(color="#b8b8b8")
+        ax.tick_params(grid_alpha=0.3)
         
-        self.team_line, = ax.plot([], [], 'o--', color=team_color, label=team_label, markersize=3)
+        self.team_line, = ax.plot([], [], 'o-', color=team_color, label=team_label, markersize=3)
         self.team_line.set_data(self.angles, self.team_data)
         self.team_line.set_markerfacecolor(team_color)
-        ax.fill(self.angles, self.team_data, alpha=0.5, color=team_color)
+        ax.fill(self.angles, self.team_data, alpha=0.85, color=team_color)
         ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects, fontsize=9, color="#eaeaea")
         ax.set_ylim(0, 10)  
         ax.grid(True)
@@ -41,14 +47,17 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
     def update_graph(self, new_team_data):
         self.team_data = new_team_data
         self.team_data.append(self.team_data[0])
-
+        
         ax = self.team_line.axes
         ax.clear()
 
-        self.team_line, = ax.plot([], [], 'o--', color=self.team_line.get_color(), markersize=3)
+        ax.set_facecolor(FACE_COLOR)
+        ax.grid(color="#b8b8b8")
+        ax.tick_params(grid_alpha=0.3)
+        self.team_line, = ax.plot([], [], 'o-', color=self.team_line.get_color(), markersize=3)
         self.team_line.set_data(self.angles, self.team_data)
         self.team_line.set_markerfacecolor(self.team_line.get_color())
-        ax.fill(self.angles, self.team_data, alpha=0.5, color=self.team_line.get_color())
+        ax.fill(self.angles, self.team_data, alpha=0.85, color=self.team_line.get_color())
         ax.set_thetagrids(self.angles * 180 / np.pi, self.subjects, fontsize=9, color="#eaeaea")
         ax.set_ylim(0, 10)
         ax.grid(True)
@@ -63,12 +72,12 @@ class HeadToHeadAttr: # Diverging chart / Attributes of both team
 
         #self.ax.set_xlim(min(min(self.blue_values), min(self.red_values)), max(max(self.blue_values), max(self.red_values)))
         x_ticks = np.arange(-10, 11, 1)  # Create an array of x-tick positions
-        bars_blue = self.ax.barh(y=range(len(self.labels)), width=self.blue_values, color='blue')
-        bars_red = self.ax.barh(y=range(len(self.labels)), width=self.red_values, color='red')
+        bars_blue = self.ax.barh(y=range(len(self.labels)), width=self.blue_values, color='#2e6eea')
+        bars_red = self.ax.barh(y=range(len(self.labels)), width=self.red_values, color='#ed0d3a')
 
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
-
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
         self.ax.tick_params(left=False, bottom=True)
         self.ax.get_xaxis().set_visible(True)
         self.ax.set_xticks(x_ticks)
@@ -87,12 +96,13 @@ class HeadToHeadAttr: # Diverging chart / Attributes of both team
 
         self.ax.set_xlim(min(min(self.blue_values), min(self.red_values)), max(max(self.blue_values), max(self.red_values)))
         x_ticks = np.arange(-10, 11, 1)  # Create an array of x-tick positions
-        bars_blue = self.ax.barh(y=range(len(self.labels)), width=self.blue_values, color='blue')
-        bars_red = self.ax.barh(y=range(len(self.labels)), width=red_values, color='red')
+        bars_blue = self.ax.barh(y=range(len(self.labels)), width=self.blue_values, color='#2e6eea', edgecolor=EDGE_COLOR)
+        bars_red = self.ax.barh(y=range(len(self.labels)), width=red_values, color='#ed0d3a', edgecolor=EDGE_COLOR)
 
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
 
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
         self.ax.tick_params(left=False, bottom=True)
         self.ax.get_xaxis().set_visible(True)
         self.ax.set_xticks(x_ticks)
@@ -113,12 +123,12 @@ class SingleHeroAttr(): # H_Chart reflecting single hero attributes
         initial_data = [0] * len(self.labels)
 
         self.ax.set_xlim(0, 10)  # x-axis limits
-        self.ax.barh(y=range(1, len(initial_data) + 1), width=initial_data, color='blue')
-
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
+        self.ax.barh(y=range(1, len(initial_data) + 1), width=initial_data, color='blue', edgecolor=EDGE_COLOR)
 
         self.ax.tick_params(left=True)
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
 
         self.ax.set_yticks(range(1, len(initial_data) + 1))
         self.ax.set_yticklabels([label for label in self.labels], size=9, color="#eaeaea")
@@ -136,13 +146,13 @@ class SingleHeroAttr(): # H_Chart reflecting single hero attributes
         if hero_id != 0:
             self.hero_id = hero_id -1
         self.ax.set_xlim(0, 10)  # x-axis limits
-        self.ax.barh(y=range(1, len(self.hero_data[self.hero_id]) + 1), width=self.hero_data[self.hero_id], color=team_color)
-
-        for edge in ['top', 'right', 'bottom', 'left']:
-            self.ax.spines[edge].set_visible(False)
+        self.ax.barh(y=range(1, len(self.hero_data[self.hero_id]) + 1), width=self.hero_data[self.hero_id], color=team_color, edgecolor=EDGE_COLOR)
 
         self.ax.tick_params(left=True)
         #ax.get_xaxis().set_visible(False)
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
 
         self.ax.set_yticks(range(1, len(self.hero_data[self.hero_id]) + 1))
         self.ax.set_yticklabels([label for label in self.labels], size=9, color="#eaeaea")
@@ -166,13 +176,13 @@ class SingleHeroStats: # pie charts
 
         # Create a blue wedge donut chart (initially hidden)
         self.back_color = (165 / 255, 165 / 255, 255 / 255)
-        self.color_wedge, _ = self.ax.pie([1], colors=['blue'], radius=1.0, wedgeprops={'linewidth': 6})
+        self.color_wedge, _ = self.ax.pie([1], colors=['blue'], radius=1.09, wedgeprops={'linewidth': 7})
         self.color_wedge[0].set_visible(False)
 
         # Create a gray ring donut chart
-        self.gray_ring, _ = self.ax.pie([1], colors=[self.back_color], radius=1.0, wedgeprops={'linewidth': 6, 'alpha': 0.2})
+        self.gray_ring, _ = self.ax.pie([1], colors=[self.back_color], radius=1.09, wedgeprops={'linewidth': 7, 'alpha': 0.2})
 
-        self.center_circle = plt.Circle((0, 0), 0.7, color='#31314d', fc='#31314d', lw=1.0)
+        self.center_circle = plt.Circle((0, 0), 0.75, ec='#eaeaea', fc='#31314d', lw=1.0)
         self.ax.add_artist(self.center_circle)
 
         # Add a text label to display self.value in the center
@@ -222,8 +232,8 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
     def __init__(self, ax):
         self.ax = ax  # Pass the ax object to store it for plotting later
         self.hero_names = [f'Hero {x}' for x in range(1, 10)]
-        self.blue = (85 / 255, 170 / 255, 255 / 255)
-        self.red = (255 / 255, 68 / 255, 62 / 255)
+        self.BLUE_COLOR = "#2e6eea"
+        self.RED_COLOR = "#ed0d3a"
 
         # Random win rates for illustration (excluding the selected hero)
         self.win_rates_allies = [0, 0, 0, 0]
@@ -233,15 +243,19 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
         self.win_rates = np.concatenate([self.win_rates_allies, self.win_rates_enemies])
 
         # Create colors for allies (lightblue) and enemies (lightcoral)
-        self.colors = [self.blue] * len(self.win_rates_allies) + [self.red] * len(self.win_rates_enemies)
+        self.colors = [self.BLUE_COLOR] * len(self.win_rates_allies) + [self.RED_COLOR] * len(self.win_rates_enemies)
 
         # Create the horizontal bar chart within the constructor
-        self.ax.barh(self.hero_names, self.win_rates, color=self.colors)
+        self.ax.barh(self.hero_names, self.win_rates, color=self.colors, edgecolor=EDGE_COLOR)
 
         # Set the title
         self.ax.set_title(f'Hero WR (Ally vs. Enemy)', size=11, weight='bold', color="#eaeaea")
         self.ax.tick_params(left=True)
         self.ax.set_xlim(0, 100)
+
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
 
         self.ax.set_yticks(range(0, len(self.hero_names)))
         self.ax.set_yticklabels([y for y in self.hero_names], size=9, color="#eaeaea")
@@ -261,12 +275,12 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
         self.hero_names = ally_names + enemy_names
         
         if side == 'blue':
-            self.colors = [self.blue] * len(self.win_rates_allies) + [self.red] * len(self.win_rates_enemies)
+            self.colors = [self.BLUE_COLOR] * len(self.win_rates_allies) + [self.RED_COLOR] * len(self.win_rates_enemies)
         else:
-            self.colors = [self.red] * len(self.win_rates_allies) + [self.blue] * len(self.win_rates_enemies)
+            self.colors = [self.RED_COLOR] * len(self.win_rates_allies) + [self.BLUE_COLOR] * len(self.win_rates_enemies)
             
         # Create the updated horizontal bar chart
-        self.ax.barh(self.hero_names, self.win_rates, color=self.colors)
+        self.ax.barh(self.hero_names, self.win_rates, color=self.colors, edgecolor=EDGE_COLOR)
         # Set the y-axis label
         # self.ax.set_xlabel('Win Rate')
 
@@ -274,6 +288,10 @@ class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero agai
         self.ax.set_title(f'{selected_hero_name} WR (Ally vs. Enemy)', size=11, weight='bold', color="#eaeaea")
         self.ax.tick_params(left=True)
         self.ax.set_xlim(0, 100)
+
+        self.ax.set_facecolor(FACE_COLOR)
+        self.ax.grid(color="#b8b8b8")
+        self.ax.tick_params(grid_alpha=0.3)
         
         self.ax.set_yticks(range(0, len(self.hero_names)))
         self.ax.set_yticklabels([y for y in self.hero_names], size=9, color="#eaeaea")

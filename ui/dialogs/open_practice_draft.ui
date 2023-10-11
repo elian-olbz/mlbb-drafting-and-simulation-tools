@@ -43,8 +43,7 @@ border-color:rgb(83, 89, 98);</string>
    <item>
     <widget class="QFrame" name="drop_shadow">
      <property name="styleSheet">
-      <string notr="true">background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));
-</string>
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(26, 26, 43, 255), stop:0.521368 rgba(19, 19, 30, 255));</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -111,6 +110,11 @@ color:#fff
              <height>0</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #0f0f19;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;</string>
+           </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -172,10 +176,7 @@ QPushButton:pressed {
          <item>
           <widget class="QFrame" name="frame">
            <property name="styleSheet">
-            <string notr="true">QFrame #frame{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(44, 49, 60, 255), stop:0.521368 rgba(35, 39, 46, 255));
-border-radius: 0px;
-}</string>
+            <string notr="true"/>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -247,7 +248,7 @@ border-color:rgb(83, 89, 98);
                         </font>
                        </property>
                        <property name="text">
-                        <string>Choose Mode</string>
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#eaeaea;&quot;&gt;Choose Mode&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                       </widget>
                      </item>
@@ -267,6 +268,9 @@ border-color:rgb(83, 89, 98);
                             <width>180</width>
                             <height>16777215</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: #eaeaea;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -337,7 +341,7 @@ border-color:rgb(83, 89, 98);
                         </font>
                        </property>
                        <property name="text">
-                        <string>Choose Side</string>
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#eaeaea;&quot;&gt;Choose Side&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                       </widget>
                      </item>
@@ -372,6 +376,9 @@ border-color:rgb(83, 89, 98);
                             <width>180</width>
                             <height>16777215</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: #eaeaea;</string>
                           </property>
                           <item>
                            <property name="text">
@@ -460,7 +467,7 @@ border-color:rgb(83, 89, 98);
                   <item>
                    <widget class="QLabel" name="label_3">
                     <property name="text">
-                     <string>AI Intelligence</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#eaeaea;&quot;&gt;AI Intelligence&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -518,7 +525,7 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle {
-	background-color: rgb(170, 85, 255);
+	background-color: #606097;
     height: 10px;
     width: 10px;
     border-radius: 5px;
@@ -568,6 +575,7 @@ QRangeSlider {
 text-align:center;
 padding: 5px 15px;
 border-radius: 0px;
+color: #eaeaea;
 }
 
 QPushButton:hover {

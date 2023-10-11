@@ -18,6 +18,15 @@ from run_draft_logic.utils import print_draft_status, print_final_draft, rounded
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
+# QSS for restoring default/empty pick/ban slot
+PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255)); border-radius: 10px; border: 3px solid; border-color: #d9d9d9;"
+BAN_QSS = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color: #d9d9d9;"
+
+# QSS for highlighting next move
+NEXT_BAN_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color: #eaeaea;"
+NEXT_PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 10px; border: 3px solid; border-color: #eaeaea;"
+
+
 class AIThread(QThread):
     def __init__(self, parent, draft_state, mode, is_pick):
         super(AIThread, self).__init__(parent)
@@ -333,8 +342,6 @@ class DraftWindow(QMainWindow):
 
     def highlight_next_qlabel(self):
         style = ""
-        ban_style = "background-color: rgb(85, 255, 127); border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
-        pick_style = "background-color: rgb(85, 255, 127); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
         index = get_curr_index(self.hero_selector.remaining_clicks)
         blue_turn = self.hero_selector.blue_turn
         pick_turn = self.hero_selector.pick_indices
@@ -342,9 +349,9 @@ class DraftWindow(QMainWindow):
         qlabels_list = self.qlabel_list
         
         if index in pick_turn:
-            style = pick_style
+            style = NEXT_PICK_QSS
         else:
-            style = ban_style
+            style = NEXT_BAN_QSS
 
         if index in blue_turn and index + 1 in blue_turn:
             qlabels_list[index].setStyleSheet(style)
@@ -360,9 +367,6 @@ class DraftWindow(QMainWindow):
             qlabels_list[index].setStyleSheet(style)
                 
     def undo_move(self):
-        pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
-        ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
-        
         blue_turn = self.hero_selector.blue_turn
         pick_turn = self.hero_selector.pick_indices
 
@@ -396,15 +400,15 @@ class DraftWindow(QMainWindow):
             
             if index < 19:
                 if index + 1 in pick_turn:
-                    self.qlabel_list[index + 1].setStyleSheet(pick_style)
+                    self.qlabel_list[index + 1].setStyleSheet(PICK_QSS)
                 else:
-                    self.qlabel_list[index + 1].setStyleSheet(ban_style)
+                    self.qlabel_list[index + 1].setStyleSheet(BAN_QSS)
 
             if index < 18:
                 if index + 2 in pick_turn:
-                    self.qlabel_list[index + 2].setStyleSheet(pick_style)
+                    self.qlabel_list[index + 2].setStyleSheet(PICK_QSS)
                 else:
-                    self.qlabel_list[index + 2].setStyleSheet(ban_style)
+                    self.qlabel_list[index + 2].setStyleSheet(BAN_QSS)
                     
             self.hero_selector.update_labels_in_tabs(self, self.draft_state.draft_sequence[-1])
             self.draft_state.draft_sequence.pop()
@@ -423,8 +427,6 @@ class DraftWindow(QMainWindow):
     def reset_all(self):
         self.reset_dialog.close()
         self.delay_timer.start(self.delay)
-        pick_style = "background-color: rgb(170, 170, 255); border-radius: 10px; border: 3px solid; border-color:rgb(255, 255, 255);"
-        ban_style = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color:rgb(255, 255, 255);"
 
         pick_turn = self.hero_selector.pick_indices
 
@@ -433,9 +435,9 @@ class DraftWindow(QMainWindow):
                 if self.qlabel_list.index(qlabel) < len(self.draft_state.draft_sequence) + 2:
                     qlabel.clear()
                     if self.qlabel_list.index(qlabel) in pick_turn:
-                        qlabel.setStyleSheet(pick_style)
+                        qlabel.setStyleSheet(PICK_QSS)
                     else:
-                        qlabel.setStyleSheet(ban_style)
+                        qlabel.setStyleSheet(BAN_QSS)
 
             self.draft_state.draft_sequence.clear()
             self.draft_state.blue_actions[0].clear()
