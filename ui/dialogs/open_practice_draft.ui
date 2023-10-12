@@ -519,7 +519,7 @@ border-color:rgb(83, 89, 98);
 
 QSlider::groove:horizontal {
     border: 0px;
-    background: white;
+    background: #eaeaea;
     height: 10px;
     border-radius: 5px;
 }

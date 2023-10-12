@@ -827,6 +827,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                 <height>50</height>
                                </size>
                               </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                               </property>
@@ -874,6 +880,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                </sizepolicy>
                               </property>
                               <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
                                <size>
                                 <width>50</width>
                                 <height>50</height>
@@ -928,6 +940,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                 <height>50</height>
                                </size>
                               </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                               </property>
@@ -972,6 +990,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                </sizepolicy>
                               </property>
                               <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
                                <size>
                                 <width>50</width>
                                 <height>50</height>
@@ -1024,6 +1048,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                </sizepolicy>
                               </property>
                               <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
                                <size>
                                 <width>50</width>
                                 <height>50</height>
@@ -1238,6 +1268,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                 <height>50</height>
                                </size>
                               </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                               </property>
@@ -1282,6 +1318,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                </sizepolicy>
                               </property>
                               <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
                                <size>
                                 <width>50</width>
                                 <height>50</height>
@@ -1336,6 +1378,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                 <height>50</height>
                                </size>
                               </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                               </property>
@@ -1385,6 +1433,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                 <height>50</height>
                                </size>
                               </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">image: url(:/icons/icons/plus-circle.svg);</string>
                               </property>
@@ -1429,6 +1483,12 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                                </sizepolicy>
                               </property>
                               <property name="minimumSize">
+                               <size>
+                                <width>50</width>
+                                <height>50</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
                                <size>
                                 <width>50</width>
                                 <height>50</height>
@@ -1868,7 +1928,7 @@ border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);</string
                                   </size>
                                  </property>
                                  <property name="text">
-                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700; color:#2e6eea;&quot;&gt;Select Hero&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:700; color:#2e6eea;&quot;&gt;Select hero&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                  </property>
                                 </widget>
                                </item>

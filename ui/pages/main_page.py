@@ -5,7 +5,9 @@ from PyQt6 import uic
 import sys
 import os
 import random
+import pandas as pd
 from ui.rsc_rc import *
+from tensorflow.lite.python.interpreter import Interpreter
 from run_draft_logic.utils import load_theme
 from run_draft_logic.modes import *
 
@@ -28,6 +30,11 @@ class MainWindow(QMainWindow):
 
         self.WINDOW_MAXED = True
         self.menu_width = 55
+
+        self.hero_names = load_names('data/hero_map.csv')
+        self.hero_roles, _, _, _ = load_hero_roles('data/hero_roles.csv')
+        self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
+        self.hero_data = self.load_attr('data/attr.csv')
 
         self.title_bar = TitleBar(self)
         self.player1 = None
@@ -54,6 +61,9 @@ class MainWindow(QMainWindow):
         self.viewer_btn.clicked.connect(self.open_hmap_viewer)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
+
+        self.interpreter = Interpreter(model_path='model/meta_ld_512_x5h.tflite')
+        self.interpreter.allocate_tensors()
 #############################################################
     
         # MOVE WINDOW
@@ -104,11 +114,13 @@ class MainWindow(QMainWindow):
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_human()
         elif self.practice_dialog.mode_combo_box.currentIndex() == 1 and self.practice_dialog.side_combo_box.currentIndex() == 0:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = human_vs_ai()
+            self.draft_window.red_player.interpreter = self.interpreter
             self.draft_window.undo_button.setEnabled(False)
             self.draft_window.undo_button.setVisible(False)
             self.draft_window.draft_state.ai_level = self.practice_dialog.ai_slider.value()
         elif self.practice_dialog.mode_combo_box.currentIndex() == 1 and self.practice_dialog.side_combo_box.currentIndex() == 1:
             self.draft_window.blue_player, self.draft_window.red_player, self.draft_window.mode = ai_vs_human()
+            self.draft_window.blue_player.interpreter = self.interpreter
             self.draft_window.undo_button.setEnabled(False)
             self.draft_window.undo_button.setVisible(False)
             self.draft_window.draft_state.ai_level = self.practice_dialog.ai_slider.value()
@@ -127,6 +139,14 @@ class MainWindow(QMainWindow):
     # Initialize and open quick draft window
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
+
+        self.quick_draft.hero_names = self.hero_names
+        self.quick_draft.hero_roles = self.hero_roles
+        self.quick_draft.df = self.df
+        self.quick_draft.hero_data = self.hero_data
+
+        self.quick_draft.create_all_charts()
+
         self.quick_draft.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_quick_draft)
         self.quick_draft.showMaximized()
@@ -168,3 +188,18 @@ class MainWindow(QMainWindow):
         self.close_exit_dialog()
         self.show()
 ##########################################################################
+
+    def load_attr(self, path):
+            hero_data = []
+            with open(path, 'r') as file:
+                csv_reader = csv.reader(file)
+                next(csv_reader)  # Skip the header row
+                for row in csv_reader:
+                    row_data = []
+                    for i in range(1, 20):
+                        if i not in [14, 15, 16]:
+                            row_data.append(int(row[i].strip()))
+                        else:
+                            row_data.append(float(row[i].strip()))
+                    hero_data.append(row_data)
+            return hero_data

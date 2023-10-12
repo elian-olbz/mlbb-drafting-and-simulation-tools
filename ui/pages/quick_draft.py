@@ -2,7 +2,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWid
 from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QMouseEvent
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource, QEvent
 from PyQt6 import uic
-import sys
 import os
 import pandas as pd
 import ast
@@ -11,7 +10,7 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
 
-from run_draft_logic.utils import load_names, get_name, get_icon, load_hero_roles, get_role
+from run_draft_logic.utils import get_name, get_icon
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
@@ -22,8 +21,10 @@ from ui.misc.graphs import *
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
-PICKER_QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
-MINUS_QSS = "QPushButton{text-align:center; border-radius: 5px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+PICKER_QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;}\
+                QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+MINUS_QSS = "QPushButton{text-align:center; border-radius: 5px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;}\
+                 QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
 BLUE_COLOR = "#2e6eea"
 RED_COLOR = "#ed0d3a" 
 
@@ -46,13 +47,13 @@ class QuickDraftWindow(QMainWindow):
         self.qlabel_to_clear = None # Used when minus button is active
         self.is_minus_btn_active = False
 
-        self.hero_names = load_names('data/hero_map.csv')
-        self.hero_roles, _, _, _ = load_hero_roles('data/hero_roles.csv')
-        self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
-        
-        self.hero_data = self.load_attr('data/attr.csv')
+        self.hero_names = None
+        self.hero_roles = None
+        self.df = None
+        self.hero_data = None
         
         self.selected_hero = None
+        self.is_blue = True
         self.picker_button_active = False
 
         self.title_bar = TitleBar(self)
@@ -82,7 +83,6 @@ class QuickDraftWindow(QMainWindow):
         self.reset_dialog.okay_btn.clicked.connect(self.reset_all)
         self.reset_dialog.cancel_btn.clicked.connect(self.close_reset_dialog)
 
-        self.create_all_charts()
         self.role2.setVisible(False)
 
         space_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Space), self.hero_dialog)
@@ -132,6 +132,10 @@ class QuickDraftWindow(QMainWindow):
                     if self.combined_hero_dict[self.obj_name] != 0:
                         self.curr_selected_qlabel = obj
                         self.selected_hero = self.combined_hero_dict[self.obj_name]
+                        if self.obj_name.startswith("blue"):
+                            self.is_blue = True
+                        else:
+                            self.is_blue = False
                         self.update_single_hero()
                         self.set_highlight(25)
                 elif self.is_minus_btn_active:
@@ -158,7 +162,7 @@ class QuickDraftWindow(QMainWindow):
         self.hero_dialog.show()  
 
     def on_dialog_exit(self):
-        if self.picker_button_active == False:
+        if self.picker_button_active == False and self.qlabel_to_update is not None:
             self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
 
     def merge_heroes_dict(self, dict1, dict2):
@@ -193,36 +197,46 @@ class QuickDraftWindow(QMainWindow):
                         self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
 
             self.qlabel_to_update = None
-            # update the radar chart
-            new_blue_win_attr = self.set_radar_data(self.blue_heroes)
-            new_red_win_attr = self.set_radar_data(self.red_heroes)
-            self.blue_win_attr.update_graph(new_blue_win_attr)
-            self.red_win_attr.update_graph(new_red_win_attr)
-            self.radar_canvas.draw()
-
-            # update diverging h_chart
-            new_blue_data = self.set_diverging_data(self.blue_heroes)
-            new_red_data = self.set_diverging_data(self.red_heroes)
-            self.head_to_head_attr.update_graph(new_blue_data, new_red_data)
-            self.diverging_canvas.draw()
-
-            #update win rate chart (h_chart)
-            if self.curr_selected_qlabel is not None and self.combined_hero_dict[self.obj_name] != self.selected_hero:
-                if self.selected_hero is not None:
-                    if self.curr_selected_qlabel.objectName().startswith("blue"):
-                        ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
-                        self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
-                    else:
-                        ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
-                        self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
-                self.h_charts_canvas.draw()
+            self.update_left_charts_data()
 
             self.hero_dialog.selector.selected_id = None
             self.qlabel_to_update = None
 
         else:
             return
-            
+     
+        if self.selected_hero is not None:
+            if self.selected_hero in self.blue_heroes.values() or self.selected_hero in self.red_heroes.values():
+                self.update_wr_data()
+            else:
+                self.clear_right_charts()
+                self.reset_hero_info()
+            self.h_charts_canvas.draw()
+        else:
+            return
+        
+    def update_left_charts_data(self):
+        # update the radar chart
+        new_blue_win_attr = self.set_radar_data(self.blue_heroes)
+        new_red_win_attr = self.set_radar_data(self.red_heroes)
+        self.blue_win_attr.update_graph(new_blue_win_attr)
+        self.red_win_attr.update_graph(new_red_win_attr)
+        self.radar_canvas.draw()
+
+        # update diverging h_chart
+        new_blue_data = self.set_diverging_data(self.blue_heroes)
+        new_red_data = self.set_diverging_data(self.red_heroes)
+        self.head_to_head_attr.update_graph(new_blue_data, new_red_data)
+        self.diverging_canvas.draw()
+
+    def update_wr_data(self):  # this is for the H_chart wr not the pie
+        if self.is_blue:
+            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
+            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
+        else:
+            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
+            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
+
     def set_highlight(self, radius):
         highlight_color = QColor(85, 255, 127)
         highlight_radius = radius / 2
@@ -253,8 +267,10 @@ class QuickDraftWindow(QMainWindow):
         self.hero_icon.setFixedSize(label_size)
         self.hero_icon.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        if self.curr_selected_qlabel.objectName().startswith("blue"):
-            self.hero_icon.setStyleSheet("border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
+        icon_style = "border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);"
+
+        if self.is_blue:
+            self.hero_icon.setStyleSheet(icon_style)
             # update and set the color for the pie chart
             self.hero_wr.update_graph(self.selected_hero, 0, 3,BLUE_COLOR)
             self.hero_pr.update_graph(self.selected_hero, 1, 4, BLUE_COLOR)
@@ -265,7 +281,7 @@ class QuickDraftWindow(QMainWindow):
             self.hero_name.setText(get_name(self.selected_hero, self.hero_names)) # Set the name on the qlabel
             self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {BLUE_COLOR};")
         else:
-            self.hero_icon.setStyleSheet("border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
+            self.hero_icon.setStyleSheet(icon_style)
             # update and set the color for the pie chart
             self.hero_wr.update_graph(self.selected_hero, 0, 3, RED_COLOR)
             self.hero_pr.update_graph(self.selected_hero, 1, 4, RED_COLOR)
@@ -277,15 +293,12 @@ class QuickDraftWindow(QMainWindow):
             self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {RED_COLOR};")
 
         #update win rate chart (h_chart)
-        if self.curr_selected_qlabel.objectName().startswith("blue"):
-            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
-            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
+        if self.selected_hero is not None:
+            self.update_wr_data()
+            self.h_charts_canvas.draw()
+            self.pie_canvas.draw()
         else:
-            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
-            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
-
-        self.h_charts_canvas.draw()
-        self.pie_canvas.draw()
+            return
 
     def create_all_charts(self):
         self.radar_canvas, self.blue_win_attr, self.red_win_attr = self.crete_radar_chart()
@@ -377,21 +390,6 @@ class QuickDraftWindow(QMainWindow):
             return 0
         total = sum(x for x in list_x)
         return total/len_x
-
-    def load_attr(self, path):
-        hero_data = []
-        with open(path, 'r') as file:
-            csv_reader = csv.reader(file)
-            next(csv_reader)  # Skip the header row
-            for row in csv_reader:
-                row_data = []
-                for i in range(1, 20):
-                    if i not in [14, 15, 16]:
-                        row_data.append(int(row[i].strip()))
-                    else:
-                        row_data.append(float(row[i].strip()))
-                hero_data.append(row_data)
-        return hero_data
     
     def extract_attr(self, hero_data):
         hero_stats = []
@@ -582,13 +580,21 @@ class QuickDraftWindow(QMainWindow):
                 self.is_minus_btn_active = False
         else:
             return
-        
+
     def remove_single_hero(self):
         if self.combined_hero_dict[self.obj_name] != 0:
             hero_id = self.combined_hero_dict[self.obj_name]
 
             if hero_id in self.hero_dialog.selector.unavailable_hero_ids:
                 self.hero_dialog.selector.unavailable_hero_ids.remove(hero_id)
+
+            if len(self.hero_dialog.selector.unavailable_hero_ids) > 0:
+                self.update_chart_on_minus()
+            else:
+                self.clear_all_charts()
+                self.reset_hero_info()
+                self.minus_btn.setStyleSheet(MINUS_QSS)
+                self.is_minus_btn_active = False
 
             self.combined_hero_dict[self.obj_name] = 0
             if self.obj_name.startswith("blue"):
@@ -604,10 +610,6 @@ class QuickDraftWindow(QMainWindow):
             clear_pix.fill(Qt.GlobalColor.transparent)
             self.qlabel_to_clear.setPixmap(clear_pix)
             self.qlabel_to_clear.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
-
-            if len(self.hero_dialog.selector.unavailable_hero_ids) == 0:
-                self.minus_btn.setStyleSheet(MINUS_QSS)
-                self.is_minus_btn_active = False
 
     def reset_all(self):
         self.clear_recent_qlabels()
@@ -639,6 +641,56 @@ class QuickDraftWindow(QMainWindow):
         self.is_minus_btn_active = False
         self.picker_button_active = False
         self.close_reset_dialog()
+        self.clear_all_charts()
+        self.reset_hero_info()
+
+    def reset_hero_info(self):
+        self.hero_name.setText("Select hero") # Set the name on the qlabel
+        self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {BLUE_COLOR};")
+
+        clear_pix = QPixmap(QSize(self.hero_icon.size()))
+        clear_pix.fill(Qt.GlobalColor.transparent)
+        self.hero_icon.setPixmap(clear_pix)
+        self.hero_icon.setStyleSheet("image: url(:/icons/icons/question_mark.png); border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
+
+        self.role2.setVisible(False)
+        p = QPixmap("images/hero_roles/mlbb_icon.png")
+        self.role1.setPixmap(p)
+
+    def update_chart_on_minus(self):
+        self.update_left_charts_data()
+
+        if self.selected_hero is not None:
+            if self.selected_hero in self.blue_heroes.values() or self.selected_hero in self.red_heroes.values():
+                self.update_wr_data()
+            else:
+                self.clear_right_charts()
+                self.reset_hero_info()
+            self.h_charts_canvas.draw()
+        else:
+            return
+
+    def clear_all_charts(self):
+        self.clear_left_charts()
+        self.clear_right_charts()
+
+    def clear_left_charts(self):
+        self.blue_win_attr.update_graph([0] * 6)
+        self.red_win_attr.update_graph([0]*6)
+        self.radar_canvas.draw()
+
+        self.head_to_head_attr.update_graph([0]*7, [0]*7)
+        self.diverging_canvas.draw()
+
+    def clear_right_charts(self):
+        self.single_hero_attr.init_chart()
+        self.wr_chart.init_chart()
+        self.h_charts_canvas.draw()
+
+        self.hero_br.init_chart()
+        self.hero_wr.init_chart()
+        self.hero_pr.init_chart()
+        self.pie_canvas.draw()
 
     def clear_picker_styles(self):
         if self.picker_button_active:
@@ -669,11 +721,4 @@ class QuickDraftWindow(QMainWindow):
         if self.is_minus_btn_active:
                 self.minus_btn.setStyleSheet(MINUS_QSS)
                 self.is_minus_btn_active = False
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = QuickDraftWindow()
-    window.show()
-
-    sys.exit(app.exec())
-    
+                

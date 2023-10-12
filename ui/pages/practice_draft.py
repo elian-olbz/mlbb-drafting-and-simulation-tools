@@ -229,7 +229,7 @@ class DraftWindow(QMainWindow):
             else:
                 self.blue_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
 
         elif mode == 'AvH':
@@ -238,7 +238,7 @@ class DraftWindow(QMainWindow):
             else:
                 self.red_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             
         else:
@@ -253,7 +253,7 @@ class DraftWindow(QMainWindow):
                 else:
                     self.red_player.ban(draft_state, selected_id)
             self.hero_selector.hero_to_disp = selected_id
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
 
     def ai_move(self, draft_state, mode, is_pick):
@@ -266,7 +266,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.update_button_text()
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
         
         elif mode == 'HvA':
             if is_pick:
@@ -276,7 +276,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.update_button_text()
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
 
         elif mode == 'AvA':
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
@@ -292,7 +292,7 @@ class DraftWindow(QMainWindow):
             self.hero_selector.disp_selected_image(self, self.hero_selector.hero_to_disp)
             self.hero_selector.update_labels_in_tabs(self, self.hero_selector.hero_to_disp)
             self.update_button_text()
-            print_draft_status(draft_state)
+            #print_draft_status(draft_state)
             
             
     def next_move(self, draft_state, selected_id, mode, is_pick):
@@ -422,7 +422,7 @@ class DraftWindow(QMainWindow):
 
             if self.hero_selector.current_clicked_label is not None:
                 self.hero_selector.current_clicked_label.setStyleSheet("")
-            print_draft_status(self.draft_state)
+            #print_draft_status(self.draft_state)
 
     def reset_all(self):
         self.reset_dialog.close()
@@ -461,5 +461,4 @@ class DraftWindow(QMainWindow):
             self.update_button_text()
             self.hero_selector.unavailable_hero_ids.clear()
             self.hero_selector.populate_tabs(self, 90)
-
-            print_draft_status(self.draft_state)
+            #print_draft_status(self.draft_state)

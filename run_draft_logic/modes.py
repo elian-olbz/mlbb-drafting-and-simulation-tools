@@ -18,12 +18,12 @@ def human_vs_human():
 
 def human_vs_ai():
     blue_player = HumanPlayer("Blue")
-    red_player = AIPlayer("Red", 'model/meta_ld_512_x5h.tflite')
+    red_player = AIPlayer("Red")
     mode = 'HvA'
     return blue_player, red_player, mode
 
 def ai_vs_human():
-    blue_player = AIPlayer("Blue", 'model/meta_ld_512_x5h.tflite')
+    blue_player = AIPlayer("Blue")
     red_player = HumanPlayer("Red")
     mode = 'AvH'
     return blue_player, red_player, mode

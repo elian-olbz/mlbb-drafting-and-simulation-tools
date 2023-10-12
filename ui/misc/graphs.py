@@ -63,6 +63,7 @@ class TeamWinAttr():  # Radar chart reflecting win conditions
         ax.grid(True)
         ax.tick_params(left=False)
 
+
 class HeadToHeadAttr: # Diverging chart / Attributes of both team
     def __init__(self, ax):
         self.ax = ax
@@ -94,7 +95,6 @@ class HeadToHeadAttr: # Diverging chart / Attributes of both team
         self.blue_values = [-value for value in blue_values]  # Multiply blue team values by -1
         self.red_values = red_values
 
-        self.ax.set_xlim(min(min(self.blue_values), min(self.red_values)), max(max(self.blue_values), max(self.red_values)))
         x_ticks = np.arange(-10, 11, 1)  # Create an array of x-tick positions
         bars_blue = self.ax.barh(y=range(len(self.labels)), width=self.blue_values, color='#2e6eea', edgecolor=EDGE_COLOR)
         bars_red = self.ax.barh(y=range(len(self.labels)), width=red_values, color='#ed0d3a', edgecolor=EDGE_COLOR)
@@ -120,6 +120,10 @@ class SingleHeroAttr(): # H_Chart reflecting single hero attributes
         self.ax = ax
         self.labels = ['Wave Clear', 'DPS', 'Vision', 'CC', 'Objective', 'Push', 'Utility']
 
+        self.init_chart()
+    
+    def init_chart(self):
+        self.ax.clear()
         initial_data = [0] * len(self.labels)
 
         self.ax.set_xlim(0, 10)  # x-axis limits
@@ -169,11 +173,13 @@ class SingleHeroStats: # pie charts
         self.ax = ax
         self.stats_type = stats_type
         self.hero_stats = hero_stats
-
         self.value = 0.0  # Initial value
         self.hero_id = 0  # Initial hero ID
         self.index = 0    # Initial index
-
+        self.init_chart()
+    
+    def init_chart(self):
+        self.ax.clear()
         # Create a blue wedge donut chart (initially hidden)
         self.back_color = (165 / 255, 165 / 255, 255 / 255)
         self.color_wedge, _ = self.ax.pie([1], colors=['blue'], radius=1.09, wedgeprops={'linewidth': 7})
@@ -231,23 +237,24 @@ class SingleHeroStats: # pie charts
 class LineUpWinrate(): # H_Chart reflecting the winrates of a selected hero against or with each hero on the line up
     def __init__(self, ax):
         self.ax = ax  # Pass the ax object to store it for plotting later
-        self.hero_names = [f'Hero {x}' for x in range(1, 10)]
         self.BLUE_COLOR = "#2e6eea"
         self.RED_COLOR = "#ed0d3a"
-
+        self.init_chart()
+    
+    def init_chart(self):
+        self.hero_names = [f'Hero {x}' for x in range(1, 10)]
         # Random win rates for illustration (excluding the selected hero)
         self.win_rates_allies = [0, 0, 0, 0]
         self.win_rates_enemies = [0, 0, 0, 0, 0]
-
         # Concatenate the win rates for both allies and enemies
         self.win_rates = np.concatenate([self.win_rates_allies, self.win_rates_enemies])
 
         # Create colors for allies (lightblue) and enemies (lightcoral)
         self.colors = [self.BLUE_COLOR] * len(self.win_rates_allies) + [self.RED_COLOR] * len(self.win_rates_enemies)
 
+        self.ax.clear()
         # Create the horizontal bar chart within the constructor
         self.ax.barh(self.hero_names, self.win_rates, color=self.colors, edgecolor=EDGE_COLOR)
-
         # Set the title
         self.ax.set_title(f'Hero WR (Ally vs. Enemy)', size=11, weight='bold', color="#eaeaea")
         self.ax.tick_params(left=True)
