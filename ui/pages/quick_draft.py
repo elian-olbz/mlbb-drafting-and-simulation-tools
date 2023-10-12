@@ -16,12 +16,14 @@ from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import*
 from ui.dialogs.hero_selector_tab import *
+from ui.dialogs.reset_heroes import*
 from ui.misc.graphs import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
-QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+PICKER_QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
+MINUS_QSS = "QPushButton{text-align:center; border-radius: 5px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;} QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
 BLUE_COLOR = "#2e6eea"
 RED_COLOR = "#ed0d3a" 
 
@@ -41,6 +43,9 @@ class QuickDraftWindow(QMainWindow):
         self.curr_selected_qlabel = None # Used when picker in picker_button == True
         self.prev_selected_qlbel = None  # Used when picker in picker_button == True
 
+        self.qlabel_to_clear = None # Used when minus button is active
+        self.is_minus_btn_active = False
+
         self.hero_names = load_names('data/hero_map.csv')
         self.hero_roles, _, _, _ = load_hero_roles('data/hero_roles.csv')
         self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
@@ -59,6 +64,7 @@ class QuickDraftWindow(QMainWindow):
         self.hero_dialog.select_btn.clicked.connect(self.select_button_click)
         self.hero_dialog.exit_button.clicked.connect(self.on_dialog_exit)
         self.picker_btn.clicked.connect(self.picker_button_clicked)
+        self.minus_btn.clicked.connect(self.minus_btn_clicked)
 
         self.labels = {}
 
@@ -71,6 +77,11 @@ class QuickDraftWindow(QMainWindow):
                 self.labels[name] = label
                 label.installEventFilter(self)
 
+        self.reset_dialog = ResetDialog()
+        self.reset_btn.clicked.connect(self.show_reset_dialog)
+        self.reset_dialog.okay_btn.clicked.connect(self.reset_all)
+        self.reset_dialog.cancel_btn.clicked.connect(self.close_reset_dialog)
+
         self.create_all_charts()
         self.role2.setVisible(False)
 
@@ -79,7 +90,6 @@ class QuickDraftWindow(QMainWindow):
         
         enter_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Return), self.hero_dialog)
         enter_shortcut.activated.connect(self.hero_dialog.select_btn.click)
-
 #############################################################       
         # MOVE WINDOW
         def moveWindow(event):
@@ -124,6 +134,10 @@ class QuickDraftWindow(QMainWindow):
                         self.selected_hero = self.combined_hero_dict[self.obj_name]
                         self.update_single_hero()
                         self.set_highlight(25)
+                elif self.is_minus_btn_active:
+                    if self.combined_hero_dict[self.obj_name] != 0:
+                        self.qlabel_to_clear = obj
+                        self.remove_single_hero()
                 else:
                     if self.obj_name in self.labels:
                         self.set_highlight(25)
@@ -132,6 +146,14 @@ class QuickDraftWindow(QMainWindow):
         self.prev_qlabel = self.qlabel_to_update    
         return super().eventFilter(obj, event)
     
+    def show_reset_dialog(self):
+        if len(self.hero_dialog.selector.unavailable_hero_ids) > 0:
+            self.reset_dialog.show()
+        else:
+            return
+    def close_reset_dialog(self):
+        self.reset_dialog.close()
+
     def show_dial(self):
         self.hero_dialog.show()  
 
@@ -156,17 +178,19 @@ class QuickDraftWindow(QMainWindow):
                     self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
                     self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.hero_dialog.selector.selected_id, False) 
                 else:
-                    self.hero_dialog.selector.unavailable_hero_ids.remove(self.blue_heroes[self.obj_name])
-                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.blue_heroes[self.obj_name], True)
-                    self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                    if self.blue_heroes[self.obj_name] in self.hero_dialog.selector.unavailable_hero_ids:
+                        self.hero_dialog.selector.unavailable_hero_ids.remove(self.blue_heroes[self.obj_name])
+                        self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.blue_heroes[self.obj_name], True)
+                        self.blue_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
             else:
                 if self.red_heroes[self.obj_name] == 0:
                     self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
                     self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.hero_dialog.selector.selected_id, False)
                 else:
-                    self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
-                    self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.red_heroes[self.obj_name], True)
-                    self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
+                    if self.red_heroes[self.obj_name] in self.hero_dialog.selector.unavailable_hero_ids:
+                        self.hero_dialog.selector.unavailable_hero_ids.remove(self.red_heroes[self.obj_name])
+                        self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, self.red_heroes[self.obj_name], True)
+                        self.red_heroes[self.obj_name] = self.hero_dialog.selector.selected_id
 
             self.qlabel_to_update = None
             # update the radar chart
@@ -183,7 +207,7 @@ class QuickDraftWindow(QMainWindow):
             self.diverging_canvas.draw()
 
             #update win rate chart (h_chart)
-            if self.combined_hero_dict[self.obj_name] != self.selected_hero:
+            if self.curr_selected_qlabel is not None and self.combined_hero_dict[self.obj_name] != self.selected_hero:
                 if self.selected_hero is not None:
                     if self.curr_selected_qlabel.objectName().startswith("blue"):
                         ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
@@ -212,29 +236,6 @@ class QuickDraftWindow(QMainWindow):
             if self.prev_qlabel is not None and self.qlabel_to_update != self.prev_qlabel:
                 self.prev_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # return to plus icon when clicking other qlabel
             self.qlabel_to_update.setStyleSheet(circular_style + "image: url(:/icons/icons/plus-circle.svg);")
-
-    def picker_button_clicked(self):
-        if any(self.combined_hero_dict.values()) != 0:
-            if self.picker_button_active == False:
-                self.picker_button_active = True
-                highlight_color = QColor(85, 255, 127)
-                highlight_radius = 23 
-                self.picker_btn.setFixedSize(46, 46)
-                circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
-                self.picker_btn.setStyleSheet(circular_style + QSS)
-                # Remove recent highlight from the hero selector dialog if there is any
-                if self.qlabel_to_update is not None: 
-                    key = self.qlabel_to_update.objectName()
-                    if self.combined_hero_dict[key] != 0:
-                        self.qlabel_to_update.setStyleSheet("") # Remove the highlight if highligted qlabel has an image
-                    else:
-                        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
-            else:
-                self.picker_btn.setFixedSize(46, 46)
-                self.picker_btn.setStyleSheet(QSS)
-                self.picker_button_active = False
-                if self.curr_selected_qlabel is not None:
-                    self.curr_selected_qlabel.setStyleSheet("")
     
     def update_single_hero(self):
         ###################### update ui elements ###################
@@ -531,7 +532,143 @@ class QuickDraftWindow(QMainWindow):
             elif role == 'Roamer':
                 pix_map = QPixmap("images/hero_roles/roam_white.png")   
             return pix_map
-    
+
+    def picker_button_clicked(self):
+        if any(self.combined_hero_dict.values()) != 0:
+            self.clear_minus_styles()
+            self.clear_recent_qlabels()
+
+            if self.picker_button_active == False:
+                self.picker_button_active = True
+
+                highlight_color = QColor(85, 255, 127)
+                highlight_radius = 23 
+                self.picker_btn.setFixedSize(46, 46)
+                circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
+                self.picker_btn.setStyleSheet(circular_style + PICKER_QSS)
+
+                # Remove recent highlight from the hero selector dialog if there is any
+                if self.qlabel_to_update is not None:  # check if there is a previously higlighted empty qlabel to update
+                    key = self.qlabel_to_update.objectName()
+                    if self.combined_hero_dict[key] != 0:
+                        self.qlabel_to_update.setStyleSheet("") # Remove the highlight if highligted qlabel has an image
+                    else:
+                        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
+            else:
+                self.picker_btn.setFixedSize(46, 46)
+                self.picker_btn.setStyleSheet(PICKER_QSS)
+                self.picker_button_active = False
+                if self.curr_selected_qlabel is not None:
+                    self.curr_selected_qlabel.setStyleSheet("")
+        else:
+            return
+        
+    def minus_btn_clicked(self):
+        if any(self.combined_hero_dict.values()) != 0:
+            self.clear_picker_styles()
+
+            if self.is_minus_btn_active == False:
+                self.is_minus_btn_active = True
+
+                highlight_color = QColor(85, 255, 127)
+                highlight_radius = 5
+                self.minus_btn.setFixedSize(30, 30)
+                circular_style = f"border-radius: {highlight_radius}px; border: 2px solid {highlight_color.name()};"
+                self.minus_btn.setStyleSheet(circular_style + MINUS_QSS)
+            
+            else:
+                self.minus_btn.setFixedSize(30, 30)
+                self.minus_btn.setStyleSheet(MINUS_QSS)
+                self.is_minus_btn_active = False
+        else:
+            return
+        
+    def remove_single_hero(self):
+        if self.combined_hero_dict[self.obj_name] != 0:
+            hero_id = self.combined_hero_dict[self.obj_name]
+
+            if hero_id in self.hero_dialog.selector.unavailable_hero_ids:
+                self.hero_dialog.selector.unavailable_hero_ids.remove(hero_id)
+
+            self.combined_hero_dict[self.obj_name] = 0
+            if self.obj_name.startswith("blue"):
+                self.blue_heroes[self.obj_name] = 0
+            elif self.obj_name.startswith("red"):
+                self.red_heroes[self.obj_name] = 0
+
+            self.hero_dialog.selector.selected_id = hero_id
+            self.hero_dialog.selector.update_labels_in_tabs(self.hero_dialog, hero_id, False)
+
+            # reset the qlabel stylesheet to empty 
+            clear_pix = QPixmap(QSize(self.qlabel_to_clear.size()))
+            clear_pix.fill(Qt.GlobalColor.transparent)
+            self.qlabel_to_clear.setPixmap(clear_pix)
+            self.qlabel_to_clear.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+
+            if len(self.hero_dialog.selector.unavailable_hero_ids) == 0:
+                self.minus_btn.setStyleSheet(MINUS_QSS)
+                self.is_minus_btn_active = False
+
+    def reset_all(self):
+        self.clear_recent_qlabels()
+        self.clear_picker_styles()
+        self.clear_minus_styles()
+
+        for name in self.label_names:
+            label = self.findChild(QLabel, name)
+            if label:
+                clear_pix = QPixmap(QSize(label.size()))
+                clear_pix.fill(Qt.GlobalColor.transparent)
+                label.setPixmap(clear_pix)
+                label.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+        
+        for  key in self.blue_heroes.keys():
+            self.blue_heroes[key] = 0
+        
+        for key in self.red_heroes.keys():
+            self.red_heroes[key] = 0
+
+        for key in self.combined_hero_dict.keys():
+            self.combined_hero_dict[key] = 0
+
+        self.hero_dialog.selector.populate_tabs(self.hero_dialog, 60)
+        self.hero_dialog.selector.unavailable_hero_ids = []
+        self.hero_dialog.selector.selected_id = None
+        self.combined_hero_dict 
+
+        self.is_minus_btn_active = False
+        self.picker_button_active = False
+        self.close_reset_dialog()
+
+    def clear_picker_styles(self):
+        if self.picker_button_active:
+                # Just remove all previous highlight whether it's from when the pciker btn is active or not
+                self.picker_btn.setStyleSheet(PICKER_QSS)
+                self.picker_button_active = False
+                if self.curr_selected_qlabel is not None:
+                    self.curr_selected_qlabel.setStyleSheet("")
+
+                # Remove recent highlight from the hero selector dialog if there is any
+                if self.qlabel_to_update is not None:  # check if there is a previously higlighted empty qlabel to update
+                    key = self.qlabel_to_update.objectName()
+                    if self.combined_hero_dict[key] != 0:
+                        self.qlabel_to_update.setStyleSheet("") # Remove the highlight if highligted qlabel has an image
+                    else:
+                        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
+
+    def clear_recent_qlabels(self):
+        if self.qlabel_to_update is not None:
+            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.qlabel_to_update = None
+            
+        if self.curr_selected_qlabel is not None:
+            self.curr_selected_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.curr_selected_qlabel = None
+
+    def clear_minus_styles(self):
+        if self.is_minus_btn_active:
+                self.minus_btn.setStyleSheet(MINUS_QSS)
+                self.is_minus_btn_active = False
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
