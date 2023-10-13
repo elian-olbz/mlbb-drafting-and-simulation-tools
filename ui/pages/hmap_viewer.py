@@ -15,6 +15,34 @@ ORIGINAL_SIZE = 720
 FRAME_SKIP = 1
 DELAY = 80
 
+PLAY_QSS = "QPushButton{\
+                image: url(:/icons/icons/play-circle.svg);\
+                text-align:center;\
+                padding: 4px 4px;\
+                border-radius: 23px;\
+                }\
+                QPushButton:hover {\
+                    background-color:  #57578a;\
+                }\
+                QPushButton:pressed {	\
+                    background-color:  #7676b2;\
+                    color: rgb(255, 255, 255);\
+                }"
+
+PAUSE_QSS = "QPushButton{\
+                image: url(:/icons/icons/pause-circle.svg);\
+                text-align:center;\
+                padding: 4px 4px;\
+                border-radius: 23px;\
+                }\
+                QPushButton:hover {\
+                    background-color:  #57578a;\
+                }\
+                QPushButton:pressed {	\
+                    background-color:  #7676b2;\
+                    color: rgb(255, 255, 255);\
+                }"
+
 class VideoThread(QThread):
     frame_ready = pyqtSignal(QPixmap)
 
@@ -246,27 +274,31 @@ class HeatmapViewerWindow(QMainWindow):
                     # Start the video thread only if it's not already running
                     self.video.video_thread.start()
                 self.video.video_thread.resume()  # Resume the video thread
-                self.video_play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.video_play_btn.setIconSize(QSize(22, 22))
+                self.video_play_btn.setStyleSheet(PAUSE_QSS)
+                self.video_play_btn.setFixedSize(46, 46)
+                self.video_play_btn.setToolTip("Pause")
                 self.video.v_timer.start(27)
             else:
                 self.is_video_running = False
                 self.video.video_thread.pause()  # Pause the video thread
-                self.video_play_btn.setIcon(QIcon('icons/play.svg'))
-                self.video_play_btn.setIconSize(QSize(22, 22))
+                self.video_play_btn.setStyleSheet(PLAY_QSS)
+                self.video_play_btn.setFixedSize(46, 46)
+                self.video_play_btn.setToolTip("Play")
 
     def hmap_play_pause(self):
         if self.csv_path is not None:
             if not self.is_hmap_running:
                 self.is_hmap_running = True
                 self.timer.start(DELAY)  
-                self.hmap_play_btn.setIcon(QIcon('icons/pause.svg'))
-                self.hmap_play_btn.setIconSize(QSize(22, 22))
+                self.hmap_play_btn.setStyleSheet(PAUSE_QSS)
+                self.hmap_play_btn.setFixedSize(46, 46)
+                self.hmap_play_btn.setToolTip("Pause")
             else:
                 self.is_hmap_running = False
                 self.timer.stop()
-                self.hmap_play_btn.setIcon(QIcon('icons/play.svg'))
-                self.hmap_play_btn.setIconSize(QSize(22, 22))
+                self.hmap_play_btn.setStyleSheet(PLAY_QSS)
+                self.hmap_play_btn.setFixedSize(46, 46)
+                self.hmap_play_btn.setToolTip("Play")
 
     def seek_hmap_frame(self):
         #fr = int((self.hmap_slider.value() / 100) * self.total_frames)
@@ -278,13 +310,15 @@ class HeatmapViewerWindow(QMainWindow):
         self.update_hmap_bar()
 
         if self.is_hmap_running:
-            self.hmap_play_btn.setIcon(QIcon('icons/pause.svg'))
-            self.hmap_play_btn.setIconSize(QSize(22, 22))
+            self.hmap_play_btn.setStyleSheet(PAUSE_QSS)
+            self.hmap_play_btn.setFixedSize(46, 46)
+            self.hmap_play_btn.setToolTip("Pause")
             self.timer.start(DELAY)
             self.is_hmap_running = True
         else:
-            self.hmap_play_btn.setIcon(QIcon('icons/play.svg'))
-            self.hmap_play_btn.setIconSize(QSize(22, 22))
+            self.hmap_play_btn.setStyleSheet(PLAY_QSS)
+            self.hmap_play_btn.setFixedSize(46, 46)
+            self.hmap_play_btn.setToolTip("Play")
             self.is_hmap_running = False
             self.timer.stop()
         self.hide_hero()
@@ -312,11 +346,8 @@ class HeatmapViewerWindow(QMainWindow):
                 self.video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.video_label.setPixmap(pixmap)
 
-        if self.video is not None:
             if not self.video.video_thread.isRunning():
                 if self.is_video_running:
-                    self.video_play_btn.setIcon(QIcon('icons/pause.svg'))
-                    self.video_play_btn.setIconSize(QSize(22, 22))
                     self.is_video_running = True
                     self.video.video_thread.start()
                     self.video.video_thread.resume()
@@ -324,8 +355,6 @@ class HeatmapViewerWindow(QMainWindow):
                     self.update_video_bar()
                     self.video.v_timer.start(27)
                 else:
-                    self.video_play_btn.setIcon(QIcon('icons/play.svg'))
-                    self.video_play_btn.setIconSize(QSize(22, 22))
                     self.is_video_running = False
                     self.video.video_thread.pause()
                     self.video.v_timer.stop()

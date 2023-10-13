@@ -8,9 +8,14 @@ class TitleBar(QMainWindow):
     def __init__(self, parent):
         super(TitleBar, self).__init__(parent)
         self.win_maxed = True
-        self.shadow_style = "background-color: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));"
-        self.main_frame_max = "*{border:none; border-radius: 0px; background-color:transparent; background:transparent; padding:0; margin:0; color:#fff} QFrame #main_frame{border:0px solid; border-radius: 0px}"
-        self.main_frame_min = "*{border:none; border-radius: 0px; background-color:transparent; background:transparent; padding:0; margin:0; color:#fff} QFrame #main_frame{border:1px solid; border-radius: 10px; border-color:rgb(83, 89, 98);}"
+        self.shadow_style = "background-color: qlineargradient(\
+                                spread: pad, x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 rgba(0, 0, 0, 1), stop: 0.521368 rgba(0, 0, 0, 1));"
+        self.main_frame_max = "*{border:none; border-radius: 0px; background-color:transparent; \
+                                background:transparent; padding:0; margin:0; color:#fff} \
+                                QFrame #main_frame{border:0px solid; border-radius: 0px}"
+        self.main_frame_min = "*{border:none; border-radius: 0px; background-color:transparent; \
+                                background:transparent; padding:0; margin:0; color:#fff} \
+                                QFrame #main_frame{border:1px solid; border-radius: 10px; border-color:rgb(83, 89, 98);}"
         
     ## ==> MAXIMIZE RESTORE FUNCTION
     def maximize_restore(self, parent):

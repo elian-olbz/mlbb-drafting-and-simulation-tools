@@ -369,6 +369,7 @@ QPushButton:pressed {
                  <property name="font">
                   <font>
                    <pointsize>10</pointsize>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="styleSheet">

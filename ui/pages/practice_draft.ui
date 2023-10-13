@@ -301,7 +301,7 @@ QPushButton:pressed {
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_7">
                    <property name="spacing">
-                    <number>4</number>
+                    <number>12</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -1742,9 +1742,6 @@ QPushButton:pressed {
                                          <bold>true</bold>
                                         </font>
                                        </property>
-                                       <property name="toolTip">
-                                        <string>Undo</string>
-                                       </property>
                                        <property name="layoutDirection">
                                         <enum>Qt::LeftToRight</enum>
                                        </property>
@@ -1753,7 +1750,8 @@ QPushButton:pressed {
 border: 2px solid; 
 border-color:rgb(83, 89, 98);
 border-color: rgb(0, 170, 255);
-padding: 5px 10px;</string>
+padding: 5px 10px;
+color: #eaeaea</string>
                                        </property>
                                        <property name="text">
                                         <string> Undo </string>
@@ -1785,7 +1783,8 @@ padding: 5px 10px;</string>
 border: 2px solid; 
 border-color:rgb(83, 89, 98);
 border-color: rgb(0, 170, 255);
-padding: 5px 20px;</string>
+padding: 5px 20px;
+color: #eaeaea;</string>
                                        </property>
                                        <property name="text">
                                         <string>Ban</string>

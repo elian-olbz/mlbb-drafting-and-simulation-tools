@@ -19,12 +19,16 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 #print(script_dir)
 
 # QSS for restoring default/empty pick/ban slot
-PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255), stop:0.991368 rgba(49, 49, 77, 255)); border-radius: 10px; border: 3px solid; border-color: #d9d9d9;"
+PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(73, 73, 115, 255),\
+            stop:0.991368 rgba(49, 49, 77, 255)); border-radius: 10px; border: 3px solid; border-color: #d9d9d9;"
 BAN_QSS = "border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color: #d9d9d9;"
 
 # QSS for highlighting next move
-NEXT_BAN_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 28px; border: 3px solid; image: url(:/icons/icons/question_mark.png); border-color: #eaeaea;"
-NEXT_PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 10px; border: 3px solid; border-color: #eaeaea;"
+NEXT_BAN_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), \
+            stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 28px; border: 3px solid; \
+            image: url(:/icons/icons/question_mark.png); border-color: #eaeaea;"
+NEXT_PICK_QSS = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 170, 255, 255), \
+            stop:0.991368 rgba(136, 136, 204, 255)); border-radius: 10px; border: 3px solid; border-color: #eaeaea;"
 
 
 class AIThread(QThread):
@@ -321,24 +325,25 @@ class DraftWindow(QMainWindow):
 
     def update_button_text(self):
         self.highlight_next_qlabel()
+        font_style = "font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);"
         if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.pick_indices:
             self.pick_button.setText("Pick")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Pick")
-                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+                self.top_text.setStyleSheet(font_style)
 
             elif get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn:
                 self.top_text.setText("Red Team Pick")
-                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+                self.top_text.setStyleSheet(font_style)
         else:
             self.pick_button.setText("Ban")
             if get_curr_index(self.hero_selector.remaining_clicks) in self.hero_selector.blue_turn:
                 self.top_text.setText("Blue Team Ban")
-                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+                self.top_text.setStyleSheet(font_style)
             
             elif get_curr_index(self.hero_selector.remaining_clicks) not in self.hero_selector.blue_turn:
                 self.top_text.setText("Red Team Ban")
-                self.top_text.setStyleSheet("font-size: 14pt; font-weight: bold; color: rgb(255, 255, 255);")
+                self.top_text.setStyleSheet(font_style)
 
     def highlight_next_qlabel(self):
         style = ""

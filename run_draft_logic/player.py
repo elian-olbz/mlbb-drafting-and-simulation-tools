@@ -42,7 +42,7 @@ class AIPlayer:
         draft_state.draft_sequence.append(next_hero_id)
         draft_state.final_sequence.append(next_hero_id)
         draft_state.add_pick(self.team_color, next_hero_id)
-        print(f"{self.team_color} Pick:", get_name(next_hero_id, draft_state.hero_names))
+        #print(f"{self.team_color} Pick:", get_name(next_hero_id, draft_state.hero_names))
         return next_hero_id
 
     def ban(self, draft_state):
@@ -54,7 +54,7 @@ class AIPlayer:
         draft_state.draft_sequence.append(next_ban_id)
         draft_state.final_sequence.append(next_ban_id)
         draft_state.add_ban(self.team_color, next_ban_id)
-        print(f"{self.team_color} Ban:", get_name(next_ban_id, draft_state.hero_names))
+        #print(f"{self.team_color} Ban:", get_name(next_ban_id, draft_state.hero_names))
         return next_ban_id
 
 
@@ -81,7 +81,7 @@ class AIPlayer:
 
             if not valid_predictions:
                 next_hero_id = random.choice(valid_heroes)
-                print("Random selection:", next_hero_id)
+                #print("Random selection:", next_hero_id)
             else:
                 if team_color == 'Blue':
                     next_hero_id = draft_state.filter_predictions(valid_heroes, valid_predictions, draft_state.blue_pick_roles, draft_state.red_pick_roles, is_picking, draft_state.ai_level)

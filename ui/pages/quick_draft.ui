@@ -364,9 +364,6 @@ QPushButton:pressed {
                           <height>30</height>
                          </size>
                         </property>
-                        <property name="toolTip">
-                         <string>Undo</string>
-                        </property>
                         <property name="layoutDirection">
                          <enum>Qt::RightToLeft</enum>
                         </property>
@@ -1143,6 +1140,9 @@ border: 2px solid; border-color:rgb(255, 255, 255);
                             <font>
                              <pointsize>1</pointsize>
                             </font>
+                           </property>
+                           <property name="toolTip">
+                            <string/>
                            </property>
                            <property name="styleSheet">
                             <string notr="true">QPushButton{

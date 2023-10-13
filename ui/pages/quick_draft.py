@@ -26,7 +26,10 @@ PICKER_QSS = "QPushButton{text-align:center; border-radius: 23px; padding: 5px, 
 MINUS_QSS = "QPushButton{text-align:center; border-radius: 5px; padding: 5px, 5px;} QPushButton:hover { background-color: #23272e;}\
                  QPushButton:pressed {background-color: rgb(62, 69, 82); color: rgb(255, 255, 255);}"
 BLUE_COLOR = "#2e6eea"
-RED_COLOR = "#ed0d3a" 
+RED_COLOR = "#ed0d3a"
+
+
+EMPTY_HERO_QSS = "image: url(:/icons/icons/plus-circle.svg);"
 
 class QuickDraftWindow(QMainWindow):
     def __init__(self):
@@ -116,7 +119,7 @@ class QuickDraftWindow(QMainWindow):
     def resizeEvent(self, event):
         self.hero_dialog.selector.update_current_tab(self.hero_dialog.hero_tab.currentIndex)
         if self.qlabel_to_update is not None:
-            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.qlabel_to_update.setStyleSheet(EMPTY_HERO_QSS)
 
 
 #######################################################################     
@@ -163,7 +166,7 @@ class QuickDraftWindow(QMainWindow):
 
     def on_dialog_exit(self):
         if self.picker_button_active == False and self.qlabel_to_update is not None:
-            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.qlabel_to_update.setStyleSheet(EMPTY_HERO_QSS)
 
     def merge_heroes_dict(self, dict1, dict2):
         res = {**dict1, **dict2}
@@ -204,13 +207,16 @@ class QuickDraftWindow(QMainWindow):
 
         else:
             return
+        self.revalidate_selected_hero()
      
+    def revalidate_selected_hero(self): 
         if self.selected_hero is not None:
             if self.selected_hero in self.blue_heroes.values() or self.selected_hero in self.red_heroes.values():
                 self.update_wr_data()
             else:
                 self.clear_right_charts()
                 self.reset_hero_info()
+                self.selected_hero = None
             self.h_charts_canvas.draw()
         else:
             return
@@ -248,8 +254,8 @@ class QuickDraftWindow(QMainWindow):
                 self.curr_selected_qlabel.setStyleSheet(circular_style)
         else:
             if self.prev_qlabel is not None and self.qlabel_to_update != self.prev_qlabel:
-                self.prev_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # return to plus icon when clicking other qlabel
-            self.qlabel_to_update.setStyleSheet(circular_style + "image: url(:/icons/icons/plus-circle.svg);")
+                self.prev_qlabel.setStyleSheet(EMPTY_HERO_QSS) # return to plus icon when clicking other qlabel
+            self.qlabel_to_update.setStyleSheet(circular_style + EMPTY_HERO_QSS)
     
     def update_single_hero(self):
         ###################### update ui elements ###################
@@ -551,7 +557,7 @@ class QuickDraftWindow(QMainWindow):
                     if self.combined_hero_dict[key] != 0:
                         self.qlabel_to_update.setStyleSheet("") # Remove the highlight if highligted qlabel has an image
                     else:
-                        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
+                        self.qlabel_to_update.setStyleSheet(EMPTY_HERO_QSS) # Remove the highlight if highligted qlabel has no image and return the plus icon
             else:
                 self.picker_btn.setFixedSize(46, 46)
                 self.picker_btn.setStyleSheet(PICKER_QSS)
@@ -609,7 +615,8 @@ class QuickDraftWindow(QMainWindow):
             clear_pix = QPixmap(QSize(self.qlabel_to_clear.size()))
             clear_pix.fill(Qt.GlobalColor.transparent)
             self.qlabel_to_clear.setPixmap(clear_pix)
-            self.qlabel_to_clear.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.qlabel_to_clear.setStyleSheet(EMPTY_HERO_QSS)
+        self.revalidate_selected_hero()
 
     def reset_all(self):
         self.clear_recent_qlabels()
@@ -622,7 +629,7 @@ class QuickDraftWindow(QMainWindow):
                 clear_pix = QPixmap(QSize(label.size()))
                 clear_pix.fill(Qt.GlobalColor.transparent)
                 label.setPixmap(clear_pix)
-                label.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+                label.setStyleSheet(EMPTY_HERO_QSS)
         
         for  key in self.blue_heroes.keys():
             self.blue_heroes[key] = 0
@@ -645,13 +652,14 @@ class QuickDraftWindow(QMainWindow):
         self.reset_hero_info()
 
     def reset_hero_info(self):
+        empty_hero_icon = "image: url(:/icons/icons/question_mark.png); border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);"
         self.hero_name.setText("Select hero") # Set the name on the qlabel
         self.hero_name.setStyleSheet(f"font-size: 20pt; font-weight: bold; color: {BLUE_COLOR};")
 
         clear_pix = QPixmap(QSize(self.hero_icon.size()))
         clear_pix.fill(Qt.GlobalColor.transparent)
         self.hero_icon.setPixmap(clear_pix)
-        self.hero_icon.setStyleSheet("image: url(:/icons/icons/question_mark.png); border-radius: 30px; border: 2px solid; border-color:rgb(255, 255, 255);")
+        self.hero_icon.setStyleSheet(empty_hero_icon)
 
         self.role2.setVisible(False)
         p = QPixmap("images/hero_roles/mlbb_icon.png")
@@ -706,15 +714,15 @@ class QuickDraftWindow(QMainWindow):
                     if self.combined_hero_dict[key] != 0:
                         self.qlabel_to_update.setStyleSheet("") # Remove the highlight if highligted qlabel has an image
                     else:
-                        self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);") # Remove the highlight if highligted qlabel has no image and return the plus icon
+                        self.qlabel_to_update.setStyleSheet(EMPTY_HERO_QSS) # Remove the highlight if highligted qlabel has no image and return the plus icon
 
     def clear_recent_qlabels(self):
         if self.qlabel_to_update is not None:
-            self.qlabel_to_update.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.qlabel_to_update.setStyleSheet(EMPTY_HERO_QSS)
             self.qlabel_to_update = None
             
         if self.curr_selected_qlabel is not None:
-            self.curr_selected_qlabel.setStyleSheet("image: url(:/icons/icons/plus-circle.svg);")
+            self.curr_selected_qlabel.setStyleSheet(EMPTY_HERO_QSS)
             self.curr_selected_qlabel = None
 
     def clear_minus_styles(self):

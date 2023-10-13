@@ -48,4 +48,5 @@ class OpenPracticeDraft(QDialog):
             self.side_combo_box.setDisabled(False)
         else:
             self.ai_slider.setDisabled(True)
+            self.ai_slider.setValue(-5)
             self.side_combo_box.setDisabled(True)

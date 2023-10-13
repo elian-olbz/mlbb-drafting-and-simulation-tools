@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>920</width>
-    <height>594</height>
+    <height>598</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -796,7 +796,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                            </layout>
                           </widget>
                          </item>
-                         <item alignment="Qt::AlignBottom">
+                         <item alignment="Qt::AlignVCenter">
                           <widget class="QWidget" name="widget_2" native="true">
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -829,7 +829,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                             <property name="bottomMargin">
                              <number>4</number>
                             </property>
-                            <item>
+                            <item alignment="Qt::AlignVCenter">
                              <widget class="QFrame" name="frame_4">
                               <property name="sizePolicy">
                                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -863,18 +863,18 @@ border-radius: 22px;
                               <property name="frameShadow">
                                <enum>QFrame::Raised</enum>
                               </property>
-                              <layout class="QHBoxLayout" name="horizontalLayout_5">
+                              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,6">
                                <property name="spacing">
                                 <number>4</number>
                                </property>
                                <property name="leftMargin">
-                                <number>4</number>
+                                <number>5</number>
                                </property>
                                <property name="topMargin">
                                 <number>0</number>
                                </property>
                                <property name="rightMargin">
-                                <number>15</number>
+                                <number>20</number>
                                </property>
                                <property name="bottomMargin">
                                 <number>0</number>
@@ -899,12 +899,12 @@ border-radius: 22px;
                                     <property name="minimumSize">
                                      <size>
                                       <width>150</width>
-                                      <height>0</height>
+                                      <height>30</height>
                                      </size>
                                     </property>
                                     <property name="styleSheet">
                                      <string notr="true">QFrame #frame_14 {
-border: 1px solid; 
+border: 2px solid; 
 	border-color: rgb(214, 214, 214);
 border-radius:13px;
 }</string>
@@ -950,11 +950,11 @@ border-radius:13px;
                                  </layout>
                                 </widget>
                                </item>
-                               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                               <item alignment="Qt::AlignVCenter">
                                 <widget class="QFrame" name="frame_7">
                                  <property name="minimumSize">
                                   <size>
-                                   <width>100</width>
+                                   <width>140</width>
                                    <height>0</height>
                                   </size>
                                  </property>
@@ -989,15 +989,15 @@ QPushButton:pressed {
                                    <number>0</number>
                                   </property>
                                   <property name="topMargin">
-                                   <number>4</number>
+                                   <number>0</number>
                                   </property>
                                   <property name="rightMargin">
                                    <number>0</number>
                                   </property>
                                   <property name="bottomMargin">
-                                   <number>4</number>
+                                   <number>0</number>
                                   </property>
-                                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                                  <item alignment="Qt::AlignHCenter">
                                    <widget class="QFrame" name="frame_13">
                                     <property name="minimumSize">
                                      <size>
@@ -1013,16 +1013,16 @@ QPushButton:pressed {
                                     </property>
                                     <layout class="QHBoxLayout" name="horizontalLayout_7">
                                      <property name="spacing">
-                                      <number>0</number>
+                                      <number>12</number>
                                      </property>
                                      <property name="leftMargin">
-                                      <number>0</number>
+                                      <number>4</number>
                                      </property>
                                      <property name="topMargin">
                                       <number>0</number>
                                      </property>
                                      <property name="rightMargin">
-                                      <number>0</number>
+                                      <number>4</number>
                                      </property>
                                      <property name="bottomMargin">
                                       <number>0</number>
@@ -1053,15 +1053,22 @@ QPushButton:pressed {
                                         </property>
                                         <item>
                                          <widget class="QPushButton" name="play_btn">
-                                          <property name="toolTip">
-                                           <string>Start</string>
+                                          <property name="font">
+                                           <font>
+                                            <pointsize>10</pointsize>
+                                            <bold>true</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">border-radius: 15px;
+border: 2px solid; 
+border-color:rgb(83, 89, 98);
+border-color: rgb(0, 170, 255);
+padding: 5px 10px;
+color: #eaeaea;</string>
                                           </property>
                                           <property name="text">
-                                           <string/>
-                                          </property>
-                                          <property name="icon">
-                                           <iconset resource="../rsc.qrc">
-                                            <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                                           <string>Track</string>
                                           </property>
                                           <property name="iconSize">
                                            <size>
@@ -1100,15 +1107,22 @@ QPushButton:pressed {
                                         </property>
                                         <item>
                                          <widget class="QPushButton" name="stop_btn">
-                                          <property name="toolTip">
-                                           <string>Stop</string>
+                                          <property name="font">
+                                           <font>
+                                            <pointsize>10</pointsize>
+                                            <bold>true</bold>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">border-radius: 15px;
+border: 2px solid; 
+border-color:rgb(83, 89, 98);
+border-color: rgb(0, 170, 255);
+padding: 5px 12px;
+color: #eaeaea;</string>
                                           </property>
                                           <property name="text">
-                                           <string/>
-                                          </property>
-                                          <property name="icon">
-                                           <iconset resource="../rsc.qrc">
-                                            <normaloff>:/icons/icons/stop-circle.svg</normaloff>:/icons/icons/stop-circle.svg</iconset>
+                                           <string>Stop</string>
                                           </property>
                                           <property name="iconSize">
                                            <size>
@@ -1127,8 +1141,14 @@ QPushButton:pressed {
                                  </layout>
                                 </widget>
                                </item>
-                               <item>
+                               <item alignment="Qt::AlignVCenter">
                                 <widget class="QProgressBar" name="progress_bar">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>18</height>
+                                  </size>
+                                 </property>
                                  <property name="maximumSize">
                                   <size>
                                    <width>16777215</width>
@@ -1138,18 +1158,20 @@ QPushButton:pressed {
                                  <property name="styleSheet">
                                   <string notr="true">QProgressBar
 {
-background-color: rgb(255, 255, 255);
-border-radius: 2px;
+padding: 3px 5px;
+background-color: qlineargradient(spread:pad, x2:1, y1:0, x1:0, y2:1, stop:0 rgba(210, 210, 210, 255), stop:0.971368 rgba(255, 255, 255, 255));
+
+border-radius: 8px;
 color: transparent;
 }
 QProgressBar::chunk 
 {
-background-color: rgb(170, 170, 255);
-border-radius :2px;
+background-color: qlineargradient(spread:pad, x2:1, y1:0, x1:0, y2:1, stop:0 rgba(138, 85, 244, 255), stop:0.571368 rgba(170, 170, 255, 255));
+border-radius : 2px;
 } </string>
                                  </property>
                                  <property name="value">
-                                  <number>0</number>
+                                  <number>100</number>
                                  </property>
                                  <property name="textVisible">
                                   <bool>true</bool>

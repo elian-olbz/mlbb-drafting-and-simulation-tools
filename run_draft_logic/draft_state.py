@@ -64,7 +64,7 @@ class DraftState:
 
             if not valid_predictions_filtered:
                 next_hero_id = random.choice(valid_heroes)
-                print("Random selection:", next_hero_id)
+                #print("Random selection:", next_hero_id)
             else:
                 # Obtain the indices of the top predictions
                 top_prediction_indices = np.argsort(valid_predictions_filtered)[level:]
@@ -73,7 +73,7 @@ class DraftState:
 
                 next_hero_id = valid_heroes[valid_predictions.index(valid_predictions_filtered[random_prediction_idx])]
                 prediction_probability = valid_predictions_filtered[random_prediction_idx]
-                print("Model prediction:", get_name(next_hero_id, self.hero_names), "| Probability -", prediction_probability)
+                #print("Model prediction:", get_name(next_hero_id, self.hero_names), "| Probability -", prediction_probability)
 
         else:
             valid_predictions_filtered = []
@@ -88,7 +88,7 @@ class DraftState:
 
             if not valid_predictions_filtered:
                 next_hero_id = random.choice(valid_heroes)
-                print("Random selection:", next_hero_id)
+                #print("Random selection:", next_hero_id)
             else:
                 # Obtain the indices of the top predictions
                 top_prediction_indices = np.argsort(valid_predictions_filtered)[level:]
@@ -96,7 +96,7 @@ class DraftState:
                 random_prediction_idx = random.choice(top_prediction_indices)
 
                 next_hero_id = valid_heroes[valid_predictions.index(valid_predictions_filtered[random_prediction_idx])]
-                prediction_probability = valid_predictions_filtered[random_prediction_idx]
-                print("Model prediction:", get_name(next_hero_id, self.hero_names), "| Probability -", prediction_probability)
+                #prediction_probability = valid_predictions_filtered[random_prediction_idx]
+                #print("Model prediction:", get_name(next_hero_id, self.hero_names), "| Probability -", prediction_probability)
 
         return next_hero_id
