@@ -178,7 +178,8 @@ class QuickDraftWindow(QMainWindow):
             self.qlabel_to_update.setStyleSheet("")
             self.hero_dialog.hide()
             self.hero_dialog.selector.disp_selected_image(self.hero_dialog.selector.selected_id, self.qlabel_to_update)
-            self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
+            if self.hero_dialog.selector.current_clicked_label is not None:
+                self.hero_dialog.selector.current_clicked_label.setStyleSheet("")
 
             if str(self.obj_name).startswith("blue"):
                 if self.blue_heroes[self.obj_name] == 0:
@@ -237,11 +238,11 @@ class QuickDraftWindow(QMainWindow):
 
     def update_wr_data(self):  # this is for the H_chart wr not the pie
         if self.is_blue:
-            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
-            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
+            ally_wr, enemy_wr, ally_tg, enemy_tg, ally_names, enemy_names  = self.set_winrate_data(self.selected_hero, self.blue_heroes, self.red_heroes)
+            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_tg, enemy_tg, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='blue')
         else:
-            ally_wr, enemy_wr, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
-            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
+            ally_wr, enemy_wr, ally_tg, enemy_tg, ally_names, enemy_names = self.set_winrate_data(self.selected_hero, self.red_heroes, self.blue_heroes)
+            self.wr_chart.update_graph(ally_wr, enemy_wr, ally_tg, enemy_tg, ally_names, enemy_names, get_name(self.selected_hero, self.hero_names), side='red')
 
     def set_highlight(self, radius):
         highlight_color = QColor(85, 255, 127)
@@ -319,7 +320,7 @@ class QuickDraftWindow(QMainWindow):
         fig = Figure(figsize=(5, 5))
         canvas = FigureCanvas(fig)
         self.radar_layout.addWidget(canvas)
-        fig.subplots_adjust(top=0.89, bottom=0.7, left=0.7, right=0.89)
+        fig.subplots_adjust(top=0.89, bottom=0.2, left=0.8, right=0.9)
 
         axs = fig.subplots(1, 2)
         fig.patch.set_visible(False)
@@ -350,6 +351,7 @@ class QuickDraftWindow(QMainWindow):
 
         # Create instances of SingleHeroAttr and LineUpWinrate, passing the axes
         wr_chart = LineUpWinrate(ax1)
+
         single_hero_attr = SingleHeroAttr(ax2, self.extract_attr(self.hero_data))
 
         return canvas, single_hero_attr, wr_chart
@@ -462,9 +464,11 @@ class QuickDraftWindow(QMainWindow):
 
     def get_winrate(self, current_hero, hero_dict, is_ally):  # get winrate for each ally and enemy (H_chart)
         team_wr = []
+        total_games = []
         for hero in list(hero_dict.values()):
                 if hero == 0:
                     team_wr.append(0)
+                    total_games.append(0)
                 else:
                     if int(hero) != current_hero:
                         cell_str = self.df.loc[current_hero, str(hero)]
@@ -472,14 +476,18 @@ class QuickDraftWindow(QMainWindow):
                         if is_ally:
                             if cell_list[0] != 0 or cell_list[1] != 0:
                                 team_wr.append((cell_list[0] / (cell_list[0] + cell_list[1]) * 100))
+                                total_games.append(cell_list[0] + cell_list[1])
                             else:
                                 team_wr.append(0)
+                                total_games.append(0)
                         else:
                             if cell_list[2] != 0 or cell_list[3] != 0:
                                 team_wr.append((cell_list[2] / (cell_list[2] + cell_list[3]) * 100))
+                                total_games.append(cell_list[2] + cell_list[3])
                             else:
                                 team_wr.append(0)
-        return team_wr
+                                total_games.append(0)
+        return team_wr, total_games
 
     def set_winrate_data(self, curr_hero, team_dict, enemy_dict):  # for h_chart / line up winrate not for pie chart
         ally_wr = []
@@ -488,12 +496,18 @@ class QuickDraftWindow(QMainWindow):
         ally_names = []
         enemy_names = []
 
+        ally_total_games = []
+        enemy_total_games = []
+
         if curr_hero != 0:
-            ally_wr = self.get_winrate(curr_hero, team_dict, True)
-            enemy_wr = self.get_winrate(curr_hero, enemy_dict, False)
+            ally_wr, ally_total_games = self.get_winrate(curr_hero, team_dict, True)
+            enemy_wr, enemy_total_games = self.get_winrate(curr_hero, enemy_dict, False)
         else:
             ally_wr = [0] * 4
             enemy_wr = [0] * 5
+
+            ally_total_games = [0] * 4
+            enemy_total_games = [0] * 5
         
         if curr_hero != 0:
             for hero in list(team_dict.values()):
@@ -508,10 +522,9 @@ class QuickDraftWindow(QMainWindow):
                     enemy_names.append(get_name(hero, self.hero_names))
                 elif hero == 0:
                     enemy_names.append(f'Hero {len(enemy_names) + 5}')
-        return ally_wr, enemy_wr, ally_names, enemy_names
+        return ally_wr, enemy_wr, ally_total_games, enemy_total_games, ally_names, enemy_names
     
     def update_role_pix(self, hero_id):
-        
         roles = []
         if hero_id != 0:
             roles = list(self.hero_roles.values())[hero_id - 1]
@@ -617,6 +630,7 @@ class QuickDraftWindow(QMainWindow):
             self.qlabel_to_clear.setPixmap(clear_pix)
             self.qlabel_to_clear.setStyleSheet(EMPTY_HERO_QSS)
         self.revalidate_selected_hero()
+        self.update_left_charts_data()
 
     def reset_all(self):
         self.clear_recent_qlabels()
@@ -667,7 +681,6 @@ class QuickDraftWindow(QMainWindow):
 
     def update_chart_on_minus(self):
         self.update_left_charts_data()
-
         if self.selected_hero is not None:
             if self.selected_hero in self.blue_heroes.values() or self.selected_hero in self.red_heroes.values():
                 self.update_wr_data()
