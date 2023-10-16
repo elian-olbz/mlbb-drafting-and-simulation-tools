@@ -61,6 +61,8 @@ class QuickDraftWindow(QMainWindow):
 
         self.title_bar = TitleBar(self)
         self.hero_dialog = HeroSelectorDialog()
+        self.hero_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
+
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
 
         uic.loadUi(ui_path, self)
@@ -82,6 +84,8 @@ class QuickDraftWindow(QMainWindow):
                 label.installEventFilter(self)
 
         self.reset_dialog = ResetDialog()
+        self.reset_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
+        
         self.reset_btn.clicked.connect(self.show_reset_dialog)
         self.reset_dialog.okay_btn.clicked.connect(self.reset_all)
         self.reset_dialog.cancel_btn.clicked.connect(self.close_reset_dialog)

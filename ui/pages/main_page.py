@@ -42,7 +42,10 @@ class MainWindow(QMainWindow):
      
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
+        self.practice_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
+
         self.exit_page_dialog = ExitDialog()
+        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         self.exit_page_dialog.cancel_btn.clicked.connect(self.close_exit_dialog)
         
@@ -108,6 +111,7 @@ class MainWindow(QMainWindow):
         self.draft_window = DraftWindow()
         self.draft_window.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_practice_draft)
+        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
         
         # set the player types from the combo box index/value
         if self.practice_dialog.mode_combo_box.currentIndex() == 0:
@@ -149,6 +153,7 @@ class MainWindow(QMainWindow):
 
         self.quick_draft.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_quick_draft)
+        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
         self.quick_draft.showMaximized()
         self.hide()
 
@@ -163,6 +168,7 @@ class MainWindow(QMainWindow):
         self.heatmap = HeatMapWindow()
         self.heatmap.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_heatmap)
+        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
         opened = self.heatmap.open_video_file()
         if opened:
             self.heatmap.showMaximized()
@@ -171,15 +177,19 @@ class MainWindow(QMainWindow):
             return
 
     def close_heatmap(self):
+        self.heatmap.stop_prediction()
+        self.heatmap.close_operatios()
         self.heatmap.close()
         self.close_exit_dialog()
         self.show()
+
 #########################################################################
     # Initialize and open heatmap viewer window
     def open_hmap_viewer(self):
         self.hmap_viewer = HeatmapViewerWindow()
         self.hmap_viewer.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_hmap_viewer)
+        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
         self.hmap_viewer.showMaximized()
         self.hide()
             

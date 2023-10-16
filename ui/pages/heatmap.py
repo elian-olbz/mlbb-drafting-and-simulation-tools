@@ -152,14 +152,18 @@ class HeatMapWindow(QMainWindow):
         self.dragPos = event.globalPosition().toPoint()
 
     def closeEvent(self, event):
-        # Stop the prediction thread and remove the pickle file when the window is closed
+        self.close_operatios()
+        event.accept()
+
+    def close_operatios(self):
+        # Stop the prediction thread and remove the pickle file
         if self.is_running:
             self.stop_prediction()
-            self.prediction_thread.wait()  # Wait for the thread to finish gracefully
+            self.prediction_thread.wait()
+            self.is_running = False
 
         if os.path.exists(self.temp_pickle):
-            os.remove(self.temp_pickle)  # Remove the pickle file if it exists
-        event.accept()
+            os.remove(self.temp_pickle)
 
     def load_ai_model(self):
         self.model = YOLO('model/yolov8_custom.pt')

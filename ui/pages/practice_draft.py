@@ -68,6 +68,7 @@ class DraftWindow(QMainWindow):
         self.mode = None
         self.hero_selector = SetupHeroSelector(self)
         self.reset_dialog = ResetDialog()
+        self.reset_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         self.hero_selector.hero_roles = self.draft_state.hero_roles
         self.hero_selector.hero_names = self.draft_state.hero_names
