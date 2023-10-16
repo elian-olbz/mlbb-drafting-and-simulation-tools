@@ -16,20 +16,24 @@ class TitleBar(QMainWindow):
         self.main_frame_min = "*{border:none; border-radius: 0px; background-color:transparent; \
                                 background:transparent; padding:0; margin:0; color:#fff} \
                                 QFrame #main_frame{border:1px solid; border-radius: 10px; border-color:rgb(83, 89, 98);}"
+        parent.grip_label.setVisible(False)
         
     ## ==> MAXIMIZE RESTORE FUNCTION
     def maximize_restore(self, parent):
         if self.win_maxed == False:    # IF NOT MAXIMIZED
             parent.central_layout.setContentsMargins(0, 0, 0, 0)
             parent.main_frame.setStyleSheet(self.main_frame_max)
+            parent.grip_label.setVisible(False)
             parent.showMaximized()
             parent.setStyleSheet("border-radius: 0px;")
             parent.drop_shadow.setStyleSheet(self.shadow_style)
             parent.btn_max.setToolTip("Restore")
             self.win_maxed = True
+            
         else:
             parent.main_frame.setStyleSheet(self.main_frame_min)
             parent.central_layout.setContentsMargins(10, 10, 10, 10)
+            parent.grip_label.setVisible(True)
             parent.showNormal()
             #parent.resize(parent.width()+1, parent.height()+1)
             parent.setStyleSheet("border-radius: 10px;")
@@ -68,11 +72,9 @@ class TitleBar(QMainWindow):
 
         ## ==> CREATE SIZE GRIP TO RESIZE WINDOW
         parent.sizegrip = QSizeGrip(parent.frame_grip)
-        parent.sizegrip.setStyleSheet("QSizeGrip { width: 10px; height: 10px; margin: 5px } QSizeGrip:hover { background-color: rgb(50, 42, 94) }")
+        parent.sizegrip.setStyleSheet("QSizeGrip { width: 10px; height: 10px; margin: 5px }")
         parent.sizegrip.setToolTip("Resize Window")
 
-
-
-    ## RETURN STATUS IF WINDOWS IS MAXIMIZE OR RESTAURED
+    ## RETURN STATUS IF WINDOWS IS MAXIMIZE OR RESTORED
     def returnStatus(self):
         return self.win_maxed

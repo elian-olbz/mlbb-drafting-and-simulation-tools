@@ -104,11 +104,10 @@ class HeatMapWindow(QMainWindow):
 
         self.model = None
         self.WINDOW_MAXED = False
-        self.title_bar = TitleBar(self)
 
         ui_path = os.path.join(script_dir, "heatmap.ui")
-
         uic.loadUi(ui_path, self)
+        self.title_bar = TitleBar(self)
         self.load_ai_model()
 
         self.open_btn.clicked.connect(self.open_video_file)

@@ -133,7 +133,6 @@ class HeatmapViewerWindow(QMainWindow):
 
         self.WINDOW_MAXED = False
         self.menu_width = 120
-        self.title_bar = TitleBar(self)
 
         self.is_video_running = False
         self.is_hmap_running = False
@@ -146,6 +145,7 @@ class HeatmapViewerWindow(QMainWindow):
 
         ui_path = os.path.join(script_dir, "hmap_viewer.ui")
         uic.loadUi(ui_path, self)
+        self.title_bar = TitleBar(self)
 
         self.hero_buttons = [self.hero_button1, self.hero_button2, 
                              self.hero_button3, self.hero_button4, 

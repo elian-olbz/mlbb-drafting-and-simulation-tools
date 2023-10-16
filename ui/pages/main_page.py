@@ -36,7 +36,6 @@ class MainWindow(QMainWindow):
         self.df = pd.read_csv('data/winrate.csv', index_col=0, header=0)
         self.hero_data = self.load_attr('data/attr.csv')
 
-        self.title_bar = TitleBar(self)
         self.player1 = None
         self.player2 = None
      
@@ -52,6 +51,7 @@ class MainWindow(QMainWindow):
         ui_path = os.path.join(script_dir,  "main_page.ui")
 
         uic.loadUi(ui_path, self)
+        self.title_bar = TitleBar(self)
 
         self.draft_window = None
         self.quick_draft = None

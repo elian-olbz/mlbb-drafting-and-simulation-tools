@@ -55,12 +55,12 @@ class DraftWindow(QMainWindow):
 
         self.WINDOW_MAXED = False
         self.menu_width = 55
-        self.title_bar = TitleBar(self)
         self.delay = 2000
 
         ui_path = os.path.join(script_dir,  "practice_draft.ui")
 
         uic.loadUi(ui_path, self)
+        self.title_bar = TitleBar(self)
 
         self.draft_state = DraftState('data/hero_roles.csv')
         self.blue_player = None

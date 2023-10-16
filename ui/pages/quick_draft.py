@@ -59,13 +59,13 @@ class QuickDraftWindow(QMainWindow):
         self.is_blue = True
         self.picker_button_active = False
 
-        self.title_bar = TitleBar(self)
         self.hero_dialog = HeroSelectorDialog()
         self.hero_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
 
         uic.loadUi(ui_path, self)
+        self.title_bar = TitleBar(self)
 
         self.hero_dialog.select_btn.clicked.connect(self.select_button_click)
         self.hero_dialog.exit_button.clicked.connect(self.on_dialog_exit)
