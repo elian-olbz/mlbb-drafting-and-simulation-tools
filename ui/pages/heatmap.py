@@ -165,7 +165,7 @@ class HeatMapWindow(QMainWindow):
             os.remove(self.temp_pickle)
 
     def load_ai_model(self):
-        self.model = YOLO('model/yolov8_custom.pt')
+        self.model = YOLO('model/tracker.pt')
 
     def update_file_name_label(self):
         file_name = os.path.basename(self.video_path)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>991</width>
-    <height>631</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -223,7 +223,7 @@ border-radius: 0px;
                      </property>
                      <property name="icon">
                       <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                       <normaloff>:/icons/icons/logo_plain.svg</normaloff>:/icons/icons/logo_plain.svg</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -577,7 +577,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                  </property>
                                  <property name="minimumSize">
                                   <size>
-                                   <width>85</width>
+                                   <width>90</width>
                                    <height>90</height>
                                   </size>
                                  </property>
@@ -609,7 +609,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
                                      </size>
                                     </property>
                                     <property name="styleSheet">
-                                     <string notr="true">image: url(:/icons/icons/Icon.png);</string>
+                                     <string notr="true">image: url(:/icons/icons/logo_blue.svg);</string>
                                     </property>
                                     <property name="text">
                                      <string/>

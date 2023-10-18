@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>643</height>
+    <height>641</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -233,7 +233,7 @@ QPushButton:pressed {
                      </property>
                      <property name="icon">
                       <iconset resource="../rsc.qrc">
-                       <normaloff>:/icons/icons/Icon.png</normaloff>:/icons/icons/Icon.png</iconset>
+                       <normaloff>:/icons/icons/logo_plain.svg</normaloff>:/icons/icons/logo_plain.svg</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
