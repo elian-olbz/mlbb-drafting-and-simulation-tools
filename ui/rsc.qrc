@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../icons/pause-circle.svg</file>
     <file>../icons/logo_plain.svg</file>
     <file>../icons/logo_blue.svg</file>
     <file>../icons/grip.png</file>

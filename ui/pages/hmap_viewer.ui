@@ -2124,7 +2124,6 @@ border-bottom-right-radius: 10px;
  </widget>
  <resources>
   <include location="../rsc.qrc"/>
-  <include location="../rsc.qrc"/>
  </resources>
  <connections/>
 </ui>

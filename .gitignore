@@ -2,3 +2,7 @@ __pycache__/
 */__pycache__/
 *.log
 /requirements.txt
+/comp.py
+/build
+/dist
+/run.spec
