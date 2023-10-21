@@ -13,7 +13,6 @@ from run_draft_logic.modes import *
 
 from ui.pages.practice_draft import DraftWindow
 from ui.pages.quick_draft import QuickDraftWindow
-from ui.pages.heatmap import HeatMapWindow
 from ui.pages.hmap_viewer import HeatmapViewerWindow
 
 from ui.dialogs.open_practice_draft import OpenPracticeDraft
@@ -60,7 +59,6 @@ class MainWindow(QMainWindow):
 
         self.practice_btn.clicked.connect(self.show_practice_dialog)
         self.quick_btn.clicked.connect(self.open_quick_draft)
-        self.tracker_btn.clicked.connect(self.open_heatmap)
         self.viewer_btn.clicked.connect(self.open_hmap_viewer)
         
         self.practice_dialog.start_button.clicked.connect(self.open_practice_page)
@@ -163,27 +161,6 @@ class MainWindow(QMainWindow):
         self.show()
 
 ########################################################################
-    # Initialize and open heatmap window
-    def open_heatmap(self):
-        self.heatmap = HeatMapWindow()
-        self.heatmap.home_btn.clicked.connect(self.show_exit_dialog)
-        self.exit_page_dialog.okay_btn.clicked.connect(self.close_heatmap)
-        self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
-        opened = self.heatmap.open_video_file()
-        if opened:
-            self.heatmap.showMaximized()
-            self.hide()
-        else:
-            return
-
-    def close_heatmap(self):
-        self.heatmap.stop_prediction()
-        self.heatmap.close_operatios()
-        self.heatmap.close()
-        self.close_exit_dialog()
-        self.show()
-
-#########################################################################
     # Initialize and open heatmap viewer window
     def open_hmap_viewer(self):
         self.hmap_viewer = HeatmapViewerWindow()
