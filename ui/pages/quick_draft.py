@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QMouseEvent
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QMouseEvent, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource, QEvent
 from PyQt6 import uic
 import os
@@ -59,7 +59,10 @@ class QuickDraftWindow(QMainWindow):
         self.is_blue = True
         self.picker_button_active = False
 
+        self.ICON = QIcon('icons/icon.png')
+
         self.hero_dialog = HeroSelectorDialog()
+        self.hero_dialog.setWindowIcon(self.ICON)
         self.hero_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         ui_path = os.path.join(script_dir,  "quick_draft.ui")
@@ -83,7 +86,9 @@ class QuickDraftWindow(QMainWindow):
                 self.labels[name] = label
                 label.installEventFilter(self)
 
+        self.ICON = QIcon('icons/icon.png')
         self.reset_dialog = ResetDialog()
+        self.reset_dialog.setWindowIcon(self.ICON)
         self.reset_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
         
         self.reset_btn.clicked.connect(self.show_reset_dialog)

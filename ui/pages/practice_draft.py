@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QThread
 from PyQt6 import uic
 import sys
@@ -67,7 +67,10 @@ class DraftWindow(QMainWindow):
         self.red_player = None
         self.mode = None
         self.hero_selector = SetupHeroSelector(self)
+
+        self.ICON = QIcon('icons/icon.png')
         self.reset_dialog = ResetDialog()
+        self.reset_dialog.setWindowIcon(self.ICON)
         self.reset_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         self.hero_selector.hero_roles = self.draft_state.hero_roles

@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QWidget, QGridLayout, QScrollArea, QSpacerItem, QSizePolicy
-from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence
+from PyQt6.QtGui import QPixmap, QColor, QShortcut, QKeySequence, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal, QObject, QTimer, QResource
 from PyQt6 import uic
 import sys
@@ -37,12 +37,16 @@ class MainWindow(QMainWindow):
 
         self.player1 = None
         self.player2 = None
+
+        self.ICON = QIcon('icons/icon.png')
      
         # Dialogs
         self.practice_dialog = OpenPracticeDraft()
+        self.practice_dialog.setWindowIcon(self.ICON)
         self.practice_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         self.exit_page_dialog = ExitDialog()
+        self.exit_page_dialog.setWindowIcon(self.ICON)
         self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
 
         self.exit_page_dialog.cancel_btn.clicked.connect(self.close_exit_dialog)
@@ -50,6 +54,7 @@ class MainWindow(QMainWindow):
         ui_path = os.path.join(script_dir,  "main_page.ui")
 
         uic.loadUi(ui_path, self)
+        
         self.title_bar = TitleBar(self)
 
         self.draft_window = None
@@ -107,6 +112,7 @@ class MainWindow(QMainWindow):
     # Initialize and open practice draft window
     def open_practice_page(self):
         self.draft_window = DraftWindow()
+        self.draft_window.setWindowIcon(self.ICON)
         self.draft_window.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_practice_draft)
         self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
@@ -141,6 +147,7 @@ class MainWindow(QMainWindow):
     # Initialize and open quick draft window
     def open_quick_draft(self):
         self.quick_draft = QuickDraftWindow()
+        self.quick_draft.setWindowIcon(self.ICON)
 
         self.quick_draft.hero_names = self.hero_names
         self.quick_draft.hero_roles = self.hero_roles
@@ -164,6 +171,7 @@ class MainWindow(QMainWindow):
     # Initialize and open heatmap viewer window
     def open_hmap_viewer(self):
         self.hmap_viewer = HeatmapViewerWindow()
+        self.hmap_viewer.setWindowIcon(self.ICON)
         self.hmap_viewer.home_btn.clicked.connect(self.show_exit_dialog)
         self.exit_page_dialog.okay_btn.clicked.connect(self.close_hmap_viewer)
         self.exit_page_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)  # Set modality
