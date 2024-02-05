@@ -12,7 +12,6 @@ a = Analysis(
             ('D:/python_projects/ML Tools/icons', 'icons'),
             ('D:/python_projects/ML Tools/images', 'images'),
             ('D:/python_projects/ML Tools/model', 'model'),
-            ('D:/python_projects/ML Tools/run_draft_logic', 'run_draft_logic'),
             ('D:/python_projects/ML Tools/ui', 'ui')
             ],
     hiddenimports=[],
